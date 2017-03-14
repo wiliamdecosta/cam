@@ -2,6 +2,21 @@
 <script src="<?php echo base_url(); ?>assets/global/plugins/respond.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/global/plugins/excanvas.min.js"></script>
 <![endif]-->
+
+<script language="javascript" type="text/javascript">
+    <?php
+    $blnRomawi = array("I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII");
+    $blnIndo = array("Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember");
+    echo "var dt_tgl1 = '".date("d/m/Y")."';";
+    echo "var dt_tgl2 = '".date("M d, Y")."';";
+    echo "var dt_tgl3 = '".$blnRomawi[date("m")-1]."/".date("d/y")."';";
+    echo "var dt_tgl4 = '".date("d")." ".$blnIndo[date("m")-1]." ".date("y")."';";
+    ?>
+    var loc_code = "<?php echo strtoupper($this->session->userdata('location_code')); ?>";
+    var loc_name = "<?php echo strtoupper($this->session->userdata('location_name')); ?>";
+    var username = "<?php echo strtoupper($this->session->userdata('user_name')); ?>";
+</script>
+
 <!-- BEGIN CORE PLUGINS -->
 <script src="<?php echo base_url(); ?>assets/global/plugins/jquery.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
@@ -27,7 +42,9 @@
 <!-- end swal -->
 
 <script src="<?php echo base_url(); ?>assets/bootgrid/jquery.bootgrid.min.js"></script>
-
+<script src="<?php echo base_url(); ?>assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url(); ?>assets/global/plugins/jquery-validation/js/additional-methods.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url(); ?>assets/global/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js" type="text/javascript"></script>
 
 <script src="<?php echo base_url(); ?>assets/js/jqgrid.function.js"></script>
 
@@ -38,6 +55,8 @@
 <script src="<?php echo base_url(); ?>jqwidgets/jqxtree.js"></script>
 <script src="<?php echo base_url(); ?>jqwidgets/jqxcheckbox.js"></script>
 <script src="<?php echo base_url(); ?>jqwidgets/jqxdata.js"></script>
+
+<script src="<?php echo base_url(); ?>assets/js/optimal.js"></script>
 
 <script>
     function PopupCenter(url, title, w, h) {

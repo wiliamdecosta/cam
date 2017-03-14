@@ -34,7 +34,7 @@ function breadCrumbs($menu_id) {
                 FROM menus m
                 WHERE parent_id is null
                 UNION ALL
-                SELECT child.menu_id, child.parent_id, qs.menu_title ||'>'|| child.menu_title
+                SELECT child.menu_id, child.parent_id, (qs.menu_title ||'>'|| child.menu_title) as menu_title
                 FROM menus child
                 INNER JOIN qs
                 ON qs.menu_id = child.parent_id

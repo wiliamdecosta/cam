@@ -15,5 +15,5 @@
 
 <h3 class="page-title"> Dashboard</h3>
 <div class="alert alert-default" role="alert">
-    <strong class="red">Welcome to TOS</strong>
+    <strong class="red">Welcome to CAM</strong>
 </div>

@@ -69,7 +69,9 @@ class Auth extends CI_Controller
                         'user_email'        => $row['user_email'],
                         'user_full_name'    => $row['user_full_name'],
                         'is_ldap'           => $ldap_status,
-                        'logged_in'         => true
+                        'logged_in'         => true,
+                        'location_name'     => null,
+                        'location_code'     => null
                       );
 
         $this->session->set_userdata($userdata);
@@ -84,6 +86,8 @@ class Auth extends CI_Controller
                         'user_email'            => '',
                         'user_full_name'        => '',
                         'logged_in'             => false,
+                        'location_name'         => null,
+                        'location_code'         => null
                       );
 
         $this->session->unset_userdata($userdata);
