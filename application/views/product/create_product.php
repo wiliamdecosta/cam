@@ -187,7 +187,7 @@
                                                 </label>
                                                 <div class="col-md-8">
                                                     <div class="input-group">
-                                                    <input type="hidden" class="form-control required" id="wizard2_product_id" >
+                                                    <input type="hidden" class="form-control required" id="wizard2_product_id" value="1" >
 
                                                         <input type="text" class="form-control required" id="wizard2_product_name">
                                                         <span class="input-group-btn">
