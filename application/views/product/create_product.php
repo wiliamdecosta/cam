@@ -137,10 +137,11 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-md-5">Start Date Time
+                                                <label class="control-label col-md-5">Start Date Time 
+                                                <span class="required">  * </span>
                                                 </label>
                                                 <div class="col-md-4">
-                                                    <input type="text" class="form-control datepicker" name="in_Start_Date_Time">
+                                                    <input type="text" class="form-control datepicker1 required" name="in_Start_Date_Time">
                                                 </div>
                                                 <label class="col-md-3 control-label"> MM/DD/YYYY</label>
                                             </div>
@@ -149,16 +150,17 @@
                                                 <label class="control-label col-md-5">Termination Date Time
                                                 </label>
                                                 <div class="col-md-4">
-                                                    <input type="text" class="form-control datepicker" name="in_Termination_Date_Time">
+                                                    <input type="text" class="form-control datepicker2" name="in_Termination_Date_Time">
                                                 </div>
                                                 <label class="col-md-3 control-label"> MM/DD/YYYY</label>
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-md-5">Product Status
+                                                <label class="control-label col-md-5">Product Status 
+                                                <span class="required">  * </span>
                                                 </label>
                                                 <div class="col-md-4">
-                                                    <select class="form-control" name="in_Product_Status">
+                                                    <select class="form-control required" name="in_Product_Status">
                                                         <option value="OK">Active</option>
                                                         <option value="SU">Suspend</option>
                                                     </select>
@@ -211,7 +213,7 @@
                                                 <label class="control-label col-md-4">Product Quantity 
                                                     <span class="required">  * </span>
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-4">
                                                     <input type="text" class="form-control required" name="in_Product_Quantity"/>
                                                 </div>
                                             </div>
@@ -219,7 +221,7 @@
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Additions Quantity
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-4">
                                                     <input type="text" class="form-control" name="in_Additions_Quantity"/>
                                                 </div>
                                             </div>
@@ -227,7 +229,7 @@
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Terminations Quantity
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-4">
                                                     <input type="text" class="form-control" name="in_Terminations_Quantity"/>
                                                 </div>
                                             </div>
@@ -769,7 +771,12 @@
 
     });
 
-    $('.datepicker').datetimepicker({
+    $('.datepicker1').datetimepicker({
+        sideBySide: true,
+        defaultDate: new Date()
+    });
+
+     $('.datepicker2').datetimepicker({
         sideBySide: true
     });
     // $('.datepicker').datepicker({
