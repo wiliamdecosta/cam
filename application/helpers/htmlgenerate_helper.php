@@ -118,7 +118,7 @@ if (!function_exists('generatehtml')) {
         }
         echo "</select>";
     }
-    
+
      function buatcombo2($nama, $id, $table, $field, $pk, $kondisi,$required, $default_select)
     {
         $CI =& get_instance();
@@ -246,6 +246,12 @@ if (!function_exists('generatehtml')) {
         return $arr_bulan[$bulan];
     }
 
+    function getUserName(){
+        $CI =& get_instance();
+        return $CI->session->userdata('user_name');
+    }
+
+
     function genAttributesHTML($data = array()){
         $html = '';
         $req = '';
@@ -280,10 +286,7 @@ if (!function_exists('generatehtml')) {
 
 
 
+
                                                 
                                                     
-                                                
-                                                
-                                                    
-                                                
-                                            
+                     

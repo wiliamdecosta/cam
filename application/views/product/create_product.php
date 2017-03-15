@@ -94,7 +94,7 @@
                                                 <div class="col-md-7">
                                                     <div class="input-group">
                                                         <input type="hidden" class="form-control required" id="wizard1_customer_ref">
-                                                        <input type="text" class="form-control required" id="wizard1_customer_code" readonly="">
+                                                        <input type="text" class="form-control required" id="wizard1_customer_code">
                                                         <span class="input-group-btn">
                                                             <button class="btn btn-success" type="button" id="btn-lov-customer">
                                                             <i class="fa fa-search"></i>
@@ -110,7 +110,7 @@
                                                 <div class="col-md-7">
                                                     <div class="input-group">
                                                         <input type="hidden" class="form-control required" id="wizard1_account_num">
-                                                        <input type="text" class="form-control required" id="wizard1_account_name" readonly="">
+                                                        <input type="text" class="form-control required" id="wizard1_account_name">
                                                         <span class="input-group-btn">
                                                             <button class="btn btn-success" type="button" id="btn-lov-account">
                                                             <i class="fa fa-search"></i>
@@ -139,7 +139,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-md-5">Start Date Time 
+                                                <label class="control-label col-md-5">Start Date Time
                                                 <span class="required">  * </span>
                                                 </label>
                                                 <div class="col-md-4">
@@ -158,7 +158,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-md-5">Product Status 
+                                                <label class="control-label col-md-5">Product Status
                                                 <span class="required">  * </span>
                                                 </label>
                                                 <div class="col-md-4">
@@ -266,7 +266,15 @@
                                                 <label class="control-label col-md-6">Budget Center
                                                 </label>
                                                 <div class="col-md-6">
-                                                    <input type="text" class="form-control" name="in_Budget_Center">
+                                                    <?php echo buatcombo2 ($name='in_BudgetCenter',
+                                                        $id='in_BudgetCenter',
+                                                        $table="table (pack_lov.get_budget_center_list('".getUserName()."','ACC0001',''))",
+                                                        $field='n01',
+                                                        $pk='s01',
+                                                        $kondisi=array(),
+                                                        $required='Y',
+                                                        '- Pilih Budget Center -'
+                                                    ); ?>
                                                 </div>
                                             </div>
 
@@ -291,8 +299,15 @@
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-6">
-                                                    <input type="text" class="form-control required" name="in_Contracted_PoS"
-                                                           required>
+                                                   <?php echo buatcombo2 ($name='in_ContractedPoinOfSupply',
+                                                        $id='in_ContractedPoinOfSupply',
+                                                        $table="table(pack_lov.get_cps_list('".getUserName()."','ACC0001',''))",
+                                                        $field='s01',
+                                                        $pk='n01',
+                                                        $kondisi=array(),
+                                                        $required='Y',
+                                                        '- Contracted Poin of Supply -'
+                                                    ); ?>
                                                 </div>
                                             </div>
 
