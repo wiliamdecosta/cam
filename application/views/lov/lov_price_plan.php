@@ -23,7 +23,7 @@
                      <th data-column-id="tariff_id" data-sortable="false" data-visible="false">ID Akun</th>
                      <th data-header-align="center" data-align="center" data-formatter="opt-edit" data-sortable="false" data-width="100">Options</th>
                      <th data-column-id="tariff_name">Tarif Name</th>
-                     <th data-column-id="tariff_desc">Tarif Desc</th>
+                     <th data-column-id="tariff_desc">Tarif Desc   </th>
                   </tr>
                 </thead> 
                 </table>
