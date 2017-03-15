@@ -88,7 +88,7 @@
             {   //navbar options
                 edit: true,
                 editicon: 'fa fa-pencil blue bigger-120',
-                add: false,
+                add: true,
                 addicon: 'fa fa-plus-circle purple bigger-120',
                 del: true,
                 delicon: 'fa fa-trash-o red bigger-120',
