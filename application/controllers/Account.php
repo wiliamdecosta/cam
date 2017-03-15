@@ -169,12 +169,14 @@ class Account extends CI_Controller
     }
 
     public function setRegion(){
-        $this->db_corecrm = $this->load->database('corecrm', TRUE);
+        /*$this->db_corecrm = $this->load->database('corecrm', TRUE);
         $loc_id = $this->input->post('locId');
 
         $this->db_corecrm->where('ID',$loc_id);
         $db = $this->db_corecrm->get('LOCATION')->row()->xs1;
-        echo json_encode($db);
+        echo json_encode($db);*/
+        echo 1;
+        exit;
     }
 
     /*public function setRegion2(){

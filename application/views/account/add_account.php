@@ -1184,7 +1184,7 @@
             /* End Init Transaction */
 
             getNextBillDTM();
-            //setRegion();
+            setRegion();
             setval('inAccountCurrency','IDR');
             setval('inInformationCurrency','IDR');
             setval('inContactType','1000001');
