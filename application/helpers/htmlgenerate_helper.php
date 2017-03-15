@@ -118,6 +118,36 @@ if (!function_exists('generatehtml')) {
         }
         echo "</select>";
     }
+    
+     function buatcombo2($nama, $id, $table, $field, $pk, $kondisi,$required, $default_select)
+    {
+        $CI =& get_instance();
+        $CI->load->model('M_helper');
+
+        if ($kondisi == null) {
+            $data = $CI->M_helper->getCombo2($table, $field, $pk)->result();
+        } else {
+            $data = $CI->M_helper->getComboByID2($table, $field, $pk, $kondisi)->result();
+
+        }
+
+        if($required == "Y"){
+            echo "<select name='" . $nama . "' id='" . $id . "'  class='form-control required' required>";
+        }else{
+            echo "<select name='" . $nama . "' id='" . $id . "'  class='form-control'>";
+        }
+
+
+        if ($default_select != "") {
+            echo "<option value=''> " . $default_select . " </option> ";
+        }
+
+        foreach ($data as $r) {
+            echo " <option value=" . $r->$pk . ">" . strtoupper($r->$field) . "</option>";
+        }
+        echo "</select>";
+    }
+
 
     function buatcombo_new($nama, $id, $table, $field, $pk, $kondisi, $default_select,$order_by,$order_type)
     {

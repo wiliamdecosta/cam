@@ -11,7 +11,7 @@ class M_helper extends CI_Model
     {
         parent::__construct();
 
-        $this->db = $this->load->database('optimal', TRUE);
+        $this->db = $this->load->database('default', TRUE); 
         $this->db->_escape_char = ' ';
 
         $this->db_corecrm = $this->load->database('corecrm', TRUE);
@@ -83,6 +83,26 @@ class M_helper extends CI_Model
         $this->db_corecrm->order_by($field, 'asc');
 
         return $this->db_corecrm->get($table);
+    }
+
+     public function getCombo2($table, $field, $pk)
+    {
+        $this->db->select($field);
+        $this->db->distinct();
+        $this->db->select($pk);
+
+        return $this->db->get($table);
+    }
+
+    public function getComboByID2($table, $field, $pk, $where)
+    {
+        $this->db->select($field);
+        $this->db->distinct();
+        $this->db->select($pk);
+        $this->db->where($where);
+        $this->db->order_by($field, 'asc');
+
+        return $this->db->get($table);
     }
 
     // menghitun jumlah record dari sebuah tabel.
