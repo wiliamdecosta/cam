@@ -99,7 +99,7 @@ class Account_controller
         $start = getVarClean('current', 'int', 0);
         $limit = getVarClean('rowCount', 'int', 5);
 
-        $sort = getVarClean('sort', 'str', 'a.account_num');
+        $sort = getVarClean('sort', 'str', 'account_num');
         $dir = getVarClean('dir', 'str', 'asc');
 
         $searchPhrase = getVarClean('searchPhrase', 'str', '');
@@ -111,8 +111,9 @@ class Account_controller
             permission_check('view-account');
 
             $ci = &get_instance();
-            $ci->load->model('account/account');
-            $table = $ci->account;
+            $ci->load->model('lov/account');
+            $table = new Account($customer_ref);
+            // $table = $ci->account;
 
             //Set default criteria. You can override this if you want
             foreach ($table->fields as $key => $field) {
@@ -126,19 +127,19 @@ class Account_controller
             }
 
             if (!empty($searchPhrase)) {
-                $table->setCriteria("(upper(a.account_num) " . $table->likeOperator . " upper('%" . $searchPhrase . "%') OR upper(a.account_name) " . $table->likeOperator . " upper('%" . $searchPhrase . "%'))");
+                $table->setCriteria("(upper(account_num) " . $table->likeOperator . " upper('%" . $searchPhrase . "%') OR upper(account_name) " . $table->likeOperator . " upper('%" . $searchPhrase . "%'))");
             }
 
 //            $table->setCriteria("b.account_status = 'OK'");
-            $table->setCriteria("c.billing_contact_seq = e.contact_seq");
-            $table->setCriteria("e.address_seq = f.address_seq");
-            $table->setCriteria("c.end_dat is null");
-            $table->setCriteria("e.end_dat is null");
+            // $table->setCriteria("c.billing_contact_seq = e.contact_seq");
+            // $table->setCriteria("e.address_seq = f.address_seq");
+            // $table->setCriteria("c.end_dat is null");
+            // $table->setCriteria("e.end_dat is null");
             //$table->setCriteria("(a.account_num like '90%' or a.account_num like '80%')");
 
-            if (!empty($customer_ref)) {
-                $table->setCriteria("a.customer_ref = '" . $customer_ref . "'");
-            }
+            // if (!empty($customer_ref)) {
+            //     $table->setCriteria("a.customer_ref = '" . $customer_ref . "'");
+            // }
 
             $start = ($start - 1) * $limit;
             $items = $table->getAll($start, $limit, $sort, $dir);

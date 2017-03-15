@@ -76,7 +76,7 @@ class Customer_controller {
         $start = getVarClean('current','int',0);
         $limit = getVarClean('rowCount','int',5);
 
-        $sort = getVarClean('sort','str','ct.address_name');
+        $sort = getVarClean('sort','str','address_name');
         $dir  = getVarClean('dir','str','asc');
 
         $searchPhrase = getVarClean('searchPhrase', 'str', '');
@@ -87,7 +87,7 @@ class Customer_controller {
             permission_check('view-customer');
 
             $ci = & get_instance();
-            $ci->load->model('customer/customer');
+            $ci->load->model('lov/customer');
             $table = $ci->customer;
 
             //Set default criteria. You can override this if you want
@@ -102,7 +102,7 @@ class Customer_controller {
             }
 
             if(!empty($searchPhrase)) {
-                $table->setCriteria("(upper(cust.customer_ref) ".$table->likeOperator." upper('%".$searchPhrase."%') OR upper(ct.first_name) ".$table->likeOperator." upper('%".$searchPhrase."%'))");
+                $table->setCriteria("(upper(customer_ref) ".$table->likeOperator." upper('%".$searchPhrase."%') OR upper(first_name) ".$table->likeOperator." upper('%".$searchPhrase."%'))");
             }
 
             $start = ($start-1) * $limit;

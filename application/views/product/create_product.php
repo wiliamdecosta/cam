@@ -94,7 +94,7 @@
                                                 <div class="col-md-7">
                                                     <div class="input-group">
                                                         <input type="hidden" class="form-control required" id="wizard1_customer_ref">
-                                                        <input type="text" class="form-control required" id="wizard1_customer_code">
+                                                        <input type="text" class="form-control required" id="wizard1_customer_code" readonly="">
                                                         <span class="input-group-btn">
                                                             <button class="btn btn-success" type="button" id="btn-lov-customer">
                                                             <i class="fa fa-search"></i>
@@ -110,7 +110,7 @@
                                                 <div class="col-md-7">
                                                     <div class="input-group">
                                                         <input type="hidden" class="form-control required" id="wizard1_account_num">
-                                                        <input type="text" class="form-control required" id="wizard1_account_name">
+                                                        <input type="text" class="form-control required" id="wizard1_account_name" readonly="">
                                                         <span class="input-group-btn">
                                                             <button class="btn btn-success" type="button" id="btn-lov-account">
                                                             <i class="fa fa-search"></i>
