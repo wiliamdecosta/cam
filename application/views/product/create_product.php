@@ -776,8 +776,12 @@
         defaultDate: new Date()
     });
 
-     $('.datepicker2').datetimepicker({
+    $('.datepicker2').datetimepicker({
         sideBySide: true
+    });
+
+    $('.datepicker').datetimepicker({
+        format: 'MM/DD/YYYY'
     });
     // $('.datepicker').datepicker({
     //     todayHighlight: true,
