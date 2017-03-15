@@ -187,7 +187,9 @@
                                                 </label>
                                                 <div class="col-md-8">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control required" name="in_Product">
+                                                    <input type="hidden" class="form-control required" id="wizard2_product_id">
+
+                                                        <input type="text" class="form-control required" id="wizard2_product_name">
                                                         <span class="input-group-btn">
                                                             <button class="btn btn-success" type="button" id="btn-product">
                                                             <i class="fa fa-search"></i>
@@ -202,9 +204,10 @@
                                                 </label>
                                                 <div class="col-md-8">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control required" name="in_Price_Plan">
+                                                        <input type="hidden" class="form-control required" id="wizard2_tariff_id">
+                                                        <input type="text" class="form-control required" id="wizard2_tariff_name">
                                                         <span class="input-group-btn">
-                                                            <button class="btn btn-success" type="button" id="btn-price-plan">
+                                                            <button class="btn btn-success" type="button" id="btn-lov-price-plan">
                                                             <i class="fa fa-search"></i>
                                                         </span>
                                                     </div>
@@ -533,6 +536,17 @@ $("#btn-lov-account").on('click', function() {
     }
     modal_lov_account_show('wizard1_account_num','wizard1_account_name',customer_ref);
 });
+
+$("#btn-lov-price-plan").on('click', function() {
+    var account_num = $('#wizard1_account_num').val();
+    var product_id = $('#wizard2_product_id').val();
+    if(product_id == "") {
+        swal('Info','Product harus diisi terlebih dahulu','info');
+        return;
+    }
+    modal_lov_price_plan_show('wizard2_tariff_id','wizard2_tariff_name',account_num,product_id);
+});
+
 </script>
 <script>
     // $(document).ready(function () {

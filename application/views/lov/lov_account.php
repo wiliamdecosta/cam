@@ -1,4 +1,4 @@
-<div id="modal_lov_account" class="modal fade" tabindex="-1" style="overflow-y: scroll;">
+  <div id="modal_lov_account" class="modal fade" tabindex="-1" style="overflow-y: scroll;">
     <div class="modal-dialog" style="width:700px;">
         <div class="modal-content">
             <!-- modal title -->
@@ -25,7 +25,7 @@
                      <th data-column-id="account_num">Nomor Akun</th>
                      <th data-column-id="account_name">Nama Akun</th>
                   </tr>
-                </thead>
+                </thead> 
                 </table>
             </div>
 
