@@ -16,7 +16,7 @@
             <span>Create Product</span>
         </li>
     </ul>
-</div>
+</div> 
 
 <!-- end breadcrumb -->
 <div class="space-4"></div>
