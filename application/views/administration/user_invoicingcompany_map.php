@@ -2,11 +2,11 @@
 <div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
-            <a href="<?php base_url(); ?>">Home</a>
+            <a href="<?php base_url();?>">Home</a>
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Permission</span>
+            <span>Invoicing Company Map</span>
         </li>
     </ul>
 </div>
@@ -14,10 +14,55 @@
 <div class="space-4"></div>
 <div class="row">
     <div class="col-md-12">
-        <table id="grid-table"></table>
-        <div id="grid-pager"></div>
+        <div class="tabbable">
+            <ul class="nav nav-tabs">
+                <li class="">
+                    <a href="javascript:;" data-toggle="tab" aria-expanded="true" id="tab-1">
+                        <i class="blue"></i>
+                        <strong> User </strong>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="javascript:;" data-toggle="tab" aria-expanded="true" id="tab-2">
+                        <i class="blue"></i>
+                        <strong> Invoicing Company </strong>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="javascript:;" data-toggle="tab" aria-expanded="true" id="tab-3">
+                        <i class="blue"></i>
+                        <strong> Logs </strong>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="tab-content no-border">
+            <div class="row">
+                <div class="col-md-12">
+                    <table id="grid-table"></table>
+                    <div id="grid-pager"></div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+<script>
+$("#tab-1").on("click", function(event) {
+    event.stopPropagation();
+    loadContentWithParams("administration.users", {});
+});
+
+$("#tab-3").on("click", function(event) {
+    event.stopPropagation();
+    loadContentWithParams("administration.logs", {
+        user_id: <?php echo $this->input->post('user_id'); ?>,
+        user_name : '<?php echo $this->input->post('user_name'); ?>'
+    });
+});
+
+</script>
 
 <script>
 
@@ -26,19 +71,78 @@
         var pager_selector = "#grid-pager";
 
         jQuery("#grid-table").jqGrid({
-            url: '<?php echo WS_JQGRID."administration.permissions_controller/crud"; ?>',
+            url: '<?php echo WS_JQGRID."administration.user_invoicingcompany_map_controller/crud"; ?>',
+            postData: { user_id : '<?php echo $this->input->post('user_id'); ?>'},
             datatype: "json",
             mtype: "POST",
             colModel: [
-                {label: 'ID', name: 'permission_id', key: true, width: 5, sorttype: 'number', editable: true, hidden: true},
-                {label: 'Permissions Name',name: 'permission_name',width: 150, align: "left",editable: true,
+                {label: 'ID', name: 'user_inv_co_id', key: true, width: 5, sorttype: 'number', editable: true, hidden: true},
+                {label: 'Invoicing Company', name: 'invoicing_co_name', width: 120, align: "left", editable: false},
+                {label: 'Invoicing Company', name: 'invoicing_co_id', width: 250, align: "left", editable: true, hidden:true,
+                    editrules: {edithidden: true, required:true},
+                    edittype: 'select',
                     editoptions: {
-                        size: 30,
-                        maxlength:100
-                    },
-                    editrules: {required: true}
+                        dataUrl: "<?php echo WS_JQGRID.'administration.user_invoicingcompany_map_controller/html_select_options_invoicing'; ?>",
+                        dataInit: function(elem) {
+                            $(elem).width(250);  // set the width which you need
+                        },
+                        postData : {
+                            user_id : function() {
+                                return <?php echo $this->input->post('user_id'); ?>;
+                            },
+                            invoicing_co_id : function(){
+                                var selRowId =  $("#grid-table").jqGrid ('getGridParam', 'selrow');
+                                var invoicing_co_id = $("#grid-table").jqGrid('getCell', selRowId, 'invoicing_co_id');
+
+                                return invoicing_co_id;
+                            }
+                        },
+                        buildSelect: function (data) {
+                            try {
+                                var response = $.parseJSON(data);
+                                if(response.success == false) {
+                                    swal({title: 'Attention', text: response.message, html: true, type: "warning"});
+                                    return "";
+                                }
+                            }catch(err) {
+                                return data;
+                            }
+                        }
+                    }
                 },
-                {label: 'Description',name: 'permission_description',width: 200, align: "left",editable: true,
+                {label: 'Valid From', name: 'valid_from', width: 120, editable: true,
+                    edittype:"text",
+                    editrules: {required: true},
+                    editoptions: {
+                        // dataInit is the client-side event that fires upon initializing the toolbar search field for a column
+                        // use it to place a third party control to customize the toolbar
+                        dataInit: function (element) {
+                           $(element).datepicker({
+                                autoclose: true,
+                                format: 'yyyy-mm-dd',
+                                orientation : 'top',
+                                todayHighlight : true
+                            });
+                        }
+                    }
+                },
+                {label: 'Valid To', name: 'valid_to', width: 120, editable: true,
+                    edittype:"text",
+                    editrules: {required: false},
+                    editoptions: {
+                        // dataInit is the client-side event that fires upon initializing the toolbar search field for a column
+                        // use it to place a third party control to customize the toolbar
+                        dataInit: function (element) {
+                           $(element).datepicker({
+                                autoclose: true,
+                                format: 'yyyy-mm-dd',
+                                orientation : 'top',
+                                todayHighlight : true
+                            });
+                        }
+                    }
+                },
+                {label: 'Description',name: 'description',width: 200, align: "left",editable: true,
                     edittype:'textarea',
                     editoptions: {
                         rows: 2,
@@ -74,8 +178,8 @@
 
             },
             //memanggil controller jqgrid yang ada di controller crud
-            editurl: '<?php echo WS_JQGRID."administration.permissions_controller/crud"; ?>',
-            caption: "Permissions"
+            editurl: '<?php echo WS_JQGRID."administration.user_invoicingcompany_map_controller/crud"; ?>',
+            caption: "Invoicing Company :: <?php echo $this->input->post('user_name'); ?>"
 
         });
 
@@ -128,7 +232,12 @@
             },
             {
                 //new record form
-                closeAfterAdd: false,
+                editData: {
+                    user_id: function() {
+                        return <?php echo $this->input->post('user_id'); ?>;
+                    }
+                },
+                closeAfterAdd: true,
                 clearAfterAdd : true,
                 closeOnEscape:true,
                 recreateForm: true,
@@ -141,6 +250,10 @@
                 beforeShowForm: function (e, form) {
                     var form = $(e[0]);
                     style_edit_form(form);
+
+                },
+                beforeInitData: function () {
+                    $('#grid-table').jqGrid('resetSelection');
                 },
                 afterShowForm: function(form) {
                     form.closest('.ui-jqdialog').center();

@@ -25,6 +25,12 @@
                 <li class="">
                     <a href="javascript:;" data-toggle="tab" aria-expanded="true" id="tab-2">
                         <i class="blue"></i>
+                        <strong> Invoicing Company </strong>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="javascript:;" data-toggle="tab" aria-expanded="true" id="tab-3">
+                        <i class="blue"></i>
                         <strong> Logs </strong>
                     </a>
                 </li>
@@ -51,7 +57,7 @@
 </div>
 
 <script>
-$("#tab-2").on("click", function(event) {
+$("#tab-3").on("click", function(event) {
 
     event.stopPropagation();
     var grid = $('#grid-table');
@@ -64,6 +70,24 @@ $("#tab-2").on("click", function(event) {
     }
 
     loadContentWithParams("administration.logs", {
+        user_id: user_id,
+        user_name : user_name
+    });
+});
+
+$("#tab-2").on("click", function(event) {
+
+    event.stopPropagation();
+    var grid = $('#grid-table');
+    user_id = grid.jqGrid ('getGridParam', 'selrow');
+    user_name = grid.jqGrid ('getCell', user_id, 'user_name');
+
+    if(user_id == null) {
+        swal('Informasi','Silahkan pilih salah satu user','info');
+        return false;
+    }
+
+    loadContentWithParams("administration.user_invoicingcompany_map", {
         user_id: user_id,
         user_name : user_name
     });
@@ -457,7 +481,9 @@ $("#tab-2").on("click", function(event) {
                 beforeShowForm: function (e, form) {
                     var form = $(e[0]);
                     style_edit_form(form);
-
+                },
+                beforeInitData: function () {
+                    $('#grid-table-detail').jqGrid('resetSelection');
                 },
                 afterShowForm: function(form) {
                     form.closest('.ui-jqdialog').center();

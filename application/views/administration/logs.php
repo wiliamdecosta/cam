@@ -22,12 +22,19 @@
                         <strong> User </strong>
                     </a>
                 </li>
-                <li class="active">
+                <li class="">
                     <a href="javascript:;" data-toggle="tab" aria-expanded="true" id="tab-2">
+                        <i class="blue"></i>
+                        <strong> Invoicing Company </strong>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="javascript:;" data-toggle="tab" aria-expanded="true" id="tab-3">
                         <i class="blue"></i>
                         <strong> Logs </strong>
                     </a>
                 </li>
+
             </ul>
         </div>
 
@@ -47,6 +54,16 @@ $("#tab-1").on("click", function(event) {
     event.stopPropagation();
     loadContentWithParams("administration.users", {});
 });
+
+$("#tab-2").on("click", function(event) {
+
+    event.stopPropagation();
+    loadContentWithParams("administration.user_invoicingcompany_map", {
+        user_id: <?php echo $this->input->post('user_id'); ?>,
+        user_name : '<?php echo $this->input->post('user_name'); ?>'
+    });
+});
+
 </script>
 
 <script>
