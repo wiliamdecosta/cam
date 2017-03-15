@@ -1,7 +1,7 @@
 <link href="<?php echo base_url(); ?>assets/js/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css"/>
 <script src="<?php echo base_url(); ?>assets/js/moment.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>assets/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
-<!-- breadcrumb --> 
+<!-- breadcrumb -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
@@ -16,7 +16,7 @@
             <span>Create Product</span>
         </li>
     </ul>
-</div> 
+</div>
 
 <!-- end breadcrumb -->
 <div class="space-4"></div>
@@ -85,7 +85,7 @@
                                     Your form validation is successful!
                                 </div>
                                 <!--- TAB 1 -->
-                                <div class="tab-pane active" id="tab1">                                    
+                                <div class="tab-pane active" id="tab1">
                                     <div class="row">
                                         <div class="col-md-7">
                                             <div class="form-group">
@@ -93,9 +93,10 @@
                                                 </label>
                                                 <div class="col-md-7">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control required" name="in_Customer">
+                                                        <input type="hidden" class="form-control required" id="wizard1_customer_ref">
+                                                        <input type="text" class="form-control required" id="wizard1_customer_code">
                                                         <span class="input-group-btn">
-                                                            <button class="btn btn-success" type="button" id="btn-customer">
+                                                            <button class="btn btn-success" type="button" id="btn-lov-customer">
                                                             <i class="fa fa-search"></i>
                                                         </span>
                                                     </div>
@@ -108,9 +109,10 @@
                                                 </label>
                                                 <div class="col-md-7">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control required" name="in_Account">
+                                                        <input type="hidden" class="form-control required" id="wizard1_account_num">
+                                                        <input type="text" class="form-control required" id="wizard1_account_name">
                                                         <span class="input-group-btn">
-                                                            <button class="btn btn-success" type="button" id="btn-account">
+                                                            <button class="btn btn-success" type="button" id="btn-lov-account">
                                                             <i class="fa fa-search"></i>
                                                         </span>
                                                     </div>
@@ -180,7 +182,7 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="control-label col-md-4">Product 
+                                                <label class="control-label col-md-4">Product
                                                     <span class="required">  * </span>
                                                 </label>
                                                 <div class="col-md-8">
@@ -195,7 +197,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-md-4">Price Plan 
+                                                <label class="control-label col-md-4">Price Plan
                                                     <span class="required">  * </span>
                                                 </label>
                                                 <div class="col-md-8">
@@ -210,7 +212,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-md-4">Product Quantity 
+                                                <label class="control-label col-md-4">Product Quantity
                                                     <span class="required">  * </span>
                                                 </label>
                                                 <div class="col-md-4">
@@ -315,7 +317,7 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="control-label col-md-4">Contract 
+                                                <label class="control-label col-md-4">Contract
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-8">
@@ -356,7 +358,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-md-4">BAPP                                                   
+                                                <label class="control-label col-md-4">BAPP
                                                 </label>
                                                 <div class="col-md-8">
                                                     <input type="text" class="form-control" name="in_BAPP">
@@ -420,7 +422,7 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="control-label col-md-4">Start Date 
+                                                <label class="control-label col-md-4">Start Date
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-8">
@@ -509,6 +511,29 @@
         </div>
     </div>
 </div>
+
+<?php $this->load->view('lov/lov_customer.php'); ?>
+<?php $this->load->view('lov/lov_account.php'); ?>
+
+<script>
+$("#btn-lov-customer").on('click', function() {
+    modal_lov_customer_show('wizard1_customer_ref','wizard1_customer_code');
+});
+
+$('#wizard1_customer_ref').on('change', function() {
+    $('#wizard1_account_num').val('');
+    $('#wizard1_account_name').val('');
+});
+
+$("#btn-lov-account").on('click', function() {
+    var customer_ref = $('#wizard1_customer_ref').val();
+    if(customer_ref == "") {
+        swal('Info','Customer harus diisi terlebih dahulu','info');
+        return;
+    }
+    modal_lov_account_show('wizard1_account_num','wizard1_account_name',customer_ref);
+});
+</script>
 <script>
     // $(document).ready(function () {
     //     $('#btn-lov-nipsos').on('click', function () {

@@ -134,7 +134,7 @@ class Account_controller
             $table->setCriteria("e.address_seq = f.address_seq");
             $table->setCriteria("c.end_dat is null");
             $table->setCriteria("e.end_dat is null");
-            $table->setCriteria("(a.account_num like '90%' or a.account_num like '80%')");
+            //$table->setCriteria("(a.account_num like '90%' or a.account_num like '80%')");
 
             if (!empty($customer_ref)) {
                 $table->setCriteria("a.customer_ref = '" . $customer_ref . "'");

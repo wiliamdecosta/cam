@@ -1,29 +1,29 @@
-<div id="modal_lov_account" class="modal fade" tabindex="-1" style="overflow-y: scroll;">
+<div id="modal_lov_customer" class="modal fade" tabindex="-1" style="overflow-y: scroll;">
     <div class="modal-dialog" style="width:700px;">
         <div class="modal-content">
             <!-- modal title -->
             <div class="modal-header no-padding">
                 <div class="table-header">
-                    <span class="form-add-edit-title"> Data Account</span>
+                    <span class="form-add-edit-title"> Data Customer</span>
                 </div>
             </div>
-            <input type="hidden" id="modal_lov_account_id_val" value="" />
-            <input type="hidden" id="modal_lov_account_code_val" value="" />
+            <input type="hidden" id="modal_lov_customer_id_val" value="" />
+            <input type="hidden" id="modal_lov_customer_code_val" value="" />
 
             <!-- modal body -->
             <div class="modal-body">
                 <div>
-                  <button type="button" class="btn btn-sm btn-success" id="modal_lov_account_btn_blank">
+                  <button type="button" class="btn btn-sm btn-success" id="modal_lov_customer_btn_blank">
                     <span class="fa fa-pencil-square-o bigger-110" aria-hidden="true"></span> BLANK
                   </button>
                 </div>
-                <table id="modal_lov_account_grid_selection" class="table table-striped table-bordered table-hover">
+                <table id="modal_lov_customer_grid_selection" class="table table-striped table-bordered table-hover">
                 <thead>
                   <tr>
-                     <th data-column-id="customer_ref" data-sortable="false" data-visible="false">ID Akun</th>
                      <th data-header-align="center" data-align="center" data-formatter="opt-edit" data-sortable="false" data-width="100">Options</th>
-                     <th data-column-id="account_num">Nomor Akun</th>
-                     <th data-column-id="account_name">Nama Akun</th>
+                     <th data-column-id="customer_ref" data-sortable="true" data-visible="true">Customer Ref</th>
+                     <th data-column-id="first_name">First Name</th>
+                     <th data-column-id="address_name">Adress</th>
                   </tr>
                 </thead>
                 </table>
@@ -46,40 +46,39 @@
 
 <script>
     $(function($) {
-        $("#modal_lov_account_btn_blank").on('click', function() {
-            $("#"+ $("#modal_lov_account_id_val").val()).val("");
-            $("#"+ $("#modal_lov_account_code_val").val()).val("");
-            $("#modal_lov_account").modal("toggle");
+        $("#modal_lov_customer_btn_blank").on('click', function() {
+            $("#"+ $("#modal_lov_customer_id_val").val()).val("");
+            $("#"+ $("#modal_lov_customer_code_val").val()).val("");
+            $("#modal_lov_customer").modal("toggle");
         });
     });
 
-    function modal_lov_account_show(the_id_field, the_code_field, customer_ref) {
-        modal_lov_account_set_field_value(the_id_field, the_code_field);
-        $("#modal_lov_account").modal({backdrop: 'static'});
-        modal_lov_account_prepare_table(customer_ref);
+    function modal_lov_customer_show(the_id_field, the_code_field) {
+        modal_lov_customer_set_field_value(the_id_field, the_code_field);
+        $("#modal_lov_customer").modal({backdrop: 'static'});
+        modal_lov_customer_prepare_table();
     }
 
 
-    function modal_lov_account_set_field_value(the_id_field, the_code_field) {
-         $("#modal_lov_account_id_val").val(the_id_field);
-         $("#modal_lov_account_code_val").val(the_code_field);
+    function modal_lov_customer_set_field_value(the_id_field, the_code_field) {
+         $("#modal_lov_customer_id_val").val(the_id_field);
+         $("#modal_lov_customer_code_val").val(the_code_field);
     }
 
-    function modal_lov_account_set_value(the_id_val, the_code_val) {
-         $("#"+ $("#modal_lov_account_id_val").val()).val(the_id_val);
-         $("#"+ $("#modal_lov_account_code_val").val()).val(the_code_val);
-         $("#modal_lov_account").modal("toggle");
+    function modal_lov_customer_set_value(the_id_val, the_code_val) {
+         $("#"+ $("#modal_lov_customer_id_val").val()).val(the_id_val);
+         $("#"+ $("#modal_lov_customer_code_val").val()).val(the_code_val);
+         $("#modal_lov_customer").modal("toggle");
 
-         $("#"+ $("#modal_lov_account_id_val").val()).change();
-         $("#"+ $("#modal_lov_account_code_val").val()).change();
+         $("#"+ $("#modal_lov_customer_id_val").val()).change();
+         $("#"+ $("#modal_lov_customer_code_val").val()).change();
     }
 
-    function modal_lov_account_prepare_table(customer_ref) {
-        $("#modal_lov_account_grid_selection").bootgrid("destroy");
-        $("#modal_lov_account_grid_selection").bootgrid({
+    function modal_lov_customer_prepare_table() {
+        $("#modal_lov_customer_grid_selection").bootgrid({
              formatters: {
                 "opt-edit" : function(col, row) {
-                    return '<a href="javascript:;" title="Set Value" onclick="modal_lov_account_set_value(\''+ row.account_num +'\', \''+ row.account_num + ' - ' + row.account_name +'\')" class="blue"><i class="fa fa-pencil-square-o bigger-130"></i></a>';
+                    return '<a href="javascript:;" title="Set Value" onclick="modal_lov_customer_set_value(\''+ row.customer_ref +'\', \''+ row.customer_ref + '-' + row.first_name +'\')" class="blue"><i class="fa fa-pencil-square-o bigger-130"></i></a>';
                 }
              },
              rowCount:[5,10],
@@ -100,8 +99,7 @@
                 }
                 return response;
              },
-             url: '<?php echo WS_BOOTGRID."account.account_controller/readLov"; ?>',
-             post: {customer_ref: customer_ref},
+             url: '<?php echo WS_BOOTGRID."customer.customer_controller/readLov"; ?>',
              selection: true,
              sorting:true
         });
