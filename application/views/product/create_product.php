@@ -1,3 +1,6 @@
+<link href="<?php echo base_url(); ?>assets/js/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css"/>
+<script src="<?php echo base_url(); ?>assets/js/moment.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url(); ?>assets/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
 <!-- breadcrumb -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -35,36 +38,36 @@
                             <ul class="nav nav-pills nav-justified steps">
                                 <li>
                                     <a href="#tab1" data-toggle="tab" class="step">
-                                        <span class="number"> 1 </span>
-                                         <span class="desc" style="font-size: 12px !important;">
-                                             <i class="fa fa-check"></i> Account &amp; Dates </span>
+                                        <span class="number"> 1 </span><br>
+                                         <span class="desc">
+                                            <i class="fa fa-check"></i> Account &amp; Dates </span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#tab2" data-toggle="tab" class="step">
-                                        <span class="number"> 2 </span>
-                                         <span class="desc" style="font-size: 12px !important;">
+                                        <span class="number"> 2 </span><br>
+                                         <span class="desc">
                                              <i class="fa fa-check"></i> Product &amp; Price Plan </span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#tab3" data-toggle="tab" class="step active">
-                                        <span class="number"> 3 </span>
-                                         <span class="desc" style="font-size: 12px !important;">
+                                    <a href="#tab3" data-toggle="tab" class="step">
+                                        <span class="number"> 3 </span><br>
+                                         <span class="desc">
                                              <i class="fa fa-check"></i> Details </span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#tab4" data-toggle="tab" class="step active">
-                                        <span class="number"> 4 </span>
-                                         <span class="desc" style="font-size: 12px !important;">
+                                    <a href="#tab4" data-toggle="tab" class="step">
+                                        <span class="number"> 4 </span><br>
+                                         <span class="desc">
                                              <i class="fa fa-check"></i> Attributes </span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#tab5" data-toggle="tab" class="step active">
-                                        <span class="number"> 5 </span>
-                                         <span class="desc" style="font-size: 12px !important;">
+                                    <a href="#tab5" data-toggle="tab" class="step">
+                                        <span class="number"> 5 </span><br>
+                                         <span class="desc">
                                              <i class="fa fa-check"></i> Add Override Price </span>
                                     </a>
                                 </li>
@@ -126,7 +129,10 @@
                                                 <label class="control-label col-md-5">Subscription
                                                 </label>
                                                 <div class="col-md-7">
-                                                    <input type="text" class="form-control" name="in_Subscription">
+                                                    <select class="form-control" name="in_Subscription">
+                                                        <option value="">none</option>
+                                                    </select>
+                                                    <span class="help-block"></span>
                                                 </div>
                                             </div>
 
@@ -136,7 +142,7 @@
                                                 <div class="col-md-4">
                                                     <input type="text" class="form-control datepicker" name="in_Start_Date_Time">
                                                 </div>
-                                                <label class="col-md-3 control-label"> MM/DD/YYYY </label>
+                                                <label class="col-md-3 control-label"> MM/DD/YYYY</label>
                                             </div>
 
                                             <div class="form-group">
@@ -145,7 +151,7 @@
                                                 <div class="col-md-4">
                                                     <input type="text" class="form-control datepicker" name="in_Termination_Date_Time">
                                                 </div>
-                                                <label class="col-md-3 control-label"> MM/DD/YYYY </label>
+                                                <label class="col-md-3 control-label"> MM/DD/YYYY</label>
                                             </div>
 
                                             <div class="form-group">
@@ -751,9 +757,12 @@
 
     });
 
-    $('.datepicker').datepicker({
-        todayHighlight: true,
-        format: "mm/dd/yyyy",
-        autoclose: true
+    $('.datepicker').datetimepicker({
+        sideBySide: true
     });
+    // $('.datepicker').datepicker({
+    //     todayHighlight: true,
+    //     format: "mm/dd/yyyy",
+    //     autoclose: true
+    // });
 </script>
