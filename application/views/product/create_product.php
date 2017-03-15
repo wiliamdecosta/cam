@@ -182,7 +182,13 @@
                                                     <span class="required">  * </span>
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control required" name="in_Product"/>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control required" name="in_Product">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-success" type="button" id="btn-product">
+                                                            <i class="fa fa-search"></i>
+                                                        </span>
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -191,7 +197,13 @@
                                                     <span class="required">  * </span>
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control required" name="in_Price_Plan"/>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control required" name="in_Price_Plan">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-success" type="button" id="btn-price-plan">
+                                                            <i class="fa fa-search"></i>
+                                                        </span>
+                                                    </div>
                                                 </div>
                                             </div>
 
