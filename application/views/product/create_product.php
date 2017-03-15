@@ -187,7 +187,7 @@
                                                 </label>
                                                 <div class="col-md-8">
                                                     <div class="input-group">
-                                                    <input type="hidden" class="form-control required" id="wizard2_product_id">
+                                                    <input type="hidden" class="form-control required" id="wizard2_product_id" >
 
                                                         <input type="text" class="form-control required" id="wizard2_product_name">
                                                         <span class="input-group-btn">
@@ -517,7 +517,7 @@
 
 <?php $this->load->view('lov/lov_customer.php'); ?>
 <?php $this->load->view('lov/lov_account.php'); ?>
-
+<?php $this->load->view('lov/lov_price_plan.php'); ?>
 <script>
 $("#btn-lov-customer").on('click', function() {
     modal_lov_customer_show('wizard1_customer_ref','wizard1_customer_code');
