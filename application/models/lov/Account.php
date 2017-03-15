@@ -6,8 +6,8 @@
  */
 class Account extends Abstract_model {
 
-    public $table           = "account";
-    public $pkey            = "customer_ref";
+    public $table           = "";
+    public $pkey            = "";
     public $alias           = "";
 
     public $fields          = array();
@@ -46,8 +46,8 @@ class Account extends Abstract_model {
 
         //$this->fromClause = sprintf($this->fromClause, "'".$this->session->userdata('user_name')."'");
         $this->fromClause = sprintf($this->fromClause, "'".$this->session->userdata('user_name')."'", "'".$customer_ref."'");
-        $this->db_crm = $this->load->database('corecrm', TRUE);
-        $this->db_crm->_escape_char = ' ';
+        // $this->db_crm = $this->load->database('default', TRUE);
+        // $this->db_crm->_escape_char = ' ';
     }
 
     function validate() {
