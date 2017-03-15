@@ -245,4 +245,45 @@ if (!function_exists('generatehtml')) {
 
         return $arr_bulan[$bulan];
     }
+
+    function genAttributesHTML($data = array()){
+        $html = '';
+        $req = '';
+        for ($i=0; $i<count($data); $i++) {
+            $html .= "<div class='form-group'>";
+            $html .= "<label class='control-label col-md-4'>".$data[$i]['attribute_ua_name'];
+            if($data[$i]['attribute_ua_name'] == "T"){
+                $html .= '<span class="required"> * </span>';
+                $req = "required";
+            }
+            $html .= "</label>";            
+
+            if($data[$i]['attribute_units'] == "TX"){
+                $html .= "<div class='col-md-8'>";
+                $html .= "<input type='text' class='form-control ".$req."' name='".$data[$i]['attribute_bill_name']."'>";
+
+            }else if($data[$i]['attribute_units'] == "IN"){
+                $html .= "<div class='col-md-5'>";
+                $html .= "<input type='number' class='form-control ".$req."' name='".$data[$i]['attribute_bill_name']."'>";
+
+            }else{
+                $html .= "<div class='col-md-4'>";
+                $html .= "<input type='text' class='form-control datepicker ".$req."' name='".$data[$i]['attribute_bill_name']."'>"; 
+            }        
+            
+            
+            $html .= "</div>";
+            $html .= "</div>";
+        }
+    }
 }
+
+
+
+                                                
+                                                    
+                                                
+                                                
+                                                    
+                                                
+                                            
