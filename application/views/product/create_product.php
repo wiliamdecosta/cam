@@ -89,7 +89,7 @@
                                     <div class="row">
                                         <div class="col-md-7">
                                             <div class="form-group">
-                                                <label class="control-label col-md-5">Customer
+                                                <label class="control-label col-md-5">Customer <span class="required">  * </span>
                                                 </label>
                                                 <div class="col-md-7">
                                                     <div class="input-group">
