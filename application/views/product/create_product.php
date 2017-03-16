@@ -355,8 +355,14 @@
                                                     <span class="required">  * </span>
                                                 </label>
                                                 <div class="col-md-7">
-                                                    <input type="hidden" class="form-control" id="wizard5_country_id" readonly>
-                                                    <input type="text" class="form-control" id="wizard5_country_code">
+                                                    <div class="input-group">
+                                                        <input type="hidden" class="form-control" id="wizard5_country_id" readonly>
+                                                        <input type="text" class="form-control " id="wizard5_country_code" readonly>
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-success" type="button" id="btn-lov-country">
+                                                            <i class="fa fa-search"></i>
+                                                        </span>
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -586,6 +592,7 @@
 <?php $this->load->view('lov/lov_price_plan.php'); ?>
 <?php $this->load->view('lov/lov_product.php'); ?>
 <?php $this->load->view('lov/lov_addr.php'); ?>
+<?php $this->load->view('lov/lov_country.php'); ?>
 <script>
 $("#btn-lov-customer").on('click', function() {
     modal_lov_customer_show('wizard1_customer_ref','wizard1_customer_code');
@@ -637,6 +644,10 @@ $("#btn-lov-addr").on('click', function() {
         return;
     }
      modal_lov_addr_show('wizard5_exst_addr','wizard5_exst_addr_code','wizard5_country_id','wizard5_country_code','wizard5_in_Address_line1','wizard5_in_Address_line2','wizard5_in_Additional_address_1',customer_ref);
+});
+
+$("#btn-lov-country").on('click', function() {
+     modal_lov_country_show('wizard5_country_id','wizard5_country_code');
 });
    
 </script>

@@ -98,7 +98,7 @@
                 }
                 return response;
              },
-             url: '<?php echo WS_BOOTGRID."country.customer_controller/readLov"; ?>',
+             url: '<?php echo WS_BOOTGRID."product.product_controller/readLovCountry"; ?>',
              selection: true,
              sorting:true
         });
