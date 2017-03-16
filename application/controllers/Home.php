@@ -12,6 +12,45 @@ class Home extends CI_Controller
         $this->load->view('home/index');
     }
 
+
+    function load_combo_budg ($id){
+
+        $sql = "select n01 as budget_centre_seq,
+                       s01 as budget_centre_name
+                from table (pack_lov.get_budget_center_list('".getUserName()."','".$id."',''))
+                ";
+        $query = $this->db->query($sql);
+        $items = $query->result_array();
+        $html = "";
+        $html.="<select name='in_BudgetCenter' id='in_BudgetCenter'  class='form-control'>";
+        foreach ($items as $data) {
+          $html .=" <option value='" . $data['budget_centre_seq'] . "'>" . $data['budget_centre_name'] . "</option>";
+        }
+        $html .= "</select>";
+
+        echo $html;
+        exit;
+    }
+
+    function load_combo_acc ($id){
+
+        $sql = "select n01 as cps_id,
+                       s01 as cps_name
+                from table (pack_lov.get_cps_list('".getUserName()."','".$id."',''))
+                ";
+        $query = $this->db->query($sql);
+        $items = $query->result_array();
+        $html = "";
+        $html.="<select name='in_BudgetCenter' id='in_BudgetCenter'  class='form-control required'>";
+        foreach ($items as $data) {
+          $html .=" <option value='" . $data['cps_id'] . "'>" . $data['cps_name'] . "</option>";
+        }
+        $html .= "</select>";
+
+        echo $html;
+        exit;
+    }
+
     function load_content($id) {
         try {
             $file_exist = true;

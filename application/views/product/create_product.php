@@ -256,7 +256,7 @@
                                                 <label class="control-label col-md-6">Customer Order Number
                                                 </label>
                                                 <div class="col-md-6">
-                                                    <input type="text" class="form-control" name="in_Customer_Order_Number">
+                                                    <input type="text" readonly class="form-control" name="in_Customer_Order_Number">
                                                 </div>
                                             </div>
 
@@ -272,15 +272,7 @@
                                                 <label class="control-label col-md-6">Budget Center
                                                 </label>
                                                 <div class="col-md-6">
-                                                    <?php echo buatcombo2 ($name='in_BudgetCenter',
-                                                        $id='in_BudgetCenter',
-                                                        $table="table (pack_lov.get_budget_center_list('".getUserName()."','ACC0001',''))",
-                                                        $field='n01',
-                                                        $pk='s01',
-                                                        $kondisi=array(),
-                                                        $required='N',
-                                                        '- Pilih Budget Center -'
-                                                    ); ?>
+                                                    <div id="comboBudget"></div>
                                                 </div>
                                             </div>
 
@@ -305,15 +297,7 @@
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-6">
-                                                   <?php echo buatcombo2 ($name='in_ContractedPoinOfSupply',
-                                                        $id='in_ContractedPoinOfSupply',
-                                                        $table="table(pack_lov.get_cps_list('".getUserName()."','ACC0001',''))",
-                                                        $field='s01',
-                                                        $pk='n01',
-                                                        $kondisi=array(),
-                                                        $required='N',
-                                                        '- Contracted Poin of Supply -'
-                                                    ); ?>
+                                                   <div id="comboAcc"></div>
                                                 </div>
                                             </div>
 
@@ -890,6 +874,36 @@ $('#wizard2_product_id').on('change', function() {
         // }));
 
     });
+
+
+    $('#wizard1_account_num').on('change', function() {
+        var id = $('#wizard1_account_num').val();
+        $.ajax({
+                url: "<?php echo base_url().'home/load_combo_budg/'; ?>" + id,
+                type: "POST",
+                data: {},
+                success: function (data) {
+                    $( "#comboBudget" ).html( data );
+                },
+                error: function (xhr, status, error) {
+                    swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
+                }
+            });
+
+        $.ajax({
+                url: "<?php echo base_url().'home/load_combo_acc/'; ?>" + id,
+                type: "POST",
+                data: {},
+                success: function (data) {
+                    $( "#comboAcc" ).html( data );
+                },
+                error: function (xhr, status, error) {
+                    swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
+                }
+            });
+            return;
+    });
+
 
     $('.datepicker1').datetimepicker({
         sideBySide: true,
