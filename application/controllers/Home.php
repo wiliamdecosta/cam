@@ -61,4 +61,22 @@ class Home extends CI_Controller
         }
     }
 
+    function load_html($id) {
+        $sql = "select  n01 as product_id ,
+                  n02 as product_attribute_subid ,
+                  s01 as attribute_ua_name,
+                  s02 as attribute_bill_name,
+                  s03 as mandatory_boo,
+                  s04 as attribute_units,
+                  n03 as display_position 
+               from table(pack_lov.get_prodattr_list_byprodid('".getUserName()."', ".$id.",''))";
+        $query = $this->db->query($sql);
+        $items = $query->result_array();
+        // print_r($items);
+        $htlm = genAttributesHTML($items);
+        
+        echo $htlm;
+        exit;
+    }
+
 }

@@ -27,7 +27,7 @@
                 <div class="caption">
                     <i class=" icon-layers font-red"></i>
                      <span class="caption-subject font-red bold uppercase"> Create Product -
-                         <span class="step-title"> Step 1 of 5 </span>
+                         <span class="step-title"> Step 1 of 6 </span>
                      </span>
                 </div>
             </div>
@@ -64,8 +64,15 @@
                                              <i class="fa fa-check"></i> Attributes </span>
                                     </a>
                                 </li>
-                                <li>
+                                 <li>
                                     <a href="#tab5" data-toggle="tab" class="step">
+                                        <span class="number"> 4 </span><br>
+                                         <span class="desc">
+                                             <i class="fa fa-check"></i> Address </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#tab6" data-toggle="tab" class="step">
                                         <span class="number"> 5 </span><br>
                                          <span class="desc">
                                              <i class="fa fa-check"></i> Add Override Price </span>
@@ -333,110 +340,82 @@
                                 <div class="tab-pane" id="tab4">
                                     <div class="row">
                                         <div class="col-md-6">
+                                            <!--- generate html -->
+                                            <div id="step-content"></div>
 
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Contract
-                                                    <span class="required"> * </span>
-                                                </label>
-                                                <div class="col-md-8">
-                                                    <input type="text" class="form-control required" name="in_Contract">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Start Date Contract
-                                                </label>
-                                                <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="in_Start_Date_Contract">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">End Date Contract
-                                                </label>
-                                                <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="in_End_Date_Contract">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Surat Pesanan
-                                                </label>
-                                                <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="in_Surat_Pesanan">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Amandemen
-                                                </label>
-                                                <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="in_Amandemen">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">BAPP
-                                                </label>
-                                                <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="in_BAPP">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">BAR
-                                                </label>
-                                                <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="in_BAR">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Contract Layanan
-                                                </label>
-                                                <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="in_Contract Layanan">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">BAST
-                                                </label>
-                                                <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="in_BAST">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">BASTOS
-                                                </label>
-                                                <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="in_BASTOS">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">BAUT
-                                                </label>
-                                                <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="in_BAUT">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Mitra
-                                                </label>
-                                                <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="in_Mitra">
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
-
                                 <!--- TAB 5 -->
                                 <div class="tab-pane" id="tab5">
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-5">Use an existing
+                                                </label>
+                                                <div class="col-md-7">
+                                                    <div class="input-group">
+                                                        <input type="hidden" class="form-control" id="wizard1_exst_addr" readonly>
+                                                        <input type="text" class="form-control required" id="wizard1_exst_addr_code" readonly>
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-success" type="button" id="btn-lov-addr">
+                                                            <i class="fa fa-search"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-5">Country
+                                                    <span class="required">  * </span>
+                                                </label>
+                                                <div class="col-md-7">
+                                                    <input type="text" class="form-control" name="in_Country">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-5">Address Line 1 
+                                                    <span class="required">  * </span>
+                                                </label>
+                                                <div class="col-md-7">
+                                                    <input type="text" class="form-control required" name="in_Address_line1">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-5">Address Line 2
+                                                </label>
+                                                <div class="col-md-7">
+                                                    <input type="text" class="form-control" name="in_Address_line2">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-5">Zip Code 
+                                                    <span class="required">  * </span>
+                                                </label>
+                                                <div class="col-md-7">
+                                                    <input type="text" class="form-control required" name="in_Zip_Code">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-5">City 
+                                                    <span class="required">  * </span>
+                                                </label>
+                                                <div class="col-md-7">
+                                                    <input type="text" class="form-control required" name="in_City">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--- TAB 6 -->
+                                <div class="tab-pane" id="tab6">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
@@ -923,6 +902,23 @@ $('#wizard2_product_id').on('change', function() {
 
     $('.datepicker').datetimepicker({
         format: 'MM/DD/YYYY'
+    });
+
+    $('#wizard2_product_id').on('change', function(){
+        //alert($('#wizard2_product_id').val());
+        var idd = $('#wizard2_product_id').val();
+         $.ajax({
+            url: "<?php echo base_url().'home/load_html/'; ?>" + idd,
+            type: "POST",
+            data: {},
+            success: function (data) {
+                $( "#step-content" ).html( data );
+            },
+            error: function (xhr, status, error) {
+                swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
+            }
+        });
+        return;
     });
     // $('.datepicker').datepicker({
     //     todayHighlight: true,

@@ -252,35 +252,39 @@ if (!function_exists('generatehtml')) {
     }
 
 
-    function genAttributesHTML($data = array()){
+    function genAttributesHTML($items = array()){
         $html = '';
         $req = '';
-        for ($i=0; $i<count($data); $i++) {
+        foreach ($items as $data){
             $html .= "<div class='form-group'>";
-            $html .= "<label class='control-label col-md-4'>".$data[$i]['attribute_ua_name'];
-            if($data[$i]['attribute_ua_name'] == "T"){
+            $html .= "<label class='control-label col-md-4'>".$data['attribute_ua_name'];
+            if($data['mandatory_boo'] == "T"){
                 $html .= '<span class="required"> * </span>';
-                $req = "required";
+                $req = " required";
+            }else{
+                $req = "";
             }
             $html .= "</label>";            
 
-            if($data[$i]['attribute_units'] == "TX"){
+            if($data['attribute_units'] == "TX"){
                 $html .= "<div class='col-md-8'>";
-                $html .= "<input type='text' class='form-control ".$req."' name='".$data[$i]['attribute_bill_name']."'>";
+                $html .= "<input type='text' class='form-control".$req."' name='".$data['attribute_bill_name']."'>";
 
-            }else if($data[$i]['attribute_units'] == "IN"){
+            }else if($data['attribute_units'] == "IN"){
                 $html .= "<div class='col-md-5'>";
-                $html .= "<input type='number' class='form-control ".$req."' name='".$data[$i]['attribute_bill_name']."'>";
+                $html .= "<input type='number' class='form-control".$req."' name='".$data['attribute_bill_name']."'>";
 
             }else{
                 $html .= "<div class='col-md-4'>";
-                $html .= "<input type='text' class='form-control datepicker ".$req."' name='".$data[$i]['attribute_bill_name']."'>"; 
+                $html .= "<input type='text' class='form-control datepicker".$req."' name='".$data['attribute_bill_name']."'>"; 
             }        
             
             
             $html .= "</div>";
             $html .= "</div>";
         }
+
+        return $html;
     }
 }
 
