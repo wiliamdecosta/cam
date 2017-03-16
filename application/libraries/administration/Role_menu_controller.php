@@ -16,7 +16,7 @@ class Role_menu_controller {
         $module_id = getVarClean('module_id','int',0);
 
         $tMenu->setCriteria('mn.module_id = '.$module_id);
-        $items = $tMenu->getAll(0,-1);
+        $items = $tMenu->getAll(0,-1,'mn.menu_order','asc');
 
         $ci->load->model('administration/role_menu');
         $tRoleMenu = $ci->role_menu;
