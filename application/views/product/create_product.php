@@ -643,7 +643,7 @@ $("#btn-lov-addr").on('click', function() {
         swal('Info','Customer harus diisi terlebih dahulu','info');
         return;
     }
-     modal_lov_addr_show('wizard5_exst_addr','wizard5_exst_addr_code','wizard5_country_id','wizard5_country_code','wizard5_in_Address_line1','wizard5_in_Address_line2','wizard5_in_Additional_address_1',customer_ref);
+     modal_lov_addr_show('wizard5_exst_addr','wizard5_exst_addr_code','wizard5_country_id','wizard5_country_code','wizard5_in_Address_line1','wizard5_in_Address_line2','wizard5_in_Additional_address_1','wizard5_in_Additional_address_2','wizard5_in_Zip_Code','wizard5_in_City',customer_ref);
 });
 
 $("#btn-lov-country").on('click', function() {
