@@ -6,6 +6,9 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
+            <span>Customer</span>
+        </li>
+         <li>
             <span>Create Customer</span>
         </li>
     </ul>

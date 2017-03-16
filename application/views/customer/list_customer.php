@@ -6,10 +6,10 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Account</span>
+            <span>Customer</span>
         </li>
          <li>
-            <span>List Account</span>
+            <span>List Customer</span>
         </li>
     </ul>
 </div>
@@ -22,7 +22,7 @@
             <div class="portlet-title">
                 <div class="caption">
                     <i class=" icon-list font-red"></i>
-                    <span class="caption-subject font-red bold uppercase"> List Account
+                    <span class="caption-subject font-red bold uppercase"> List Customer
                     </span>
                 </div>
             </div>
@@ -45,68 +45,79 @@
         var pager_selector = "#grid-pager-account";
 
         jQuery("#grid-table-account").jqGrid({
-            url: '<?php echo WS_JQGRID . "account.account_controller/crud"; ?>',
+            url: '<?php echo WS_JQGRID . "customer.customer_controller/crud"; ?>',
             datatype: "json",
             mtype: "POST",
             colModel: [
                 {
-                    label: 'Account Number',
-                    name: 'account_num',
+                    label: 'Customer Ref',
+                    name: 'customer_ref',
                     width: 150,
                     align: 'left',
                     hidden: false
-                },/*
+                },
+                {
+                    label: 'Parent Customer Ref',
+                    name: 'parent_customer_ref',
+                    width: 150,
+                    align: 'left',
+                    hidden: false
+                },
+                /*
                 {
                     label: 'Action',
                     name: 'action',
                     hidden: false,
                     width: 150,
                     align: 'right'
+                     s01 as customer_ref ,
+                                s21 as ADDRESS_NAME ,
+                                s02 as FIRST_NAME ,
+                                s03 as LAST_NAME ,
+                                s22 as SALUTATION_NAME ,
+                                s05 as MARKET_SEGMENT_NAME ,
+                                s06 as INVOICING_CO_NAME ,
+                                n01 as MARKET_SEGMENT_ID ,
+                                s04 as PARENT_CUSTOMER_REF ,
+                                n02 as INVOICING_CO_ID,
 
                 },*/
                 {
-                    label: 'Account Name',
-                    name: 'account_name',
+                    label: 'Address Name',
+                    name: 'address_name',
                     hidden: false,
                     width: 270,
                     align: 'left'
                 },
                 {
-                    label: 'Account Status',
-                    name: 'account_status',
+                    label: 'First Name',
+                    name: 'first_name',
                     hidden: false
                 },
                 {
-                    label: 'Currency Code',
-                    name: 'currency_code',
+                    label: 'Last Name',
+                    name: 'last_name',
                     hidden: false
                 },
                 {
-                    label: 'Email',
-                    name: 'email',
+                    label: 'Salutation Name',
+                    name: 'salutation_name',
                     hidden: false,
                     width: 180,
                     align: 'left'
                 },
                 {
-                    label: 'NPWP',
-                    name: 'npwp',
+                    label: 'Market Segment',
+                    name: 'market_segment_name',
                     hidden: false,
                     width: 180,
-                    align: 'left'
-                },
-                {
-                    label: 'Address',
-                    name: 'address',
-                    hidden: false,
-                    width: 500,
                     align: 'left'
                 },
                 {
                     label: 'Invoicing Company',
                     name: 'invoicing_co_name',
                     hidden: false,
-                    width: 250,
+                    width: 500,
                     align: 'left'
                 }
             ],
@@ -138,7 +149,7 @@
                 responsive_jqgrid(grid_selector, pager_selector);
             },
             //memanggil controller jqgrid yang ada di controller crud
-            editurl: '<?php echo WS_JQGRID . "account.account_controller/crud"; ?>',
+            editurl: '<?php echo WS_JQGRID . "customer.customer_controller/crud"; ?>',
             caption: "Account Details"
 
         });

@@ -16,7 +16,7 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Tambah Account</span>
+            <span>Create Account</span>
         </li>
     </ul>
 </div>

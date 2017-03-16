@@ -25,12 +25,13 @@ class Account extends Abstract_model {
                                 null as golivedtm, 
                                 e.email_address as email, 
                                 d.npwp as npwp,
-								RTRIM(f.address_1) || ' ' || RTRIM(f.address_2) || ' ' || RTRIM(f.address_3) || ' ' || RTRIM(f.address_4) || ' ' || RTRIM(f.address_5) as address ";
+								RTRIM(f.address_1) || ' ' || RTRIM(f.address_2) || ' ' || RTRIM(f.address_3) || ' ' || RTRIM(f.address_4) || ' ' || RTRIM(f.address_5) as address, invoicing_co_name ";
     public $fromClause      = " account a
                                     INNER JOIN accountdetails c ON a.ACCOUNT_NUM = c.ACCOUNT_NUM
                                     INNER JOIN accountattributes d ON a.ACCOUNT_NUM = d.ACCOUNT_NUM
                                     INNER JOIN contactdetails e ON a.CUSTOMER_REF = e.CUSTOMER_REF
-                                    INNER JOIN address f ON a.CUSTOMER_REF = f.CUSTOMER_REF";
+                                    INNER JOIN address f ON a.CUSTOMER_REF = f.CUSTOMER_REF
+                                    inner join invoicingcompany g on a.invoicing_co_id = g.invoicing_co_id";
 
     public $refs            = array();
 

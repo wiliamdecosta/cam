@@ -15,14 +15,19 @@ class Customer extends Abstract_model {
 
                             );
 
-    public $selectClause    = "cust.customer_ref,
-                                    LTRIM (ct.address_name) as address_name,
-                                    ct.first_name,
-                                    '-' as account_num,
-                                    '-' as account_name, invoicing_co_id";
-    public $fromClause      = "customer cust
-                                    INNER JOIN contact ct ON cust.customer_ref = ct.customer_ref
-                                    AND cust.customer_contact_seq = ct.contact_seq";
+    public $selectClause    = " s01 as customer_ref ,
+                                s21 as ADDRESS_NAME ,
+                                s02 as FIRST_NAME ,
+                                s03 as LAST_NAME ,
+                                s22 as SALUTATION_NAME ,
+                                s05 as MARKET_SEGMENT_NAME ,
+                                s06 as INVOICING_CO_NAME ,
+                                n01 as MARKET_SEGMENT_ID ,
+                                s04 as PARENT_CUSTOMER_REF ,
+                                n02 as INVOICING_CO_ID,
+                                '-' as account_num,
+                                '-' as account_name";
+    public $fromClause      = " table(pack_list_cust_acc_prod.customer_list('admin', '')) ct";
 
     public $refs            = array();
 
