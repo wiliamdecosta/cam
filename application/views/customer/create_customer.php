@@ -140,25 +140,25 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="control-label col-md-4">Customer Ref
+                                                <label class="control-label col-md-4">Invoicing Company
                                                 </label>
                                                 <div class="col-md-8">
                                                     <input type="text" class="form-control" name="nipnas" id="nipnas" readonly>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-md-4">Customer Type
+                                                <label class="control-label col-md-4">Invoicing Company
                                                     <span class="required">  * </span>
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <?php echo buatcombo('in_CustomerType',
-                                                        'in_CustomerType',
-                                                        'gparams',
-                                                        'name',
-                                                        'rfid',
-                                                        array('rfen' => 'CUSTOMERTYPE'),
-                                                        'Y',
-                                                        '- Pilih Customer Type -'
+                                                    <?php echo buatcombo2($nama = 'in_CustomerType',
+                                                        $id= 'in_CustomerType',
+                                                        $table= "table(pack_lov.get_invoicingcompany_list('user_name', ''))",
+                                                        $field= 's21',
+                                                        $pk = 'n01',
+                                                        $kondisi = array(),
+                                                        $required ='Y',
+                                                        $default = '- Pilih Invoicing Company -'
                                                     ); ?>
                                                 </div>
                                             </div>
@@ -167,12 +167,12 @@
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <?php echo buatcombo('in_MarketSegment',
+                                                    <?php echo buatcombo2('in_MarketSegment',
                                                         'in_MarketSegment',
-                                                        'gparams',
-                                                        'name',
-                                                        'rfid',
-                                                        array('rfen' => 'MARKETSEGMENT'),
+                                                        'marketsegment',
+                                                        'market_segment_name',
+                                                        'market_segment_id',
+                                                        array(),
                                                         'Y',
                                                         '- Pilih Market Segment -'
                                                     ); ?>
@@ -197,7 +197,7 @@
                                            $this->security->get_csrf_hash(); ?>">
                                     <input type="hidden" id="custReff" name="custReff" value="">
                                     <input type="hidden" id="prefix" name="prefix"
-                                           value="<?php echo $this->session->userdata('location'); ?>">
+                                           value="">
                                 </div>
                                 <div class="tab-pane" id="tab2">
                                     <div class="row">
@@ -317,7 +317,7 @@
                                                 <label class="control-label col-md-4">City
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="in_City"/>
+                                                    <input type="text" class="form-control required" name="in_City" required/>
                                                 </div>
                                             </div>
 
@@ -365,50 +365,32 @@
                                 <div class="tab-pane" id="tab3">
                                     <div class="row">
                                         <div class="col-md-6">
+
                                             <div class="form-group">
-                                                <label class="control-label col-md-4">Customer Category
+                                                <label class="control-label col-md-4">SAP Code Bill
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="in_CustomerCategory">
+                                                    <input type="text" class="form-control required" name="sapCodeBill" required>
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-md-4">Market Group
+                                                <label class="control-label col-md-4">SAP Code Unbill
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="in_MarketGroup">
+                                                    <input type="text" class="form-control required" name="sapCodeUnBill" required>
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-md-4">REG ID
+                                                <label class="control-label col-md-4">Sold2party
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="in_RegID">
+                                                    <input type="text" class="form-control" name="sold2party">
                                                 </div>
                                             </div>
 
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">CC Cluster
-                                                </label>
-                                                <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="in_CCCluster">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">Referensi NIPNAS
-                                                    <span class="required"> * </span>
-                                                </label>
-
-                                                <div class="col-md-8">
-                                                    <input type="text" class="form-control required" name="in_RefNipnas"
-                                                           required>
-                                                </div>
-                                            </div>
                                         </div>
-
                                     </div>
 
                                 </div>
@@ -556,7 +538,7 @@
                         var groupId = $('#groupId').val();
 
                         if (!idTH) {
-                            $.ajax({
+                           /* $.ajax({
                                 url: "<?php echo site_url('customer_cont/initTransaksi'); ?>",
                                 type: "POST",
                                 dataType: "json",
@@ -572,7 +554,7 @@
                                 error: function (xhr, status, error) {
                                     swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
                                 }
-                            });
+                            });*/
                         }
 
                         if (!custReff) {
@@ -693,6 +675,12 @@
                 }
             });
         }));
+
+        $('#in_CustomerType').change(function(){
+
+            $('#prefix').val($(this).val());
+
+        });
 
     });
 

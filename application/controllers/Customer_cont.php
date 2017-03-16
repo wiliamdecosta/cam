@@ -15,11 +15,11 @@ class Customer_cont extends CI_Controller
 
     public function genCustRef()
     {
-        $pck_name = "SINCUSTOMER.genCustomerRef";
+        $pck_name = "CAMWEB.PKG_TIBSCUSTOMER.GENCUSTOMERREF";
         $pIN = array(
-            'prefix' => 10
+            'prefix' => $this->input->post('prefix')
         );
-        $conn_db = "corecrm";
+        $conn_db = "default";
         $out = $this->M_helper->exec_cursor($pck_name, $pIN, $conn_db);
         echo json_encode($out);
     }
@@ -44,6 +44,10 @@ class Customer_cont extends CI_Controller
     public function createCustomer()
     {
         $custReff = $this->input->post('custReff');
+        $customerRef = $this->input->post('customerRef');
+        $sapCodeBill = $this->input->post('sapCodeBill');
+        $sapCodeUnBill = $this->input->post('sapCodeUnBill');
+        $sold2party = $this->input->post('sold2party');
         $groupId = (int)$this->input->post('groupId');
         $idTD = (int)$this->input->post('idTD');
         $idTH = (int)$this->input->post('idTH');
@@ -72,10 +76,10 @@ class Customer_cont extends CI_Controller
         $in_ZipCode = $this->input->post('in_ZipCode');
         $locId = (int)$this->input->post('locId');
         $userId = (int)$this->input->post('userId');
-        $custAttr = (string)$this->getAttrValue(array($custReff,$in_CustomerCategory,$in_MarketGroup,$in_RegID,$in_CCCluster,$in_RefNipnas));
+        $custAttr = (string)$this->getAttrValue(array($custReff,$sapCodeBill,$sapCodeUnBill,$sold2party));
 
 
-        $pck_name = "SINCUSTOMER.createCustomer";
+       /* $pck_name = "SINCUSTOMER.createCustomer";
         $pIN = array(
             'pIn_customerRef' => $custReff,
             'pIn_customerName' => '',
@@ -103,7 +107,7 @@ class Customer_cont extends CI_Controller
             'pIn_cntStartDat' => $in_ContactStartDate,
             'pIn_trxId' => $idTH
         );
-
+*/
         // Untuk pck kedua
         $pIN2 = array(
             'pIn_custCustomerRef' => $custReff,
@@ -137,11 +141,11 @@ class Customer_cont extends CI_Controller
             'pIn_cntLastName' => $in_LastName,
             'pIn_cntAddressName' => $in_AddressName,
             'pIn_cntSalutationName' => $in_SalutationName,
-            'pIn_cntLanguageId' => '1',
+            'pIn_cntLanguageId' => '7',
             'pIn_addrAddresses' => $in_StreetName .'|'.$in_BlockName .'|'.$in_DistrictName.'|'.$in_City.'|'.$in_Province,
             'pIn_addrPostCode' => $in_ZipCode,
-            'pIn_addrCountryId' => 501,
-            'pIn_addrAddressFormatId' => 1,
+            'pIn_addrCountryId' => 34,
+            'pIn_addrAddressFormatId' => 11,
             'pIn_addrJCode' => '',
             'pIn_addrUstinCityBoo' => '',
             'pIn_cntdetStartDate' => $in_ContactStartDate,
@@ -159,22 +163,26 @@ class Customer_cont extends CI_Controller
         );
 
         // Exec Create Customer SIN_CORE
-        $conn_db = "corecrm";
+      /*  $conn_db = "corecrm";
         $out = $this->M_helper->exec_cursor($pck_name, $pIN, $conn_db);
-
-        if($out['statusCode'][0] == "T"){
+*/
+            $conn_db2 = "default";
+            $pck_name2 = "PKG_TIBSCUSTOMER.createCustomer";
+            $out = $this->M_helper->exec_cursor($pck_name2, $pIN2, $conn_db2);
+       /* if($out['statusCode'][0] == "T"){
             // Exec Create Customer TOSDB
             $conn_db2 = "tosdb";
             $pck_name2 = "SINCUSTOMER.createCustomer";
             $out = $this->M_helper->exec_cursor($pck_name2, $pIN2, $conn_db2);
-        }
+        }*/
 
         echo json_encode($out);
+        //echo $custAttr;
     }
 
     private function getAttrValue($arr){
         $vAttributes = '';
-        for($i = 1; $i < count($arr); $i++){
+        for($i = 2; $i < count($arr); $i++){
             $vAttribute = '';
             $vAttrType = 'C';
             $vAttribute = $arr[0]."|".$i."|".$vAttrType."|".$arr[$i]."|";
