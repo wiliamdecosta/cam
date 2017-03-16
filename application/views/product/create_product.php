@@ -557,7 +557,7 @@ $("#btn-lov-account").on('click', function() {
 $("#btn-lov-price-plan").on('click', function() {
     var account_num = $('#wizard1_account_num').val();
     var product_id = $('#wizard2_product_id').val();
-    alert(product_id);
+    //alert(product_id);
     if(product_id == "") {
         swal('Info','Product harus diisi terlebih dahulu','info');
         return;
