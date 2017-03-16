@@ -414,38 +414,41 @@
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-md-4 control-label">Block Name</label>
+                                                 <span class="required"> * </span>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control uppercase"
+                                                    <input type="text" class="form-control uppercase required"
                                                            placeholder="Enter Block Name" id="inBlockName"
                                                            name="inBlockName" value=""
-                                                           onkeyup="setDocumentAddr(this.value)">
+                                                           onkeyup="setDocumentAddr(this.value)" required>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-md-4 control-label">District Name</label>
+                                                 <span class="required"> * </span>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control uppercase"
+                                                    <input type="text" class="form-control uppercase required"
                                                            placeholder="Enter District Name" id="inDistrictName"
                                                            name="inDistrictName" value=""
-                                                           onkeyup="setDocumentAddr(this.value)">
+                                                           onkeyup="setDocumentAddr(this.value)" required>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-md-4 control-label">City</label>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control uppercase"
+                                                    <input type="text" class="form-control uppercase required"
                                                            placeholder="Enter text" id="inCity"
                                                            name="inCity"
-                                                           value="" onkeyup="setDocumentAddr(this.value)">
+                                                           value="" onkeyup="setDocumentAddr(this.value)" required>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-md-4 control-label">Province</label>
+                                                 <span class="required"> * </span>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control uppercase"
+                                                    <input type="text" class="form-control uppercase required"
                                                            placeholder="Enter Province" id="inProvinsi"
                                                            name="inProvinsi" value=""
-                                                           onkeyup="setDocumentAddr(this.value)">
+                                                           onkeyup="setDocumentAddr(this.value)" required>
                                                 </div>
                                             </div>
                                             <div class="form-group">

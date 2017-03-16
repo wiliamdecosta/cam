@@ -297,7 +297,7 @@
                                                 <label class="control-label col-md-4">Block Name
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="in_BlockName"/>
+                                                    <input type="text" class="form-control required" name="in_BlockName" required/>
                                                 </div>
                                             </div>
 
@@ -305,7 +305,7 @@
                                                 <label class="control-label col-md-4">District Name
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="in_DistrictName"/>
+                                                    <input type="text" class="form-control required" name="in_DistrictName" required/>
                                                 </div>
                                             </div>
 
@@ -322,7 +322,7 @@
 
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="in_Province"/>
+                                                    <input type="text" class="form-control required" name="in_Province" required/>
                                                 </div>
                                             </div>
 
