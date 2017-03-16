@@ -108,6 +108,78 @@ class Product_controller {
 
         return $data;
     }
+
+    function readLovAnddress()
+    {
+
+        $start = getVarClean('current', 'int', 0);
+        $limit = getVarClean('rowCount', 'int', 5);
+
+        $sort = getVarClean('sort', 'str', 'address_1');
+        $dir = getVarClean('dir', 'str', 'asc');
+
+        $searchPhrase = getVarClean('searchPhrase', 'str', '');
+        $customer_ref = getVarClean('customer_ref', 'str', '');
+
+        $data = array('rows' => array(), 'success' => false, 'message' => '', 'current' => $start, 'rowCount' => $limit, 'total' => 0);
+
+        try {
+            permission_check('view-account');
+
+            $ci = &get_instance();
+            $ci->load->model('lov/address');
+            $table = new Address($customer_ref);
+            // $table = $ci->account;
+
+            //Set default criteria. You can override this if you want
+            foreach ($table->fields as $key => $field) {
+                if (!empty($$key)) { // <-- Perhatikan simbol $$
+                    if ($field['type'] == 'str') {
+                        $table->setCriteria($table->getAlias() . $key . $table->likeOperator . " '" . $$key . "' ");
+                    } else {
+                        $table->setCriteria($table->getAlias() . $key . " = " . $$key);
+                    }
+                }
+            }
+
+            if (!empty($searchPhrase)) {
+                $table->setCriteria("(  upper(address_1) " . $table->likeOperator . " upper('%" . $searchPhrase . "%')
+                                         OR upper(address_2) " . $table->likeOperator . " upper('%" . $searchPhrase . "%')
+                                         OR upper(address_3) " . $table->likeOperator . " upper('%" . $searchPhrase . "%')
+                                         OR upper(address_4) " . $table->likeOperator . " upper('%" . $searchPhrase . "%')
+                                         OR upper(address_5) " . $table->likeOperator . " upper('%" . $searchPhrase . "%')
+                                         OR upper(zipcode) " . $table->likeOperator . " upper('%" . $searchPhrase . "%')
+                                         OR upper(country_name) " . $table->likeOperator . " upper('%" . $searchPhrase . "%')
+                                         OR upper(customer_ref) " . $table->likeOperator . " upper('%" . $searchPhrase . "%')
+                                         OR upper(ADDRESS_SEQ) " . $table->likeOperator . " upper('%" . $searchPhrase . "%')
+                                    )");
+            }
+
+//            $table->setCriteria("b.account_status = 'OK'");
+            // $table->setCriteria("c.billing_contact_seq = e.contact_seq");
+            // $table->setCriteria("e.address_seq = f.address_seq");
+            // $table->setCriteria("c.end_dat is null");
+            // $table->setCriteria("e.end_dat is null");
+            //$table->setCriteria("(a.account_num like '90%' or a.account_num like '80%')");
+
+            // if (!empty($customer_ref)) {
+            //     $table->setCriteria("a.customer_ref = '" . $customer_ref . "'");
+            // }
+
+            $start = ($start - 1) * $limit;
+            $items = $table->getAll($start, $limit, $sort, $dir);
+            $totalcount = $table->countAll();
+
+            $data['rows'] = $items;
+            $data['success'] = true;
+            $data['total'] = $totalcount;
+
+        } catch (Exception $e) {
+            $data['message'] = $e->getMessage();
+        }
+
+        return $data;
+    }
    
 }
 
