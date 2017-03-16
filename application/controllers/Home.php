@@ -120,6 +120,9 @@ class Home extends CI_Controller
     }
 
     function save_product(){
+        var_dump($this->input->post());
+        exit;
+        /*
         $i_Order_Type = $this->input->post('test');
         $i_Order_No = $this->input->post('test');
         $i_Customer_Ref = $this->input->post('test');
@@ -157,6 +160,7 @@ class Home extends CI_Controller
             ociexecute($stmt);
 
             return array('status' => $o_orderStatus);
+            */
     }
 
 }
