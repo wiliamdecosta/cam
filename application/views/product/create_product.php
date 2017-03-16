@@ -404,7 +404,7 @@
                                                     <span class="required">  * </span>
                                                 </label>
                                                 <div class="col-md-7">
-                                                    <input type="text" class="form-control required" id="wizard5_in_Zip_Code" onkeypress="return isNumberKey(event)">
+                                                    <input type="text" class="form-control required" id="wizard5_in_Zip_Code" onkeypress="return isNumberKey(event);">
                                                 </div>
                                             </div>
 
@@ -479,7 +479,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="text" class="form-control" id="wizard5_initiation_price">
+                                                    <input type="text" class="form-control" id="wizard5_initiation_price" onkeypress="return isNumberKey(event);">
                                                 </div>
                                                 
                                             </div>
@@ -502,7 +502,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="text" class="form-control" id="wizard5_periodic_price">
+                                                    <input type="text" class="form-control" id="wizard5_periodic_price" onkeypress="return isNumberKey(event);">
                                                 </div>
                                             </div>
 
@@ -524,7 +524,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="text" class="form-control" id="wizard5_termination_price">
+                                                    <input type="text" class="form-control" id="wizard5_termination_price" onkeypress="return isNumberKey(event)">
                                                 </div>
                                             </div>
 
@@ -546,7 +546,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="text" class="form-control" id="wizard5_suspesion_price">
+                                                    <input type="text" class="form-control" id="wizard5_suspesion_price" onkeypress="return isNumberKey(event)">
                                                 </div>
                                             </div>
 
@@ -568,7 +568,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="text" class="form-control" id="wizard5_susp_recur_price">
+                                                    <input type="text" class="form-control" id="wizard5_susp_recur_price" onkeypress="return isNumberKey(event)">
                                                 </div>
                                             </div>
 
@@ -590,7 +590,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="text" class="form-control" id="wizard5_react_price">
+                                                    <input type="text" class="form-control" id="wizard5_react_price" onkeypress="return isNumberKey(event)">
                                                 </div>
                                             </div>
                                         </div>
@@ -699,6 +699,7 @@ $('#susp_mod_type_id').on('change', function() {
     var y = document.getElementById("wizard5_suspesion_price");
     if(cek_susp == 0){
         y.type= "hidden";
+        y.value = "";
     }else{
         y.type= "text";
     }
@@ -710,6 +711,7 @@ $('#react_mod_type_id').on('change', function() {
     var y = document.getElementById("wizard5_react_price");
     if(cek_susp == 0){
         y.type= "hidden";
+        y.value = "";
     }else{
         y.type= "text";
     }
@@ -721,6 +723,7 @@ $('#one_off_mod_type_id').on('change', function() {
     var y = document.getElementById("wizard5_initiation_price");
     if(cek_susp == 0){
         y.type= "hidden";
+        y.value = "";
     }else{
         y.type= "text";
     }
@@ -732,6 +735,7 @@ $('#recurring_mod_type_id').on('change', function() {
     var y = document.getElementById("wizard5_periodic_price");
     if(cek_susp == 0){
         y.type= "hidden";
+        y.value = "";
     }else{
         y.type= "text";
     }
@@ -743,6 +747,7 @@ $('#termination_mod_type_id').on('change', function() {
     var y = document.getElementById("wizard5_termination_price");
     if(cek_susp == 0){
         y.type= "hidden";
+        y.value = "";
     }else{
         y.type= "text";
     }
@@ -754,6 +759,7 @@ $('#susp_recur_mod_type_id').on('change', function() {
     var y = document.getElementById("wizard5_susp_recur_price");
     if(cek_susp == 0){
         y.type= "hidden";
+        y.value = "";
     }else{
         y.type= "text";
     }
