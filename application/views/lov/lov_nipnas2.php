@@ -22,7 +22,7 @@
                   <tr>
                      <th data-column-id="customer_ref" data-sortable="false" data-visible="false">ID nipnas</th>
                      <th data-header-align="center" data-align="center" data-formatter="opt-edit" data-sortable="false" data-width="100">Options</th>
-                     <th data-column-id="customer_ref">NIPNAS</th>
+                     <th data-column-id="customer_ref">Customer Ref</th>
                      <th data-column-id="first_name">Customer Name</th>
                      <th data-column-id="account_num">Account Number</th>
                   </tr>
@@ -67,9 +67,10 @@
          $("#modal_lov_nipnas_code_val").val(the_code_field);
     }
 
-    function modal_lov_nipnas_set_value(the_id_val, the_code_val) {
+    function modal_lov_nipnas_set_value(the_id_val, the_code_val, invoicing_co_id) {
          $("#"+ $("#modal_lov_nipnas_id_val").val()).val(the_id_val);
          $("#"+ $("#modal_lov_nipnas_code_val").val()).val(the_code_val);
+         $("#invoicingCompany").val(invoicing_co_id);
          $("#modal_lov_nipnas").modal("toggle");
 
          $("#"+ $("#modal_lov_nipnas_id_val").val()).change();
@@ -79,7 +80,7 @@
         $("#modal_lov_nipnas_grid_selection").bootgrid({
              formatters: {
                 "opt-edit" : function(col, row) {
-                    return '<a href="javascript:;" title="Set Value" onclick="modal_lov_nipnas_set_value(\''+ row.customer_ref +'\', \''+ row.first_name +'\')" class="blue"><i class="fa fa-pencil-square-o bigger-130"></i></a>';
+                    return '<a href="javascript:;" title="Set Value" onclick="modal_lov_nipnas_set_value(\''+ row.customer_ref +'\', \''+ row.first_name +'\', \''+ row.invoicing_co_id +'\')" class="blue"><i class="fa fa-pencil-square-o bigger-130"></i></a>';
                 }
              },
              rowCount:[5,10],

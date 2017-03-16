@@ -15,15 +15,15 @@ class Account_attr extends Abstract_model {
 
                             );
 
-    public $selectClause    = 	"a.attr_id, a.attr_name, b.XS2
+    public $selectClause    = 	"a.attr_id, a.attr_name, '' XS2
                                 ";
-    public $fromClause      = "paramdefinitiondetail a, gparams b";
+    public $fromClause      = "paramdefinitiondetail a";
 
     public $refs            = array();
 
     function __construct() {
         parent::__construct();
-        $this->db = $this->load->database('corecrm', TRUE);
+        $this->db = $this->load->database('default', TRUE);
         $this->db->_escape_char = ' ';
     }
 

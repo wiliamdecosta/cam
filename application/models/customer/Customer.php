@@ -19,7 +19,7 @@ class Customer extends Abstract_model {
                                     LTRIM (ct.address_name) as address_name,
                                     ct.first_name,
                                     '-' as account_num,
-                                    '-' as account_name";
+                                    '-' as account_name, invoicing_co_id";
     public $fromClause      = "customer cust
                                     INNER JOIN contact ct ON cust.customer_ref = ct.customer_ref
                                     AND cust.customer_contact_seq = ct.contact_seq";

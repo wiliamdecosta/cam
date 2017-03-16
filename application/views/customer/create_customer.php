@@ -360,13 +360,13 @@
                                 </div>
                                 <div class="tab-pane" id="tab3">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-6"> 
 
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">SAP Code Bill
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control required" name="sapCodeBill" required>
+                                                    <input type="text" class="a form-control required" name="sapCodeBill" required>
                                                 </div>
                                             </div>
 

@@ -155,13 +155,14 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="control-label col-md-4">Nipnas
+                                                <label class="control-label col-md-4">Customer Ref
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-8">
                                                     <div class="input-group">
                                                         <input type="text" class="form-control required" id="inNipnas"
-                                                               name="inNipnas" placeholder="Nipnas" readonly=""/>
+                                                               name="inNipnas" placeholder="Customer Ref" readonly=""/>
+                                                        <input type="hidden" class="form-control " id="invoicingCompany"/>
                                                        <span class="input-group-btn">
                                                          <button class="btn btn-success" type="button"
                                                                  id="btn-lov-nipnas">
@@ -591,7 +592,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
+                                            <!-- <div class="form-group">
                                                 <label class="col-md-4 control-label">Bill Handling Code</label>
                                                 <div class="col-md-8">
                                                     <select class="form-control" name="inBillHandlingCode">
@@ -600,7 +601,7 @@
                                                         <option value="INV_GROUP">Invoice Group View</option>
                                                     </select>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <div class="form-group">
                                                 <label class="col-md-4 control-label">Credit Class</label>
                                                 <div class="col-md-8">
@@ -1052,11 +1053,12 @@
 
 
                             if (!AccountNumber) {
+                                prefix = $('#invoicingCompany').val();
                                 $.ajax({
                                     url: "<?php echo site_url('account/genAccountNumber'); ?>",
                                     type: "POST",
                                     dataType: "json",
-                                    data: {},
+                                    data: {prefix:prefix},
                                     success: function (data) {
                                         $("#text_AccountNumber").html(data.strMessage);
                                         $("#AccountNumber").val(data.txt_genaccnum);
@@ -1209,7 +1211,7 @@
                     success: function (data) {
                         if (data.statusCode == "T") {
                             swal('', data.strMessage);
-                            loadContentWithParams('account.list_account', {});
+                            loadContentWithParams('account.add_account', {});
                         } else {
                             swal('', data.strMessage);
                         }
@@ -1241,7 +1243,7 @@
         var rowdata = jQuery("#grid").jqGrid('getRowData');
         var attrs = '';
 
-        for (var i = 0; i < rowdata.length; i++) {
+        for (var i = 1; i < rowdata.length; i++) {
             attr = '';
             vAttrType = 1;
 

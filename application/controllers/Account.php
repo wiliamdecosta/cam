@@ -9,7 +9,7 @@ class Account extends CI_Controller
         $this->load->model('M_helper');
     }
 
-    function index() {
+    function index() { 
         check_login();
     }
 
@@ -149,21 +149,21 @@ class Account extends CI_Controller
     }
 
     public function genAccountNumber(){
-        $pck_name = "CRMACCOUNT.genAccountNum";
+        $pck_name = "PKG_TIBSACCOUNT.genAccountNum";
         $pIN = array(
-            'prefix' => 10
+            'prefix' => $this->input->post('prefix')
         );
-        $conn_db = "corecrm";
+        $conn_db = "default";
         $out = $this->M_helper->exec_cursor($pck_name, $pIN, $conn_db);
         echo json_encode($out);
     }
 
     public function genNextBillDTM(){
-        $pck_name = "CRMACCOUNT.generateNextBillDtm";
+        $pck_name = "PKG_TIBSACCOUNT.generateNextBillDtm";
         $pIN = array(
             'var' => 1
         );
-        $conn_db = "corecrm";
+        $conn_db = "default";
         $out = $this->M_helper->exec_cursor($pck_name, $pIN, $conn_db);
         echo json_encode($out);
     }
@@ -229,7 +229,7 @@ class Account extends CI_Controller
         $inPaymentMethod = $this->input->post('inPaymentMethod');
         $inAccountingMethod = $this->input->post('inAccountingMethod');
         $inBillStyle = $this->input->post('inBillStyle');
-        $inBillHandlingCode = $this->input->post('inBillHandlingCode');
+        $inBillHandlingCode = null;//$this->input->post('inBillHandlingCode');
         $inCreditClass = $this->input->post('inCreditClass');
         $account_attr = $this->input->post('account_attr');
         $hinCreditLimitMny = $this->input->post('hinCreditLimitMny');
@@ -245,7 +245,7 @@ class Account extends CI_Controller
         $inFinanceEmail = $this->input->post('inFinanceEmail');
         $document_address = $this->input->post('document_address');
 
-        $pck_name = "CRMACCOUNT.createAccountTransaction";
+     /*   $pck_name = "CRMACCOUNT.createAccountTransaction";
         $pIN = array(
             'pIn_userId' => $userId,
             'pIn_locId' => $locId,
@@ -320,7 +320,7 @@ class Account extends CI_Controller
             'pIn_emailfinance' => $inFinanceEmail,
             'pIn_namaDokumen' => $inDocumentName,
             'pIn_alamatDokumen' => $document_address
-        );
+        );*/
 
         $pIN2 = array(
             'pIn_accAccountNum' => $AccountNumber,
@@ -363,11 +363,11 @@ class Account extends CI_Controller
             'pIn_cntLastName' => $inLastName,
             'pIn_cntAddressName' => $inCompanyName,
             'pIn_cntSalutationName' => $inCompanyName,
-            'pIn_cntLanguageId' => $hinLanguageId,
+            'pIn_cntLanguageId' => 7, //$hinLanguageId,
             'pIn_addrAddresses' => $inStreetName.'|'.$inBlockName.'|'.$inDistrictName.'|'.$inCity.'|'.$inProvinsi,
             'pIn_addrPostCode' => $inZipCode,
-            'pIn_addrCountryId' => $hinCountryId,
-            'pIn_addrAddressFormatId' => 1,
+            'pIn_addrCountryId' => 34, //$hinCountryId,
+            'pIn_addrAddressFormatId' => 11,
             'pIn_addrJCode' => NULL,
             'pIn_addrUstinCityBoo' => NULL,
             'pIn_cntdetStartDate' => (string)$inContactStartDate,
@@ -386,15 +386,19 @@ class Account extends CI_Controller
 
 
         // Exec Create Account SIN_CORE
-        $conn_db = "corecrm";
-        $out = $this->M_helper->exec_cursor($pck_name, $pIN, $conn_db);
+        /*$conn_db = "corecrm";
+        $out = $this->M_helper->exec_cursor($pck_name, $pIN, $conn_db);*/
 
-        if($out['statusCode'][0] == "T"){
+        $conn_db2 = "default";
+        $pck_name2 = "PKG_TIBSACCOUNT.createAccountWrapper";
+        $out = $this->M_helper->exec_cursor($pck_name2, $pIN2, $conn_db2);
+
+        /*if($out['statusCode'][0] == "T"){
             // Exec Create Account Tibs
             $conn_db2 = "tosdb";
             $pck_name2 = "SINACCOUNT.createAccountWrapper";
             $out = $this->M_helper->exec_cursor($pck_name2, $pIN2, $conn_db2);
-        }
+        }*/
 
         echo json_encode($out);
 

@@ -485,9 +485,7 @@ class Account_controller
 
             // Filter Table
             $req_param['where'] = array(
-                "a.param_id = 1020",
-                "b.RFEN = 'ACCOUNTATTRIBUTES'",
-                "a.ATTR_NAME = b.NAME"
+                "a.param_id = 1020"
             );
 
 
