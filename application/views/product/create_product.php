@@ -272,7 +272,7 @@
                                                         $field='n01',
                                                         $pk='s01',
                                                         $kondisi=array(),
-                                                        $required='Y',
+                                                        $required='N',
                                                         '- Pilih Budget Center -'
                                                     ); ?>
                                                 </div>
@@ -305,7 +305,7 @@
                                                         $field='s01',
                                                         $pk='n01',
                                                         $kondisi=array(),
-                                                        $required='Y',
+                                                        $required='N',
                                                         '- Contracted Poin of Supply -'
                                                     ); ?>
                                                 </div>
@@ -334,7 +334,7 @@
                                 <div class="tab-pane" id="tab4">
                                     <div class="row">
                                         <div class="col-md-6">
-                                        
+
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Contract
                                                     <span class="required"> * </span>
