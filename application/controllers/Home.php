@@ -120,28 +120,43 @@ class Home extends CI_Controller
     }
 
     function save_product(){
+        $i_Order_Type = $this->input->post('test');
+        $i_Order_No = $this->input->post('test');
+        $i_Customer_Ref = $this->input->post('test');
+        $i_Account_Num = $this->input->post('test');
+        $i_UserName = $this->input->post('test');
+        $i_orderHeader = $this->input->post('test');
+        $i_orderDoc = $this->input->post('test');
+
         $sql = "BEGIN "
-                    . " PKG_CUSTOMER_INFO.Get_AccountNum ("
-                    . " :i_acc_num, "
-                    . " :i_service_no, "
-                    . " :o_acc_num, "
-                    . " :o_result_code "
+                    . " TLKCAMWEBINTERFACE.CreateOrderAO ("
+                    . " :i_Order_Type, "
+                    . " :i_Order_No, "
+                    . " :i_Customer_Ref, "
+                    . " :i_Account_Num, "
+                    . " :i_UserName, "
+                    . " :i_orderHeader, "
+                    . " :i_orderDoc, "
+                    . " :o_orderStatus "
                     . "); END;";
 
             $stmt = oci_parse($conn_id, $sql);
 
             //  Bind the input parameter
-            oci_bind_by_name($stmt, ':i_acc_num', $i_acc_num);
-            oci_bind_by_name($stmt, ':i_service_no', $i_service_no);
+            oci_bind_by_name($stmt, ':i_Order_Type', $i_Order_Type);
+            oci_bind_by_name($stmt, ':i_Order_No', $i_Order_No);
+            oci_bind_by_name($stmt, ':i_Customer_Ref', $i_Customer_Ref);
+            oci_bind_by_name($stmt, ':i_Account_Num', $i_Account_Num);
+            oci_bind_by_name($stmt, ':i_UserName', $i_UserName);
+            oci_bind_by_name($stmt, ':i_orderHeader', $i_orderHeader);
+            oci_bind_by_name($stmt, ':i_orderDoc', $i_orderDoc);
 
             // Bind the output parameter
-            oci_bind_by_name($stmt, ':o_acc_num', $o_acc_num, 2000000);
-            oci_bind_by_name($stmt, ':o_result_code', $o_result_code, 2000000);
+            oci_bind_by_name($stmt, ':o_orderStatus', $o_acc_num, 2000000);
 
             ociexecute($stmt);
 
-            return array('o_acc_num' => $o_acc_num,
-                        'o_result_code' => $o_result_code);
+            return array('status' => $o_orderStatus);
     }
 
 }

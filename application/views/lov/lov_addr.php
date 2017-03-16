@@ -101,9 +101,32 @@
          $("#"+ $("#modal_lov_addr_id_country_val").val()).val(country_id);
          $("#"+ $("#modal_lov_addr_code_country_val").val()).val(country_code);
          $("#"+ $("#modal_lov_addr_address_1_val").val()).val(address_1);
-         $("#"+ $("#modal_lov_addr_address_2_val").val()).val(address_2);
-         $("#"+ $("#modal_lov_addr_additional_address_1_val").val()).val(additional_address_1);
-         $("#"+ $("#modal_lov_addr_additional_address_2_val").val()).val(additional_address_2);
+         
+         var addr2;
+         var addr3;
+         var addr4;
+
+         if(address_2 == 'null'){
+            addr2 = '';
+         }else{
+            addr2 = address_2;
+         }
+
+         if(additional_address_1 == 'null'){
+            addr3 = '';
+         }else{
+             addr3 = additional_address_1;
+         }
+
+         if(additional_address_2 == 'null'){
+            addr4 = '';
+         }else{
+            addr4 = additional_address_2;
+         }
+
+         $("#"+ $("#modal_lov_addr_address_2_val").val()).val(addr2);
+         $("#"+ $("#modal_lov_addr_additional_address_1_val").val()).val(addr3);
+         $("#"+ $("#modal_lov_addr_additional_address_2_val").val()).val(addr4);
          $("#"+ $("#modal_lov_addr_zip_code_val").val()).val(zip_code);
          $("#"+ $("#modal_lov_addr_city_val").val()).val(city);
 
