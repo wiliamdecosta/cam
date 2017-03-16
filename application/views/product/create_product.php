@@ -187,11 +187,11 @@
                                                 </label>
                                                 <div class="col-md-8">
                                                     <div class="input-group">
-                                                    <input type="hidden" class="form-control required" id="wizard2_product_id" value="1" >
+                                                    <input type="hidden" class="form-control required" id="wizard2_product_id">
 
                                                         <input type="text" class="form-control required" id="wizard2_product_name">
                                                         <span class="input-group-btn">
-                                                            <button class="btn btn-success" type="button" id="btn-product">
+                                                            <button class="btn btn-success" type="button" id="btn-lov-product">
                                                             <i class="fa fa-search"></i>
                                                         </span>
                                                     </div>
@@ -534,6 +534,7 @@
 <?php $this->load->view('lov/lov_customer.php'); ?>
 <?php $this->load->view('lov/lov_account.php'); ?>
 <?php $this->load->view('lov/lov_price_plan.php'); ?>
+<?php $this->load->view('lov/lov_product.php'); ?>
 <script>
 $("#btn-lov-customer").on('click', function() {
     modal_lov_customer_show('wizard1_customer_ref','wizard1_customer_code');
@@ -556,11 +557,21 @@ $("#btn-lov-account").on('click', function() {
 $("#btn-lov-price-plan").on('click', function() {
     var account_num = $('#wizard1_account_num').val();
     var product_id = $('#wizard2_product_id').val();
+    alert(product_id);
     if(product_id == "") {
         swal('Info','Product harus diisi terlebih dahulu','info');
         return;
     }
     modal_lov_price_plan_show('wizard2_tariff_id','wizard2_tariff_name',account_num,product_id);
+});
+
+$("#btn-lov-product").on('click', function(){
+    modal_lov_product_show('wizard2_product_id','wizard2_product_name');
+});
+
+$('#wizard2_product_id').on('change', function() {
+    $('#wizard2_tariff_id').val('');
+    $('#wizard2_tariff_name').val('');
 });
 
 </script>

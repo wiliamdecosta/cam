@@ -11,7 +11,7 @@ class Product_controller {
         $start = getVarClean('current','int',0);
         $limit = getVarClean('rowCount','int',5);
 
-        $sort = getVarClean('sort','str','address_name');
+        $sort = getVarClean('sort','str','product_id');
         $dir  = getVarClean('dir','str','asc');
 
         $searchPhrase = getVarClean('searchPhrase', 'str', '');
@@ -21,8 +21,8 @@ class Product_controller {
         try {
 
             $ci = & get_instance();
-            $ci->load->model('lov/customer');
-            $table = $ci->customer;
+            $ci->load->model('lov/product');
+            $table = $ci->product;
             //$table = new Account($customer_ref); //kalau ada param
 
             //Set default criteria. You can override this if you want
@@ -37,7 +37,7 @@ class Product_controller {
             }
 
             if(!empty($searchPhrase)) {
-                $table->setCriteria("(upper(customer_ref) ".$table->likeOperator." upper('%".$searchPhrase."%') OR upper(first_name) ".$table->likeOperator." upper('%".$searchPhrase."%'))");
+                $table->setCriteria("(upper(product_name) ".$table->likeOperator." upper('%".$searchPhrase."%') OR upper(product_desc) ".$table->likeOperator." upper('%".$searchPhrase."%'))");
             }
 
             $start = ($start-1) * $limit;
