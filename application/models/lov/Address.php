@@ -12,31 +12,31 @@ class Address extends Abstract_model {
 
     public $fields          = array();
 
-    public $selectClause    = 	" s01 as ADDRESS_1, 
-                                  s02 as ADDRESS_2, 
-                                  s03 as ADDRESS_3, 
-                                  s04 as ADDRESS_4, 
-                                  s05 as ADDRESS_5, 
-                                  s06 as ZIPCODE, 
-                                  s07 as COUNTRY_NAME, 
-                                  s08 as CUSTOMER_REF, 
-                                  n01 as ADDRESS_SEQ , 
-                                  n03 as COUNTRY_ID , 
-                                  n04 as ADDRESS_FORMAT_ID ";
+    public $selectClause    = 	" address_1, 
+                                  address_2, 
+                                  address_3, 
+                                  address_4, 
+                                  address_5, 
+                                  zipcode, 
+                                  country_name, 
+                                  customer_ref, 
+                                  address_seq , 
+                                  country_id , 
+                                  address_format_id ";
 
-    public $fromClause      = "( select  s01 as ADDRESS_1, 
-                                      s02 as ADDRESS_2, 
-                                      s03 as ADDRESS_3, 
-                                      s04 as ADDRESS_4, 
-                                      s05 as ADDRESS_5, 
-                                      s06 as ZIPCODE, 
-                                      s07 as COUNTRY_NAME, 
-                                      s08 as CUSTOMER_REF, 
-                                      n01 as ADDRESS_SEQ , 
-                                      n03 as COUNTRY_ID , 
-                                      n04 as ADDRESS_FORMAT_ID 
-                                   from table(pack_lov.get_addres_bycustomer(%s, %s,''))
-                            )";
+    public $fromClause      = "( select  s01 as address_1, 
+                                          s02 as address_2, 
+                                          s03 as address_3, 
+                                          s04 as address_4, 
+                                          s05 as address_5, 
+                                          s06 as zipcode, 
+                                          s07 as country_name, 
+                                          s08 as customer_ref, 
+                                          n01 as address_seq , 
+                                          n03 as country_id , 
+                                          n04 as address_format_id 
+                                  from table(pack_lov.get_addres_bycustomer(%s, %s,''))
+                                )";
 
     public $refs            = array();
 

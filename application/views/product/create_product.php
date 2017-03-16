@@ -117,7 +117,7 @@
                                                 <div class="col-md-7">
                                                     <div class="input-group">
                                                         <input type="hidden" class="form-control required" id="wizard1_account_num" readonly>
-                                                        <input type="text" class="form-control required" id="wizard1_account_name" readonly>
+                                                        <input type="text" class="form-control required" id="wizard1_account_name"  readonly>
                                                         <span class="input-group-btn">
                                                             <button class="btn btn-success" type="button" id="btn-lov-account">
                                                             <i class="fa fa-search"></i>
@@ -195,7 +195,7 @@
                                                 <div class="col-md-8">
                                                     <div class="input-group">
                                                         <input type="hidden" class="form-control required" id="wizard2_product_id" readonly>
-                                                        <input type="text" class="form-control required" id="wizard2_product_name" readonly>
+                                                        <input type="text" class="form-control required" id="wizard2_product_name"  readonly>
                                                         <span class="input-group-btn">
                                                             <button class="btn btn-success" type="button" id="btn-lov-product">
                                                             <i class="fa fa-search"></i>
@@ -211,7 +211,7 @@
                                                 <div class="col-md-8">
                                                     <div class="input-group">
                                                         <input type="hidden" class="form-control required" id="wizard2_tariff_id" readonly>
-                                                        <input type="text" class="form-control required" id="wizard2_tariff_name" readonly>
+                                                        <input type="text" class="form-control required" id="wizard2_tariff_name"  readonly>
                                                         <span class="input-group-btn">
                                                             <button class="btn btn-success" type="button" id="btn-lov-price-plan">
                                                             <i class="fa fa-search"></i>
@@ -340,8 +340,8 @@
                                                 </label>
                                                 <div class="col-md-7">
                                                     <div class="input-group">
-                                                        <input type="hidden" class="form-control" id="wizard1_exst_addr" readonly>
-                                                        <input type="text" class="form-control required" id="wizard1_exst_addr_code" readonly>
+                                                        <input type="hidden" class="form-control" id="wizard5_exst_addr" readonly>
+                                                        <input type="text" class="form-control " id="wizard5_exst_addr_code" readonly>
                                                         <span class="input-group-btn">
                                                             <button class="btn btn-success" type="button" id="btn-lov-addr">
                                                             <i class="fa fa-search"></i>
@@ -355,7 +355,8 @@
                                                     <span class="required">  * </span>
                                                 </label>
                                                 <div class="col-md-7">
-                                                    <input type="text" class="form-control" name="in_Country">
+                                                    <input type="hidden" class="form-control" id="wizard5_country_id" readonly>
+                                                    <input type="text" class="form-control" id="wizard5_country_code">
                                                 </div>
                                             </div>
 
@@ -363,8 +364,8 @@
                                                 <label class="control-label col-md-5">Address Line 1 
                                                     <span class="required">  * </span>
                                                 </label>
-                                                <div class="col-md-7">
-                                                    <input type="text" class="form-control required" name="in_Address_line1">
+                                                <div class="col-md-7">                                                    
+                                                <input type="text" class="form-control required"  id="wizard5_in_Address_line1">
                                                 </div>
                                             </div>
 
@@ -372,7 +373,22 @@
                                                 <label class="control-label col-md-5">Address Line 2
                                                 </label>
                                                 <div class="col-md-7">
-                                                    <input type="text" class="form-control" name="in_Address_line2">
+                                                    <input type="text" class="form-control" id="wizard5_in_Address_line2">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-5">Additional address 1
+                                                </label>
+                                                <div class="col-md-7">
+                                                    <input type="text" class="form-control" id="wizard5_in_Additional_address_1">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-5">Additional address 2
+                                                </label>
+                                                <div class="col-md-7">
+                                                    <input type="text" class="form-control" id="wizard5_in_Additional_address_2">
                                                 </div>
                                             </div>
 
@@ -381,7 +397,7 @@
                                                     <span class="required">  * </span>
                                                 </label>
                                                 <div class="col-md-7">
-                                                    <input type="text" class="form-control required" name="in_Zip_Code">
+                                                    <input type="text" class="form-control required" id="wizard5_in_Zip_Code">
                                                 </div>
                                             </div>
 
@@ -390,7 +406,7 @@
                                                     <span class="required">  * </span>
                                                 </label>
                                                 <div class="col-md-7">
-                                                    <input type="text" class="form-control required" name="in_City">
+                                                    <input type="text" class="form-control required" id="wizard5_in_City">
                                                 </div>
                                             </div>
 
@@ -569,6 +585,7 @@
 <?php $this->load->view('lov/lov_account.php'); ?>
 <?php $this->load->view('lov/lov_price_plan.php'); ?>
 <?php $this->load->view('lov/lov_product.php'); ?>
+<?php $this->load->view('lov/lov_addr.php'); ?>
 <script>
 $("#btn-lov-customer").on('click', function() {
     modal_lov_customer_show('wizard1_customer_ref','wizard1_customer_code');
@@ -612,6 +629,16 @@ $('#wizard2_product_id').on('change', function() {
     $('#wizard2_tariff_name').val('');
 });
 
+
+$("#btn-lov-addr").on('click', function() {
+    var customer_ref = $('#wizard1_customer_ref').val();
+    if(customer_ref == "") {
+        swal('Info','Customer harus diisi terlebih dahulu','info');
+        return;
+    }
+     modal_lov_addr_show('wizard5_exst_addr','wizard5_exst_addr_code','wizard5_country_id','wizard5_country_code','wizard5_in_Address_line1','wizard5_in_Address_line2','wizard5_in_Additional_address_1',customer_ref);
+});
+   
 </script>
 <script>
     // $(document).ready(function () {

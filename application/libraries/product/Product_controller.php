@@ -200,7 +200,7 @@ class Product_controller {
                                          OR upper(zipcode) " . $table->likeOperator . " upper('%" . $searchPhrase . "%')
                                          OR upper(country_name) " . $table->likeOperator . " upper('%" . $searchPhrase . "%')
                                          OR upper(customer_ref) " . $table->likeOperator . " upper('%" . $searchPhrase . "%')
-                                         OR upper(ADDRESS_SEQ) " . $table->likeOperator . " upper('%" . $searchPhrase . "%')
+                                         OR upper(address_seq) " . $table->likeOperator . " upper('%" . $searchPhrase . "%')
                                     )");
             }
 
