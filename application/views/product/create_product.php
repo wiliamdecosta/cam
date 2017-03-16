@@ -93,8 +93,8 @@
                                                 </label>
                                                 <div class="col-md-7">
                                                     <div class="input-group">
-                                                        <input type="hidden" class="form-control required" id="wizard1_customer_ref">
-                                                        <input type="text" class="form-control required" id="wizard1_customer_code">
+                                                        <input type="hidden" class="form-control required" id="wizard1_customer_ref" readonly>
+                                                        <input type="text" class="form-control required" id="wizard1_customer_code" readonly>
                                                         <span class="input-group-btn">
                                                             <button class="btn btn-success" type="button" id="btn-lov-customer">
                                                             <i class="fa fa-search"></i>
@@ -109,8 +109,8 @@
                                                 </label>
                                                 <div class="col-md-7">
                                                     <div class="input-group">
-                                                        <input type="hidden" class="form-control required" id="wizard1_account_num">
-                                                        <input type="text" class="form-control required" id="wizard1_account_name">
+                                                        <input type="hidden" class="form-control required" id="wizard1_account_num" readonly>
+                                                        <input type="text" class="form-control required" id="wizard1_account_name" readonly>
                                                         <span class="input-group-btn">
                                                             <button class="btn btn-success" type="button" id="btn-lov-account">
                                                             <i class="fa fa-search"></i>
@@ -187,9 +187,8 @@
                                                 </label>
                                                 <div class="col-md-8">
                                                     <div class="input-group">
-                                                    <input type="hidden" class="form-control required" id="wizard2_product_id">
-
-                                                        <input type="text" class="form-control required" id="wizard2_product_name">
+                                                        <input type="hidden" class="form-control required" id="wizard2_product_id" readonly>
+                                                        <input type="text" class="form-control required" id="wizard2_product_name" readonly>
                                                         <span class="input-group-btn">
                                                             <button class="btn btn-success" type="button" id="btn-lov-product">
                                                             <i class="fa fa-search"></i>
@@ -204,8 +203,8 @@
                                                 </label>
                                                 <div class="col-md-8">
                                                     <div class="input-group">
-                                                        <input type="hidden" class="form-control required" id="wizard2_tariff_id">
-                                                        <input type="text" class="form-control required" id="wizard2_tariff_name">
+                                                        <input type="hidden" class="form-control required" id="wizard2_tariff_id" readonly>
+                                                        <input type="text" class="form-control required" id="wizard2_tariff_name" readonly>
                                                         <span class="input-group-btn">
                                                             <button class="btn btn-success" type="button" id="btn-lov-price-plan">
                                                             <i class="fa fa-search"></i>
@@ -444,24 +443,33 @@
                                                 <label class="control-label col-md-4">Start Date
                                                     <span class="required"> * </span>
                                                 </label>
-                                                <div class="col-md-8">
+                                                <!-- <div class="col-md-8">
                                                     <input type="text" class="form-control required" name="in_Start_Date">
+                                                </div> -->
+                                                <div class="col-md-5">
+                                                    <input type="text" class="form-control datepicker1 required" id="wizard5_in_Start_Date">
                                                 </div>
+                                                <label class="col-md-3 control-label"> MM/DD/YYYY</label>
                                             </div>
 
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">End Date
                                                 </label>
-                                                <div class="col-md-8">
+                                                <!-- <div class="col-md-8">
                                                     <input type="text" class="form-control" name="in_End_Date">
+                                                </div> -->
+                                                <div class="col-md-5">
+                                                    <input type="text" class="form-control datepicker2" id="wizard5_in_End_Date">
                                                 </div>
+                                                <label class="col-md-3 control-label"> MM/DD/YYYY</label>
                                             </div>
 
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Notes
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="in_Notes">
+                                                    <!-- <input type="text" class="form-control" name="in_Notes"> -->
+                                                    <textarea rows="4" cols="50" class="form-control"  id="wizard5_in_Notes"> </textarea>
                                                 </div>
                                             </div>
 
@@ -469,7 +477,17 @@
                                                 <label class="control-label col-md-4">Initiation
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="in_Initiation">
+                                                    <!-- <input type="text" class="form-control" name="in_Initiation"> -->
+                                                    <?php echo buatcombo2 (
+                                                        $name='one_off_mod_type_id',
+                                                        $id='one_off_mod_type_id',
+                                                        $table="table(pack_lov.get_modtypeid_list('".getUserName()."'))",
+                                                        $field='s01',
+                                                        $pk='n01',
+                                                        $kondisi=array(),
+                                                        $required='N',
+                                                        '- Pilih Initiation Center -'
+                                                    ); ?>
                                                 </div>
                                             </div>
 
@@ -477,7 +495,16 @@
                                                 <label class="control-label col-md-4">Periodic
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="in_Periodic">
+                                                    <?php echo buatcombo2 (
+                                                        $name='recurring_mod_type_id',
+                                                        $id='recurring_mod_type_id',
+                                                        $table="table(pack_lov.get_modtypeid_list('".getUserName()."'))",
+                                                        $field='s01',
+                                                        $pk='n01',
+                                                        $kondisi=array(),
+                                                        $required='N',
+                                                        '- Pilih Periodic -'
+                                                    ); ?>
                                                 </div>
                                             </div>
 
@@ -485,7 +512,16 @@
                                                 <label class="control-label col-md-4">Termination
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="in_Termination">
+                                                    <?php echo buatcombo2 (
+                                                        $name='termination_mod_type_id',
+                                                        $id='termination_mod_type_id',
+                                                        $table="table(pack_lov.get_modtypeid_list('".getUserName()."'))",
+                                                        $field='s01',
+                                                        $pk='n01',
+                                                        $kondisi=array(),
+                                                        $required='N',
+                                                        '- Pilih Termination -'
+                                                    ); ?>
                                                 </div>
                                             </div>
 
@@ -493,7 +529,33 @@
                                                 <label class="control-label col-md-4">Suspension
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="in_Suspension">
+                                                    <?php echo buatcombo2 (
+                                                        $name='susp_mod_type_id',
+                                                        $id='susp_mod_type_id',
+                                                        $table="table(pack_lov.get_modtypeid_list('".getUserName()."'))",
+                                                        $field='s01',
+                                                        $pk='n01',
+                                                        $kondisi=array(),
+                                                        $required='N',
+                                                        '- Pilih Suspension -'
+                                                    ); ?>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">Suspended Periodic
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <?php echo buatcombo2 (
+                                                        $name='susp_recur_mod_type_id',
+                                                        $id='susp_recur_mod_type_id',
+                                                        $table="table(pack_lov.get_modtypeid_list('".getUserName()."'))",
+                                                        $field='s01',
+                                                        $pk='n01',
+                                                        $kondisi=array(),
+                                                        $required='N',
+                                                        '- Pilih Suspended Periodic -'
+                                                    ); ?>
                                                 </div>
                                             </div>
 
@@ -501,7 +563,16 @@
                                                 <label class="control-label col-md-4">Reactivation
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="in_Reactivation">
+                                                    <?php echo buatcombo2 (
+                                                        $name='react_mod_type_id',
+                                                        $id='react_mod_type_id',
+                                                        $table="table(pack_lov.get_modtypeid_list('".getUserName()."'))",
+                                                        $field='s01',
+                                                        $pk='n01',
+                                                        $kondisi=array(),
+                                                        $required='N',
+                                                        '- Pilih Reactivation -'
+                                                    ); ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -558,6 +629,10 @@ $("#btn-lov-price-plan").on('click', function() {
     var account_num = $('#wizard1_account_num').val();
     var product_id = $('#wizard2_product_id').val();
     //alert(product_id);
+    if(account_num == "") {
+        swal('Info','Account harus diisi terlebih dahulu','info');
+        return;
+    }
     if(product_id == "") {
         swal('Info','Product harus diisi terlebih dahulu','info');
         return;
