@@ -218,10 +218,10 @@ class Product_controller {
             $start = ($start - 1) * $limit;
             $items = $table->getAll($start, $limit, $sort, $dir);
             $totalcount = $table->countAll();
-
             $data['rows'] = $items;
             $data['success'] = true;
             $data['total'] = $totalcount;
+            //$data['message'] = $items->address_4;
 
         } catch (Exception $e) {
             $data['message'] = $e->getMessage();

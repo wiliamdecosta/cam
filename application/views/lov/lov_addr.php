@@ -148,10 +148,7 @@
         $("#modal_lov_addr_grid_selection").bootgrid("destroy");
         $("#modal_lov_addr_grid_selection").bootgrid({
              formatters: {
-                "opt-edit" : function(col, row) {
-                    /*if(empty(row.address_4)){
-                        row.address_4 = ""; 
-                    } */
+                "opt-edit" : function(col, row) { 
                     return '<a href="javascript:;" title="Set Value" onclick="modal_lov_addr_set_value(\''+ row.address_format_id +'\', \''+ row.address_1 + ' ,' + row.zipcode+ ' ,' + row.address_3+ ' ,' + row.country_name +'\',\'' + row.country_id +'\',\''+row.country_name+'\',\''+row.address_1+'\',\''+row.address_2+'\',\''+row.address_4+'\',\''+row.address_5+'\',\''+row.zipcode+'\',\''+row.address_3+'\')" class="blue"><i class="fa fa-pencil-square-o bigger-130"></i></a>';
                 }
              },
