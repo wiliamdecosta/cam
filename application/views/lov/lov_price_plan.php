@@ -4,7 +4,7 @@
             <!-- modal title -->
             <div class="modal-header no-padding">
                 <div class="table-header">
-                    <span class="form-add-edit-title"> Data Account</span>
+                    <span class="form-add-edit-title"> Data Price Plan</span>
                 </div>
             </div>
             <input type="hidden" id="modal_lov_price_plan_id_val" value="" />
@@ -20,7 +20,7 @@
                 <table id="modal_lov_price_plan_grid_selection" class="table table-striped table-bordered table-hover">
                 <thead>
                   <tr>
-                     <th data-column-id="tariff_id" data-sortable="false" data-visible="false">ID Akun</th>
+                     <th data-column-id="tariff_id" data-sortable="false" data-visible="false">ID Tarif</th>
                      <th data-header-align="center" data-align="center" data-formatter="opt-edit" data-sortable="false" data-width="100">Options</th>
                      <th data-column-id="tariff_name">Tarif Name</th>
                      <th data-column-id="tariff_desc">Tarif Desc   </th>
