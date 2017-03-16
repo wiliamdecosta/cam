@@ -6,11 +6,7 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <a href="#">Account</a>
-            <i class="fa fa-circle"></i>
-        </li>
-        <li>
-            <span>List Account</span>
+            <span>Account</span>
         </li>
     </ul>
 </div>
@@ -34,7 +30,7 @@
                         <div class="form-body">
                             <div class="row">
                                 <div class="col-md-1">
-                                    <a href="#" class="btn blue" id="btn-add-account">Tambah Account</a>
+                                    <a href="#" class="btn btn-outline green" id="btn-add-account"><i class="fa fa-plus"></i> Tambah Account</a>
                                 </div>
                             </div>
                             <div class="space-4"></div>

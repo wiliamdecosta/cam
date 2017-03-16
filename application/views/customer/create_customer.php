@@ -6,10 +6,6 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <a href="#">Customer</a>
-            <i class="fa fa-circle"></i>
-        </li>
-        <li>
             <span>Create Customer</span>
         </li>
     </ul>
@@ -22,8 +18,8 @@
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class=" icon-info font-blue"></i>
-  					<span class="caption-subject font-blue bold uppercase"> Data Transaksi
+                    <i class=" icon-info font-red"></i>
+  					<span class="caption-subject font-red bold uppercase"> Data Transaksi
   					</span>
                 </div>
             </div>
