@@ -119,4 +119,29 @@ class Home extends CI_Controller
         exit;
     }
 
+    function save_product(){
+        $sql = "BEGIN "
+                    . " PKG_CUSTOMER_INFO.Get_AccountNum ("
+                    . " :i_acc_num, "
+                    . " :i_service_no, "
+                    . " :o_acc_num, "
+                    . " :o_result_code "
+                    . "); END;";
+
+            $stmt = oci_parse($conn_id, $sql);
+
+            //  Bind the input parameter
+            oci_bind_by_name($stmt, ':i_acc_num', $i_acc_num);
+            oci_bind_by_name($stmt, ':i_service_no', $i_service_no);
+
+            // Bind the output parameter
+            oci_bind_by_name($stmt, ':o_acc_num', $o_acc_num, 2000000);
+            oci_bind_by_name($stmt, ':o_result_code', $o_result_code, 2000000);
+
+            ociexecute($stmt);
+
+            return array('o_acc_num' => $o_acc_num,
+                        'o_result_code' => $o_result_code);
+    }
+
 }

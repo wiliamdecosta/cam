@@ -276,15 +276,37 @@ if (!function_exists('generatehtml')) {
 
             }else{
                 $html .= "<div class='col-md-4'>";
-                $html .= "<input type='text' class='form-control datepicker".$req."' name='".$data['attribute_bill_name']."'>"; 
+                $html .= "<input type='text' class='form-control datepickerON".$req."' name='".$data['attribute_bill_name']."'>"; 
             }        
             
             
             $html .= "</div>";
             $html .= "</div>";
+
+            $html .= "<script>";
+            $html .= "$('.datepickerON').datetimepicker({
+                            format: 'MM/DD/YYYY'
+                        });";
+            $html .= "</script>";
         }
 
         return $html;
+    }
+
+    function array_to_xml($array, &$xml_user_info) {
+        foreach($array as $key => $value) {
+            if(is_array($value)) {
+                if(!is_numeric($key)){
+                    $subnode = $xml_user_info->addChild("$key");
+                    array_to_xml($value, $subnode);
+                }else{
+                    $subnode = $xml_user_info->addChild("item$key");
+                    array_to_xml($value, $subnode);
+                }
+            }else {
+                $xml_user_info->addChild("$key",htmlspecialchars("$value"));
+            }
+        }
     }
 }
 

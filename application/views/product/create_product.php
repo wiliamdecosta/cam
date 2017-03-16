@@ -225,7 +225,7 @@
                                                     <span class="required">  * </span>
                                                 </label>
                                                 <div class="col-md-4">
-                                                    <input type="text" class="form-control required" name="in_Product_Quantity"/>
+                                                    <input type="text" class="form-control required" name="in_Product_Quantity" id="in_Product_Quantity" />
                                                 </div>
                                             </div>
 
@@ -286,9 +286,10 @@
 
                                             <div class="form-group">
                                                 <label class="control-label col-md-6">Product Label
+                                                    <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-6">
-                                                    <input type="text" class="form-control" name="in_Product_Label">
+                                                    <input type="text" class="form-control required" name="in_Product_Label">
                                                 </div>
                                             </div>
 
@@ -594,6 +595,9 @@
 <?php $this->load->view('lov/lov_addr.php'); ?>
 <?php $this->load->view('lov/lov_country.php'); ?>
 <script>
+
+$('#in_Product_Quantity').val("1");
+
 $("#btn-lov-customer").on('click', function() {
     modal_lov_customer_show('wizard1_customer_ref','wizard1_customer_code');
 });
@@ -944,12 +948,12 @@ $("#btn-lov-country").on('click', function() {
 
 
     $('.datepicker1').datetimepicker({
-        sideBySide: true,
+        format: 'MM/DD/YYYY',
         defaultDate: new Date()
     });
 
     $('.datepicker2').datetimepicker({
-        sideBySide: true
+        format: 'MM/DD/YYYY'
     });
 
     $('.datepicker').datetimepicker({
