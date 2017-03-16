@@ -358,7 +358,7 @@
                                                 <div class="col-md-7">
                                                     <div class="input-group">
                                                         <input type="hidden" class="form-control" id="wizard5_country_id" readonly>
-                                                        <input type="text" class="form-control " id="wizard5_country_code" readonly>
+                                                        <input type="text" class="form-control required" id="wizard5_country_code" readonly>
                                                         <span class="input-group-btn">
                                                             <button class="btn btn-success" type="button" id="btn-lov-country">
                                                             <i class="fa fa-search"></i>
@@ -404,7 +404,7 @@
                                                     <span class="required">  * </span>
                                                 </label>
                                                 <div class="col-md-7">
-                                                    <input type="text" class="form-control required" id="wizard5_in_Zip_Code">
+                                                    <input type="text" class="form-control required" id="wizard5_in_Zip_Code" onkeypress="return isNumberKey(event)">
                                                 </div>
                                             </div>
 
@@ -462,7 +462,8 @@
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Initiation
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-4">
+                                                    <div class="input-group">
                                                     <!-- <input type="text" class="form-control" name="in_Initiation"> -->
                                                     <?php echo buatcombo2 (
                                                         $name='one_off_mod_type_id',
@@ -472,15 +473,22 @@
                                                         $pk='n01',
                                                         $kondisi=array(),
                                                         $required='N',
-                                                        '- Pilih Initiation Center -'
+                                                        ''
                                                     ); ?>
+                                                    
+                                                    </div>
                                                 </div>
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control" id="wizard5_initiation_price">
+                                                </div>
+                                                
                                             </div>
 
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Periodic
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-4">
+                                                    <div class="input-group">
                                                     <?php echo buatcombo2 (
                                                         $name='recurring_mod_type_id',
                                                         $id='recurring_mod_type_id',
@@ -489,15 +497,20 @@
                                                         $pk='n01',
                                                         $kondisi=array(),
                                                         $required='N',
-                                                        '- Pilih Periodic -'
+                                                        ''
                                                     ); ?>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control" id="wizard5_periodic_price">
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Termination
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-4">
+                                                    <div class="input-group">
                                                     <?php echo buatcombo2 (
                                                         $name='termination_mod_type_id',
                                                         $id='termination_mod_type_id',
@@ -506,32 +519,42 @@
                                                         $pk='n01',
                                                         $kondisi=array(),
                                                         $required='N',
-                                                        '- Pilih Termination -'
+                                                        ''
                                                     ); ?>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control" id="wizard5_termination_price">
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Suspension
                                                 </label>
-                                                <div class="col-md-8">
-                                                    <?php echo buatcombo2 (
-                                                        $name='susp_mod_type_id',
-                                                        $id='susp_mod_type_id',
-                                                        $table="table(pack_lov.get_modtypeid_list('".getUserName()."'))",
-                                                        $field='s01',
-                                                        $pk='n01',
-                                                        $kondisi=array(),
-                                                        $required='N',
-                                                        '- Pilih Suspension -'
-                                                    ); ?>
+                                                <div class="col-md-4">
+                                                    <div class="input-group">
+                                                        <?php echo buatcombo2 (
+                                                            $name='susp_mod_type_id',
+                                                            $id='susp_mod_type_id',
+                                                            $table="table(pack_lov.get_modtypeid_list('".getUserName()."'))",
+                                                            $field='s01',
+                                                            $pk='n01',
+                                                            $kondisi=array(),
+                                                            $required='N',
+                                                            ''
+                                                        ); ?>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control" id="wizard5_suspesion_price">
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Suspended Periodic
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-4">
+                                                    <div class="input-group">
                                                     <?php echo buatcombo2 (
                                                         $name='susp_recur_mod_type_id',
                                                         $id='susp_recur_mod_type_id',
@@ -540,15 +563,20 @@
                                                         $pk='n01',
                                                         $kondisi=array(),
                                                         $required='N',
-                                                        '- Pilih Suspended Periodic -'
+                                                        ''
                                                     ); ?>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control" id="wizard5_susp_recur_price">
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Reactivation
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-4">
+                                                    <div class="input-group">
                                                     <?php echo buatcombo2 (
                                                         $name='react_mod_type_id',
                                                         $id='react_mod_type_id',
@@ -557,8 +585,12 @@
                                                         $pk='n01',
                                                         $kondisi=array(),
                                                         $required='N',
-                                                        '- Pilih Reactivation -'
+                                                        ''
                                                     ); ?>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control" id="wizard5_react_price">
                                                 </div>
                                             </div>
                                         </div>
@@ -595,6 +627,13 @@
 <?php $this->load->view('lov/lov_addr.php'); ?>
 <?php $this->load->view('lov/lov_country.php'); ?>
 <script>
+
+function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    return true;
+};
 
 $('#in_Product_Quantity').val("1");
 
@@ -653,7 +692,72 @@ $("#btn-lov-addr").on('click', function() {
 $("#btn-lov-country").on('click', function() {
      modal_lov_country_show('wizard5_country_id','wizard5_country_code');
 });
-   
+
+$('#susp_mod_type_id').on('change', function() {
+    
+    var cek_susp = $('#susp_mod_type_id').val();
+    var y = document.getElementById("wizard5_suspesion_price");
+    if(cek_susp == 0){
+        y.type= "hidden";
+    }else{
+        y.type= "text";
+    }
+});
+
+$('#react_mod_type_id').on('change', function() {
+    
+    var cek_susp = $('#react_mod_type_id').val();
+    var y = document.getElementById("wizard5_react_price");
+    if(cek_susp == 0){
+        y.type= "hidden";
+    }else{
+        y.type= "text";
+    }
+});
+
+$('#one_off_mod_type_id').on('change', function() {
+    
+    var cek_susp = $('#one_off_mod_type_id').val();
+    var y = document.getElementById("wizard5_initiation_price");
+    if(cek_susp == 0){
+        y.type= "hidden";
+    }else{
+        y.type= "text";
+    }
+});
+
+$('#recurring_mod_type_id').on('change', function() {
+    
+    var cek_susp = $('#recurring_mod_type_id').val();
+    var y = document.getElementById("wizard5_periodic_price");
+    if(cek_susp == 0){
+        y.type= "hidden";
+    }else{
+        y.type= "text";
+    }
+});
+
+$('#termination_mod_type_id').on('change', function() {
+    
+    var cek_susp = $('#termination_mod_type_id').val();
+    var y = document.getElementById("wizard5_termination_price");
+    if(cek_susp == 0){
+        y.type= "hidden";
+    }else{
+        y.type= "text";
+    }
+});
+
+$('#susp_recur_mod_type_id').on('change', function() {
+    
+    var cek_susp = $('#susp_recur_mod_type_id').val();
+    var y = document.getElementById("wizard5_susp_recur_price");
+    if(cek_susp == 0){
+        y.type= "hidden";
+    }else{
+        y.type= "text";
+    }
+});
 </script>
 <script>
     // $(document).ready(function () {
@@ -892,7 +996,6 @@ $("#btn-lov-country").on('click', function() {
 
         //     var postData = $('#submit_form').serialize(),
         //         url = "<?php echo site_url('Customer_cont/createCustomer');?>";
-
         //     // Send the data using post
         //     $.ajax({
         //         url: url,
