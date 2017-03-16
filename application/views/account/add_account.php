@@ -1266,7 +1266,7 @@
 
     function setNPWP() {
         var npwp = $("#inNPWP").val();
-        var rowData = jQuery("#grid").jqGrid('getRowData', 5);
+        var rowData = jQuery("#grid").jqGrid('getRowData', 2);
         rowData.xs2 = npwp;
         jQuery("#grid").jqGrid('setRowData', 5, rowData);
     }

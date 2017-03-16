@@ -61,9 +61,9 @@
                     label: 'Account Number',
                     name: 'account_num',
                     width: 150,
-                    align: 'right',
+                    align: 'left',
                     hidden: false
-                },
+                },/*
                 {
                     label: 'Action',
                     name: 'action',
@@ -71,7 +71,7 @@
                     width: 150,
                     align: 'right'
 
-                },
+                },*/
                 {
                     label: 'Account Name',
                     name: 'account_name',

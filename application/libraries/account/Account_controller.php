@@ -416,8 +416,7 @@ class Account_controller
                 "c.billing_contact_seq = e.contact_seq",
                 "e.address_seq = f.address_seq",
                 "c.end_dat is null",
-                "e.end_dat is null",
-                "(a.account_num like '90%' or a.account_num like '80%')"
+                "e.end_dat is null"
             );
 
             if (!empty($customer_ref)) {
