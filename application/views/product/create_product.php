@@ -253,10 +253,11 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="control-label col-md-6">Customer Order Number
+                                                <label class="control-label col-md-6">Customer Order Number 
+                                                <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-6">
-                                                    <input type="text" readonly class="form-control" name="in_Customer_Order_Number" id="in_Customer_Order_Number">
+                                                    <input type="text" readonly class="form-control required" name="in_Customer_Order_Number" id="in_Customer_Order_Number">
                                                 </div>
                                             </div>
 
@@ -289,7 +290,7 @@
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-6">
-                                                    <input type="text" class="form-control required" name="in_Product_Label">
+                                                    <input type="text" class="form-control required" name="in_Product_Label" id="in_Product_Label">
                                                 </div>
                                             </div>
 
@@ -1028,6 +1029,20 @@ $('#susp_recur_mod_type_id').on('change', function() {
 
     $('#wizard1_account_num').on('change', function() {
         var id = $('#wizard1_account_num').val();
+
+        $.ajax({
+            url: "<?php echo base_url().'home/gen_prod/'; ?>"+id ,
+            type: "POST",
+            dataType: "json",
+            data: {},
+            success: function (data) {
+                $('#in_Product_Label').val(data.jml);
+            },
+            error: function (xhr, status, error) {
+                swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
+            }
+        });
+
         $.ajax({
                 url: "<?php echo base_url().'home/load_combo_budg/'; ?>" + id,
                 type: "POST",
@@ -1102,5 +1117,7 @@ $('#susp_recur_mod_type_id').on('change', function() {
             swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
         }
     });
+
+    
     
 </script>

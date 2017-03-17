@@ -128,6 +128,15 @@ class Home extends CI_Controller
         exit;
     }
 
+    function gen_prod($idd){
+        $sql = "select pack_lov.f_get_product_label ('".getUserName()."', '".$idd."') as jml from dual";
+        $query = $this->db->query($sql);
+        $items = $query->row(0);
+        
+        echo json_encode($items);
+        exit;
+    }
+
     function save_product(){
         // var_dump($this->input->post());
         // exit;
