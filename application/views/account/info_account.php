@@ -6,7 +6,7 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Info Account</span>
+            <span>Customer Account Info</span>
         </li>
     </ul>
 </div>
