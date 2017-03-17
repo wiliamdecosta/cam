@@ -23,7 +23,7 @@
 <!-- end breadcrumb -->
 <div class="space-4"></div>
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12" style="display:none;">
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption">
@@ -93,7 +93,7 @@
             <div class="portlet-title">
                 <div class="caption">
                     <i class=" icon-layers font-red"></i>
-						<span class="caption-subject font-red bold uppercase"> Penambahan Account -
+						<span class="caption-subject font-red bold uppercase"> Create Account -
 						<span class="step-title"> Step 1 of 5 </span>
 						</span>
                 </div>
@@ -413,8 +413,8 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-md-4 control-label">Block Name</label>
-                                                 <span class="required"> * </span>
+                                                <label class="col-md-4 control-label">Block Name  <span class="required"> * </span></label>
+                                                
                                                 <div class="col-md-8">
                                                     <input type="text" class="form-control uppercase required"
                                                            placeholder="Enter Block Name" id="inBlockName"
@@ -423,8 +423,8 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-md-4 control-label">District Name</label>
-                                                 <span class="required"> * </span>
+                                                <label class="col-md-4 control-label">District Name  <span class="required"> * </span></label>
+                                                
                                                 <div class="col-md-8">
                                                     <input type="text" class="form-control uppercase required"
                                                            placeholder="Enter District Name" id="inDistrictName"
@@ -433,17 +433,17 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-md-4 control-label">City</label>
+                                                <label class="col-md-4 control-label">City  <span class="required"> * </span></label>
                                                 <div class="col-md-8">
                                                     <input type="text" class="form-control uppercase required"
-                                                           placeholder="Enter text" id="inCity"
+                                                           placeholder="Enter City" id="inCity"
                                                            name="inCity"
                                                            value="" onkeyup="setDocumentAddr(this.value)" required>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-md-4 control-label">Province</label>
-                                                 <span class="required"> * </span>
+                                                <label class="col-md-4 control-label">Province <span class="required"> * </span></label>
+                                                
                                                 <div class="col-md-8">
                                                     <input type="text" class="form-control uppercase required"
                                                            placeholder="Enter Province" id="inProvinsi"
@@ -1268,7 +1268,7 @@
         var npwp = $("#inNPWP").val();
         var rowData = jQuery("#grid").jqGrid('getRowData', 2);
         rowData.xs2 = npwp;
-        jQuery("#grid").jqGrid('setRowData', 5, rowData);
+        jQuery("#grid").jqGrid('setRowData', 2, rowData);
     }
 
 </script>

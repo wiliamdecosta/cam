@@ -7,6 +7,7 @@
         </li>
         <li>
             <span>Account</span>
+             <i class="fa fa-circle"></i>
         </li>
          <li>
             <span>List Account</span>
@@ -139,7 +140,7 @@
             },
             //memanggil controller jqgrid yang ada di controller crud
             editurl: '<?php echo WS_JQGRID . "account.account_controller/crud"; ?>',
-            caption: "Account Details"
+            caption: "Account "
 
         });
 

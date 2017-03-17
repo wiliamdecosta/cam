@@ -7,6 +7,7 @@
         </li>
         <li>
             <span>Customer</span>
+             <i class="fa fa-circle"></i>
         </li>
          <li>
             <span>Create Customer</span>
@@ -17,7 +18,7 @@
 <!-- end breadcrumb -->
 <div class="space-4"></div>
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12" style="display: none;">
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption">
@@ -73,8 +74,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <br>
-                            <span style="color:#ff0000" id="txt_cusReff"></span>
+                           
                         </div>
                     </div>
                 </div>
@@ -139,7 +139,7 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="control-label col-md-4">Invoicing Company
+                                                <label class="control-label col-md-4">Customer Ref
                                                 </label>
                                                 <div class="col-md-8">
                                                     <input type="text" class="form-control" name="nipnas" id="nipnas" readonly>
@@ -201,6 +201,13 @@
                                 <div class="tab-pane" id="tab2">
                                     <div class="row">
                                         <div class="col-md-6">
+                                        <div class="form-group">
+                                                <label class="control-label col-md-4">Customer Ref
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input type="text" class="form-control" name="custref01" id="custref01" readonly>
+                                                </div>
+                                            </div>
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Title
                                                 </label>
@@ -569,6 +576,7 @@
                                     $("#txt_cusReff").html(data.strMessage);
                                     $("#custReff").val(data.txt_custRef);
                                     setval('nipnas',data.txt_custRef);
+                                    setval('custref01',data.txt_custRef);
                                 },
                                 error: function (xhr, status, error) {
                                     swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
@@ -664,6 +672,7 @@
                         swal('',data.strMessage);
                         $('#submit_form')[0].reset();
                         // Redirect
+                        loadContentWithParams('customer.create_customer', {});
                     }else{
                         swal('',data.strMessage);
                     }
