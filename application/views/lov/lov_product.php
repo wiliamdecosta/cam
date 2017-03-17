@@ -75,6 +75,7 @@
     }
 
     function modal_lov_product_prepare_table(parent_product_id) {
+        $("#modal_lov_product_grid_selection").bootgrid("destroy");
         $("#modal_lov_product_grid_selection").bootgrid({
              formatters: {
                 "opt-edit" : function(col, row) {
