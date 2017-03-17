@@ -150,14 +150,14 @@ class Home extends CI_Controller
         $i_orderHeader = "<?xml version='1.0'?>
             <orderHeader>
               <orderType>ZXAO</orderType>
-              <orderSubType/>
+              <orderSubType></orderSubType>
               <orderCode>AO</orderCode>
               <orderId>".$this->input->post('in_Customer_Order_Number')."</orderId> 
               <orderDate>".chnage_date_format($this->input->post('in_Start_Date_Time'))."</orderDate> 
               <soldToParty>".$this->input->post('wizard1_customer_ref')."</soldToParty>
-              <org/>
+              <org></org>
               <bundling>F</bundling>
-              <bundlingRef/>
+              <bundlingRef></bundlingRef>
               <DC>DBS</DC>
             </orderHeader>";
 
@@ -182,47 +182,46 @@ class Home extends CI_Controller
                                 <customerRef>".$this->input->post('wizard1_customer_ref')."</customerRef> 
                                 <accountNum>".$this->input->post('wizard1_account_num')."</accountNum> 
                                 <productId>".$this->input->post('wizard2_product_id')."</productId> 
-                                <parentProductId>".$this->input->post('wizard1_parent_product_id')."<parentProductId/> 
+                                <parentProductId>".$this->input->post('wizard1_parent_product_id')."</parentProductId> 
                                 <tariffId>".$this->input->post('wizard2_tariff_id')."</tariffId> 
-                                <competitorTariffId/>
-                                <subscriptionRef/>
+                                <competitorTariffId></competitorTariffId>
+                                <subscriptionRef></subscriptionRef>
                                 <supplierOrderNumber>".$this->input->post('in_Supplier_Order_Number')."</supplierOrderNumber> 
                                 <custOrderNumber>".$this->input->post('in_Customer_Order_Number')."</custOrderNumber> 
                                 <productLabel>".$this->input->post('in_Product_Label')."</productLabel> 
                                 <startDtm>".chnage_date_format($this->input->post('in_Start_Date_Time'))."</startDtm> 
-                                <endDtm/>
+                                <endDtm></endDtm>
                                 <productStatus>OK</productStatus>
                                 <statusReason>Aktivasi</statusReason>
                                 <cpsId>".$this->input->post('in_cps')."</cpsId> 
-                                <budgetCentreSeq>".$this->input->post('in_BudgetCenter')."<budgetCentreSeq/> 
+                                <budgetCentreSeq>".$this->input->post('in_BudgetCenter')."</budgetCentreSeq> 
                                 <productQty>".$this->input->post('in_Product_Quantity')."</productQty> 
                                 <productPrice>
                                   <customerRef>".$this->input->post('wizard1_customer_ref')."</customerRef> 
                                   <productId>".$this->input->post('wizard2_product_id')."</productId> 
                                   <startDate>".chnage_date_format($this->input->post('wizard5_in_Start_Date'))."</startDate>
                                   <endDate>".chnage_date_format($this->input->post('wizard5_in_End_Date'))."</endDate>
-                                  <productSeq/>
-                                  <overrideType>".$this->input->post('one_off_mod_type_id')."</overrideType> 
+                                  <productSeq></productSeq>
+                                  <oneOffModTypeId>".$this->input->post('one_off_mod_type_id')."</oneOffModTypeId>                                   
                                   <initiationCharge>".$this->input->post('wizard5_initiation_price')."</initiationCharge> 
-                                  <overrideType>".$this->input->post('recurring_mod_type_id')."</overrideType> 
-                                  <recurringCharge>".$this->input->post('one_off_mod_type_id')."</recurringCharge>
-                                  <overrideType>".$this->input->post('susp_mod_type_id')."</overrideType> 
-                                  <suspCharge>".$this->input->post('wizard5_suspesion_price')."<suspCharge/>
-                                  <overrideType>".$this->input->post('susp_recur_mod_type_id')."</overrideType> 
-                                  <suspRecurringCharge>".$this->input->post('wizard5_susp_recur_price')."<suspRecurringCharge/>
-                                  <overrideType>".$this->input->post('termination_mod_type_id')."</overrideType>
-                                  <termCharge>".$this->input->post('wizard5_termination_price')."<termCharge/>
-                                  <overrideType>".$this->input->post('react_mod_type_id')."</overrideType>
-                                  <reactivationCharge>".$this->input->post('wizard5_react_price')."<reactivationCharge/>
-                                  <overrideType>".$this->input->post('recurring_mod_type_id')."</overrideType>
-                                  <reactCharge/>".$this->input->post('wizard5_periodic_price')."<reactCharge/>
-                                  <earlyTermCharge/>
+                                  <recurringModTypeId>".$this->input->post('recurring_mod_type_id')."</recurringModTypeId> 
+                                  <recurringCharge>".$this->input->post('wizard5_periodic_price')."</recurringCharge>
+                                  <suspModTypeId>".$this->input->post('susp_mod_type_id')."</suspModTypeId>
+                                  <suspCharge>".$this->input->post('wizard5_suspesion_price')."</suspCharge>
+                                  <suspRecurModTypeId>".$this->input->post('susp_recur_mod_type_id')."</suspRecurModTypeId> 
+                                  <suspRecurringCharge>".$this->input->post('wizard5_susp_recur_price')."</suspRecurringCharge>                                
+                                  <terminationModTypeId>".$this->input->post('termination_mod_type_id')."</terminationModTypeId> 
+                                  <termCharge>".$this->input->post('wizard5_termination_price')."</termCharge>
+                                  <reactModTypeId>".$this->input->post('react_mod_type_id')."</reactModTypeId>
+                                  <reactivationCharge>".$this->input->post('wizard5_react_price')."</reactivationCharge>
+                                  <reactCharge></reactCharge>
+                                  <earlyTermCharge></earlyTermCharge>
                                 </productPrice>
                                 <installationAddr>
                                   <addr1>".$this->input->post('wizard5_in_Address_line1')."</addr1>
-                                  <addr2>".$this->input->post('wizard5_in_Address_line2')."<addr2/>
-                                  <addr3>".$this->input->post('wizard5_in_City')."<addr3/>
-                                  <addr4>".$this->input->post('wizard5_in_Additional_address_1')."<addr4/>
+                                  <addr2>".$this->input->post('wizard5_in_Address_line2')."</addr2>
+                                  <addr3>".$this->input->post('wizard5_in_City')."</addr3>
+                                  <addr4>".$this->input->post('wizard5_in_Additional_address_1')."</addr4>
                                   <addr5>".$this->input->post('wizard5_in_Additional_address_2')."</addr5>
                                   <postCode>".$this->input->post('wizard5_in_Zip_Code')."</postCode>
                                   <country>".$this->input->post('wizard5_country_code')."</country> 
