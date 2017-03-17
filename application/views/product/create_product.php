@@ -646,6 +646,9 @@ function isNumberKey(evt){
 $(".priceformat").number( true, 2 , '.',','); /* price number format */
 $(".priceformat").css("text-align", "right");
 
+$(".numberformat").number( true, 0 , '.',',');
+$(".numberformat").css("text-align", "right");
+
 $('#in_Product_Quantity').val("1");
 
 $("#btn-lov-customer").on('click', function() {
