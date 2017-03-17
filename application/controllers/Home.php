@@ -5,6 +5,7 @@ class Home extends CI_Controller
 
     function __construct() {
         parent::__construct();
+        $this->load->model('lov/Customer', 'cust');        
     }
 
     function index() {
@@ -232,7 +233,7 @@ class Home extends CI_Controller
                               </product>
                             </products>";
 
-        $sql = "BEGIN "
+            $sql = "BEGIN "
                     . " TLKCAMWEBINTERFACE.CreateOrderAO ("
                     . " :i_Order_Type, "
                     . " :i_Order_No, "
@@ -244,7 +245,9 @@ class Home extends CI_Controller
                     . " :o_orderStatus "
                     . "); END;";
 
-            $stmt = oci_parse($conn_id, $sql);
+            // var_dump($this->cust->db->conn_id);
+            // exit;
+            $stmt = oci_parse($this->cust->db->conn_id, $sql);
 
             //  Bind the input parameter
             oci_bind_by_name($stmt, ':i_Order_Type', $i_Order_Type);
@@ -256,7 +259,7 @@ class Home extends CI_Controller
             oci_bind_by_name($stmt, ':i_orderDoc', $i_orderDoc);
 
             // Bind the output parameter
-            oci_bind_by_name($stmt, ':o_orderStatus', $o_acc_num, 2000000);
+            oci_bind_by_name($stmt, ':o_orderStatus', $o_orderStatus, 2000000);
 
             ociexecute($stmt);
 
