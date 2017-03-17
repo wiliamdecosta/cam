@@ -57,6 +57,7 @@
 <script src="<?php echo base_url(); ?>jqwidgets/jqxdata.js"></script>
 
 <script src="<?php echo base_url(); ?>assets/js/optimal.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/jquery.number.min.js" type="text/javascript"></script>
 
 <script>
     function PopupCenter(url, title, w, h) {

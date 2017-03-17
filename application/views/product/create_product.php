@@ -260,7 +260,7 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="control-label col-md-6">Customer Order Number 
+                                                <label class="control-label col-md-6">Customer Order Number
                                                 <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-6">
@@ -376,10 +376,10 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-md-5">Address Line 1 
+                                                <label class="control-label col-md-5">Address Line 1
                                                     <span class="required">  * </span>
                                                 </label>
-                                                <div class="col-md-7">                                                    
+                                                <div class="col-md-7">
                                                 <input type="text" class="form-control required" name="wizard5_in_Address_line1" id="wizard5_in_Address_line1">
                                                 </div>
                                             </div>
@@ -408,7 +408,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-md-5">Zip Code 
+                                                <label class="control-label col-md-5">Zip Code
                                                     <span class="required">  * </span>
                                                 </label>
                                                 <div class="col-md-7">
@@ -417,7 +417,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-md-5">City 
+                                                <label class="control-label col-md-5">City
                                                     <span class="required">  * </span>
                                                 </label>
                                                 <div class="col-md-7">
@@ -483,13 +483,13 @@
                                                         $required='N',
                                                         ''
                                                     ); ?>
-                                                    
+
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="text" class="form-control" name="wizard5_initiation_price" id="wizard5_initiation_price" onkeypress="return isNumberKey(event);">
+                                                    <input type="text" class="form-control priceformat" name="wizard5_initiation_price" id="wizard5_initiation_price">
                                                 </div>
-                                                
+
                                             </div>
 
                                             <div class="form-group">
@@ -643,6 +643,8 @@ function isNumberKey(evt){
     return true;
 };
 
+$(".priceformat").number( true, 2 , '.',','); /* price number format */
+
 $('#in_Product_Quantity').val("1");
 
 $("#btn-lov-customer").on('click', function() {
@@ -712,7 +714,7 @@ $("#btn-lov-country").on('click', function() {
 });
 
 $('#susp_mod_type_id').on('change', function() {
-    
+
     var cek_susp = $('#susp_mod_type_id').val();
     var y = document.getElementById("wizard5_suspesion_price");
     if(cek_susp == 0){
@@ -724,7 +726,7 @@ $('#susp_mod_type_id').on('change', function() {
 });
 
 $('#react_mod_type_id').on('change', function() {
-    
+
     var cek_susp = $('#react_mod_type_id').val();
     var y = document.getElementById("wizard5_react_price");
     if(cek_susp == 0){
@@ -736,7 +738,7 @@ $('#react_mod_type_id').on('change', function() {
 });
 
 $('#one_off_mod_type_id').on('change', function() {
-    
+
     var cek_susp = $('#one_off_mod_type_id').val();
     var y = document.getElementById("wizard5_initiation_price");
     if(cek_susp == 0){
@@ -748,7 +750,7 @@ $('#one_off_mod_type_id').on('change', function() {
 });
 
 $('#recurring_mod_type_id').on('change', function() {
-    
+
     var cek_susp = $('#recurring_mod_type_id').val();
     var y = document.getElementById("wizard5_periodic_price");
     if(cek_susp == 0){
@@ -760,7 +762,7 @@ $('#recurring_mod_type_id').on('change', function() {
 });
 
 $('#termination_mod_type_id').on('change', function() {
-    
+
     var cek_susp = $('#termination_mod_type_id').val();
     var y = document.getElementById("wizard5_termination_price");
     if(cek_susp == 0){
@@ -772,7 +774,7 @@ $('#termination_mod_type_id').on('change', function() {
 });
 
 $('#susp_recur_mod_type_id').on('change', function() {
-    
+
     var cek_susp = $('#susp_recur_mod_type_id').val();
     var y = document.getElementById("wizard5_susp_recur_price");
     if(cek_susp == 0){
@@ -1135,6 +1137,6 @@ $('#susp_recur_mod_type_id').on('change', function() {
         }
     });
 
-    
-    
+
+
 </script>
