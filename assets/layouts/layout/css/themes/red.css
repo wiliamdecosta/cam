@@ -571,7 +571,7 @@
     .page-sidebar .page-sidebar-menu > li:last-child > a {
       border-bottom: 0 !important; }
     .page-sidebar .page-sidebar-menu > li .sub-menu {
-      background-color: #305778 !important; }
+      /*background-color: #305778 !important;*/ }
     .page-sidebar .page-sidebar-menu .sidebar-search input {
       background-color: #f6f6f6 !important; }
     .page-sidebar .page-sidebar-menu.page-sidebar-menu-light {
