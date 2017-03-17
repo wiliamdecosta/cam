@@ -476,7 +476,7 @@
                                                     <?php echo buatcombo2 (
                                                         $name='one_off_mod_type_id',
                                                         $id='one_off_mod_type_id',
-                                                        $table="table(pack_lov.get_modtypeid_list('".getUserName()."'))",
+                                                        $table="table(pack_lov.get_modtypeid_list('".getUserName()."')) order by N01 asc",
                                                         $field='s01',
                                                         $pk='n01',
                                                         $kondisi=array(),
