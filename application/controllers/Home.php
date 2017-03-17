@@ -139,7 +139,7 @@ class Home extends CI_Controller
     }
 
     function save_product(){
-        // var_dump($this->input->post());
+        // die($this->input->post('wizard5_initiation_price'));
         // exit;
 
         $i_Order_Type = 'ZXAO';
