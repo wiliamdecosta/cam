@@ -49,6 +49,8 @@
         $("#modal_lov_customer_btn_blank").on('click', function() {
             $("#"+ $("#modal_lov_customer_id_val").val()).val("");
             $("#"+ $("#modal_lov_customer_code_val").val()).val("");
+            $("#"+ $("#modal_lov_customer_id_val").val()).change();
+            $("#"+ $("#modal_lov_customer_code_val").val()).change();
             $("#modal_lov_customer").modal("toggle");
         });
     });
