@@ -654,6 +654,15 @@ $('#wizard1_customer_ref').on('change', function() {
     $('#wizard1_account_name').val('');
 });
 
+$("#btn-lov-parent-product").on('click', function(){
+    modal_lov_parent_product_show('wizard1_parent_product_id','wizard1_parent_product_name');
+});
+
+$("#wizard1_parent_product_id").on('change', function(){
+    $('#wizard2_product_id').val('');
+    $('#wizard2_product_name').val('');
+});
+
 $("#btn-lov-account").on('click', function() {
     var customer_ref = $('#wizard1_customer_ref').val();
     if(customer_ref == "") {
@@ -680,21 +689,13 @@ $("#btn-lov-price-plan").on('click', function() {
 
 $("#btn-lov-product").on('click', function(){
     var parent_product_id = $('#wizard1_parent_product_id').val();
-    /*if(parent_product_id == ""){
-        parent_product_id = null;
-    };*/
-    //alert(parent_product_id);
     modal_lov_product_show('wizard2_product_id','wizard2_product_name', parent_product_id);
 });
-
-$("#btn-lov-parent-product").on('click', function(){
-    modal_lov_parent_product_show('wizard1_parent_product_id','wizard1_parent_product_name');
-});
-
 $('#wizard2_product_id').on('change', function() {
     $('#wizard2_tariff_id').val('');
     $('#wizard2_tariff_name').val('');
 });
+
 
 
 $("#btn-lov-addr").on('click', function() {
