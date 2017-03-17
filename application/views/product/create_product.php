@@ -634,6 +634,7 @@
 <?php $this->load->view('lov/lov_product.php'); ?>
 <?php $this->load->view('lov/lov_addr.php'); ?>
 <?php $this->load->view('lov/lov_parent_product.php'); ?>
+<?php $this->load->view('lov/lov_country.php'); ?>
 <script>
 
 function isNumberKey(evt){
