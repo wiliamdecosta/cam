@@ -487,7 +487,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="text" class="form-control priceformat" name="wizard5_initiation_price" id="wizard5_initiation_price">
+                                                    <input type="text" class="form-control priceformat" name="wizard5_initiation_price" id="wizard5_initiation_price" style="display: none">
                                                 </div>
 
                                             </div>
@@ -500,7 +500,7 @@
                                                     <?php echo buatcombo2 (
                                                         $name='recurring_mod_type_id',
                                                         $id='recurring_mod_type_id',
-                                                        $table="table(pack_lov.get_modtypeid_list('".getUserName()."'))",
+                                                        $table="table(pack_lov.get_modtypeid_list('".getUserName()."')) order by N01 asc",
                                                         $field='s01',
                                                         $pk='n01',
                                                         $kondisi=array(),
@@ -510,7 +510,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="text" class="form-control" name="wizard5_periodic_price" id="wizard5_periodic_price" onkeypress="return isNumberKey(event);">
+                                                    <input type="text" class="form-control priceformat" name="wizard5_periodic_price" id="wizard5_periodic_price" style="display: none">
                                                 </div>
                                             </div>
 
@@ -522,7 +522,7 @@
                                                     <?php echo buatcombo2 (
                                                         $name='termination_mod_type_id',
                                                         $id='termination_mod_type_id',
-                                                        $table="table(pack_lov.get_modtypeid_list('".getUserName()."'))",
+                                                        $table="table(pack_lov.get_modtypeid_list('".getUserName()."')) order by N01 asc",
                                                         $field='s01',
                                                         $pk='n01',
                                                         $kondisi=array(),
@@ -532,7 +532,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="text" class="form-control" name="wizard5_termination_price" id="wizard5_termination_price" onkeypress="return isNumberKey(event)">
+                                                    <input type="text" class="form-control priceformat" name="wizard5_termination_price" id="wizard5_termination_price" style="display: none">
                                                 </div>
                                             </div>
 
@@ -544,7 +544,7 @@
                                                         <?php echo buatcombo2 (
                                                             $name='susp_mod_type_id',
                                                             $id='susp_mod_type_id',
-                                                            $table="table(pack_lov.get_modtypeid_list('".getUserName()."'))",
+                                                            $table="table(pack_lov.get_modtypeid_list('".getUserName()."')) order by N01 asc",
                                                             $field='s01',
                                                             $pk='n01',
                                                             $kondisi=array(),
@@ -554,7 +554,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="text" class="form-control" name="wizard5_suspesion_price" id="wizard5_suspesion_price" onkeypress="return isNumberKey(event)">
+                                                    <input type="text" class="form-control priceformat" name="wizard5_suspesion_price" id="wizard5_suspesion_price" style="display: none">
                                                 </div>
                                             </div>
 
@@ -566,7 +566,7 @@
                                                     <?php echo buatcombo2 (
                                                         $name='susp_recur_mod_type_id',
                                                         $id='susp_recur_mod_type_id',
-                                                        $table="table(pack_lov.get_modtypeid_list('".getUserName()."'))",
+                                                        $table="table(pack_lov.get_modtypeid_list('".getUserName()."')) order by N01 asc",
                                                         $field='s01',
                                                         $pk='n01',
                                                         $kondisi=array(),
@@ -576,7 +576,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="text" class="form-control" name="wizard5_susp_recur_price" id="wizard5_susp_recur_price" onkeypress="return isNumberKey(event)">
+                                                    <input type="text" class="form-control priceformat" name="wizard5_susp_recur_price" id="wizard5_susp_recur_price" style="display: none">
                                                 </div>
                                             </div>
 
@@ -588,7 +588,7 @@
                                                     <?php echo buatcombo2 (
                                                         $name='react_mod_type_id',
                                                         $id='react_mod_type_id',
-                                                        $table="table(pack_lov.get_modtypeid_list('".getUserName()."'))",
+                                                        $table="table(pack_lov.get_modtypeid_list('".getUserName()."')) order by N01 asc",
                                                         $field='s01',
                                                         $pk='n01',
                                                         $kondisi=array(),
@@ -598,7 +598,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="text" class="form-control" name="wizard5_react_price" id="wizard5_react_price" onkeypress="return isNumberKey(event)">
+                                                    <input type="text" class="form-control priceformat" name="wizard5_react_price" id="wizard5_react_price" style="display: none">
                                                 </div>
                                             </div>
                                         </div>
@@ -663,6 +663,8 @@ $("#btn-lov-parent-product").on('click', function(){
 $("#wizard1_parent_product_id").on('change', function(){
     $('#wizard2_product_id').val('');
     $('#wizard2_product_name').val('');
+    $('#wizard2_tariff_id').val('');
+    $('#wizard2_tariff_name').val('');
 });
 
 $("#btn-lov-account").on('click', function() {
@@ -718,10 +720,10 @@ $('#susp_mod_type_id').on('change', function() {
     var cek_susp = $('#susp_mod_type_id').val();
     var y = document.getElementById("wizard5_suspesion_price");
     if(cek_susp == 0){
-        y.type= "hidden";
+        y.style.display = "none";
         y.value = "";
     }else{
-        y.type= "text";
+        y.style.display = "";
     }
 });
 
@@ -730,10 +732,10 @@ $('#react_mod_type_id').on('change', function() {
     var cek_susp = $('#react_mod_type_id').val();
     var y = document.getElementById("wizard5_react_price");
     if(cek_susp == 0){
-        y.type= "hidden";
+        y.style.display = "none";
         y.value = "";
     }else{
-        y.type= "text";
+        y.style.display = "";
     }
 });
 
@@ -742,10 +744,10 @@ $('#one_off_mod_type_id').on('change', function() {
     var cek_susp = $('#one_off_mod_type_id').val();
     var y = document.getElementById("wizard5_initiation_price");
     if(cek_susp == 0){
-        y.type= "hidden";
+        y.style.display = "none";
         y.value = "";
     }else{
-        y.type= "text";
+        y.style.display = "";
     }
 });
 
@@ -754,10 +756,10 @@ $('#recurring_mod_type_id').on('change', function() {
     var cek_susp = $('#recurring_mod_type_id').val();
     var y = document.getElementById("wizard5_periodic_price");
     if(cek_susp == 0){
-        y.type= "hidden";
+        y.style.display = "none";
         y.value = "";
     }else{
-        y.type= "text";
+        y.style.display = "";
     }
 });
 
@@ -766,10 +768,10 @@ $('#termination_mod_type_id').on('change', function() {
     var cek_susp = $('#termination_mod_type_id').val();
     var y = document.getElementById("wizard5_termination_price");
     if(cek_susp == 0){
-        y.type= "hidden";
+        y.style.display = "none";
         y.value = "";
     }else{
-        y.type= "text";
+        y.style.display = "";
     }
 });
 
@@ -778,10 +780,10 @@ $('#susp_recur_mod_type_id').on('change', function() {
     var cek_susp = $('#susp_recur_mod_type_id').val();
     var y = document.getElementById("wizard5_susp_recur_price");
     if(cek_susp == 0){
-        y.type= "hidden";
+        y.style.display = "none";
         y.value = "";
     }else{
-        y.type= "text";
+        y.style.display = "";
     }
 });
 </script>
