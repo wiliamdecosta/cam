@@ -163,13 +163,15 @@ class Home extends CI_Controller
 
         $prod = "";
         $attrId = array();
+        $attrType = array();
         $attr = array();
         $attrId = $this->input->post('attributesId');
+        $attrType = $this->input->post('attributesType');
         $attr = $this->input->post('attributes');
         for($i=0; $i<count($attrId); $i++){
              $prod .= "<productAttribute>";
              $prod .= "<attrName>".$attrId[$i]."</attrName>";
-             $prod .= "<attrType>C</attrType>";
+             $prod .= "<attrType>".$attrType[$i]."</attrType>";
              $prod .= "<attrValue>".$attr[$i]."</attrValue>";
              $prod .= "</productAttribute>";  
         }
