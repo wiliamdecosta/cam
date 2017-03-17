@@ -39,6 +39,12 @@
 <style>
     .jqx-tree {border:none !important;}
     #paneltree-menu {border:none !important;}
+    .logo-cam {
+        position:fixed;
+        top:12px;
+        left:150px;
+        z-index:15;
+    }
 </style>
 
 <!--<link rel="stylesheet" type="text/css" href="--><?php //echo base_url(); ?><!--assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css"/>-->

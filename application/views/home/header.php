@@ -22,6 +22,9 @@
     <!-- END HEAD -->
 
     <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+        <div class="logo-cam">
+            <img src="<?php echo base_url().'assets/image/logo_cam.png'; ?>" height="30px">
+        </div>
         <!-- BEGIN HEADER -->
         <div class="page-header navbar navbar-fixed-top">
             <!-- BEGIN HEADER INNER -->

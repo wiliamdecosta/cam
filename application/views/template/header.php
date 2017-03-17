@@ -18,6 +18,9 @@
 
     <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-md page-header-fixed page-sidebar-fixed">
         <!-- BEGIN HEADER -->
+        <div class="logo-cam">
+            <img src="<?php echo base_url().'assets/image/logo_cam.png'; ?>" height="30px">
+        </div>
         <div class="page-header navbar navbar-fixed-top">
             <!-- BEGIN HEADER INNER -->
             <div class="page-header-inner ">
@@ -26,9 +29,6 @@
                     <a href="<?php base_url();?>">
                         <img src="<?php echo base_url().'assets/image/telkom_small2.jpg'; ?>">
                     </a>
-                    <div class="menu-toggler sidebar-toggler">
-                        <span></span>
-                    </div>
                 </div>
                 <!-- END LOGO -->
                 <!-- BEGIN RESPONSIVE MENU TOGGLER -->
