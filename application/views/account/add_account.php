@@ -105,35 +105,35 @@
                             <ul class="nav nav-pills nav-justified steps">
                                 <li>
                                     <a href="#tab1" data-toggle="tab" class="step">
-                                        <span class="number"> 1 </span>
+                                        <span class="number"> 1 </span><br>
 									<span class="desc">
 									<i class="fa fa-check"></i> Account and Tax </span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#tab2" data-toggle="tab" class="step">
-                                        <span class="number"> 2 </span>
+                                        <span class="number"> 2 </span><br>
 									<span class="desc">
 									<i class="fa fa-check"></i> Finance </span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#tab3" data-toggle="tab" class="step">
-                                        <span class="number"> 3 </span>
+                                        <span class="number"> 3 </span><br>
 									<span class="desc">
 									<i class="fa fa-check"></i> Billing Contact </span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#tab4" data-toggle="tab" class="step">
-                                        <span class="number"> 4 </span>
+                                        <span class="number"> 4 </span><br>
 									<span class="desc">
 									<i class="fa fa-check"></i> Billing Detail </span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#tab5" data-toggle="tab" class="step">
-                                        <span class="number"> 5 </span>
+                                        <span class="number"> 5 </span><br>
 									<span class="desc">
 									<i class="fa fa-check"></i> Additional Information </span>
                                     </a>
@@ -414,7 +414,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-md-4 control-label">Block Name  <span class="required"> * </span></label>
-                                                
+
                                                 <div class="col-md-8">
                                                     <input type="text" class="form-control uppercase required"
                                                            placeholder="Enter Block Name" id="inBlockName"
@@ -424,7 +424,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-md-4 control-label">District Name  <span class="required"> * </span></label>
-                                                
+
                                                 <div class="col-md-8">
                                                     <input type="text" class="form-control uppercase required"
                                                            placeholder="Enter District Name" id="inDistrictName"
@@ -443,7 +443,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-md-4 control-label">Province <span class="required"> * </span></label>
-                                                
+
                                                 <div class="col-md-8">
                                                     <input type="text" class="form-control uppercase required"
                                                            placeholder="Enter Province" id="inProvinsi"
