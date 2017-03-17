@@ -152,7 +152,7 @@ class Home extends CI_Controller
               <orderSubType/>
               <orderCode>AO</orderCode>
               <orderId>".$this->input->post('in_Customer_Order_Number')."</orderId> 
-              <orderDate>".$this->input->post('in_Start_Date_Time')."</orderDate> 
+              <orderDate>".chnage_date_format($this->input->post('in_Start_Date_Time'))."</orderDate> 
               <soldToParty>".$this->input->post('wizard1_customer_ref')."</soldToParty>
               <org/>
               <bundling>F</bundling>
@@ -177,7 +177,7 @@ class Home extends CI_Controller
                             <products>  
                               <product>
                                 <currency>IDR</currency>
-                                <ppnEffectiveDat>".$this->input->post('in_Start_Date_Time')."</ppnEffectiveDat> 
+                                <ppnEffectiveDat>".chnage_date_format($this->input->post('in_Start_Date_Time'))."</ppnEffectiveDat> 
                                 <customerRef>".$this->input->post('wizard1_customer_ref')."</customerRef> 
                                 <accountNum>".$this->input->post('wizard1_account_num')."</accountNum> 
                                 <productId>".$this->input->post('wizard2_product_id')."</productId> 
@@ -188,7 +188,7 @@ class Home extends CI_Controller
                                 <supplierOrderNumber>".$this->input->post('in_Supplier_Order_Number')."</supplierOrderNumber> 
                                 <custOrderNumber>".$this->input->post('in_Customer_Order_Number')."</custOrderNumber> 
                                 <productLabel>".$this->input->post('in_Product_Label')."</productLabel> 
-                                <startDtm>".$this->input->post('in_Start_Date_Time')."</startDtm> 
+                                <startDtm>".chnage_date_format($this->input->post('in_Start_Date_Time'))."</startDtm> 
                                 <endDtm/>
                                 <productStatus>OK</productStatus>
                                 <statusReason>Aktivasi</statusReason>
@@ -198,8 +198,8 @@ class Home extends CI_Controller
                                 <productPrice>
                                   <customerRef>".$this->input->post('wizard1_customer_ref')."</customerRef> 
                                   <productId>".$this->input->post('wizard2_product_id')."</productId> 
-                                  <startDate>".$this->input->post('wizard5_in_Start_Date')."</startDate>
-                                  <endDate>".$this->input->post('wizard5_in_End_Date')."</endDate>
+                                  <startDate>".chnage_date_format($this->input->post('wizard5_in_Start_Date'))."</startDate>
+                                  <endDate>".chnage_date_format($this->input->post('wizard5_in_End_Date'))."</endDate>
                                   <productSeq/>
                                   <overrideType>".$this->input->post('one_off_mod_type_id')."</overrideType> 
                                   <initiationCharge>".$this->input->post('wizard5_initiation_price')."</initiationCharge> 
@@ -231,7 +231,8 @@ class Home extends CI_Controller
                                 </productAttributes>
                               </product>
                             </products>";
-                            // die($i_orderDoc);
+                            die($i_orderDoc);
+                            /*
         $sql = "BEGIN "
                     . " TLKCAMWEBINTERFACE.CreateOrderAO ("
                     . " :i_Order_Type, "
@@ -261,7 +262,7 @@ class Home extends CI_Controller
             ociexecute($stmt);
 
             return array('status' => $o_orderStatus);
-            
+            */
     }
 
 }
