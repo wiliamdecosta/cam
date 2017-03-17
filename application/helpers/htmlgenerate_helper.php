@@ -315,7 +315,7 @@ if (!function_exists('generatehtml')) {
     function chnage_date_format($source = ''){
 
         $date = new DateTime($source);
-        $data = $date->format('mdY H:i:s');
+        $data = $date->format('Ymd H:i:s');
         return $data;
     }
 }
