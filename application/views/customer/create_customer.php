@@ -152,7 +152,7 @@
                                                 <div class="col-md-8">
                                                     <?php echo buatcombo2($nama = 'in_CustomerType',
                                                         $id= 'in_CustomerType',
-                                                        $table= "table(pack_lov.get_invoicingcompany_list('user_name', ''))",
+                                                        $table= "table(pack_lov.get_invoicingcompany_list('".$this->session->userdata('user_name')."', ''))",
                                                         $field= 's21',
                                                         $pk = 'n01',
                                                         $kondisi = array(),

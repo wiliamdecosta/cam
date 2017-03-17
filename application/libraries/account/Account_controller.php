@@ -411,13 +411,13 @@ class Account_controller
             );
 
             // Filter Table
-            $req_param['where'] = array(
+            /*$req_param['where'] = array(
 //                "b.account_status = 'OK'",
                 "c.billing_contact_seq = e.contact_seq",
                 "e.address_seq = f.address_seq",
                 "c.end_dat is null",
                 "e.end_dat is null"
-            );
+            );*/
 
             if (!empty($customer_ref)) {
                 $req_param['where'][] = "a.customer_ref = '" . $customer_ref . "'";

@@ -40,7 +40,7 @@ class Customer extends Abstract_model {
                                         n01 as MARKET_SEGMENT_ID ,
                                         s04 as PARENT_CUSTOMER_REF ,
                                         n02 as INVOICING_CO_ID 
-                                 from table(pack_list_cust_acc_prod.customer_list('ADMIN', ''))
+                                 from table(pack_list_cust_acc_prod.customer_list(%s, ''))
                                  ) ct ";
 
     public $refs            = array();
