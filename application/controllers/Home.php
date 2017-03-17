@@ -152,6 +152,8 @@ class Home extends CI_Controller
             </orderHeader>";
 
         $prod = "";
+        $attrId = array();
+        $attr = array();
         $attrId = $this->input->post('attributesId');
         $attr = $this->input->post('attributes');
         for($i=0; $i<count($attrId); $i++){
