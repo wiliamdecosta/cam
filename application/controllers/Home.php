@@ -152,8 +152,8 @@ class Home extends CI_Controller
               <orderType>ZXAO</orderType>
               <orderSubType></orderSubType>
               <orderCode>AO</orderCode>
-              <orderId>".$this->input->post('in_Customer_Order_Number')."</orderId>
-              <orderDate>".chnage_date_format($this->input->post('in_Start_Date_Time'))."</orderDate>
+              <orderId>".$this->input->post('in_Customer_Order_Number')."</orderId> 
+              <orderDate>".change_date_format($this->input->post('in_Start_Date_Time'))."</orderDate> 
               <soldToParty>".$this->input->post('wizard1_customer_ref')."</soldToParty>
               <org></org>
               <bundling>F</bundling>
@@ -180,18 +180,18 @@ class Home extends CI_Controller
                             <products>
                               <product>
                                 <currency>IDR</currency>
-                                <ppnEffectiveDat>".chnage_date_format($this->input->post('in_Start_Date_Time'))."</ppnEffectiveDat>
-                                <customerRef>".$this->input->post('wizard1_customer_ref')."</customerRef>
-                                <accountNum>".$this->input->post('wizard1_account_num')."</accountNum>
-                                <productId>".$this->input->post('wizard2_product_id')."</productId>
-                                <parentProductId>".$this->input->post('wizard1_parent_product_id')."</parentProductId>
-                                <tariffId>".$this->input->post('wizard2_tariff_id')."</tariffId>
+                                <ppnEffectiveDat>".change_date_format($this->input->post('in_Start_Date_Time'))."</ppnEffectiveDat> 
+                                <customerRef>".$this->input->post('wizard1_customer_ref')."</customerRef> 
+                                <accountNum>".$this->input->post('wizard1_account_num')."</accountNum> 
+                                <productId>".$this->input->post('wizard2_product_id')."</productId> 
+                                <parentProductId>".$this->input->post('wizard1_parent_product_id')."</parentProductId> 
+                                <tariffId>".$this->input->post('wizard2_tariff_id')."</tariffId> 
                                 <competitorTariffId></competitorTariffId>
                                 <subscriptionRef></subscriptionRef>
-                                <supplierOrderNumber>".$this->input->post('in_Supplier_Order_Number')."</supplierOrderNumber>
-                                <custOrderNumber>".$this->input->post('in_Customer_Order_Number')."</custOrderNumber>
-                                <productLabel>".$this->input->post('in_Product_Label')."</productLabel>
-                                <startDtm>".chnage_date_format($this->input->post('in_Start_Date_Time'))."</startDtm>
+                                <supplierOrderNumber>".$this->input->post('in_Supplier_Order_Number')."</supplierOrderNumber> 
+                                <custOrderNumber>".$this->input->post('in_Customer_Order_Number')."</custOrderNumber> 
+                                <productLabel>".$this->input->post('in_Product_Label')."</productLabel> 
+                                <startDtm>".change_date_format($this->input->post('in_Start_Date_Time'))."</startDtm> 
                                 <endDtm></endDtm>
                                 <productStatus>OK</productStatus>
                                 <statusReason>Aktivasi</statusReason>
@@ -201,8 +201,8 @@ class Home extends CI_Controller
                                 <productPrice>
                                   <customerRef>".$this->input->post('wizard1_customer_ref')."</customerRef>
                                   <productId>".$this->input->post('wizard2_product_id')."</productId>
-                                  <startDate>".chnage_date_format($this->input->post('wizard5_in_Start_Date'))."</startDate>
-                                  <endDate>".chnage_date_format($this->input->post('wizard5_in_End_Date'))."</endDate>
+                                  <startDate>".change_date_format($this->input->post('wizard5_in_Start_Date'))."</startDate>
+                                  <endDate>".change_date_format($this->input->post('wizard5_in_End_Date'))."</endDate>
                                   <productSeq></productSeq>
                                   <oneOffModTypeId>".$this->input->post('one_off_mod_type_id')."</oneOffModTypeId>
                                   <initiationCharge>".$this->input->post('wizard5_initiation_price')."</initiationCharge>

@@ -281,7 +281,7 @@ if (!function_exists('generatehtml')) {
             }else{
                 $html .= "<div class='col-md-4'>";
                 $html .= "<input type='hidden' class='form-control' name='attributesType[]' value='D'>";
-                $html .= "<input type='hidden' class='form-control' name='attributesId[]' value='".chnage_date_format($data['attribute_bill_name'])."'>";
+                $html .= "<input type='hidden' class='form-control' name='attributesId[]' value='".$data['attribute_bill_name']."'>";
                 $html .= "<input type='text' class='form-control datepickerON".$req."' name='attributes[]'>"; 
             }        
             
@@ -315,7 +315,7 @@ if (!function_exists('generatehtml')) {
         }
     }
 
-    function chnage_date_format($source = ''){
+    function change_date_format($source = ''){
 
         $date = new DateTime($source);
         $data = $date->format('Ymd H:i:s');
