@@ -47,7 +47,7 @@
         <div class="content">
             <!-- BEGIN LOGIN FORM -->
             <form class="login-form" name="login_form" action="<?php echo $login_url;?>" method="post">
-                <h3 class="form-title">CAMWEB - Telkom Indonesia</h3>
+                <h4 class="form-title">CAMWEB - Telkom Indonesia</h4>
                 <?php if($this->session->flashdata('error_message') != ""): ?>
                     <div class="alert alert-danger alert-dismissible" role="alert">
                         <button aria-label="Close" data-dismiss="alert" class="close" type="button"><span aria-hidden="true">×</span></button>
