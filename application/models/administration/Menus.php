@@ -123,7 +123,7 @@ class Menus extends Abstract_model {
         $html[] = '<li class="nav-item start active" data-source="dashboard">
                         <a href="javascript:;" class="nav-link nav-toggle">
                             <i class="icon-home"></i>
-                            <span class="title">Dashboard</span>
+                            <span class="title">Home</span>
                         </a>
                    </li>';
 

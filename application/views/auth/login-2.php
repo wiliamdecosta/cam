@@ -8,7 +8,7 @@
 
     <head>
         <meta charset="utf-8" />
-        <title>CAM</title>
+        <title>CAMWEB</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="" name="description" />
@@ -47,7 +47,7 @@
         <div class="content">
             <!-- BEGIN LOGIN FORM -->
             <form class="login-form" name="login_form" action="<?php echo $login_url;?>" method="post">
-                <h3 class="form-title">CAM - Telkom Indonesia</h3>
+                <h3 class="form-title">CAMWEB - Telkom Indonesia</h3>
                 <?php if($this->session->flashdata('error_message') != ""): ?>
                     <div class="alert alert-danger alert-dismissible" role="alert">
                         <button aria-label="Close" data-dismiss="alert" class="close" type="button"><span aria-hidden="true">×</span></button>

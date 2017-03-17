@@ -6,14 +6,14 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Dashboard</span>
+            <span>Home</span>
             <?php /*print_r($this->session->all_userdata()); */?>
         </li>
     </ul>
 </div>
 <!-- end breadcrumb -->
 
-<h3 class="page-title"> Dashboard</h3>
+<h3 class="page-title">Home</h3>
 <div class="alert alert-default" role="alert">
-    <strong class="red">Welcome to CAM</strong>
+    <strong class="red">Welcome to CAMWEB</strong>
 </div>
