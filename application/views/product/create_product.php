@@ -493,24 +493,25 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-md-4">Periodic
+                                                <label class="control-label col-md-4">Periodic 
+                                                    <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-4">
                                                     <div class="input-group">
                                                     <?php echo buatcombo2 (
                                                         $name='recurring_mod_type_id',
                                                         $id='recurring_mod_type_id',
-                                                        $table="table(pack_lov.get_modtypeid_list('".getUserName()."')) order by N01 asc",
+                                                        $table="table(pack_lov.get_modtypeid_list('".getUserName()."')) order by N01 desc",
                                                         $field='s01',
                                                         $pk='n01',
                                                         $kondisi=array(),
-                                                        $required='N',
+                                                        $required='Y',
                                                         ''
                                                     ); ?>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="text" class="form-control priceformat" name="wizard5_periodic_price" id="wizard5_periodic_price" style="display: none">
+                                                    <input type="text" class="form-control priceformat required" name="wizard5_periodic_price" id="wizard5_periodic_price">
                                                 </div>
                                             </div>
 
@@ -1023,7 +1024,11 @@ $('#susp_recur_mod_type_id').on('change', function() {
         // setval('txt_petugas',username);
         /* End Init Transaction */
 
+
         $('#submit_form').on('submit', (function (e) {
+            if(!$("#submit_form").valid()) {
+                return false;
+            }
             // Stop form from submitting normally
             e.preventDefault();
 
