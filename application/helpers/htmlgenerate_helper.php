@@ -268,15 +268,18 @@ if (!function_exists('generatehtml')) {
 
             if($data['attribute_units'] == "TX"){
                 $html .= "<div class='col-md-8'>";
-                $html .= "<input type='text' class='form-control".$req."' name='".$data['attribute_bill_name']."'>";
+                $html .= "<input type='hidden' class='form-control' name='attributesId[]' value='".$data['attribute_bill_name']."'>";
+                $html .= "<input type='text' class='form-control".$req."' name='attributes[]'>";
 
             }else if($data['attribute_units'] == "IN"){
                 $html .= "<div class='col-md-5'>";
-                $html .= "<input type='number' class='form-control".$req."' name='".$data['attribute_bill_name']."'>";
+                $html .= "<input type='hidden' class='form-control' name='attributesId[]' value='".$data['attribute_bill_name']."'>";
+                $html .= "<input type='number' class='form-control".$req."' name='attributes[]'>";
 
             }else{
                 $html .= "<div class='col-md-4'>";
-                $html .= "<input type='text' class='form-control datepickerON".$req."' name='".$data['attribute_bill_name']."'>"; 
+                $html .= "<input type='hidden' class='form-control' name='attributesId[]' value='".$data['attribute_bill_name']."'>";
+                $html .= "<input type='text' class='form-control datepickerON".$req."' name='attributes[]'>"; 
             }        
             
             

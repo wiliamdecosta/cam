@@ -41,7 +41,7 @@ class Home extends CI_Controller
         $query = $this->db->query($sql);
         $items = $query->result_array();
         $html = "";
-        $html.="<select name='in_BudgetCenter' id='in_BudgetCenter'  class='form-control required'>";
+        $html.="<select name='in_cps' id='in_cps'  class='form-control required'>";
         foreach ($items as $data) {
           $html .=" <option value='" . $data['cps_id'] . "'>" . $data['cps_name'] . "</option>";
         }
@@ -119,17 +119,106 @@ class Home extends CI_Controller
         exit;
     }
 
-    function save_product(){
-        var_dump($this->input->post());
+    function gen_con(){
+        $sql = "select f_get_order_num ('".getUserName()."') from dual";
+        $query = $this->db->query($sql);
+        $items = $query->result_array();
+        
+        echo $htlm;
         exit;
-        /*
-        $i_Order_Type = $this->input->post('test');
-        $i_Order_No = $this->input->post('test');
-        $i_Customer_Ref = $this->input->post('test');
-        $i_Account_Num = $this->input->post('test');
-        $i_UserName = $this->input->post('test');
-        $i_orderHeader = $this->input->post('test');
-        $i_orderDoc = $this->input->post('test');
+    }
+
+    function save_product(){
+        // var_dump($this->input->post());
+        // exit;
+
+        $i_Order_Type = 'ZXAO';
+        $i_Order_No = $this->input->post('in_Customer_Order_Number');
+        $i_Customer_Ref = $this->input->post('wizard1_customer_ref');
+        $i_Account_Num = $this->input->post('wizard1_account_num');
+        $i_UserName = getUserName();
+        $i_orderHeader = "<?xml version='1.0'?>
+            <orderHeader>
+              <orderType>ZXAO</orderType>
+              <orderSubType/>
+              <orderCode>AO</orderCode>
+              <orderId>".$this->input->post('in_Customer_Order_Number')."</orderId> 
+              <orderDate>".$this->input->post('in_Start_Date_Time')."</orderDate> 
+              <soldToParty>".$this->input->post('wizard1_customer_ref')."</soldToParty>
+              <org/>
+              <bundling>F</bundling>
+              <bundlingRef/>
+              <DC>DBS</DC>
+            </orderHeader>";
+
+        $prod = "";
+        $attrId = $this->input->post('attributesId');
+        for($i=0; $i<count($attrId); $i++){
+             $prod .= "<productAttribute>";
+             $prod .= "<attrName>".$attrId[$i]."</attrName>";
+             $prod .= "<attrType>C</attrType>";
+             $prod .= "<attrValue>".$this->input->post('attributes')[$i]."</attrValue>";
+             $prod .= "</productAttribute>";  
+        }
+
+        $i_orderDoc = "<?xml version='1.0'?>
+                            <products>  
+                              <product>
+                                <currency>IDR</currency>
+                                <ppnEffectiveDat>".$this->input->post('in_Start_Date_Time')."</ppnEffectiveDat> 
+                                <customerRef>".$this->input->post('wizard1_customer_ref')."</customerRef> 
+                                <accountNum>".$this->input->post('wizard1_account_num')."</accountNum> 
+                                <productId>".$this->input->post('wizard2_product_id')."</productId> 
+                                <parentProductId>".$this->input->post('in_Parent_Product')."<parentProductId/> 
+                                <tariffId>".$this->input->post('wizard2_tariff_id')."</tariffId> 
+                                <competitorTariffId/>
+                                <subscriptionRef/>
+                                <supplierOrderNumber>".$this->input->post('in_Supplier_Order_Number')."</supplierOrderNumber> 
+                                <custOrderNumber>".$this->input->post('in_Customer_Order_Number')."</custOrderNumber> 
+                                <productLabel>".$this->input->post('in_Product_Label')."</productLabel> 
+                                <startDtm>".$this->input->post('in_Start_Date_Time')."</startDtm> 
+                                <endDtm/>
+                                <productStatus>OK</productStatus>
+                                <statusReason>Aktivasi</statusReason>
+                                <cpsId>".$this->input->post('in_cps')."</cpsId> 
+                                <budgetCentreSeq>".$this->input->post('in_BudgetCenter')."<budgetCentreSeq/> 
+                                <productQty>".$this->input->post('in_Product_Quantity')."</productQty> 
+                                <productPrice>
+                                  <customerRef>".$this->input->post('wizard1_customer_ref')."</customerRef> 
+                                  <productId>".$this->input->post('wizard2_product_id')."</productId> 
+                                  <startDate>".$this->input->post('wizard5_in_Start_Date')."</startDate>
+                                  <endDate>".$this->input->post('wizard5_in_End_Date')."</endDate>
+                                  <productSeq/>
+                                  <overrideType>".$this->input->post('one_off_mod_type_id')."</overrideType> 
+                                  <initiationCharge>".$this->input->post('wizard5_initiation_price')."</initiationCharge> 
+                                  <overrideType>".$this->input->post('recurring_mod_type_id')."</overrideType> 
+                                  <recurringCharge>".$this->input->post('one_off_mod_type_id')."</recurringCharge>
+                                  <overrideType>".$this->input->post('susp_mod_type_id')."</overrideType> 
+                                  <suspCharge>".$this->input->post('wizard5_suspesion_price')."<suspCharge/>
+                                  <overrideType>".$this->input->post('susp_recur_mod_type_id')."</overrideType> 
+                                  <suspRecurringCharge>".$this->input->post('wizard5_susp_recur_price')."<suspRecurringCharge/>
+                                  <overrideType>".$this->input->post('termination_mod_type_id')."</overrideType>
+                                  <termCharge>".$this->input->post('wizard5_termination_price')."<termCharge/>
+                                  <overrideType>".$this->input->post('react_mod_type_id')."</overrideType>
+                                  <reactivationCharge>".$this->input->post('wizard5_react_price')."<reactivationCharge/>
+                                  <overrideType>".$this->input->post('recurring_mod_type_id')."</overrideType>
+                                  <reactCharge/>".$this->input->post('wizard5_periodic_price')."<reactCharge/>
+                                  <earlyTermCharge/>
+                                </productPrice>
+                                <installationAddr>
+                                  <addr1>".$this->input->post('wizard5_in_Address_line1')."</addr1>
+                                  <addr2>".$this->input->post('wizard5_in_Address_line2')."<addr2/>
+                                  <addr3>".$this->input->post('wizard5_in_City')."<addr3/>
+                                  <addr4>".$this->input->post('wizard5_in_Additional_address_1')."<addr4/>
+                                  <addr5>".$this->input->post('wizard5_in_Additional_address_2')."</addr5>
+                                  <postCode>".$this->input->post('wizard5_in_Zip_Code')."</postCode>
+                                  <country>".$this->input->post('wizard5_country_code')."</country> 
+                                </installationAddr>
+                                <productAttributes>
+                                ".$prod."
+                                </productAttributes>
+                              </product>
+                            </products>";
 
         $sql = "BEGIN "
                     . " TLKCAMWEBINTERFACE.CreateOrderAO ("
@@ -160,7 +249,7 @@ class Home extends CI_Controller
             ociexecute($stmt);
 
             return array('status' => $o_orderStatus);
-            */
+            
     }
 
 }

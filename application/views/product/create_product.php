@@ -256,7 +256,7 @@
                                                 <label class="control-label col-md-6">Customer Order Number
                                                 </label>
                                                 <div class="col-md-6">
-                                                    <input type="text" readonly class="form-control" name="in_Customer_Order_Number">
+                                                    <input type="text" readonly class="form-control" name="in_Customer_Order_Number" id="in_Customer_Order_Number">
                                                 </div>
                                             </div>
 
@@ -1089,4 +1089,19 @@ $('#susp_recur_mod_type_id').on('change', function() {
     //     format: "mm/dd/yyyy",
     //     autoclose: true
     // });
+    
+    // $.ajax({
+    //     url: <?php echo base_url().'home/gen_con'; ?>,
+    //     type: "POST",
+    //     dataType: "json",
+    //     data: {},
+    //     success: function (data) {
+    //         $('#in_Customer_Order_Number').val();
+
+    //     },
+    //     error: function (xhr, status, error) {
+    //         swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
+    //     }
+    // });
+    
 </script>
