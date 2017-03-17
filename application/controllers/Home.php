@@ -181,7 +181,7 @@ class Home extends CI_Controller
                                 <customerRef>".$this->input->post('wizard1_customer_ref')."</customerRef> 
                                 <accountNum>".$this->input->post('wizard1_account_num')."</accountNum> 
                                 <productId>".$this->input->post('wizard2_product_id')."</productId> 
-                                <parentProductId>".$this->input->post('in_Parent_Product')."<parentProductId/> 
+                                <parentProductId>".$this->input->post('wizard1_parent_product_id')."<parentProductId/> 
                                 <tariffId>".$this->input->post('wizard2_tariff_id')."</tariffId> 
                                 <competitorTariffId/>
                                 <subscriptionRef/>

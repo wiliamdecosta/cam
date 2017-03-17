@@ -4,7 +4,7 @@
  * Pembuatan schema Model
  *
  */
-class Product extends Abstract_model {
+class Parent_product extends Abstract_model {
 
     public $table           = "";
     public $pkey            = "";
@@ -25,18 +25,16 @@ class Product extends Abstract_model {
                                       s02 as product_family_name ,
                                       n02 as product_family_id ,
                                       n03 as parent_product_id 
-                                  from table(pack_lov.get_product_list(%s, to_number(%s), '')) )";
+                                  from table(pack_lov.get_product_list(%s, '')) )";
 
     public $refs            = array();
 
-    function __construct($parent_product_id = 0) {
+    function __construct() {
         parent::__construct();
         //$this->db = $this->load->database('tosdb', TRUE);
         //$this->db->_escape_char = ' ';
-        if(empty($parent_product_id)){
-            $parent_product_id = null;
-        };
-        $this->fromClause = sprintf($this->fromClause, "'".$this->session->userdata('user_name')."'", "'".$parent_product_id."'");
+
+        $this->fromClause = sprintf($this->fromClause, "'".$this->session->userdata('user_name')."'");
         // $this->db_crm = $this->load->database('default', TRUE);
         // $this->db_crm->_escape_char = ' ';
     }

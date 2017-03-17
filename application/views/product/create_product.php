@@ -130,7 +130,14 @@
                                                 <label class="control-label col-md-5">Parent Product
                                                 </label>
                                                 <div class="col-md-7">
-                                                    <input type="text" class="form-control" name="in_Parent_Product">
+                                                    <div class="input-group">
+                                                        <input type="hidden" class="form-control" name="wizard1_parent_product_id" id="wizard1_parent_product_id" readonly>
+                                                        <input type="text" class="form-control" name="wizard1_parent_product_name" id="wizard1_parent_product_name"  readonly>
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-success" type="button" id="btn-lov-parent-product">
+                                                            <i class="fa fa-search"></i>
+                                                        </span>
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -626,7 +633,7 @@
 <?php $this->load->view('lov/lov_price_plan.php'); ?>
 <?php $this->load->view('lov/lov_product.php'); ?>
 <?php $this->load->view('lov/lov_addr.php'); ?>
-<?php $this->load->view('lov/lov_country.php'); ?>
+<?php $this->load->view('lov/lov_parent_product.php'); ?>
 <script>
 
 function isNumberKey(evt){
@@ -672,7 +679,16 @@ $("#btn-lov-price-plan").on('click', function() {
 });
 
 $("#btn-lov-product").on('click', function(){
-    modal_lov_product_show('wizard2_product_id','wizard2_product_name');
+    var parent_product_id = $('#wizard1_parent_product_id').val();
+    /*if(parent_product_id == ""){
+        parent_product_id = null;
+    };*/
+    //alert(parent_product_id);
+    modal_lov_product_show('wizard2_product_id','wizard2_product_name', parent_product_id);
+});
+
+$("#btn-lov-parent-product").on('click', function(){
+    modal_lov_parent_product_show('wizard1_parent_product_id','wizard1_parent_product_name');
 });
 
 $('#wizard2_product_id').on('change', function() {
