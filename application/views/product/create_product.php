@@ -1035,12 +1035,17 @@ $('#susp_recur_mod_type_id').on('change', function() {
                 dataType: "json",
                 data: postData,
                 success: function (data) {
-                    // if(data.statusCode == "T"){
-                    //     swal('',data.strMessage);
-                    //     $('#submit_form')[0].reset();
-                    // }else{
+                    if(data.status == "COMPLETED"){
                         swal('',data.status);
-                    // }
+
+                        setTimeout(function(){ 
+                             loadContentWithParams('product.list_product',{});
+                        }, 3000);
+                        
+                        // $('#submit_form')[0].reset();                        
+                    }else{
+                        swal('',data.status);
+                    }
 
                 },
                 error: function (xhr, status, error) {

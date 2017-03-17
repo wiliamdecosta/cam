@@ -172,6 +172,10 @@ class Home extends CI_Controller
              $prod .= "<productAttribute>";
              $prod .= "<attrName>".$attrId[$i]."</attrName>";
              $prod .= "<attrType>".$attrType[$i]."</attrType>";
+             if($attrType[$i] == 'D'){
+                $date = new DateTime($attr[$i]);
+                $attr[$i] = $date->format('Ymd');
+             }
              $prod .= "<attrValue>".$attr[$i]."</attrValue>";
              $prod .= "</productAttribute>";
         }
@@ -204,7 +208,7 @@ class Home extends CI_Controller
                                   <startDate>".change_date_format($this->input->post('wizard5_in_Start_Date'))."</startDate>
                                   <endDate>".change_date_format($this->input->post('wizard5_in_End_Date'))."</endDate>
                                   <productSeq></productSeq>
-                                  <oneOffModTypeId>".$this->input->post('one_off_mod_type_id')."</oneOffModTypeId>
+                                  <overrideType>".$this->input->post('recurring_mod_type_id')."</overrideType>
                                   <initiationCharge>".$this->input->post('wizard5_initiation_price')."</initiationCharge>
                                   <recurringModTypeId>".$this->input->post('recurring_mod_type_id')."</recurringModTypeId>
                                   <recurringCharge>".$this->input->post('wizard5_periodic_price')."</recurringCharge>
