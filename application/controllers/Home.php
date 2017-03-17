@@ -124,7 +124,7 @@ class Home extends CI_Controller
         $query = $this->db->query($sql);
         $items = $query->row(0);
         
-        echo json_encode(array('cust_order_id' => $items));
+        echo json_encode($items);
         exit;
     }
 
@@ -222,7 +222,7 @@ class Home extends CI_Controller
                                 </productAttributes>
                               </product>
                             </products>";
-
+                            // die($i_orderDoc);
         $sql = "BEGIN "
                     . " TLKCAMWEBINTERFACE.CreateOrderAO ("
                     . " :i_Order_Type, "

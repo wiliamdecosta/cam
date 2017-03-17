@@ -1096,9 +1096,7 @@ $('#susp_recur_mod_type_id').on('change', function() {
         dataType: "json",
         data: {},
         success: function (data) {
-            console.log(data);
-            // $('#in_Customer_Order_Number').val();
-
+            $('#in_Customer_Order_Number').val(data.jml);
         },
         error: function (xhr, status, error) {
             swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
