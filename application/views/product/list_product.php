@@ -29,6 +29,8 @@
             </div>
             <!-- CONTENT PORTLET -->
             <div class="form-body">
+            <!-- <button class="btn btn-danger"> <i class="fa fa-trash-o"></i>Delete</button> -->
+
             <div class="row">
                                 <div class="col-md-12 green">
                                     <table id="grid-table-account"></table>
