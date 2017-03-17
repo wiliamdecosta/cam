@@ -269,7 +269,7 @@
                 }
             }
             )
-            .navButtonAdd('#grid-pager-account', {
+       /*     .navButtonAdd('#grid-pager-account', {
                 caption: "",
                 buttonicon: "fa fa-file-excel-o green bigger-120",
                 position: "last",
@@ -277,7 +277,8 @@
                 cursor: "pointer",
                 onClickButton: toExcelAccount,
                 id: "excel"
-            });
+            }
+            );*/
 
 
     });
