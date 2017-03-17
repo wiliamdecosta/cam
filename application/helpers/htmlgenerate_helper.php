@@ -279,9 +279,12 @@ if (!function_exists('generatehtml')) {
                 $html .= "<input type='text' class='form-control numberformat".$req."' name='attributes[]'>";
 
             }else{
+                $date = new DateTime($data['attribute_bill_name']);
+                $dts = $date->format('Ymd');
+
                 $html .= "<div class='col-md-4'>";
                 $html .= "<input type='hidden' class='form-control' name='attributesType[]' value='D'>";
-                $html .= "<input type='hidden' class='form-control' name='attributesId[]' value='".$data['attribute_bill_name']."'>";
+                $html .= "<input type='hidden' class='form-control' name='attributesId[]' value='".$dts."'>";
                 $html .= "<input type='text' class='form-control datepickerON".$req."' name='attributes[]'>"; 
             }        
             
