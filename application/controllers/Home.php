@@ -120,11 +120,11 @@ class Home extends CI_Controller
     }
 
     function gen_con(){
-        $sql = "select f_get_order_num ('".getUserName()."') from dual";
+        $sql = "select pack_lov.f_get_order_num ('".getUserName()."') as jml from dual";
         $query = $this->db->query($sql);
-        $items = $query->result_array();
+        $items = $query->row(0);
         
-        echo $htlm;
+        echo json_encode(array('cust_order_id' => $items));
         exit;
     }
 
