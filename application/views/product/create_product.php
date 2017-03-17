@@ -644,6 +644,7 @@ function isNumberKey(evt){
 };
 
 $(".priceformat").number( true, 2 , '.',','); /* price number format */
+$(".priceformat").css("text-align", "right");
 
 $('#in_Product_Quantity').val("1");
 
