@@ -5,7 +5,7 @@ class Home extends CI_Controller
 
     function __construct() {
         parent::__construct();
-        $this->load->model('lov/Customer', 'cust');        
+        $this->load->model('lov/Customer', 'cust');
     }
 
     function index() {
@@ -108,14 +108,14 @@ class Home extends CI_Controller
                   s02 as attribute_bill_name,
                   s03 as mandatory_boo,
                   s04 as attribute_units,
-                  n03 as display_position 
+                  n03 as display_position
                from table(pack_lov.get_prodattr_list_byprodid('".getUserName()."', ".$id.",''))
                order by display_position asc";
         $query = $this->db->query($sql);
         $items = $query->result_array();
         // print_r($items);
         $htlm = genAttributesHTML($items);
-        
+
         echo $htlm;
         exit;
     }
@@ -124,7 +124,7 @@ class Home extends CI_Controller
         $sql = "select pack_lov.f_get_order_num ('".getUserName()."') as jml from dual";
         $query = $this->db->query($sql);
         $items = $query->row(0);
-        
+
         echo json_encode($items);
         exit;
     }
@@ -133,7 +133,7 @@ class Home extends CI_Controller
         $sql = "select pack_lov.f_get_product_label ('".getUserName()."', '".$idd."') as jml from dual";
         $query = $this->db->query($sql);
         $items = $query->row(0);
-        
+
         echo json_encode($items);
         exit;
     }
@@ -141,7 +141,7 @@ class Home extends CI_Controller
     function save_product(){
         // die($this->input->post('wizard5_initiation_price'));
         // exit;
-
+        logging('save data product');
         $i_Order_Type = 'ZXAO';
         $i_Order_No = $this->input->post('in_Customer_Order_Number');
         $i_Customer_Ref = $this->input->post('wizard1_customer_ref');
@@ -152,8 +152,8 @@ class Home extends CI_Controller
               <orderType>ZXAO</orderType>
               <orderSubType></orderSubType>
               <orderCode>AO</orderCode>
-              <orderId>".$this->input->post('in_Customer_Order_Number')."</orderId> 
-              <orderDate>".chnage_date_format($this->input->post('in_Start_Date_Time'))."</orderDate> 
+              <orderId>".$this->input->post('in_Customer_Order_Number')."</orderId>
+              <orderDate>".chnage_date_format($this->input->post('in_Start_Date_Time'))."</orderDate>
               <soldToParty>".$this->input->post('wizard1_customer_ref')."</soldToParty>
               <org></org>
               <bundling>F</bundling>
@@ -173,46 +173,46 @@ class Home extends CI_Controller
              $prod .= "<attrName>".$attrId[$i]."</attrName>";
              $prod .= "<attrType>".$attrType[$i]."</attrType>";
              $prod .= "<attrValue>".$attr[$i]."</attrValue>";
-             $prod .= "</productAttribute>";  
+             $prod .= "</productAttribute>";
         }
 
         $i_orderDoc = "<?xml version='1.0'?>
-                            <products>  
+                            <products>
                               <product>
                                 <currency>IDR</currency>
-                                <ppnEffectiveDat>".chnage_date_format($this->input->post('in_Start_Date_Time'))."</ppnEffectiveDat> 
-                                <customerRef>".$this->input->post('wizard1_customer_ref')."</customerRef> 
-                                <accountNum>".$this->input->post('wizard1_account_num')."</accountNum> 
-                                <productId>".$this->input->post('wizard2_product_id')."</productId> 
-                                <parentProductId>".$this->input->post('wizard1_parent_product_id')."</parentProductId> 
-                                <tariffId>".$this->input->post('wizard2_tariff_id')."</tariffId> 
+                                <ppnEffectiveDat>".chnage_date_format($this->input->post('in_Start_Date_Time'))."</ppnEffectiveDat>
+                                <customerRef>".$this->input->post('wizard1_customer_ref')."</customerRef>
+                                <accountNum>".$this->input->post('wizard1_account_num')."</accountNum>
+                                <productId>".$this->input->post('wizard2_product_id')."</productId>
+                                <parentProductId>".$this->input->post('wizard1_parent_product_id')."</parentProductId>
+                                <tariffId>".$this->input->post('wizard2_tariff_id')."</tariffId>
                                 <competitorTariffId></competitorTariffId>
                                 <subscriptionRef></subscriptionRef>
-                                <supplierOrderNumber>".$this->input->post('in_Supplier_Order_Number')."</supplierOrderNumber> 
-                                <custOrderNumber>".$this->input->post('in_Customer_Order_Number')."</custOrderNumber> 
-                                <productLabel>".$this->input->post('in_Product_Label')."</productLabel> 
-                                <startDtm>".chnage_date_format($this->input->post('in_Start_Date_Time'))."</startDtm> 
+                                <supplierOrderNumber>".$this->input->post('in_Supplier_Order_Number')."</supplierOrderNumber>
+                                <custOrderNumber>".$this->input->post('in_Customer_Order_Number')."</custOrderNumber>
+                                <productLabel>".$this->input->post('in_Product_Label')."</productLabel>
+                                <startDtm>".chnage_date_format($this->input->post('in_Start_Date_Time'))."</startDtm>
                                 <endDtm></endDtm>
                                 <productStatus>OK</productStatus>
                                 <statusReason>Aktivasi</statusReason>
-                                <cpsId>".$this->input->post('in_cps')."</cpsId> 
-                                <budgetCentreSeq>".$this->input->post('in_BudgetCenter')."</budgetCentreSeq> 
-                                <productQty>".$this->input->post('in_Product_Quantity')."</productQty> 
+                                <cpsId>".$this->input->post('in_cps')."</cpsId>
+                                <budgetCentreSeq>".$this->input->post('in_BudgetCenter')."</budgetCentreSeq>
+                                <productQty>".$this->input->post('in_Product_Quantity')."</productQty>
                                 <productPrice>
-                                  <customerRef>".$this->input->post('wizard1_customer_ref')."</customerRef> 
-                                  <productId>".$this->input->post('wizard2_product_id')."</productId> 
+                                  <customerRef>".$this->input->post('wizard1_customer_ref')."</customerRef>
+                                  <productId>".$this->input->post('wizard2_product_id')."</productId>
                                   <startDate>".chnage_date_format($this->input->post('wizard5_in_Start_Date'))."</startDate>
                                   <endDate>".chnage_date_format($this->input->post('wizard5_in_End_Date'))."</endDate>
                                   <productSeq></productSeq>
-                                  <oneOffModTypeId>".$this->input->post('one_off_mod_type_id')."</oneOffModTypeId>                                   
-                                  <initiationCharge>".$this->input->post('wizard5_initiation_price')."</initiationCharge> 
-                                  <recurringModTypeId>".$this->input->post('recurring_mod_type_id')."</recurringModTypeId> 
+                                  <oneOffModTypeId>".$this->input->post('one_off_mod_type_id')."</oneOffModTypeId>
+                                  <initiationCharge>".$this->input->post('wizard5_initiation_price')."</initiationCharge>
+                                  <recurringModTypeId>".$this->input->post('recurring_mod_type_id')."</recurringModTypeId>
                                   <recurringCharge>".$this->input->post('wizard5_periodic_price')."</recurringCharge>
                                   <suspModTypeId>".$this->input->post('susp_mod_type_id')."</suspModTypeId>
                                   <suspCharge>".$this->input->post('wizard5_suspesion_price')."</suspCharge>
-                                  <suspRecurModTypeId>".$this->input->post('susp_recur_mod_type_id')."</suspRecurModTypeId> 
-                                  <suspRecurringCharge>".$this->input->post('wizard5_susp_recur_price')."</suspRecurringCharge>                                
-                                  <terminationModTypeId>".$this->input->post('termination_mod_type_id')."</terminationModTypeId> 
+                                  <suspRecurModTypeId>".$this->input->post('susp_recur_mod_type_id')."</suspRecurModTypeId>
+                                  <suspRecurringCharge>".$this->input->post('wizard5_susp_recur_price')."</suspRecurringCharge>
+                                  <terminationModTypeId>".$this->input->post('termination_mod_type_id')."</terminationModTypeId>
                                   <termCharge>".$this->input->post('wizard5_termination_price')."</termCharge>
                                   <reactModTypeId>".$this->input->post('react_mod_type_id')."</reactModTypeId>
                                   <reactivationCharge>".$this->input->post('wizard5_react_price')."</reactivationCharge>
@@ -226,7 +226,7 @@ class Home extends CI_Controller
                                   <addr4>".$this->input->post('wizard5_in_Additional_address_1')."</addr4>
                                   <addr5>".$this->input->post('wizard5_in_Additional_address_2')."</addr5>
                                   <postCode>".$this->input->post('wizard5_in_Zip_Code')."</postCode>
-                                  <country>".$this->input->post('wizard5_country_code')."</country> 
+                                  <country>".$this->input->post('wizard5_country_code')."</country>
                                 </installationAddr>
                                 <productAttributes>
                                 ".$prod."
@@ -268,7 +268,7 @@ class Home extends CI_Controller
 
             echo json_encode($dt);
             exit;
-            
+
     }
 
 }
