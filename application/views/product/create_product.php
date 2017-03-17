@@ -1030,7 +1030,7 @@ $('#susp_recur_mod_type_id').on('change', function() {
                     //     swal('',data.strMessage);
                     //     $('#submit_form')[0].reset();
                     // }else{
-                    //     swal('',data.strMessage);
+                        swal('',data.status);
                     // }
 
                 },

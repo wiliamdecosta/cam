@@ -231,8 +231,7 @@ class Home extends CI_Controller
                                 </productAttributes>
                               </product>
                             </products>";
-                            die($i_orderDoc);
-                            /*
+
         $sql = "BEGIN "
                     . " TLKCAMWEBINTERFACE.CreateOrderAO ("
                     . " :i_Order_Type, "
@@ -261,8 +260,11 @@ class Home extends CI_Controller
 
             ociexecute($stmt);
 
-            return array('status' => $o_orderStatus);
-            */
+            $dt = array('status' => $o_orderStatus);
+
+            echo json_encode($dt);
+            exit;
+            
     }
 
 }
