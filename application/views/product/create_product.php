@@ -68,14 +68,14 @@
                                     <a href="#tab5" data-toggle="tab" class="step">
                                         <span class="number"> 5 </span><br>
                                          <span class="desc">
-                                             <i class="fa fa-check"></i> Address </span>
+                                             <i class="fa fa-check"></i> Service Address </span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#tab6" data-toggle="tab" class="step">
                                         <span class="number"> 6 </span><br>
                                          <span class="desc">
-                                             <i class="fa fa-check"></i> Add Override Price </span>
+                                             <i class="fa fa-check"></i> Override Price </span>
                                     </a>
                                 </li>
                             </ul>
