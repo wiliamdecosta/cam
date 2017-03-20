@@ -56,6 +56,19 @@
             $("#"+ $("#modal_lov_parent_product_code_val").val()).change();
             $("#"+ $("#modal_lov_parent_product_label_val").val()).change();
             $("#modal_lov_parent_product").modal("toggle");
+
+            // $.ajax({
+            //     url: "<?php echo base_url().'home/gen_prod/'; ?>"+$('#fasdfads').val() ,
+            //     type: "POST",
+            //     dataType: "json",
+            //     data: {},
+            //     success: function (data) {
+            //         $('#in_Product_Label').val(data.jml);
+            //     },
+            //     error: function (xhr, status, error) {
+            //         swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
+            //     }
+            // });
         });
     });
 

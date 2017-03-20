@@ -1072,18 +1072,18 @@ $('#susp_recur_mod_type_id').on('change', function() {
     $('#wizard1_account_num').on('change', function() {
         var id = $('#wizard1_account_num').val();
 
-        // $.ajax({
-        //     url: "<?php echo base_url().'home/gen_prod/'; ?>"+id ,
-        //     type: "POST",
-        //     dataType: "json",
-        //     data: {},
-        //     success: function (data) {
-        //         $('#in_Product_Label').val(data.jml);
-        //     },
-        //     error: function (xhr, status, error) {
-        //         swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
-        //     }
-        // });
+        $.ajax({
+            url: "<?php echo base_url().'home/gen_prod/'; ?>"+id ,
+            type: "POST",
+            dataType: "json",
+            data: {},
+            success: function (data) {
+                $('#in_Product_Label').val(data.jml);
+            },
+            error: function (xhr, status, error) {
+                swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
+            }
+        });
 
         $.ajax({
                 url: "<?php echo base_url().'home/load_combo_budg/'; ?>" + id,
