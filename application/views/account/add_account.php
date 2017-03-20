@@ -464,11 +464,10 @@
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-md-4 control-label">Document Address
-                                                    <span class="required">  * </span>
                                                 </label>
                                                 <div class="col-md-8">
-                                                        <textarea class="form-control required uppercase"
-                                                                  id="document_address" name="document_address"></textarea>
+                                                        <textarea class="form-control  uppercase"
+                                                                  id="document_address" name="document_address" readonly></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -1110,9 +1109,9 @@
                             success.hide();
                             error.hide();
 
-                            if (form.valid() == false) {
+                            /*if (form.valid() == false) {
                                 return false;
-                            }
+                            }*/
 
                             handleTitle(tab, navigation, index);
                         },
