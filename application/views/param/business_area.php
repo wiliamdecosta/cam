@@ -174,12 +174,13 @@
             },
             {
                 //new record form
-                parent_id: function() {
-                        var item = $('#tree-ba').jqxTree('getSelectedItem');
-                        var id = $(item).attr('id');
-                        return id;
-                    },
-
+                editData: {
+                    parent_id: function() {
+                            var item = $('#tree-ba').jqxTree('getSelectedItem');
+                            var id = $(item).attr('id');
+                            return id;
+                        }
+                },
                 closeAfterAdd: false,
                 clearAfterAdd : true,
                 closeOnEscape:true,
