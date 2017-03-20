@@ -173,7 +173,7 @@
                 },
 
                 refreshicon: 'fa fa-refresh green bigger-120',
-                view: false,
+                view: true,
                 viewicon: 'fa fa-search-plus grey bigger-120'
             },
 

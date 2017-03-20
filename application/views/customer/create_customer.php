@@ -146,10 +146,35 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
+                                                <label class="control-label col-md-4">Parent Customer Ref
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control " id="parentCusref"
+                                                               name="parentCusref" placeholder="Parent Customer Ref" readonly=""/>
+                                                        <input type="hidden" class="form-control " id="invoicingCompany"/>
+                                                       <span class="input-group-btn">
+                                                         <button class="btn btn-success" type="button"
+                                                                 id="btn-lov-nipnas">
+                                                             <i class="fa fa-search"></i>
+                                                         </button>
+                                                       </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="hidden" class="form-control" id="customer_name"
+                                                           readonly="" placeholder="Customer Name"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
                                                 <label class="control-label col-md-4">Invoicing Company
                                                     <span class="required">  * </span>
                                                 </label>
-                                                <div class="col-md-8">
+                                                <input type="hidden" class="form-control required" id="in_inv_co_name"
+                                                           readonly name="in_inv_co_name"/>
+                                                 <input type="hidden" class="form-control required" id="in_inv_co_id"
+                                                           readonly name="in_inv_co_id"/>
+                                                <div class="col-md-8" id="comboIC">
                                                     <?php echo buatcombo2($nama = 'in_CustomerType',
                                                         $id= 'in_CustomerType',
                                                         $table= "table(pack_lov.get_invoicingcompany_list('".$this->session->userdata('user_name')."', ''))",
@@ -165,10 +190,12 @@
                                                 <label class="control-label col-md-4">Market Segment
                                                     <span class="required"> * </span>
                                                 </label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-8"  id="comboMS">
                                                     <?php echo buatcombo2('in_MarketSegment',
                                                         'in_MarketSegment',
-                                                        'marketsegment',
+                                                        "(select  n01 as MARKET_SEGMENT_ID ,
+                                                          s01 as MARKET_SEGMENT_NAME
+                                                       from table(pack_lov.get_marketsegment_list('".$this->session->userdata('user_name')."', '', '')))",
                                                         'market_segment_name',
                                                         'market_segment_id',
                                                         array(),
@@ -376,7 +403,7 @@
                                                 <label class="control-label col-md-4">SAP Code Bill
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="a form-control required" name="sapCodeBill" required>
+                                                    <input type="number" class="a form-control required" name="sapCodeBill" required>
                                                 </div>
                                             </div>
 
@@ -384,7 +411,7 @@
                                                 <label class="control-label col-md-4">SAP Code Unbill
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control required" name="sapCodeUnBill" required>
+                                                    <input type="number" class="form-control required" name="sapCodeUnBill" required>
                                                 </div>
                                             </div>
 
@@ -422,10 +449,54 @@
         </div>
     </div>
 </div>
+<?php $this->load->view('lov/lov_parent_customer.php'); ?>
 <script>
+function f_getComboMS(){
+invcoid = $('#in_inv_co_id').val(); 
+    $.ajax({
+          url: "<?php echo WS_JQGRID.'customer.customer_controller/getComboMS'; ?>",
+          type: "POST",
+          data: { invoicing_co_id:invcoid},
+          success: function (data) {
+           $('#comboMS').html(data);
+          },
+          error: function (xhr, status, error) {
+              swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
+              return false;
+          }
+      });
+
+}
+
     $(document).ready(function () {
         $('#btn-lov-nipsos').on('click', function () {
             modal_lov_nipsos_show('nipsos', 'customer_name');
+        });
+        $('#btn-lov-nipnas').on('click', function () {
+            modal_lov_customer_show('parentCusref', 'in_inv_co_id');
+        });
+        
+        $('#in_CustomerType').change(function(){
+           
+            //alert($('#in_CustomerType option:selected').text());
+            //$('#in_inv_co_name').val($('#in_CustomerType option:selected').text());
+            $('#in_inv_co_id').val($(this).val());
+            $('#in_inv_co_id').change();
+         });
+
+        $('#parentCusref').change(function(){
+           // f_getCombo();
+            //$('#in_inv_co_id').val()
+                
+                f_getComboMS();
+             
+
+        });
+        $('#in_inv_co_id').change(function(){
+             f_getComboMS();
+            //val = $(this).val();
+            //$('#in_CustomerType option:selected').text($("#in_CustomerType option[value=\'"+val+"\']").text()).change();
+
         });
     });
 
@@ -564,6 +635,7 @@
                         }
 
                         if (!custReff) {
+
                             $.ajax({
                                 url: "<?php echo site_url('customer_cont/genCustRef'); ?>",
                                 type: "POST",
@@ -577,6 +649,8 @@
                                     $("#custReff").val(data.txt_custRef);
                                     setval('nipnas',data.txt_custRef);
                                     setval('custref01',data.txt_custRef);
+                                    $('#in_CustomerType').hide();
+                                    $('#in_inv_co_name').show();
                                 },
                                 error: function (xhr, status, error) {
                                     swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
@@ -684,7 +758,7 @@
             });
         }));
 
-        $('#in_CustomerType').change(function(){
+        $('#in_inv_co_id').change(function(){
 
             $('#prefix').val($(this).val());
 
