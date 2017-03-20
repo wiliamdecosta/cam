@@ -292,7 +292,7 @@ if (!function_exists('generatehtml')) {
 
             $html .= "<script>";
             $html .= "$('.datepickerON').datetimepicker({
-                            format: 'MM/DD/YYYY'
+                            format: 'DD/MM/YYYY'
                         });";
             $html .= "</script>";
         }

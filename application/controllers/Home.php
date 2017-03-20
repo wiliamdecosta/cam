@@ -275,4 +275,13 @@ class Home extends CI_Controller
 
     }
 
+    function get_date(){
+        $sql = "select to_char(pack_lov.get_system_date, 'DD/MM/YYYY') dates from dual";
+        $query = $this->db->query($sql);
+        $items = $query->row(0);
+
+        echo json_encode($items);
+        exit;
+    }
+
 }

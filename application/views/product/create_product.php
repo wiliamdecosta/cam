@@ -159,7 +159,7 @@
                                                 <div class="col-md-4">
                                                     <input type="text" class="form-control datepicker1 required" name="in_Start_Date_Time">
                                                 </div>
-                                                <label class="col-md-3 control-label"> MM/DD/YYYY</label>
+                                                <label class="col-md-3 control-label"> DD/MM/YYYY</label>
                                             </div>
 
                                             <div class="form-group">
@@ -168,7 +168,7 @@
                                                 <div class="col-md-4">
                                                     <input type="text" class="form-control datepicker2" name="in_Termination_Date_Time">
                                                 </div>
-                                                <label class="col-md-3 control-label"> MM/DD/YYYY</label>
+                                                <label class="col-md-3 control-label"> DD/MM/YYYY</label>
                                             </div>
 
                                             <div class="form-group">
@@ -443,7 +443,7 @@
                                                 <div class="col-md-5">
                                                     <input type="text" class="form-control datepicker1 required" name="wizard5_in_Start_Date" id="wizard5_in_Start_Date">
                                                 </div>
-                                                <label class="col-md-3 control-label"> MM/DD/YYYY</label>
+                                                <label class="col-md-3 control-label"> DD/MM/YYYY</label>
                                             </div>
 
                                             <div class="form-group">
@@ -455,7 +455,7 @@
                                                 <div class="col-md-5">
                                                     <input type="text" class="form-control datepicker2" name="wizard5_in_End_Date" id="wizard5_in_End_Date">
                                                 </div>
-                                                <label class="col-md-3 control-label"> MM/DD/YYYY</label>
+                                                <label class="col-md-3 control-label"> DD/MM/YYYY</label>
                                             </div>
 
                                             <div class="form-group">
@@ -1066,18 +1066,18 @@ $('#susp_recur_mod_type_id').on('change', function() {
     $('#wizard1_account_num').on('change', function() {
         var id = $('#wizard1_account_num').val();
 
-        $.ajax({
-            url: "<?php echo base_url().'home/gen_prod/'; ?>"+id ,
-            type: "POST",
-            dataType: "json",
-            data: {},
-            success: function (data) {
-                $('#in_Product_Label').val(data.jml);
-            },
-            error: function (xhr, status, error) {
-                swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
-            }
-        });
+        // $.ajax({
+        //     url: "<?php echo base_url().'home/gen_prod/'; ?>"+id ,
+        //     type: "POST",
+        //     dataType: "json",
+        //     data: {},
+        //     success: function (data) {
+        //         $('#in_Product_Label').val(data.jml);
+        //     },
+        //     error: function (xhr, status, error) {
+        //         swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
+        //     }
+        // });
 
         $.ajax({
                 url: "<?php echo base_url().'home/load_combo_budg/'; ?>" + id,
@@ -1105,18 +1105,30 @@ $('#susp_recur_mod_type_id').on('change', function() {
             return;
     });
 
+    $.ajax({
+        url: "<?php echo base_url().'home/get_date/'; ?>" ,
+        type: "POST",
+        dataType: "json",
+        data: {},
+        success: function (data) {
+            $('.datepicker1').val(data.dates);
+        },
+        error: function (xhr, status, error) {
+            swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
+        }
+    });
 
     $('.datepicker1').datetimepicker({
-        format: 'MM/DD/YYYY',
-        defaultDate: new Date()
+        format: 'DD/MM/YYYY',
+        // defaultDate: new Date()
     });
 
     $('.datepicker2').datetimepicker({
-        format: 'MM/DD/YYYY'
+        format: 'DD/MM/YYYY'
     });
 
     $('.datepicker').datetimepicker({
-        format: 'MM/DD/YYYY'
+        format: 'DD/MM/YYYY'
     });
 
     $('#wizard2_product_id').on('change', function(){
@@ -1137,7 +1149,7 @@ $('#susp_recur_mod_type_id').on('change', function() {
     });
     // $('.datepicker').datepicker({
     //     todayHighlight: true,
-    //     format: "mm/dd/yyyy",
+    //     format: "DD/MM/YYYY",
     //     autoclose: true
     // });
 
