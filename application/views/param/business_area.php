@@ -168,6 +168,7 @@
                     if(response.success == false) {
                         return [false,response.message,response.responseText];
                     }
+                    reloadTreeMenu();
                     return [true,"",response.responseText];
                 }
             },
@@ -206,7 +207,7 @@
                     var tinfoel = $(".tinfo").show();
                     tinfoel.delay(3000).fadeOut();
 
-
+                    reloadTreeMenu();
                     return [true,"",response.responseText];
                 }
             },
