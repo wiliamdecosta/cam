@@ -67,19 +67,7 @@
                         dataUrl: '<?php echo WS_JQGRID."param.business_area_controller/combo"; ?>'
                     }
                 },
-                {label: 'Parent ID',name: 'parent_id',width: 5, sorttype: 'number',align: "left",editable: true,hidden:true,/*
-                    editoptions: {
-                        size: 30,
-                        maxlength:9,
-                        dataInit: function(element) {
-                            $(element).keypress(function(e){
-                                 if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-                                    return false;
-                                 }
-                            });
-                        }
-                    },
-                    editrules: {required: true}*/
+                {label: 'Parent ID',name: 'parent_id',width: 5, sorttype: 'number',align: "left",editable: true,hidden:true,
                 },
                 {label: 'Address',name: 'address',width: 150, align: "left",editable: true,
                     editoptions: {

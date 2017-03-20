@@ -13,6 +13,7 @@ class Business_area_controller {
         $sidx = getVarClean('sidx','str','p_business_area_id');
         $sord = getVarClean('sord','str','desc');
 
+        $parent_id = getVarClean('parent_id','int',0);
         $data = array('rows' => array(), 'page' => 1, 'records' => 0, 'total' => 1, 'success' => false, 'message' => '');
 
         try {
@@ -37,6 +38,12 @@ class Business_area_controller {
 
             // Filter Table
             $req_param['where'] = array();
+            // Filter Table
+            if(empty($parent_id)) {
+                $req_param['where'][] = 'parent_id is null';
+            }else {
+                $req_param['where'][] = 'parent_id = '.$parent_id;
+            }
 
             $table->setJQGridParam($req_param);
             $count = $table->countAll();
