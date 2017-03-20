@@ -10,6 +10,7 @@
             <input type="hidden" id="modal_lov_parent_product_id_val" value="" />
             <input type="hidden" id="modal_lov_parent_product_code_val" value="" />
             <input type="hidden" id="modal_lov_parent_product_label_val" value="" />
+            <input type="hidden" id="modal_lov_parent_product_label_generate_val" value="" />
 
             <!-- modal body -->
             <div class="modal-body">
@@ -56,19 +57,19 @@
             $("#"+ $("#modal_lov_parent_product_code_val").val()).change();
             $("#"+ $("#modal_lov_parent_product_label_val").val()).change();
             $("#modal_lov_parent_product").modal("toggle");
-
-            // $.ajax({
-            //     url: "<?php echo base_url().'home/gen_prod/'; ?>"+$('#fasdfads').val() ,
-            //     type: "POST",
-            //     dataType: "json",
-            //     data: {},
-            //     success: function (data) {
-            //         $('#in_Product_Label').val(data.jml);
-            //     },
-            //     error: function (xhr, status, error) {
-            //         swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
-            //     }
-            // });
+            
+            $.ajax({
+                url: "<?php echo base_url().'home/gen_prod/'; ?>"+$('#modal_lov_parent_product_label_generate_val').val() ,
+                type: "POST",
+                dataType: "json",
+                data: {},
+                success: function (data) {
+                    $('#in_Product_Label').val(data.jml);
+                },
+                error: function (xhr, status, error) {
+                    swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
+                }
+            });
         });
     });
 
@@ -76,6 +77,7 @@
         modal_lov_parent_product_set_field_value(the_id_field, the_code_field, product_label);
         $("#modal_lov_parent_product").modal({backdrop: 'static'});
         modal_lov_parent_product_prepare_table(account_num);
+        $("#modal_lov_parent_product_label_generate_val").val(account_num);
     }
 
 
