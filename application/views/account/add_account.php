@@ -162,7 +162,7 @@
                                                     <div class="input-group">
                                                         <input type="text" class="form-control required" id="inNipnas"
                                                                name="inNipnas" placeholder="Customer Ref" readonly=""/>
-                                                        <input type="hidden" class="form-control " id="invoicingCompany"/>
+                                                        <input type="hidden" class="form-control " id="invoicingCompany" name="invoicingCompany"/>
                                                        <span class="input-group-btn">
                                                          <button class="btn btn-success" type="button"
                                                                  id="btn-lov-nipnas">
