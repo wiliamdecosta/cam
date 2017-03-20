@@ -132,7 +132,7 @@
             },
             //memanggil controller jqgrid yang ada di controller crud
             editurl: '<?php echo WS_JQGRID."param.business_area_controller/crud"; ?>',
-            caption: "Business Area Type"
+            caption: "Business Area"
 
         });
 
@@ -318,7 +318,7 @@
                 postData: {parent_id: item.id }
             });
 
-            $('#grid-table').jqGrid('setCaption', 'Child Menu :: ' + item.label);
+            $('#grid-table').jqGrid('setCaption', 'Business Area :: ' + item.label);
             $("#grid-table").trigger("reloadGrid");
         });
     });
