@@ -315,7 +315,7 @@
             var item = $('#tree-ba').jqxTree('getItem', event.args.element);
             $('#grid-table').jqGrid('setGridParam', {
                 url: '<?php echo WS_JQGRID."param.business_area_controller/crud"; ?>',
-                postData: {parent_id: item.id; ?>}
+                postData: {parent_id: item.id }
             });
 
             $('#grid-table').jqGrid('setCaption', 'Child Menu :: ' + item.label);
