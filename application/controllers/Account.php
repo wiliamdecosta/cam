@@ -236,7 +236,8 @@ class Account extends CI_Controller
         $hinPackageDiscAccNum = $this->input->post('hinPackageDiscAccNum');
         $hinEventDiscAccNum = $this->input->post('hinEventDiscAccNum');
         $hinStatementFrequency = $this->input->post('hinStatementFrequency');
-        $hinInvoicingCoId = $this->input->post('hinInvoicingCoId');
+        //$hinInvoicingCoId = $this->input->post('hinInvoicingCoId');
+        $hinInvoicingCoId = $this->input->post('invoicingCompany');
         $hinPrepayBoo = $this->input->post('hinPrepayBoo');
         $hinEventsPerDay = $this->input->post('hinEventsPerDay');
         $hinLanguageId = $this->input->post('hinLanguageId');

@@ -45,6 +45,7 @@ class Customer_cont extends CI_Controller
     {
         $custReff = $this->input->post('custReff');
         $customerRef = $this->input->post('customerRef');
+        $parentCusref = $this->input->post('parentCusref');
         $sapCodeBill = $this->input->post('sapCodeBill');
         $sapCodeUnBill = $this->input->post('sapCodeUnBill');
         $sold2party = $this->input->post('sold2party');
@@ -114,7 +115,7 @@ class Customer_cont extends CI_Controller
             'pIn_custCustomerTypeId' => $in_CustomerType,
             'pIn_custCompanyName' => '',
             'pIn_custTaxExemptRef' => '',
-            'pIn_custParentRef' => '',
+            'pIn_custParentRef' => $parentCusref,
             'pIn_custProviderId' => NULL,
             'pIn_custCustomerPassword' => '',
             'pIn_custBillPeriod' => NULL,
