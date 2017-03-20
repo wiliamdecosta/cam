@@ -87,6 +87,15 @@ class Business_area extends Abstract_model {
         
     }
 
+    function emptyChildren($p_business_area_id) {
+        $sql = "select count(1) as total from p_business_area where parent_id = ?";
+
+        $query = $this->db->query($sql, array($p_business_area_id));
+        $row = $query->row_array();
+
+        return $row['total'] == 0;
+    }
+
 }
 
 /* End of file Business_area.php */
