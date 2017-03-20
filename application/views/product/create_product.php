@@ -660,10 +660,18 @@ $("#btn-lov-customer").on('click', function() {
 $('#wizard1_customer_ref').on('change', function() {
     $('#wizard1_account_num').val('');
     $('#wizard1_account_name').val('');
+    $('#wizard1_parent_product_id').val('');
+    $('#wizard1_parent_product_name').val('');
+    $('#in_Product_Label').val('');
 });
 
 $("#btn-lov-parent-product").on('click', function(){
-    modal_lov_parent_product_show('wizard1_parent_product_id','wizard1_parent_product_name');
+    var account_num = $('#wizard1_account_num').val();
+    if(account_num == "") {
+        swal('Info','Account harus diisi terlebih dahulu','info');
+        return;
+    }
+    modal_lov_parent_product_show('wizard1_parent_product_id','wizard1_parent_product_name', 'in_Product_Label', account_num);
 });
 
 $("#wizard1_parent_product_id").on('change', function(){
@@ -705,8 +713,6 @@ $('#wizard2_product_id').on('change', function() {
     $('#wizard2_tariff_id').val('');
     $('#wizard2_tariff_name').val('');
 });
-
-
 
 $("#btn-lov-addr").on('click', function() {
     var customer_ref = $('#wizard1_customer_ref').val();

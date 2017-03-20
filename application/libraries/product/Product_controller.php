@@ -157,6 +157,7 @@ class Product_controller {
 
         $sort = getVarClean('sort','str','product_id');
         $dir  = getVarClean('dir','str','asc');
+        $account_num = getVarClean('account_num', 'str', '');
 
         $searchPhrase = getVarClean('searchPhrase', 'str', '');
 
@@ -166,8 +167,8 @@ class Product_controller {
 
             $ci = & get_instance();
             $ci->load->model('lov/parent_product');
-            $table = $ci->parent_product;
-            //$table = new Product($parent_product_id); //kalau ada param
+            //$table = $ci->parent_product;
+            $table = new Parent_product($account_num); //kalau ada param
 
             //Set default criteria. You can override this if you want
             foreach ($table->fields as $key => $field){

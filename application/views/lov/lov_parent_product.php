@@ -9,6 +9,7 @@
             </div>
             <input type="hidden" id="modal_lov_parent_product_id_val" value="" />
             <input type="hidden" id="modal_lov_parent_product_code_val" value="" />
+            <input type="hidden" id="modal_lov_parent_product_label_val" value="" />
 
             <!-- modal body -->
             <div class="modal-body">
@@ -23,6 +24,7 @@
                      <th data-header-align="center" data-align="center" data-formatter="opt-edit" data-sortable="false" data-width="100">Options</th>
                      <th data-column-id="product_id" data-sortable="true" data-visible="false">Product ID</th>
                      <th data-column-id="product_name">Product Name</th>
+                     <th data-column-id="product_label">Product Label</th>
                      <th data-column-id="product_desc">Description</th>
                   </tr>
                 </thead>
@@ -49,38 +51,43 @@
         $("#modal_lov_parent_product_btn_blank").on('click', function() {
             $("#"+ $("#modal_lov_parent_product_id_val").val()).val("");
             $("#"+ $("#modal_lov_parent_product_code_val").val()).val("");
+            $("#"+ $("#modal_lov_parent_product_label_val").val()).val("");
             $("#"+ $("#modal_lov_parent_product_id_val").val()).change();
             $("#"+ $("#modal_lov_parent_product_code_val").val()).change();
+            $("#"+ $("#modal_lov_parent_product_label_val").val()).change();
             $("#modal_lov_parent_product").modal("toggle");
         });
     });
 
-    function modal_lov_parent_product_show(the_id_field, the_code_field) {
-        modal_lov_parent_product_set_field_value(the_id_field, the_code_field);
+    function modal_lov_parent_product_show(the_id_field, the_code_field, product_label, account_num) {
+        modal_lov_parent_product_set_field_value(the_id_field, the_code_field, product_label);
         $("#modal_lov_parent_product").modal({backdrop: 'static'});
-        modal_lov_parent_product_prepare_table();
+        modal_lov_parent_product_prepare_table(account_num);
     }
 
 
-    function modal_lov_parent_product_set_field_value(the_id_field, the_code_field) {
+    function modal_lov_parent_product_set_field_value(the_id_field, the_code_field, product_label) {
          $("#modal_lov_parent_product_id_val").val(the_id_field);
          $("#modal_lov_parent_product_code_val").val(the_code_field);
+         $("#modal_lov_parent_product_label_val").val(product_label);
     }
 
-    function modal_lov_parent_product_set_value(the_id_val, the_code_val) {
+    function modal_lov_parent_product_set_value(the_id_val, the_code_val, product_label) {
          $("#"+ $("#modal_lov_parent_product_id_val").val()).val(the_id_val);
          $("#"+ $("#modal_lov_parent_product_code_val").val()).val(the_code_val);
+         $("#"+ $("#modal_lov_parent_product_label_val").val()).val(product_label);
          $("#modal_lov_parent_product").modal("toggle");
 
          $("#"+ $("#modal_lov_parent_product_id_val").val()).change();
          $("#"+ $("#modal_lov_parent_product_code_val").val()).change();
+         $("#"+ $("#modal_lov_parent_product_label_val").val()).change();
     }
 
-    function modal_lov_parent_product_prepare_table() {        
+    function modal_lov_parent_product_prepare_table(account_num) {        
         $("#modal_lov_parent_product_grid_selection").bootgrid({
              formatters: {
                 "opt-edit" : function(col, row) {
-                    return '<a href="javascript:;" title="Set Value" onclick="modal_lov_parent_product_set_value(\''+ row.product_id +'\', \''+ row.product_id + '-' + row.product_name +'\')" class="blue"><i class="fa fa-pencil-square-o bigger-130"></i></a>';
+                    return '<a href="javascript:;" title="Set Value" onclick="modal_lov_parent_product_set_value(\''+ row.product_id +'\', \''+ row.product_id + '-' + row.product_name +'\', \''+ row.product_label +'\')" class="blue"><i class="fa fa-pencil-square-o bigger-130"></i></a>';
                 }
              },
              rowCount:[5,10],
@@ -102,6 +109,7 @@
                 return response;
              },
              url: '<?php echo WS_BOOTGRID."product.product_controller/readLovParentProduct"; ?>',
+             post: {account_num: account_num},
              selection: true,
              sorting:true
         });
