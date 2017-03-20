@@ -297,6 +297,50 @@ class Business_area_controller {
         $table = $ci->business_area;
         $table->business_area_type_combo();
     }
+
+    public function tree_json() {
+
+        $ci = & get_instance();
+        $ci->load->model('param/business_area');
+        $table = $ci->business_area;
+
+        //$module_name = getVarClean('module_name','str','System');
+
+        $items = $table->getAll(0,-1,'business_area_name','asc');
+        $data = array();
+        $data[] = array('id' => 0,
+                  'parentid' => -1,
+                  'text' => 'Business Area',
+                  'expanded' => true,
+                  'selected' => true,
+                  'icon' => base_url('images/home.png'));
+
+        foreach($items as $item) {
+
+            if( $table->emptyChildren($item['p_business_area_id']) ) {
+                $data[] = array(
+                            'id' => $item['p_business_area_id'],
+                            'parentid' => empty($item['parent_id']) ? 0 : $item['parent_id'],
+                            'text' => $item['business_area_name'],
+                            'expanded' => false,
+                            'selected' => false,
+                            'icon' => base_url('images/file-icon.png')
+                          );
+            }else {
+                $data[] = array(
+                            'id' => $item['p_business_area_id'],
+                            'parentid' => empty($item['parent_id']) ? 0 : $item['parent_id'],
+                            'text' => $item['business_area_name'],
+                            'expanded' => false,
+                            'selected' => false,
+                            'icon' => base_url('images/folder-close.png')
+                          );
+            }
+        }
+
+        echo json_encode($data);
+        exit;
+    }
 }
 
 /* End of file Business_area_controller.php */

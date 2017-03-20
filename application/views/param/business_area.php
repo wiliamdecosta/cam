@@ -13,7 +13,22 @@
 <!-- end breadcrumb -->
 <div class="space-4"></div>
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-4">
+                    <div class="portlet red box menu-panel">
+                        <div class="portlet-title">
+                            <div class="caption">Menu</div>
+                            <div class="tools">
+                                <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <div id="tree-ba">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    <div class="col-md-8">
         <table id="grid-table"></table>
         <div id="grid-pager"></div>
     </div>
@@ -170,6 +185,12 @@
             },
             {
                 //new record form
+                parent_id: function() {
+                        var item = $('#tree-ba').jqxTree('getSelectedItem');
+                        var id = $(item).attr('id');
+                        return id;
+                    },
+
                 closeAfterAdd: false,
                 clearAfterAdd : true,
                 closeOnEscape:true,
@@ -256,4 +277,49 @@
 
     }
 
+</script>
+<script>
+    function reloadTreeMenu() {
+        var source =
+        {
+            datatype: "json",
+            datafields: [
+                { name: 'id' },
+                { name: 'parentid' },
+                { name: 'text' },
+                { name: 'expanded' },
+                { name: 'selected' },
+                { name: 'icon' }
+            ],
+            id: 'id',
+            url: '<?php echo WS_JQGRID."param.business_area_controller/tree_json"; ?>',
+            async: false
+        };
+
+        $('#tree-ba').jqxTree('clear');
+
+        // create data adapter.
+        var dataAdapter = new $.jqx.dataAdapter(source);
+        dataAdapter.dataBind();
+        var records = dataAdapter.getRecordsHierarchy('id', 'parentid', 'items', [{ name: 'text', map: 'label'}]);
+        $('#tree-ba').jqxTree({
+            source: records
+        });
+
+    }
+
+    $(function($) {
+        reloadTreeMenu();
+
+        $('#tree-ba').on('select', function (event) {
+            var item = $('#tree-ba').jqxTree('getItem', event.args.element);
+            $('#grid-table').jqGrid('setGridParam', {
+                url: '<?php echo WS_JQGRID."param.business_area_controller/crud"; ?>',
+                postData: {parent_id: item.id; ?>}
+            });
+
+            $('#grid-table').jqGrid('setCaption', 'Child Menu :: ' + item.label);
+            $("#grid-table").trigger("reloadGrid");
+        });
+    });
 </script>
