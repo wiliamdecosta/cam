@@ -5,6 +5,35 @@
 * @version 07/05/2015 12:18:00
 */
 class Product_controller {
+ 
+ function crud() {
+
+        $data = array();
+        $oper = getVarClean('oper', 'str', '');
+        switch ($oper) {
+            case 'add' :
+                permission_check('add-product');
+                $data = $this->create();
+            break;
+
+            case 'edit' :
+                permission_check('edit-product');
+                $data = $this->update();
+            break;
+
+            case 'del' :
+                permission_check('delete-product');
+                $data = $this->destroy();
+            break;
+
+            default :
+                permission_check('view-product');
+                $data = $this->read();
+            break;
+        }
+
+        return $data;
+    }
 
      function read() {
 

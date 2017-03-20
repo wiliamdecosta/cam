@@ -6,6 +6,38 @@
 */
 class Customer_controller {
 
+    function getComboIC(){
+        $user = getUserName();
+        $invoicing_co_id = getVarClean('invoicing_co_id','str', '0');
+        $invoicing_co_id = getVarClean('invoicing_co_id','str', '0');
+        echo  buatcombo2($nama = 'in_CustomerType',
+                        $id= 'in_CustomerType',
+                        $table= "table(pack_lov.get_invoicingcompany_list('".$user."', '".$invoicing_co_id."'))",
+                        $field= 's21',
+                        $pk = 'n01',
+                        $kondisi = array(),
+                        $required ='Y',
+                        $default = '' );
+        exit;
+    }
+    function getComboMS(){
+        $user = getUserName();
+        
+        $invoicing_co_id = getVarClean('invoicing_co_id','str', '0');
+
+        echo  buatcombo2($nama = 'in_MarketSegment',
+                        $id= 'in_MarketSegment',
+                        $table= "(select  n01 as market_segment_id ,
+                                      s01 as market_segment_name
+                                   from table(pack_lov.get_marketsegment_list('".$user."', '".$invoicing_co_id."', '')))",
+                        $field= 'market_segment_name',
+                        $pk = 'market_segment_id',
+                        $kondisi = array(),
+                        $required ='Y',
+                        $default = '- Pilih Market Segment -' );
+        exit;
+    }
+
     function read() {
 
         $page = getVarClean('page','int',1);
@@ -70,6 +102,56 @@ class Customer_controller {
         return $data;
     }
 
+    function readLovParentCust() {
+
+        $start = getVarClean('current','int',0);
+        $limit = getVarClean('rowCount','int',5);
+
+        $sort = getVarClean('sort','str','address_name');
+        $dir  = getVarClean('dir','str','asc');
+
+        $searchPhrase = getVarClean('searchPhrase', 'str', '');
+
+        $data = array('rows' => array(), 'success' => false, 'message' => '', 'current' => $start, 'rowCount' => $limit, 'total' => 0);
+
+        try {
+            permission_check('view-customer');
+
+            $ci = & get_instance();
+            $ci->load->model('lov/customer');
+            $table = $ci->customer;
+            $table->setCriteria("parent_customer_ref is null ");
+
+
+            //Set default criteria. You can override this if you want
+            foreach ($table->fields as $key => $field){
+                if (!empty($$key)){ // <-- Perhatikan simbol $$
+                    if ($field['type'] == 'str'){
+                        $table->setCriteria($table->getAlias().$key.$table->likeOperator." '".$$key."' ");
+                    }else{
+                        $table->setCriteria($table->getAlias().$key." = ".$$key);
+                    }
+                }
+            }
+
+            if(!empty($searchPhrase)) {
+                $table->setCriteria("(upper(customer_ref) ".$table->likeOperator." upper('%".$searchPhrase."%') OR upper(first_name) ".$table->likeOperator." upper('%".$searchPhrase."%'))");
+            }
+
+            $start = ($start-1) * $limit;
+            $items = $table->getAll($start, $limit, $sort, $dir);
+            $totalcount = $table->countAll();
+
+            $data['rows'] = $items;
+            $data['success'] = true;
+            $data['total'] = $totalcount;
+
+        }catch (Exception $e) {
+            $data['message'] = $e->getMessage();
+        }
+
+        return $data;
+    }
 
     function readLov() {
 
