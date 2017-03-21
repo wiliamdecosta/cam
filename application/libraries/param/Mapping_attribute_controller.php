@@ -290,6 +290,8 @@ class Mapping_attribute_controller {
         }
         return $data;
     }
+
+    
 }
 
 /* End of file Mapping_attribute_controller.php */

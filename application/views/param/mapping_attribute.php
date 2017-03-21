@@ -79,7 +79,7 @@
                             }
                         }
                     }
-                }
+                },
                 {label: 'Product id',name: 'product_id',width: 150, align: "left",editable: true, hidden: false,
                     editoptions: {
                         size: 30,
@@ -277,7 +277,7 @@
                     var tinfoel = $(".tinfo").show();
                     tinfoel.delay(3000).fadeOut();
 
-
+                    clearInputProduct();
                     return [true,"",response.responseText];
                 }
             },
@@ -342,7 +342,8 @@
 <script>
 
 function showLOVProduct(id, code) {
-    modal_lov_product_show(id, code,null);
+    alert('tes');
+    modal_lov_product_show(id, code,'');
 }
 
 
