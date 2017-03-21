@@ -69,11 +69,43 @@
                 },
                 {label: 'Parent ID',name: 'parent_id',width: 5, sorttype: 'number',align: "left",editable: true,hidden:true,
                 },
+                {label: 'Valid From', name: 'valid_from', width: 120, editable: true,
+                    edittype:"text",
+                    editrules: {required: true},
+                    editoptions: {
+                        // dataInit is the client-side event that fires upon initializing the toolbar search field for a column
+                        // use it to place a third party control to customize the toolbar
+                        dataInit: function (element) {
+                           $(element).datepicker({
+                                autoclose: true,
+                                format: 'yyyy-mm-dd',
+                                orientation : 'top',
+                                todayHighlight : true
+                            });
+                        }
+                    }
+                },
+                {label: 'Valid To', name: 'valid_to', width: 120, editable: true,
+                    edittype:"text",
+                    editrules: {required: false},
+                    editoptions: {
+                        // dataInit is the client-side event that fires upon initializing the toolbar search field for a column
+                        // use it to place a third party control to customize the toolbar
+                        dataInit: function (element) {
+                           $(element).datepicker({
+                                autoclose: true,
+                                format: 'yyyy-mm-dd',
+                                orientation : 'top',
+                                todayHighlight : true
+                            });
+                        }
+                    }
+                },
                 {label: 'Address',name: 'address',width: 150, align: "left",editable: true,
                     editoptions: {
                         size: 40,
                         maxlength:64
-                    },
+                    }, 
                     
                 },
                 {label: 'City',name: 'city',width: 150, align: "left",editable: true,

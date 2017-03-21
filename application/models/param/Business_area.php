@@ -16,14 +16,16 @@ class Business_area extends Abstract_model {
                                 'business_area_name'                  => array('nullable' => false, 'type' => 'str', 'unique' => false, 'display' => 'Name'),
                                 'p_business_area_type_id'                      => array('nullable' => false, 'type' => 'int', 'unique' => false, 'display' => 'ID Business Type Area'),
                                 'parent_id'                  => array('nullable' => true, 'type' => 'int', 'unique' => false, 'display' => 'ID Parent'),
+                                'valid_from'          => array('nullable' => false, 'type' => 'date', 'unique' => false, 'display' => 'Valid From'),
+                                'valid_to'          => array('nullable' => true, 'type' => 'date', 'unique' => false, 'display' => 'Valid To'),
                                 'address'                      => array('nullable' => true, 'type' => 'str', 'unique' => false, 'display' => 'Address'),
                                 'city'                  => array('nullable' => true, 'type' => 'str', 'unique' => false, 'display' => 'City'),
                                 'description'               => array('nullable' => true, 'type' => 'str', 'unique' => false, 'display' => 'Description'),
 
                                 'creation_date'          => array('nullable' => true, 'type' => 'date', 'unique' => false, 'display' => 'Created Date'),
                                 'created_by'            => array('nullable' => true, 'type' => 'str', 'unique' => false, 'display' => 'Created By'),
-                                'update_date'          => array('nullable' => true, 'type' => 'date', 'unique' => false, 'display' => 'Updated Date'),
-                                'update_by'            => array('nullable' => true, 'type' => 'str', 'unique' => false, 'display' => 'Updated By'),
+                                'updated_date'          => array('nullable' => true, 'type' => 'date', 'unique' => false, 'display' => 'Updated Date'),
+                                'updated_by'            => array('nullable' => true, 'type' => 'str', 'unique' => false, 'display' => 'Updated By'),
 
                             );
 
@@ -48,20 +50,42 @@ class Business_area extends Abstract_model {
 
             $this->db->set('creation_date',"to_date('".date('Y-m-d')."','yyyy-mm-dd')",false);
             $this->record['created_by'] = $userdata['user_name'];
-            $this->db->set('update_date',"to_date('".date('Y-m-d')."','yyyy-mm-dd')",false);
-            $this->record['update_by'] = $userdata['user_name'];
+            $this->db->set('updated_date',"to_date('".date('Y-m-d')."','yyyy-mm-dd')",false);
+            $this->record['updated_by'] = $userdata['user_name'];
 
             $this->record[$this->pkey] = $this->generate_id($this->table, $this->pkey);
+
+            if($this->record['valid_from'] != "") {
+                $this->db->set('valid_from',"to_date('".$this->record['valid_from']."','yyyy-mm-dd')",false);
+            }
+
+            if($this->record['valid_to'] != "") {
+                $this->db->set('valid_to',"to_date('".$this->record['valid_to']."','yyyy-mm-dd')",false);
+            }
+
+            unset($this->record['valid_from']);
+            unset($this->record['valid_to']);
 
             if(empty($this->record['parent_id']))
                 unset($this->record['parent_id']);
         }else {
             //do something
             //example:
-            $this->db->set('update_date',"to_date('".date('Y-m-d')."','yyyy-mm-dd')",false);
-            $this->record['update_by'] = $userdata['user_name'];
+            $this->db->set('updated_date',"to_date('".date('Y-m-d')."','yyyy-mm-dd')",false);
+            $this->record['updated_by'] = $userdata['user_name'];
             //if false please throw new Exception
 
+            if($this->record['valid_from'] != "") {
+                $this->db->set('valid_from',"to_date('".$this->record['valid_from']."','yyyy-mm-dd')",false);
+            }
+
+            if($this->record['valid_to'] != "") {
+                $this->db->set('valid_to',"to_date('".$this->record['valid_to']."','yyyy-mm-dd')",false);
+            }
+
+            unset($this->record['valid_from']);
+            unset($this->record['valid_to']);
+            
             if(empty($this->record['parent_id']))
                 unset($this->record['parent_id']);
         }
