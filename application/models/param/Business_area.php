@@ -29,8 +29,10 @@ class Business_area extends Abstract_model {
 
                             );
 
-    public $selectClause    = "ba.*";
-    public $fromClause      = "p_business_area ba";
+    public $selectClause    = "ba.*,bat.code";
+    public $fromClause      = "p_business_area ba
+                                inner join p_business_area_type bat
+                                on ba.p_business_area_type_id = bat.p_business_area_type_id";
 
     public $refs            = array();
 

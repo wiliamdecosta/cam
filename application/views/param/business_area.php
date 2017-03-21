@@ -16,7 +16,7 @@
     <div class="col-md-4">
                     <div class="portlet red box menu-panel">
                         <div class="portlet-title">
-                            <div class="caption">Menu</div>
+                            <div class="caption">Business Area Hirarki</div>
                             <div class="tools">
                                 <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
                             </div>
@@ -60,7 +60,13 @@
                     },
                     editrules: {required: true}
                 },
-                {label: 'Business Area Type',name: 'p_business_area_type_id',width: 120, align: "left",editable: true, editrules: {edithidden: true, required: true},
+                {label: 'Business Area Type',name: 'code',width: 150, align: "left",editable: false,
+                    editoptions: {
+                        size: 40,
+                        maxlength:64
+                    },
+                },
+                {label: 'Business Area Type',name: 'p_business_area_type_id',width: 120, align: "left",editable: true,  hidden: true, editrules: {edithidden: true, required: true},
                     edittype: 'select',
                     editoptions: {
                         style: "width: 250px", 
