@@ -636,6 +636,7 @@
 <?php $this->load->view('lov/lov_addr.php'); ?>
 <?php $this->load->view('lov/lov_parent_product.php'); ?>
 <?php $this->load->view('lov/lov_country.php'); ?>
+<?php $this->load->view('lov/lov_bm.php'); ?>
 <script>
 
 function isNumberKey(evt){
@@ -652,6 +653,11 @@ $(".numberformat").number( true, 0 , '.',',');
 $(".numberformat").css("text-align", "right");
 
 $('#in_Product_Quantity').val("1");
+
+$("#btn-lov-bm").on('click', function() {
+    //alert('test');
+    modal_lov_bm_show('wizard1_bm_code');
+});
 
 $("#btn-lov-customer").on('click', function() {
     modal_lov_customer_show('wizard1_customer_ref','wizard1_customer_code');
