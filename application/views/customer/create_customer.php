@@ -272,7 +272,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-md-4">Address Name
+                                                <label class="control-label col-md-4">Customer Name
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-8">
@@ -372,7 +372,24 @@
                                                            required/>
                                                 </div>
                                             </div>
+                                            
+                                             <div class="form-group">
+                                                <label class="control-label col-md-4">Country
+                                                    <span class="required">  * </span>
+                                                </label>
+                                                <div class="col-md-7">
+                                                    <div class="input-group">
+                                                        <input type="hidden" class="form-control" name="wizard5_country_id" id="wizard5_country_id" readonly value="34">
+                                                        <input type="text" class="form-control required" name="wizard5_country_code" id="wizard5_country_code" readonly value="Indonesia">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-success" type="button" id="btn-lov-country">
+                                                            <i class="fa fa-search"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
 
+                                            
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Mobile Number
                                                 </label>
@@ -381,13 +398,13 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group">
+                                            <div class="form-group" style="display:none;">
                                                 <label class="control-label col-md-4">Contact Start Date (mm/dd/yyyy)
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input class="form-control datepicker required" type="text" value=""
-                                                           id="datepicker" name="in_ContactStartDate" required>
+                                                    <input class="form-control datepicker " type="text" value=""
+                                                           id="datepicker" name="in_ContactStartDate" >
                                                 </div>
                                             </div>
 
@@ -450,6 +467,7 @@
     </div>
 </div>
 <?php $this->load->view('lov/lov_parent_customer.php'); ?>
+<?php $this->load->view('lov/lov_country.php'); ?>
 <script>
 function f_getComboMS(){
 invcoid = $('#in_inv_co_id').val(); 
@@ -475,7 +493,10 @@ invcoid = $('#in_inv_co_id').val();
         $('#btn-lov-nipnas').on('click', function () {
             modal_lov_customer_show('parentCusref', 'in_inv_co_id');
         });
-        
+        $("#btn-lov-country").on('click', function() {
+            modal_lov_country_show('wizard5_country_id','wizard5_country_code');
+        });
+
         $('#in_CustomerType').change(function(){
            
             //alert($('#in_CustomerType option:selected').text());
@@ -682,6 +703,7 @@ invcoid = $('#in_inv_co_id').val();
                         success.hide();
                         error.hide();
 
+                        // validate next button 
                         if (form.valid() == false) {
                             return false;
                         }
@@ -706,7 +728,7 @@ invcoid = $('#in_inv_co_id').val();
 
                 $('#form_wizard_1').find('.button-previous').hide();
                 $('#form_wizard_1 .button-submit').click(function () {
-                    /* if(form.valid() == true){
+                     /*if(form.valid()){
                      form.submit();
                      }*/
                 }).hide();
@@ -730,6 +752,9 @@ invcoid = $('#in_inv_co_id').val();
 
         $('#submit_form').on('submit', (function (e) {
             // Stop form from submitting normally
+            if(!$(this).valid()) {
+                return false;
+            }
             e.preventDefault();
 
             var postData = $('#submit_form').serialize(),

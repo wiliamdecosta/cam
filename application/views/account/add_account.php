@@ -187,13 +187,25 @@
                                                            name="inAccountName" onkeyup="">
                                                 </div>
                                             </div>
-                                            <div class="form-group">
+                                             <div class="form-group">
+                                                <label class="col-md-4 control-label">Account Status
+                                                    <span class="required"> * </span>
+                                                </label>
+
+                                                <div class="col-md-8"> 
+                                                  <select id="accStatus" class="form-control" name="accStatus">
+                                                      <option value="OK">Active</option>
+                                                      <option value="PE">Pending</option>
+                                                  </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group" id="inAccountToGoLiveDiv">
                                                 <label class="col-md-4 control-label">Account To Go Live
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
                                                     <input type="text" class="form-control required datepicker"
-                                                           readonly="" name="inAccountToGoLive">
+                                                           readonly="" name="inAccountToGoLive"  id="inAccountToGoLive">
                                                 </div>
                                                 <label class="col-md-3 control-label">MM/DD/YYYY
                                                 </label>
@@ -343,7 +355,7 @@
                                                            id="inCompanyName" name="inCompanyName">
                                                 </div>
                                             </div>
-                                            <div class="form-group">
+                                            <!-- <div class="form-group">
                                                 <label class="col-md-4 control-label">NPWP
                                                     <span class="required"> * </span>
                                                 </label>
@@ -351,7 +363,7 @@
                                                     <input type="text" class="form-control required"
                                                            id="inNPWP" name="inNPWP" onkeyup="setNPWP(this.value)">
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <div class="form-group">
                                                 <label class="col-md-4 control-label">Email
                                                     <span class="required"> * </span>
@@ -387,13 +399,13 @@
                                                     ); ?>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
+                                            <div class="form-group" style="display:none;">
                                                 <label class="control-label col-md-4">Contact Start Date
                                                     <span class="required"> * </span>
                                                 </label>
-                                                <div class="col-md-5">
-                                                    <input class="form-control datepicker required" type="text" value="<?php echo date('m/d/y');?>"
-                                                           name="inContactStartDate" required>
+                                                <div class="col-md-5" >
+                                                    <input class="form-control datepicker " type="text" value="<?php echo date('m/d/y');?>"
+                                                           name="inContactStartDate" >
                                                 </div>
                                                 <label class="col-md-3 control-label">MM/DD/YYYY
                                                 </label>
@@ -401,6 +413,35 @@
 
                                         </div>
                                         <div class="col-md-6">
+                                        <div class="form-group">
+                                                <label class="control-label col-md-4">Use an existing
+                                                </label>
+                                                <div class="col-md-7">
+                                                    <div class="input-group">
+                                                        <input type="hidden" class="form-control" name="wizard5_exst_addr" id="wizard5_exst_addr" readonly>
+                                                        <input type="text" class="form-control " name="wizard5_exst_addr_code" id="wizard5_exst_addr_code" readonly>
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-success" type="button" id="btn-lov-addr">
+                                                            <i class="fa fa-search"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <div class="form-group">
+                                                <label class="control-label col-md-4">Country
+                                                    <span class="required">  * </span>
+                                                </label>
+                                                <div class="col-md-7">
+                                                    <div class="input-group">
+                                                        <input type="hidden" class="form-control" name="wizard5_country_id" id="wizard5_country_id" readonly value="34">
+                                                        <input type="text" class="form-control required" name="wizard5_country_code" id="wizard5_country_code" readonly value="Indonesia">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-success" type="button" id="btn-lov-country">
+                                                            <i class="fa fa-search"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="form-group">
                                                 <label class="col-md-4 control-label">Street Name
                                                     <span class="required"> * </span>
@@ -462,7 +503,7 @@
                                                            name="inZipCode" required>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
+                                            <div class="form-group" style="display: none;">
                                                 <label class="col-md-4 control-label">Document Address
                                                 </label>
                                                 <div class="col-md-8">
@@ -618,10 +659,14 @@
                                 </div>
                                 <div class="tab-pane" id="tab5">
                                     <div class="row">
-                                        <div class="col-md-12">
+                                     <div class="col-md-6">
+                                        <?php echo genAttr('accountattributes','default'); 
+                                        ?>
+                                      </div>
+                                        <!-- <div class="col-md-12">
                                             <table id="grid"></table>
                                             <div id="pager"></div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -650,284 +695,56 @@
 </div>
 
 <?php $this->load->view('lov/lov_nipnas2.php'); ?>
-<script>
-    jQuery(function ($) {
-        var grid = $('#grid');
-        var pager = $('#pager');
-
-        grid.jqGrid({
-            url: '<?php echo WS_JQGRID . "account.account_controller/getAccountAttr"; ?>',
-            datatype: "json",
-            mtype: "POST",
-            colNames: ['Attr ID', 'Attribute Name', 'Attribute Value'],
-            colModel: [
-                {name: 'attr_id', index: 'attr_id', width: 450, editable: false, hidden: true},
-                {name: 'attr_name', index: 'attr_name', width: 450, editable: false, hidden: false},
-                {name: 'xs2', index: 'xs2', width: 150, editable: true, hidden: false}
-            ],
-            height: '100%',
-            autowidth: true,
-            viewrecords: true,
-            rowNum: 10,
-            rowList: [10, 20, 50],
-            rownumbers: true, // show row numbers
-            rownumWidth: 35, // the width of the row numbers columns
-            altRows: true,
-            shrinkToFit: true,
-            multiboxonly: true,
-            onSelectRow: editRow,
-            sortorder: '',
-            pager: '#grid-pager',
-            jsonReader: {
-                root: 'rows',
-                id: 'id',
-                repeatitems: false
-            },
-            loadComplete: function (response) {
-                if (response.success == false) {
-                    swal({title: 'Attention', text: response.message, html: true, type: "warning"});
-                }
-
-            },
-            //memanggil controller jqgrid yang ada di controller crud
-            editurl: '',
-            caption: "Additional Informations"
-
-        });
-
-        var lastSelection;
-
-        function editRow(id) {
-            if (id && id !== lastSelection) {
-                grid.jqGrid('restoreRow', lastSelection);
-                grid.jqGrid('editRow', id, {keys: true});
-                lastSelection = id;
-            }
-        }
-
-        grid.jqGrid('navGrid', '#pager',
-            {   //navbar options
-                edit: false,
-                excel: false,
-                editicon: 'fa fa-pencil blue bigger-120',
-                add: false,
-                addicon: 'fa fa-plus-circle purple bigger-120',
-                del: false,
-                delicon: 'fa fa-trash-o red bigger-120',
-                search: false,
-                searchicon: 'fa fa-search orange bigger-120',
-                refresh: false,
-                afterRefresh: function () {
-                    // some code here
-                    jQuery("#detailsPlaceholder").hide();
-                },
-
-                refreshicon: 'fa fa-refresh green bigger-120',
-                view: false,
-                viewicon: 'fa fa-search-plus grey bigger-120'
-            },
-
-            {
-                // options for the Edit Dialog
-                closeAfterEdit: true,
-                closeOnEscape: true,
-                recreateForm: true,
-                serializeEditData: serializeJSON,
-                width: 'auto',
-                errorTextFormat: function (data) {
-                    return 'Error: ' + data.responseText
-                },
-                beforeShowForm: function (e, form) {
-                    var form = $(e[0]);
-                    style_edit_form(form);
-
-                },
-                afterShowForm: function (form) {
-                    form.closest('.ui-jqdialog').center();
-                },
-                afterSubmit: function (response, postdata) {
-                    var response = jQuery.parseJSON(response.responseText);
-                    if (response.success == false) {
-                        return [false, response.message, response.responseText];
-                    }
-                    return [true, "", response.responseText];
-                }
-            },
-            {
-                //new record form
-                closeAfterAdd: false,
-                clearAfterAdd: true,
-                closeOnEscape: true,
-                recreateForm: true,
-                width: 'auto',
-                errorTextFormat: function (data) {
-                    return 'Error: ' + data.responseText
-                },
-                serializeEditData: serializeJSON,
-                viewPagerButtons: false,
-                beforeShowForm: function (e, form) {
-                    var form = $(e[0]);
-                    style_edit_form(form);
-                },
-                afterShowForm: function (form) {
-                    form.closest('.ui-jqdialog').center();
-                },
-                afterSubmit: function (response, postdata) {
-                    var response = jQuery.parseJSON(response.responseText);
-                    if (response.success == false) {
-                        return [false, response.message, response.responseText];
-                    }
-
-                    $(".tinfo").html('<div class="ui-state-success">' + response.message + '</div>');
-                    var tinfoel = $(".tinfo").show();
-                    tinfoel.delay(3000).fadeOut();
-
-
-                    return [true, "", response.responseText];
-                }
-            },
-            {
-                //delete record form
-                serializeDelData: serializeJSON,
-                recreateForm: true,
-                beforeShowForm: function (e) {
-                    var form = $(e[0]);
-                    style_delete_form(form);
-
-                },
-                afterShowForm: function (form) {
-                    form.closest('.ui-jqdialog').center();
-                },
-                onClick: function (e) {
-                    //alert(1);
-                },
-                afterSubmit: function (response, postdata) {
-                    var response = jQuery.parseJSON(response.responseText);
-                    if (response.success == false) {
-                        return [false, response.message, response.responseText];
-                    }
-                    return [true, "", response.responseText];
-                }
-            },
-            {
-                //search form
-                closeAfterSearch: false,
-                recreateForm: true,
-                afterShowSearch: function (e) {
-                    var form = $(e[0]);
-                    style_search_form(form);
-                    form.closest('.ui-jqdialog').center();
-                },
-                afterRedraw: function () {
-                    style_search_filters($(this));
-                }
-            },
-            {
-                //view record form
-                recreateForm: true,
-                beforeShowForm: function (e) {
-                    var form = $(e[0]);
-                }
-            }
-            )
-            .navButtonAdd('#grid-pager', {
-                caption: "Export To Excel",
-                buttonicon: "fa fa-file-excel-o green",
-                position: "last",
-                title: "Export To Excel",
-                cursor: "pointer",
-                onClickButton: toExcelAccountDetails,
-                id: "reset"
-            });
-
-
-    });
-
-    function toExcelAccountDetails() {
-        // alert("Convert to Excel");
-        var c = confirm('Export to Excel ?')
-        if (c == true) {
-            var url = "<?php echo base_url();?>Account/excelAccountReport?";
-            url += "&npwp_val=" + $('#npwp_val').val();
-            // url += "&<?php echo $this->security->get_csrf_token_name(); ?>=<?php echo $this->security->get_csrf_hash(); ?>";
-            window.location = url;
-        }
-    }
-
-    function serializeJSON(postdata) {
-        var items;
-        if (postdata.oper != 'del') {
-            items = JSON.stringify(postdata, function (key, value) {
-                if (typeof value === 'function') {
-                    return value();
-                } else {
-                    return value;
-                }
-            });
-        } else {
-            items = postdata.id;
-        }
-
-        var jsondata = {
-            items: items,
-            oper: postdata.oper,
-            '<?php echo $this->security->get_csrf_token_name(); ?>': '<?php echo $this->security->get_csrf_hash(); ?>'
-        };
-        return jsondata;
-    }
-
-    function style_edit_form(form) {
-
-        //update buttons classes
-        var buttons = form.next().find('.EditButton .fm-button');
-        buttons.addClass('btn btn-sm').find('[class*="-icon"]').hide();//ui-icon, s-icon
-        buttons.eq(0).addClass('btn-primary');
-        buttons.eq(1).addClass('btn-danger');
-
-
-    }
-
-    function style_delete_form(form) {
-        var buttons = form.next().find('.EditButton .fm-button');
-        buttons.addClass('btn btn-sm btn-white btn-round').find('[class*="-icon"]').hide();//ui-icon, s-icon
-        buttons.eq(0).addClass('btn-danger');
-        buttons.eq(1).addClass('btn-default');
-    }
-
-    function style_search_filters(form) {
-        form.find('.delete-rule').val('X');
-        form.find('.add-rule').addClass('btn btn-xs btn-primary');
-        form.find('.add-group').addClass('btn btn-xs btn-success');
-        form.find('.delete-group').addClass('btn btn-xs btn-danger');
-    }
-
-    function style_search_form(form) {
-        var dialog = form.closest('.ui-jqdialog');
-        var buttons = dialog.find('.EditTable')
-        buttons.find('.EditButton a[id*="_reset"]').addClass('btn btn-sm btn-info').find('.ui-icon').attr('class', 'fa fa-retweet');
-        buttons.find('.EditButton a[id*="_query"]').addClass('btn btn-sm btn-inverse').find('.ui-icon').attr('class', 'fa fa-comment-o');
-        buttons.find('.EditButton a[id*="_search"]').addClass('btn btn-sm btn-success').find('.ui-icon').attr('class', 'fa fa-search');
-    }
-
-    function responsive_jqgrid(grid_selector, pager_selector) {
-
-        var parent_column = $(grid_selector).closest('[class*="col-"]');
-        $(grid_selector).jqGrid('setGridWidth', $(".page-content").width());
-        $(pager_selector).jqGrid('setGridWidth', parent_column.width());
-
-    }
-</script>
+<?php $this->load->view('lov/lov_addr.php'); ?>
+<?php $this->load->view('lov/lov_country.php'); ?>
 
 <script type="text/javascript">
     $(document).ready(function () {
+
+        $('#accStatus').change(function(){
+           
+            if($(this).val() == 'PE'){
+                $('#inAccountToGoLiveDiv').hide();
+                $('#inAccountToGoLive').val('');
+            }else{
+                $('#inAccountToGoLiveDiv').show();
+                $('#inAccountToGoLive').val('');
+            }
+
+        });
+
         $('#acc_name_page1').attr('autocomplete', 'off');
         $('#btn-lov-nipnas').on('click', function () {
             modal_lov_nipnas_show('inNipnas', 'customer_name');
         });
-
-        $('#btn-lov-accountnum').on('click', function () {
-            modal_lov_nipnas_show('account_number', 'customer_name2');
+        $("#btn-lov-country").on('click', function() {
+            modal_lov_country_show('wizard5_country_id','wizard5_country_code');
         });
+       /* $('#btn-lov-accountnum').on('click', function () {
+            modal_lov_nipnas_show('account_number', 'customer_name2');
+        });*/
+
+        $("#btn-lov-addr").on('click', function() {
+            var customer_ref = $('#inNipnas').val();
+            if(customer_ref == "") {
+                swal('Info','Customer harus diisi terlebih dahulu','info');
+                return;
+            }
+
+             modal_lov_addr_show('wizard5_exst_addr',
+                                 'wizard5_exst_addr_code',
+                                 'wizard5_country_id',
+                                 'wizard5_country_code',
+                                 'inStreetName',
+                                 'inBlockName',
+                                 'inCity',
+                                 'inProvinsi',
+                                 'inZipCode',
+                                 'inDistrictName',
+                                 customer_ref);
+             
+        });
+
 
         $('#back-manage-account').on('click', function () {
             loadContentWithParams('account.list_account', {});
@@ -1109,9 +926,10 @@
                             success.hide();
                             error.hide();
 
-                            /*if (form.valid() == false) {
+                            // button continue validation 
+                            if (form.valid() == false) {
                                 return false;
-                            }*/
+                            }
 
                             handleTitle(tab, navigation, index);
                         },
@@ -1196,6 +1014,9 @@
 
             $('#submit_form').on('submit', (function (e) {
                 // Stop form from submitting normally
+                if(!$(this).valid()) {
+                return false;
+            }
                 e.preventDefault();
 
                 var postData = $('#submit_form').serializeArray(),
@@ -1265,9 +1086,10 @@
 
     function setNPWP() {
         var npwp = $("#inNPWP").val();
-        var rowData = jQuery("#grid").jqGrid('getRowData', 2);
+        /*var rowData = jQuery("#grid").jqGrid('getRowData', 2);
         rowData.xs2 = npwp;
-        jQuery("#grid").jqGrid('setRowData', 2, rowData);
+        jQuery("#grid").jqGrid('setRowData', 2, rowData);*/
+        $('#NPWP').val(npwp);
     }
 
 </script>

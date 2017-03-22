@@ -348,6 +348,80 @@ if (!function_exists('generatehtml')) {
             return '';
         }
     }
+
+    function getColomTable($table, $conn = 'default'){
+
+        $CI =& get_instance();
+        $CI->load->model('M_helper');
+
+        $q = $CI->db->query("SELECT TABLE_NAME, 
+                                    COLUMN_NAME, NULLABLE, DATA_TYPE, column_id
+                                FROM dba_tab_columns 
+                                    WHERE TABLE_NAME = upper('".$table."') 
+                                    AND COLUMN_NAME <> 'ACCOUNT_NUM'
+                                    order by column_id asc 
+                            ")->result();
+        return $q;
+
+    }
+
+    function genAttr($table){
+
+        $data = getColomTable($table = $table, $conn = 'default');
+        $ret ='';
+        foreach ($data as $key => $value) {
+
+            // temporary set required for all, change it from table accountattributes 
+            $required = $value->nullable == 'Y' ? 'required' : '';
+
+            $dataType = $value->data_type == 'NUMBER' ? 'number' : 'text';
+            
+            if($value->column_name == 'NPWP'){ // need to change to parameter
+                $dataType = 'number';
+            }
+            // change this condition to parameter ASAP
+            if($value->column_name == 'IS_MONTHLY_INVOICE'){ 
+                $ret .= "<div class='form-group'>
+                            <label class='control-label col-md-4'>".ucwords(strtolower(str_replace('_',' ',$value->column_name)))."
+                            </label>
+                            <div class='col-md-8'>
+                            <select class='form-control ".$required."' ".$required." name='".$value->column_name."' id='".$value->column_name."'>
+                                                            <option value='Y'>Yes</option>
+                                                            <option value='N'>No</option>
+                                                        </select>
+                            </div>
+                            </div>";
+            }else{
+                
+                $ret .=  "<div class='form-group'>
+                        <label class='control-label col-md-4'>".ucwords(strtolower(str_replace('_',' ',$value->column_name)))."
+                        </label>
+                        <div class='col-md-8'>
+                            <input type='".$dataType."' class='a form-control ".$required."' name='".$value->column_name."' id='".$value->column_name."' ".$required.">
+                        </div>
+                    </div> ";
+           
+            }
+
+        }
+        return $ret;
+
+    }
+
+    function getSysdate(){
+        
+        $CI =& get_instance();
+        $CI->load->model('M_helper');
+        
+        $q = $CI->db->query("select to_char( pack_lov.get_system_date, 'yyyy-mm-dd hh24:mi:ss')  dat from dual
+                            ")->result();
+        
+        foreach ($q as $key => $value) {
+            return $value->dat;
+        }
+
+    }
+
 }
 
 
