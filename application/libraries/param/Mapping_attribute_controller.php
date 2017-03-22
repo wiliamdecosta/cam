@@ -323,7 +323,14 @@ class Mapping_attribute_controller {
             }
 
             if(!empty($searchPhrase)) {
-                $table->setCriteria("(upper(attribute_ua_name) ".$table->likeOperator." upper('%".$searchPhrase."%') OR upper(attribute_bill_name) ".$table->likeOperator." upper('%".$searchPhrase."%'))");
+                $table->setCriteria("(upper(attribute_ua_name) ".$table->likeOperator." upper('%".$searchPhrase."%') 
+                                        OR upper(attribute_bill_name) ".$table->likeOperator." upper('%".$searchPhrase."%')
+                                        OR upper(mandatory_boo) ".$table->likeOperator." upper('%".$searchPhrase."%')
+                                        OR upper(attribute_units) ".$table->likeOperator." upper('%".$searchPhrase."%')
+                                        OR upper(display_position) ".$table->likeOperator." upper('%".$searchPhrase."%')
+                                        OR upper(val_type) ".$table->likeOperator." upper('%".$searchPhrase."%')
+                                        OR upper(val_refference) ".$table->likeOperator." upper('%".$searchPhrase."%')
+                                    )");
             }
            
 

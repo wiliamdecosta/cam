@@ -24,6 +24,11 @@
                      <th data-column-id="product_attribute_subid" data-sortable="true" data-visible="false">Product Attribute ID</th>
                      <th data-column-id="attribute_ua_name">Attribute Ua Name</th>
                      <th data-column-id="attribute_bill_name">Attribute Bill Name</th>
+                     <th data-column-id="mandatory_boo">Mandatory Boo</th>
+                     <th data-column-id="attribute_units">Attribute Units</th>
+                     <th data-column-id="display_position">Display Position</th>
+                     <th data-column-id="val_type">Val Type</th>
+                     <th data-column-id="val_refference">Val Type</th>
                   </tr>
                 </thead>
                 </table>
