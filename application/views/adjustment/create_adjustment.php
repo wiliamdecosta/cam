@@ -111,7 +111,7 @@
                                     <label class="control-label col-md-2">Send Date <span class="required">  * </span>
                                     </label>
                                     <div class="col-md-3">                                           
-                                        <input type="text" class="form-control" readonly="" name="send_date" id="send_date">
+                                        <input type="text" class="form-control datepickerRO" readonly="" name="send_date" id="send_date">
                                     </div>
                                     <div class="col-md-3">                                           
                                         <input type="text" class="form-control" readonly="" name="sender" id="sender">
@@ -122,7 +122,7 @@
                                     <label class="control-label col-md-2">Update Date <span class="required">  * </span>
                                     </label>
                                     <div class="col-md-3">                                           
-                                        <input type="text" class="form-control" readonly="" name="update_date" id="update_date">
+                                        <input type="text" class="form-control datepickerRO" readonly="" name="update_date" id="update_date">
                                     </div>
                                     <div class="col-md-3">                                           
                                         <input type="text" class="form-control" readonly="" name="update_by" id="update_by">
@@ -133,7 +133,7 @@
                                     <label class="control-label col-md-2">Create Date <span class="required">  * </span>
                                     </label>
                                     <div class="col-md-3">                                           
-                                        <input type="text" class="form-control" readonly="" name="create_date" id="create_date">
+                                        <input type="text" class="form-control datepickerRO" readonly="" name="create_date" id="create_date">
                                     </div>
                                     <div class="col-md-3">                                           
                                         <input type="text" class="form-control" readonly="" name="create_by" id="create_by">
@@ -174,6 +174,11 @@ $(".numberformat").css("text-align", "right");
 
 $('.datepicker').datetimepicker({
     format: 'DD/MM/YYYY'
+});
+
+$('.datepickerRO').datetimepicker({
+    format: 'DD/MM/YYYY',
+    defaultDate: new Date()
 });
 
 
