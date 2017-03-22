@@ -23,7 +23,7 @@ class Mapping_attribute extends Abstract_model {
                                 'creation_date'          => array('nullable' => true, 'type' => 'date', 'unique' => false, 'display' => 'Created Date'),
                                 'created_by'            => array('nullable' => true, 'type' => 'str', 'unique' => false, 'display' => 'Created By'),
                                 'updated_date'          => array('nullable' => true, 'type' => 'date', 'unique' => false, 'display' => 'Updated Date'),
-                                'updated_date'            => array('nullable' => true, 'type' => 'str', 'unique' => false, 'display' => 'Updated By'),
+                                'updated_by'            => array('nullable' => true, 'type' => 'str', 'unique' => false, 'display' => 'Updated By'),
 
                             );
 
@@ -32,7 +32,8 @@ class Mapping_attribute extends Abstract_model {
                                     inner join  product p
                                 on pav.product_id =p.product_id
                                     inner join productattribute pa
-                                on pav.product_attribute_subid = pa.product_attribute_subid";
+                                on pav.product_attribute_subid = pa.product_attribute_subid
+                                and pav.product_id =pa.product_id";
 
     public $refs            = array();
 
@@ -51,7 +52,7 @@ class Mapping_attribute extends Abstract_model {
             $this->db->set('creation_date',"to_date('".date('Y-m-d')."','yyyy-mm-dd')",false);
             $this->record['created_by'] = $userdata['user_name'];
             $this->db->set('updated_date',"to_date('".date('Y-m-d')."','yyyy-mm-dd')",false);
-            $this->record['updated_date'] = $userdata['user_name'];
+            $this->record['updated_by'] = $userdata['user_name'];
 
             $this->record[$this->pkey] = $this->generate_id($this->table, $this->pkey);
 
@@ -70,7 +71,7 @@ class Mapping_attribute extends Abstract_model {
             //do something
             //example:
             $this->db->set('updated_date',"to_date('".date('Y-m-d')."','yyyy-mm-dd')",false);
-            $this->record['updated_date'] = $userdata['user_name'];
+            $this->record['updated_by'] = $userdata['user_name'];
             //if false please throw new Exception
 
             if($this->record['valid_from'] != "") {

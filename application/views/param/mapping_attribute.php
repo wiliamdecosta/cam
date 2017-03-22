@@ -50,8 +50,8 @@
 
                             // give the editor time to initialize
                             setTimeout( function() {
-                                elm.append('<input id="form_product_id" type="text"  style="display:none;">'+
-                                        '<input id="form_product_name" readonly type="text" class="FormElement form-control" placeholder="Choose Product">'+
+                                elm.append('<input id="form_product_id" type="text"  style="display:none;" onchange="myChangeProductAtt()">'+
+                                        '<input id="form_product_name" readonly type="text" class="FormElement form-control required" placeholder="Choose Product">'+
                                         '<button class="btn btn-success" type="button" onclick="showLOVProduct(\'form_product_id\',\'form_product_name\')">'+
                                         '   <span class="fa fa-search bigger-110"></span>'+
                                         '</button>');
@@ -80,33 +80,49 @@
                         }
                     }
                 },
-                {label: 'Product id',name: 'product_id',width: 150, align: "left",editable: true, hidden: false,
+                {label: 'Product Attribute Sub',
+                    name: 'product_attribute_subid',
+                    width: 200,
+                    sortable: true,
+                    editable: true,
+                    hidden: true,
+                    editrules: {edithidden: true, required:true},
+                    edittype: 'custom',
                     editoptions: {
-                        size: 30,
-                        maxlength:2,
-                        dataInit: function(element) {
-                            $(element).keypress(function(e){
-                                 if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-                                    return false;
-                                 }
-                            });
+                        "custom_element":function( value  , options) {
+                            var elm = $('<span></span>');
+
+                            // give the editor time to initialize
+                            setTimeout( function() {
+                                elm.append('<input id="form_product_att_id" type="text"  style="display:none;">'+
+                                        '<input id="form_product_att_name" readonly type="text" class="FormElement form-control required" placeholder="Choose Product Attribute">'+
+                                        '<button class="btn btn-success" type="button" onclick="showLOVProductAtt(\'form_product_att_id\',\'form_product_att_name\')">'+
+                                        '   <span class="fa fa-search bigger-110"></span>'+
+                                        '</button>');
+                                $("#form_product_att_id").val(value);
+                                elm.parent().removeClass('jqgrid-required');
+                            }, 100);
+
+                            return elm;
+                        },
+                        "custom_value":function( element, oper, gridval) {
+
+                            if(oper === 'get') {
+                                return $("#form_product_att_id").val();
+                            } else if( oper === 'set') {
+                                $("#form_product_att_id").val(gridval);
+                                var gridId = this.id;
+                                // give the editor time to set display
+                                setTimeout(function(){
+                                    var selectedRowId = $("#"+gridId).jqGrid ('getGridParam', 'selrow');
+                                    if(selectedRowId != null) {
+                                        var code_display = $("#"+gridId).jqGrid('getCell', selectedRowId, 'product_attribute_subid');
+                                        $("#form_product_att_name").val( code_display );
+                                    }
+                                },100);
+                            }
                         }
-                    },
-                    editrules: {required: true}
-                },
-                {label: 'Product Attribute Sub',name: 'product_attribute_subid',width: 150, align: "left",editable: true, hidden: false,
-                    editoptions: {
-                        size: 30,
-                        maxlength:2,
-                        dataInit: function(element) {
-                            $(element).keypress(function(e){
-                                 if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-                                    return false;
-                                 }
-                            });
-                        }
-                    },
-                    editrules: {required: true}
+                    }
                 },
                 {label: 'Val Type',name: 'val_type',width: 150, align: "left",editable: true,
                     editoptions: {
@@ -261,6 +277,7 @@
 
                     setTimeout(function() {
                         clearInputProduct();
+                        clearInputProductAtt();
                     },100);
 
                 },
@@ -278,6 +295,7 @@
                     tinfoel.delay(3000).fadeOut();
 
                     clearInputProduct();
+                    clearInputProductAtt();
                     return [true,"",response.responseText];
                 }
             },
@@ -337,19 +355,33 @@
     }
 
 </script>
-
-
+<?php $this->load->view('lov/lov_product.php'); ?>
+<?php $this->load->view('lov/lov_product_attribute_sub.php'); ?>
 <script>
 
 function showLOVProduct(id, code) {
-    alert('tes');
     modal_lov_product_show(id, code,'');
 }
+function myChangeProductAtt() {
+    $('#form_product_att_id').val('');
+    $('#form_product_att_name').val('');
+}
+function showLOVProductAtt(id, code) {
 
-
+    var form_product_id = $('#form_product_id').val();
+    if(form_product_id == "") {
+        swal('Info','Product harus diisi terlebih dahulu','info');
+        return;
+    }
+    modal_lov_product_attribute_sub_show(id, code,form_product_id);
+}
 function clearInputProduct() {
     $('#form_product_id').val('');
     $('#form_product_name').val('');
+}
+function clearInputProductAtt() {
+    $('#form_product_att_id').val('');
+    $('#form_product_att_name').val('');
 }
 
 </script>
