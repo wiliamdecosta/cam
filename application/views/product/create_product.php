@@ -1044,7 +1044,7 @@ $('#susp_recur_mod_type_id').on('change', function() {
             // Stop form from submitting normally
             e.preventDefault();
 
-            var postData = new FormData($('#submit_form')),
+            var postData = new FormData(this),
                 url = "<?php echo site_url('home/save_product');?>";
             // Send the data using post
             $.ajax({
