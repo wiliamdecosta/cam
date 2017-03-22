@@ -21,7 +21,8 @@
                 <thead>
                   <tr>
                      <th data-header-align="center" data-align="center" data-formatter="opt-edit" data-sortable="false" data-width="100">Options</th>
-                     <th data-column-id="product_attribute_subid" data-sortable="true" data-visible="false">Product Attribute ID</th>
+                     <th data-column-id="product_attribute_subid" data-sortable="true" data-visible="false">Product Attribute Sub ID</th>
+                     <th data-column-id="product_id" data-visible="false">Product ID</th>
                      <th data-column-id="attribute_ua_name">Attribute Ua Name</th>
                      <th data-column-id="attribute_bill_name">Attribute Bill Name</th>
                      <th data-column-id="mandatory_boo">Mandatory Boo</th>
