@@ -40,7 +40,7 @@
     .jqx-tree {border:none !important;}
     #paneltree-menu {border:none !important;}
     .logo-cam {
-        position:absolute;
+        position:fixed;
         top:12px;
         left:255px;
         z-index:15;
