@@ -65,6 +65,7 @@
 
                             if(oper === 'get') {
                                 return $("#form_product_id").val();
+                                
                             } else if( oper === 'set') {
                                 $("#form_product_id").val(gridval);
                                 var gridId = this.id;
@@ -72,7 +73,9 @@
                                 setTimeout(function(){
                                     var selectedRowId = $("#"+gridId).jqGrid ('getGridParam', 'selrow');
                                     if(selectedRowId != null) {
-                                        var code_display = $("#"+gridId).jqGrid('getCell', selectedRowId, 'product_id');
+                                        var id_display = $("#"+gridId).jqGrid('getCell', selectedRowId, 'product_id');
+                                        var code_display = $("#"+gridId).jqGrid('getCell', selectedRowId, 'product_name');
+                                        $("#form_product_id").val( id_display );
                                         $("#form_product_name").val( code_display );
                                     }
                                 },100);
@@ -116,7 +119,9 @@
                                 setTimeout(function(){
                                     var selectedRowId = $("#"+gridId).jqGrid ('getGridParam', 'selrow');
                                     if(selectedRowId != null) {
-                                        var code_display = $("#"+gridId).jqGrid('getCell', selectedRowId, 'product_attribute_subid');
+                                        var id_display = $("#"+gridId).jqGrid('getCell', selectedRowId, 'product_attribute_subid');
+                                        var code_display = $("#"+gridId).jqGrid('getCell', selectedRowId, 'attribute_ua_name');
+                                        $("#form_product_att_id").val( id_display );
                                         $("#form_product_att_name").val( code_display );
                                     }
                                 },100);
