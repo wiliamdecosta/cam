@@ -340,10 +340,13 @@ if (!function_exists('generatehtml')) {
     }
 
     function change_date_format($source = ''){
-
-        $date = DateTime::createFromFormat('d/m/Y', $source);
-        $data = $date->format('Ymd H:i:s');
-        return $data;
+        if($source != ''){
+            $date = DateTime::createFromFormat('d/m/Y', $source);
+            $data = $date->format('Ymd').' 00:00:00';
+            return $data;
+        }else{
+            return '';
+        }
     }
 }
 

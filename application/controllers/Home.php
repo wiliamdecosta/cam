@@ -147,7 +147,8 @@ class Home extends CI_Controller
         /**
          * Upload file
          */
-        $filesCount = count($_FILES['attributesImage']['name']);
+
+        $filesCount = count($_FILES['attributesImage']['tmp_name']);
         $uploadPath = 'application/third_party/uploads';
 
         $upload_data = array();
@@ -157,33 +158,7 @@ class Home extends CI_Controller
           $attrSubId = $this->input->post('subAttributesId');
         }
 
-        for($i = 0; $i < $filesCount; $i++){
-            $_FILES['uploadfile']['name'] = date("Ymdhis").'_'.$_FILES['attributesImage']['name'][$i];            
-            $_FILES['uploadfile']['type'] = $_FILES['attributesImage']['type'][$i];
-            $_FILES['uploadfile']['tmp_name'] = $_FILES['attributesImage']['tmp_name'][$i];
-            $_FILES['uploadfile']['error'] = $_FILES['attributesImage']['error'][$i];
-            $_FILES['uploadfile']['size'] = $_FILES['attributesImage']['size'][$i];
-
-
-
-            $upload_data['name'][$i] = date("Ymdhis").'_'.$_FILES['attributesImage']['name'][$i];
-            $upload_data['oriname'][$i] = $_FILES['attributesImage']['name'][$i];
-            $upload_data['filedir'][$i] = $uploadPath;
-            $upload_data['subid'][$i] = $attrSubId[$i];
-
-
-            $config['upload_path'] = $uploadPath;
-            $config['allowed_types'] = 'doc|pdf|png|jpg|jpeg|txt|docx|xlsx|xls';
-
-            $this->load->library('upload', $config);
-            $this->upload->initialize($config);
-            if(!$this->upload->do_upload('uploadfile')){
-                 $dt = array('status' => 'UPLOAD FAILED');
-
-                 echo json_encode($dt);
-                 exit;
-            }
-        }
+        
         // die('test');
         $i_Order_Type = 'ZXAO';
         $i_Order_No = $this->input->post('in_Customer_Order_Number');
@@ -219,8 +194,11 @@ class Home extends CI_Controller
              $prod .= "<attrName>".$attrId[$i]."</attrName>";
              $prod .= "<attrType>".$attrType[$i]."</attrType>";
              if($attrType[$i] == 'D'){
-                $date = DateTime::createFromFormat('d/m/Y', $attr[$i]);
-                $attr[$i] = $date->format('Ymd H:i:s');
+                if(!empty($attr[$i])){
+                    $date = DateTime::createFromFormat('d/m/Y', $attr[$i]);
+                    $attr[$i] = $date->format('Ymd');
+                }
+                
              }
              $prod .= "<attrValue>".$attr[$i]."</attrValue>";
              $prod .= "</productAttribute>";
@@ -255,17 +233,17 @@ class Home extends CI_Controller
                                   <endDate>".change_date_format($this->input->post('wizard5_in_End_Date'))."</endDate>
                                   <productSeq></productSeq>
                                   <overrideType>".$this->input->post('recurring_mod_type_id')."</overrideType>
-                                  <initiationCharge>".$this->input->post('wizard5_initiation_price')."</initiationCharge>
+                                  <initiationCharge>".str_replace(",","",$this->input->post('wizard5_initiation_price'))."</initiationCharge>
                                   <recurringModTypeId>".$this->input->post('recurring_mod_type_id')."</recurringModTypeId>
-                                  <recurringCharge>".$this->input->post('wizard5_periodic_price')."</recurringCharge>
+                                  <recurringCharge>".str_replace(",","",$this->input->post('wizard5_periodic_price'))."</recurringCharge>
                                   <suspModTypeId>".$this->input->post('susp_mod_type_id')."</suspModTypeId>
-                                  <suspCharge>".$this->input->post('wizard5_suspesion_price')."</suspCharge>
+                                  <suspCharge>".str_replace(",","",$this->input->post('wizard5_suspesion_price'))."</suspCharge>
                                   <suspRecurModTypeId>".$this->input->post('susp_recur_mod_type_id')."</suspRecurModTypeId>
-                                  <suspRecurringCharge>".$this->input->post('wizard5_susp_recur_price')."</suspRecurringCharge>
+                                  <suspRecurringCharge>".str_replace(",","",$this->input->post('wizard5_susp_recur_price'))."</suspRecurringCharge>
                                   <terminationModTypeId>".$this->input->post('termination_mod_type_id')."</terminationModTypeId>
-                                  <termCharge>".$this->input->post('wizard5_termination_price')."</termCharge>
+                                  <termCharge>".str_replace(",","",$this->input->post('wizard5_termination_price'))."</termCharge>
                                   <reactModTypeId>".$this->input->post('react_mod_type_id')."</reactModTypeId>
-                                  <reactivationCharge>".$this->input->post('wizard5_react_price')."</reactivationCharge>
+                                  <reactivationCharge>".str_replace(",","",$this->input->post('wizard5_react_price'))."</reactivationCharge>
                                   <reactCharge></reactCharge>
                                   <earlyTermCharge></earlyTermCharge>
                                 </productPrice>
@@ -322,44 +300,67 @@ class Home extends CI_Controller
 
             if($dt['status'] == 'COMPLETED'){
                 $stringMsg = '';
-                 for($i = 0; $i < count($upload_data); $i++){
-                    $sqlupload = "BEGIN "
-                    . " TLKCAMWEBINTERFACE.FileUploaded ("
-                    . " :pIn_Order_No, "
-                    . " :pIn_Customer_Ref, "
-                    . " :pIn_Account_Num, "
-                    . " :pIn_UserName, "
-                    . " :pIn_ProductSeq, "
-                    . " :pIn_Productid, "
-                    . " :pIn_ProdAttrSubid, "
-                    . " :pIn_FileName, "
-                    . " :pIn_OrigFilename, "
-                    . " :pIn_FileDir, "
-                    . " :pOut_Status "
-                    . "); END;";
+                for($i = 0; $i < $filesCount; $i++){
+
+                      if(empty($_FILES['attributesImage']['name'][$i])) continue;
+                      $_FILES['uploadfile']['name'] = date("Ymdhis").'_'.$_FILES['attributesImage']['name'][$i];            
+                      $_FILES['uploadfile']['type'] = $_FILES['attributesImage']['type'][$i];
+                      $_FILES['uploadfile']['tmp_name'] = $_FILES['attributesImage']['tmp_name'][$i];
+                      $_FILES['uploadfile']['error'] = $_FILES['attributesImage']['error'][$i];
+                      $_FILES['uploadfile']['size'] = $_FILES['attributesImage']['size'][$i];
 
 
-                    $stmt = oci_parse($this->cust->db->conn_id, $sqlupload);
+                      $config['upload_path'] = $uploadPath;
+                      $config['allowed_types'] = 'doc|pdf|png|jpg|jpeg|txt|docx|xlsx|xls';
 
-                    //  Bind the input parameter
-                    oci_bind_by_name($stmt, ':pIn_Order_No', $i_Order_No);
-                    oci_bind_by_name($stmt, ':pIn_Customer_Ref', $i_Customer_Ref);
-                    oci_bind_by_name($stmt, ':pIn_Account_Num', $i_Account_Num);
-                    oci_bind_by_name($stmt, ':pIn_UserName', $i_UserName);
-                    oci_bind_by_name($stmt, ':pIn_ProductSeq', $o_productSeq);
-                    oci_bind_by_name($stmt, ':pIn_Productid', $i_Product_Id);
-                    oci_bind_by_name($stmt, ':pIn_ProdAttrSubid', $upload_data['subid'][$i]);
-                    oci_bind_by_name($stmt, ':pIn_FileName', $upload_data['name'][$i]);
-                    oci_bind_by_name($stmt, ':pIn_OrigFilename', $upload_data['oriname'][$i]);
-                    oci_bind_by_name($stmt, ':pIn_FileDir', $upload_data['filedir'][$i]);
+                      $this->load->library('upload', $config);
+                      $this->upload->initialize($config);
+                      if(!$this->upload->do_upload('uploadfile')){
+                           // $dt = array('status' => 'UPLOAD FAILED');
 
-                    // Bind the output parameter
-                    oci_bind_by_name($stmt, ':pOut_Status', $pOut_Status, 2000000);
+                           // echo json_encode($dt);
+                           // exit;
+                          $stringMsg .= 'Upload File (failed) '.$_FILES['uploadfile']['name'].' : FAILED <br>';
+                      }else{
+                        $sqlupload = "BEGIN "
+                                  . " TLKCAMWEBINTERFACE.FileUploaded ("
+                                  . " :pIn_Order_No, "
+                                  . " :pIn_Customer_Ref, "
+                                  . " :pIn_Account_Num, "
+                                  . " :pIn_UserName, "
+                                  . " :pIn_ProductSeq, "
+                                  . " :pIn_Productid, "
+                                  . " :pIn_ProdAttrSubid, "
+                                  . " :pIn_FileName, "
+                                  . " :pIn_OrigFilename, "
+                                  . " :pIn_FileDir, "
+                                  . " :pOut_Status "
+                                  . "); END;";
 
-                    $stringMsg .= 'Upload File '.$upload_data['oriname'].' : '.$pOut_Status.'<br>';
+                        $stmt = oci_parse($this->cust->db->conn_id, $sqlupload);
 
-                    ociexecute($stmt);
-                 }
+                        //  Bind the input parameter
+                        oci_bind_by_name($stmt, ':pIn_Order_No', $i_Order_No);
+                        oci_bind_by_name($stmt, ':pIn_Customer_Ref', $i_Customer_Ref);
+                        oci_bind_by_name($stmt, ':pIn_Account_Num', $i_Account_Num);
+                        oci_bind_by_name($stmt, ':pIn_UserName', $i_UserName);
+                        oci_bind_by_name($stmt, ':pIn_ProductSeq', $o_productSeq);
+                        oci_bind_by_name($stmt, ':pIn_Productid', $i_Product_Id);
+                        oci_bind_by_name($stmt, ':pIn_ProdAttrSubid', $attrSubId[$i]);
+                        oci_bind_by_name($stmt, ':pIn_FileName', $_FILES['uploadfile']['name']);
+                        oci_bind_by_name($stmt, ':pIn_OrigFilename', $_FILES['attributesImage']['name'][$i]);
+                        oci_bind_by_name($stmt, ':pIn_FileDir', $uploadPath);
+
+                        // Bind the output parameter
+                        oci_bind_by_name($stmt, ':pOut_Status', $pOut_Status, 2000000);
+
+                        ociexecute($stmt);
+
+                        $stringMsg .= 'Upload File (success) '.$_FILES['attributesImage']['name'][$i].' : '.$pOut_Status.'<br>';
+
+                      }
+                      
+                }
 
                  $dt['msg'] = $stringMsg;
             }

@@ -646,7 +646,7 @@ function isNumberKey(evt){
     return true;
 };
 
-$(".priceformat").number( true, 2 , '.',','); /* price number format */
+$(".priceformat").number( true, 0 , '.',','); /* price number format */
 $(".priceformat").css("text-align", "right");
 
 $(".numberformat").number( true, 0 , '.',',');
@@ -1058,12 +1058,9 @@ $('#susp_recur_mod_type_id').on('change', function() {
                 success: function (data) {
                     if(data.status == "COMPLETED"){                        
 
-                        if(data.msg){
-                            swal(data.status, data.msg);
-                        }else{
-                            swal({title: data.status, text: data.msg, html: true, type: "info"});
-                        }
                         
+                        swal({title: data.status, text: data.msg, html: true, type: "info"});
+
                         setTimeout(function(){
                              loadContentWithParams('product.list_product',{});
                         }, 3000);
