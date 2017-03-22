@@ -1056,9 +1056,14 @@ $('#susp_recur_mod_type_id').on('change', function() {
                 processData:false,
                 data: postData,
                 success: function (data) {
-                    if(data.status == "COMPLETED"){
-                        swal('',data.status);
+                    if(data.status == "COMPLETED"){                        
 
+                        if(data.msg){
+                            swal(data.status, data.msg);
+                        }else{
+                            swal({title: data.status, text: data.msg, html: true, type: "info"});
+                        }
+                        
                         setTimeout(function(){
                              loadContentWithParams('product.list_product',{});
                         }, 3000);

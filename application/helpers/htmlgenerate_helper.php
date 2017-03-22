@@ -271,13 +271,15 @@ if (!function_exists('generatehtml')) {
                 if($data['val_type'] == 'TEXT_BOX') {
                     $html .= "<div class='col-md-8'>";
                     $html .= "<input type='hidden' class='form-control' name='attributesType[]' value='C'>";
-                    $html .= "<input type='hidden' class='form-control' name='attributesId[]' value='".$data['attribute_bill_name']."'>";
+                    $html .= "<input type='hidden' class='form-control' name='attributesId[]' value='".$data['attribute_bill_name']."'>";                 
                     $html .= "<input type='text' class='form-control".$req."' name='attributes[]'>";
                 }else if($data['val_type'] == 'UPLOAD_FILE') {
                     $html .= "<div class='col-md-8'>";
                     $html .= "<input type='hidden' class='form-control' name='attributesType[]' value='C'>";
                     $html .= "<input type='hidden' class='form-control' name='attributesId[]' value='".$data['attribute_bill_name']."'>";
-                    $html .= "<input type='file' class='".$req."' name='attributes[]'>";
+                    $html .= "<input type='hidden' class='form-control' name='subAttributesId[]' value='".$data['product_attribute_subid']."'>";
+                    $html .= "<input type='text' class='form-control".$req."' name='attributes[]'>";
+                    $html .= "<input type='file' class='".$req."' name='attributesImage[]'>";
                 }else if($data['val_type'] == 'LOV') {
                     $html .= "<div class='col-md-8'>";
                     $html .= "<div class='input-group'>";
@@ -339,7 +341,7 @@ if (!function_exists('generatehtml')) {
 
     function change_date_format($source = ''){
 
-        $date = new DateTime($source);
+        $date = DateTime::createFromFormat('d/m/Y', $source);
         $data = $date->format('Ymd H:i:s');
         return $data;
     }

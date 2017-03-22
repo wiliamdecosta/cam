@@ -147,15 +147,29 @@ class Home extends CI_Controller
         /**
          * Upload file
          */
-        $filesCount = count($_FILES['attributes']['name']);
-        $uploadPath = 'uploads';
+        $filesCount = count($_FILES['attributesImage']['name']);
+        $uploadPath = 'application/third_party/uploads';
+
+        $upload_data = array();
+        $attrSubId = array();
+        $countAttrSubId = count($this->input->post('subAttributesId'));
+        if($countAttrSubId > 0){
+          $attrSubId = $this->input->post('subAttributesId');
+        }
 
         for($i = 0; $i < $filesCount; $i++){
-            $_FILES['attributes']['name'] = $_FILES['attributes']['name'][$i];
-            $_FILES['attributes']['type'] = $_FILES['attributes']['type'][$i];
-            $_FILES['attributes']['tmp_name'] = $_FILES['attributes']['tmp_name'][$i];
-            $_FILES['attributes']['error'] = $_FILES['attributes']['error'][$i];
-            $_FILES['attributes']['size'] = $_FILES['attributes']['size'][$i];
+            $_FILES['uploadfile']['name'] = date("Ymdhis").'_'.$_FILES['attributesImage']['name'][$i];            
+            $_FILES['uploadfile']['type'] = $_FILES['attributesImage']['type'][$i];
+            $_FILES['uploadfile']['tmp_name'] = $_FILES['attributesImage']['tmp_name'][$i];
+            $_FILES['uploadfile']['error'] = $_FILES['attributesImage']['error'][$i];
+            $_FILES['uploadfile']['size'] = $_FILES['attributesImage']['size'][$i];
+
+
+
+            $upload_data['name'][$i] = date("Ymdhis").'_'.$_FILES['attributesImage']['name'][$i];
+            $upload_data['oriname'][$i] = $_FILES['attributesImage']['name'][$i];
+            $upload_data['filedir'][$i] = $uploadPath;
+            $upload_data['subid'][$i] = $attrSubId[$i];
 
 
             $config['upload_path'] = $uploadPath;
@@ -163,18 +177,19 @@ class Home extends CI_Controller
 
             $this->load->library('upload', $config);
             $this->upload->initialize($config);
-            if(!$this->upload->do_upload('attributes')){
-                 $dt = array('status' => 'FAILED');
+            if(!$this->upload->do_upload('uploadfile')){
+                 $dt = array('status' => 'UPLOAD FAILED');
 
                  echo json_encode($dt);
                  exit;
             }
         }
-        die('test');
+        // die('test');
         $i_Order_Type = 'ZXAO';
         $i_Order_No = $this->input->post('in_Customer_Order_Number');
         $i_Customer_Ref = $this->input->post('wizard1_customer_ref');
         $i_Account_Num = $this->input->post('wizard1_account_num');
+        $i_Product_Id = $this->input->post('wizard2_product_id');
         $i_UserName = getUserName();
         $i_orderHeader = "<?xml version='1.0'?>
             <orderHeader>
@@ -197,18 +212,20 @@ class Home extends CI_Controller
         $attrId = $this->input->post('attributesId');
         $attrType = $this->input->post('attributesType');
         $attr = $this->input->post('attributes');
+
+
         for($i=0; $i<count($attrId); $i++){
              $prod .= "<productAttribute>";
              $prod .= "<attrName>".$attrId[$i]."</attrName>";
              $prod .= "<attrType>".$attrType[$i]."</attrType>";
              if($attrType[$i] == 'D'){
-                $date = new DateTime($attr[$i]);
-                $attr[$i] = $date->format('Ymd');
+                $date = DateTime::createFromFormat('d/m/Y', $attr[$i]);
+                $attr[$i] = $date->format('Ymd H:i:s');
              }
              $prod .= "<attrValue>".$attr[$i]."</attrValue>";
              $prod .= "</productAttribute>";
         }
-
+        // die($prod);
         $i_orderDoc = "<?xml version='1.0'?>
                             <products>
                               <product>
@@ -300,7 +317,52 @@ class Home extends CI_Controller
             ociexecute($stmt);
 
             $dt = array('status' => $o_orderStatus,
-                        'product_seq' => $o_productSeq);
+                        'product_seq' => $o_productSeq,
+                        'msg'=>null);
+
+            if($dt['status'] == 'COMPLETED'){
+                $stringMsg = '';
+                 for($i = 0; $i < count($upload_data); $i++){
+                    $sqlupload = "BEGIN "
+                    . " TLKCAMWEBINTERFACE.FileUploaded ("
+                    . " :pIn_Order_No, "
+                    . " :pIn_Customer_Ref, "
+                    . " :pIn_Account_Num, "
+                    . " :pIn_UserName, "
+                    . " :pIn_ProductSeq, "
+                    . " :pIn_Productid, "
+                    . " :pIn_ProdAttrSubid, "
+                    . " :pIn_FileName, "
+                    . " :pIn_OrigFilename, "
+                    . " :pIn_FileDir, "
+                    . " :pOut_Status "
+                    . "); END;";
+
+
+                    $stmt = oci_parse($this->cust->db->conn_id, $sqlupload);
+
+                    //  Bind the input parameter
+                    oci_bind_by_name($stmt, ':pIn_Order_No', $i_Order_No);
+                    oci_bind_by_name($stmt, ':pIn_Customer_Ref', $i_Customer_Ref);
+                    oci_bind_by_name($stmt, ':pIn_Account_Num', $i_Account_Num);
+                    oci_bind_by_name($stmt, ':pIn_UserName', $i_UserName);
+                    oci_bind_by_name($stmt, ':pIn_ProductSeq', $o_productSeq);
+                    oci_bind_by_name($stmt, ':pIn_Productid', $i_Product_Id);
+                    oci_bind_by_name($stmt, ':pIn_ProdAttrSubid', $upload_data['subid'][$i]);
+                    oci_bind_by_name($stmt, ':pIn_FileName', $upload_data['name'][$i]);
+                    oci_bind_by_name($stmt, ':pIn_OrigFilename', $upload_data['oriname'][$i]);
+                    oci_bind_by_name($stmt, ':pIn_FileDir', $upload_data['filedir'][$i]);
+
+                    // Bind the output parameter
+                    oci_bind_by_name($stmt, ':pOut_Status', $pOut_Status, 2000000);
+
+                    $stringMsg .= 'Upload File '.$upload_data['oriname'].' : '.$pOut_Status.'<br>';
+
+                    ociexecute($stmt);
+                 }
+
+                 $dt['msg'] = $stringMsg;
+            }
 
             echo json_encode($dt);
             exit;
