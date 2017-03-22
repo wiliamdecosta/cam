@@ -159,7 +159,7 @@ class Home extends CI_Controller
 
 
             $config['upload_path'] = $uploadPath;
-            $config['allowed_types'] = 'doc|pdf|png|jpg|jpeg';
+            $config['allowed_types'] = 'doc|pdf|png|jpg|jpeg|txt|docx|xlsx|xls';
 
             $this->load->library('upload', $config);
             $this->upload->initialize($config);
@@ -170,7 +170,7 @@ class Home extends CI_Controller
                  exit;
             }
         }
-
+        die('test');
         $i_Order_Type = 'ZXAO';
         $i_Order_No = $this->input->post('in_Customer_Order_Number');
         $i_Customer_Ref = $this->input->post('wizard1_customer_ref');

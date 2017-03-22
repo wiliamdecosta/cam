@@ -1,5 +1,5 @@
 <div id="modal_lov_profit_center" class="modal fade" tabindex="-1" style="overflow-y: scroll;">
-    <div class="modal-dialog" style="width:700px;">
+    <div class="modal-dialog" style="width:800px;">
         <div class="modal-content">
             <!-- modal title -->
             <div class="modal-header no-padding">
@@ -23,9 +23,9 @@
                      <th data-header-align="center" data-align="center" data-formatter="opt-edit" data-sortable="false" data-width="100">Options</th>
                      <th data-column-id="bm_code" data-sortable="true" data-visible="true">Profit Center Code</th>
                      <th data-column-id="bm_name">Profit Center Name</th>
-                     <th data-column-id="area_code">Area Code</th>
-                     <th data-column-id="area_name">Area Naame</th>
-                     <th data-column-id="fm_code">FM Code</th>
+                     <!-- <th data-column-id="area_code">Area Code</th> -->
+                     <th data-column-id="area_name">Area Name</th>
+                     <!-- <th data-column-id="fm_code">FM Code</th> -->
                      <th data-column-id="fm_name">FM Name</th>
                   </tr>
                 </thead>
