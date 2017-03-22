@@ -264,13 +264,34 @@ if (!function_exists('generatehtml')) {
             }else{
                 $req = "";
             }
-            $html .= "</label>";            
+            $html .= "</label>";
 
             if($data['attribute_units'] == "TX"){
-                $html .= "<div class='col-md-8'>";
-                $html .= "<input type='hidden' class='form-control' name='attributesType[]' value='C'>";
-                $html .= "<input type='hidden' class='form-control' name='attributesId[]' value='".$data['attribute_bill_name']."'>";
-                $html .= "<input type='text' class='form-control".$req."' name='attributes[]'>";
+
+                if($data['val_type'] == 'TEXT_BOX') {
+                    $html .= "<div class='col-md-8'>";
+                    $html .= "<input type='hidden' class='form-control' name='attributesType[]' value='C'>";
+                    $html .= "<input type='hidden' class='form-control' name='attributesId[]' value='".$data['attribute_bill_name']."'>";
+                    $html .= "<input type='text' class='form-control".$req."' name='attributes[]'>";
+                }else if($data['val_type'] == 'UPLOAD_FILE') {
+                    $html .= "<div class='col-md-8'>";
+                    $html .= "<input type='hidden' class='form-control' name='attributesType[]' value='C'>";
+                    $html .= "<input type='hidden' class='form-control' name='attributesId[]' value='".$data['attribute_bill_name']."'>";
+                    $html .= "<input type='file' class='".$req."' name='attributes[]'>";
+                }else if($data['val_type'] == 'LOV') {
+                    $html .= "<div class='col-md-8'>";
+                    $html .= "<div class='input-group'>";
+                    $html .= "<input type='hidden' class='form-control' name='attributesType[]' value='C'>";
+                    $html .= "<input type='hidden' class='form-control' name='attributesId[]' value='".$data['attribute_bill_name']."'>";
+                    $html .= "<input type='text' class='form-control".$req."' id='".$data['attribute_bill_name']."' name='attributes[]'>";
+                    $html .= '<span class="input-group-btn">
+                                 <button class="btn btn-success" type="button" onclick="modal_lov_'.strtolower($data['attribute_bill_name']).'_show(\''.$data['attribute_bill_name'].'\')">
+                                     <i class="fa fa-search"></i>
+                                 </button>
+                               </span>';
+                    $html .= '</div>';
+                }
+
 
             }else if($data['attribute_units'] == "IN"){
                 $html .= "<div class='col-md-5'>";
@@ -278,15 +299,15 @@ if (!function_exists('generatehtml')) {
                 $html .= "<input type='hidden' class='form-control' name='attributesId[]' value='".$data['attribute_bill_name']."'>";
                 $html .= "<input type='text' class='form-control numberformat".$req."' name='attributes[]'>";
 
-            }else{               
+            }else{
 
                 $html .= "<div class='col-md-4'>";
                 $html .= "<input type='hidden' class='form-control' name='attributesType[]' value='D'>";
                 $html .= "<input type='hidden' class='form-control' name='attributesId[]' value='".$data['attribute_bill_name']."'>";
-                $html .= "<input type='text' class='form-control datepickerON".$req."' name='attributes[]'>"; 
-            }        
-            
-            
+                $html .= "<input type='text' class='form-control datepickerON".$req."' name='attributes[]'>";
+            }
+
+
             $html .= "</div>";
             $html .= "</div>";
 
@@ -327,6 +348,6 @@ if (!function_exists('generatehtml')) {
 
 
 
-                                                
-                                                    
-                     
+
+
+

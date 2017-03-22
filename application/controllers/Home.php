@@ -108,7 +108,9 @@ class Home extends CI_Controller
                   s02 as attribute_bill_name,
                   s03 as mandatory_boo,
                   s04 as attribute_units,
-                  n03 as display_position
+                  n03 as display_position,
+                  s05 as val_type,
+                  s06 as val_refference
                from table(pack_lov.get_prodattr_list_byprodid('".getUserName()."', ".$id.",''))
                order by display_position asc";
         $query = $this->db->query($sql);
@@ -142,6 +144,33 @@ class Home extends CI_Controller
         // die($this->input->post('wizard5_initiation_price'));
         // exit;
         logging('save data product');
+        /**
+         * Upload file
+         */
+        $filesCount = count($_FILES['attributes']['name']);
+        $uploadPath = 'uploads';
+
+        for($i = 0; $i < $filesCount; $i++){
+            $_FILES['attributes']['name'] = $_FILES['attributess']['name'][$i];
+            $_FILES['attributes']['type'] = $_FILES['attributess']['type'][$i];
+            $_FILES['attributes']['tmp_name'] = $_FILES['attributess']['tmp_name'][$i];
+            $_FILES['attributes']['error'] = $_FILES['attributess']['error'][$i];
+            $_FILES['attributes']['size'] = $_FILES['attributess']['size'][$i];
+
+
+            $config['upload_path'] = $uploadPath;
+            $config['allowed_types'] = 'doc|pdf|png|jpg|jpeg';
+
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+            if(!$this->upload->do_upload('attributes')){
+                 $dt = array('status' => 'FAILED');
+
+                 echo json_encode($dt);
+                 exit;
+            }
+        }
+
         $i_Order_Type = 'ZXAO';
         $i_Order_No = $this->input->post('in_Customer_Order_Number');
         $i_Customer_Ref = $this->input->post('wizard1_customer_ref');
@@ -152,8 +181,8 @@ class Home extends CI_Controller
               <orderType>ZXAO</orderType>
               <orderSubType></orderSubType>
               <orderCode>AO</orderCode>
-              <orderId>".$this->input->post('in_Customer_Order_Number')."</orderId> 
-              <orderDate>".change_date_format($this->input->post('in_Start_Date_Time'))."</orderDate> 
+              <orderId>".$this->input->post('in_Customer_Order_Number')."</orderId>
+              <orderDate>".change_date_format($this->input->post('in_Start_Date_Time'))."</orderDate>
               <soldToParty>".$this->input->post('wizard1_customer_ref')."</soldToParty>
               <org></org>
               <bundling>F</bundling>
@@ -184,18 +213,18 @@ class Home extends CI_Controller
                             <products>
                               <product>
                                 <currency>IDR</currency>
-                                <ppnEffectiveDat>".change_date_format($this->input->post('in_Start_Date_Time'))."</ppnEffectiveDat> 
-                                <customerRef>".$this->input->post('wizard1_customer_ref')."</customerRef> 
-                                <accountNum>".$this->input->post('wizard1_account_num')."</accountNum> 
-                                <productId>".$this->input->post('wizard2_product_id')."</productId> 
-                                <parentProductId>".$this->input->post('wizard1_parent_product_id')."</parentProductId> 
-                                <tariffId>".$this->input->post('wizard2_tariff_id')."</tariffId> 
+                                <ppnEffectiveDat>".change_date_format($this->input->post('in_Start_Date_Time'))."</ppnEffectiveDat>
+                                <customerRef>".$this->input->post('wizard1_customer_ref')."</customerRef>
+                                <accountNum>".$this->input->post('wizard1_account_num')."</accountNum>
+                                <productId>".$this->input->post('wizard2_product_id')."</productId>
+                                <parentProductId>".$this->input->post('wizard1_parent_product_id')."</parentProductId>
+                                <tariffId>".$this->input->post('wizard2_tariff_id')."</tariffId>
                                 <competitorTariffId></competitorTariffId>
                                 <subscriptionRef></subscriptionRef>
-                                <supplierOrderNumber>".$this->input->post('in_Supplier_Order_Number')."</supplierOrderNumber> 
-                                <custOrderNumber>".$this->input->post('in_Customer_Order_Number')."</custOrderNumber> 
-                                <productLabel>".$this->input->post('in_Product_Label')."</productLabel> 
-                                <startDtm>".change_date_format($this->input->post('in_Start_Date_Time'))."</startDtm> 
+                                <supplierOrderNumber>".$this->input->post('in_Supplier_Order_Number')."</supplierOrderNumber>
+                                <custOrderNumber>".$this->input->post('in_Customer_Order_Number')."</custOrderNumber>
+                                <productLabel>".$this->input->post('in_Product_Label')."</productLabel>
+                                <startDtm>".change_date_format($this->input->post('in_Start_Date_Time'))."</startDtm>
                                 <endDtm></endDtm>
                                 <productStatus>OK</productStatus>
                                 <statusReason>Aktivasi</statusReason>
@@ -247,7 +276,8 @@ class Home extends CI_Controller
                     . " :i_UserName, "
                     . " :i_orderHeader, "
                     . " :i_orderDoc, "
-                    . " :o_orderStatus "
+                    . " :o_orderStatus, "
+                    . " :o_productSeq "
                     . "); END;";
 
             // var_dump($this->cust->db->conn_id);
@@ -265,10 +295,12 @@ class Home extends CI_Controller
 
             // Bind the output parameter
             oci_bind_by_name($stmt, ':o_orderStatus', $o_orderStatus, 2000000);
+            oci_bind_by_name($stmt, ':o_productSeq', $o_productSeq, 2000000);
 
             ociexecute($stmt);
 
-            $dt = array('status' => $o_orderStatus);
+            $dt = array('status' => $o_orderStatus,
+                        'product_seq' => $o_productSeq);
 
             echo json_encode($dt);
             exit;

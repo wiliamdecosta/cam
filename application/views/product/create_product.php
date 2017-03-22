@@ -32,7 +32,7 @@
                 </div>
             </div>
             <div class="portlet-body form">
-                <form class="form-horizontal" action="#" id="submit_form" method="post">
+                <form class="form-horizontal" action="#" id="submit_form" method="post" enctype="multipart/form-data">
                     <div class="form-wizard">
                         <div class="form-body">
                             <ul class="nav nav-pills nav-justified steps">
@@ -493,7 +493,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-md-4">Periodic 
+                                                <label class="control-label col-md-4">Periodic
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-4">
@@ -1044,23 +1044,26 @@ $('#susp_recur_mod_type_id').on('change', function() {
             // Stop form from submitting normally
             e.preventDefault();
 
-            var postData = $('#submit_form').serialize(),
+            var postData = new FormData($('#submit_form')),
                 url = "<?php echo site_url('home/save_product');?>";
             // Send the data using post
             $.ajax({
                 url: url,
                 type: "POST",
                 dataType: "json",
+                contentType: false,
+                cache: false,
+                processData:false,
                 data: postData,
                 success: function (data) {
                     if(data.status == "COMPLETED"){
                         swal('',data.status);
 
-                        setTimeout(function(){ 
+                        setTimeout(function(){
                              loadContentWithParams('product.list_product',{});
                         }, 3000);
-                        
-                        // $('#submit_form')[0].reset();                        
+
+                        // $('#submit_form')[0].reset();
                     }else{
                         swal('',data.status);
                     }
