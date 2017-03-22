@@ -75,6 +75,7 @@ class Customer_cont extends CI_Controller
         $in_StreetName = $this->input->post('in_StreetName');
         $in_Title = $this->input->post('in_Title');
         $in_ZipCode = $this->input->post('in_ZipCode');
+        $inCountry = $this->input->post('wizard5_country_id');
         $locId = (int)$this->input->post('locId');
         $userId = (int)$this->input->post('userId');
         $custAttr = (string)$this->getAttrValue(array($custReff,$sapCodeBill,$sapCodeUnBill,$sold2party));
@@ -143,9 +144,9 @@ class Customer_cont extends CI_Controller
             'pIn_cntAddressName' => $in_AddressName,
             'pIn_cntSalutationName' => $in_SalutationName,
             'pIn_cntLanguageId' => '7',
-            'pIn_addrAddresses' => $in_StreetName .'|'.$in_BlockName .'|'.$in_DistrictName.'|'.$in_City.'|'.$in_Province,
+            'pIn_addrAddresses' => $in_StreetName .'|'.$in_BlockName .'|'.$in_City.'|'.$in_DistrictName.'|'.$in_Province,
             'pIn_addrPostCode' => $in_ZipCode,
-            'pIn_addrCountryId' => 34,
+            'pIn_addrCountryId' => $inCountry,
             'pIn_addrAddressFormatId' => 11,
             'pIn_addrJCode' => '',
             'pIn_addrUstinCityBoo' => '',

@@ -231,7 +231,7 @@ class Account extends CI_Controller
         $inBillStyle = $this->input->post('inBillStyle');
         $inBillHandlingCode = null;//$this->input->post('inBillHandlingCode');
         $inCreditClass = $this->input->post('inCreditClass');
-        $account_attr = $this->input->post('account_attr');
+        //$account_attr = $this->input->post('account_attr');
         $hinCreditLimitMny = $this->input->post('hinCreditLimitMny');
         $hinPackageDiscAccNum = $this->input->post('hinPackageDiscAccNum');
         $hinEventDiscAccNum = $this->input->post('hinEventDiscAccNum');
@@ -246,84 +246,127 @@ class Account extends CI_Controller
         $inFinanceEmail = $this->input->post('inFinanceEmail');
         $document_address = $this->input->post('document_address');
 
-     /*   $pck_name = "CRMACCOUNT.createAccountTransaction";
-        $pIN = array(
-            'pIn_userId' => $userId,
-            'pIn_locId' => $locId,
-            'pIn_groupId' => $groupId,
-            'pIn_cntIT' => $inContactIT,
-            'pIn_cntITPhone' => $inITPhoneNumber,
-            'pIn_cntITEmail' => $inITEmail,
-            'pIn_cntAM' => $inContactAM,
-            'pIn_cntAMPhone' => $inAMPhoneNumber,
-            'pIn_cntAMEmail' => $inAMEmail,
-            'pIn_accAccountNum' => $AccountNumber,
-            'pIn_accCustomerRef' => $inNipnas,
-            'pIn_accAccountName' => $inAccountName,
-            'pIn_accCurrencyCode' => $inAccountCurrency,
-            'pIn_accNextBillDTM' => $inNextBillDate,
-            'pIn_accGoLiveDTM' => $inAccountToGoLive,
-            'pIn_accBillPeriod' => $inBillPeriode,
-            'pIn_accBillPeriodUnits' => $inSLBillPeriode,
-            'pIn_accBillStyleId' => $inBillStyle,
-            'pIn_accPaymentMethodId' => $inPaymentMethod,
-            'pIn_accCreditClassId' => $inCreditClass,
-            'pIn_accCreditLimitMny' => $hinCreditLimitMny,
-            'pIn_accInfoCurrencyCode' => $inInformationCurrency,
-            'pIn_accPackageDiscAccNum' => $hinPackageDiscAccNum,
-            'pIn_accEventDiscAccNum' => $hinEventDiscAccNum,
-            'pIn_accAccountingMethod' => $inAccountingMethod,
-            'pIn_accStatementFrequency' => $hinStatementFrequency,
-            'pIn_accBillHandlingCode' => $inBillHandlingCode,
-            'pIn_accInvoicingCoId' => $hinInvoicingCoId,
-            'pIn_accDefaultCPSId' => $inContractedPointOfSupply,
-            'pIn_accDonatedDiscountCPS' => NULL,
-            'pIn_accAutoDelBilledEventBoo' => 'F',
-            'pIn_accBusinessBoo' => NULL,
-            'pIn_accEndCustomerBoo' => NULL,
-            'pIn_accPrepayBoo' => $hinPrepayBoo,
-            'pIn_accThresholdSetId' => NULL,
-            'pIn_accTaxInclusiveBoo' => $inTaxStatus,
-            'pIn_accInternalAccountBoo' => 'F',
-            'pIn_accEventsPerDay' => $hinEventsPerDay,
-            'pIn_accHolidayProfileId' => NULL,
-            'pIn_accTemplateRef' => NULL,
-            'pIn_cntContactTypeId' => $inContactType,
-            'pIn_cntContactNotes' => NULL,
-            'pIn_cntTitle' => NULL,
-            'pIn_cntFirstName' => $inFirstName,
-            'pIn_cntInitials' => NULL,
-            'pIn_cntNamePostfix' => NULL,
-            'pIn_cntLastName' => $inLastName,
-            'pIn_cntAddressName' => $inCompanyName,
-            'pIn_cntSalutationName' => $inCompanyName,
-            'pIn_cntLanguageId' => $hinLanguageId,
-            'pIn_addrAddresses' => $inStreetName.'|'.$inBlockName.'|'.$inDistrictName.'|'.$inCity.'|'.$inProvinsi,
-            'pIn_addrPostCode' => $inZipCode,
-            'pIn_addrCountryId' => $hinCountryId,
-            'pIn_addrAddressFormatId' => 1,
-            'pIn_addrJCode' => NULL,
-            'pIn_addrUstinCityBoo' => NULL,
-            'pIn_cntdetStartDate' => $inContactStartDate,
-            'pIn_cntdetDayTimeTel' => NULL,
-            'pIn_cntdetDayTimeExt' => NULL,
-            'pIn_cntdetEveningTel' => NULL,
-            'pIn_cntdetEveningExt' => NULL,
-            'pIn_cntdetFaxTel' => NULL,
-            'pIn_cntdetMobileTel' => $inMobileNumber,
-            'pIn_cntdetEdi' => NULL,
-            'pIn_cntdetEmail' => $inEmail,
-            'pIn_cntdetPosition' => NULL,
-            'pIn_cntdetDepartment' => NULL,
-            'pIn_accattrValue' => $account_attr,
-            'pIn_contactFinance' => $inITContactFinance,
-            'pIn_phoneNumFinance' => $inFinancePhoneNumber,
-            'pIn_emailfinance' => $inFinanceEmail,
-            'pIn_namaDokumen' => $inDocumentName,
-            'pIn_alamatDokumen' => $document_address
-        );*/
 
-        $pIN2 = array(
+        // account attr
+        $attr = getColomTable($table = 'accountattributes', $conn = 'default');
+        //$accAttr = '';//array();
+        $accAttr = '';//array();
+        //$accAttr[0] = $AccountNumber;
+        foreach ($attr as $key => $value) {
+
+          //  $accAttr[$value->column_id] = $this->input->post($value->column_name);
+            
+            $accAttr .= "<accAttribute>
+                            <attrName>".$value->column_name."</attrName>
+                            <attrIndex>".$value->column_id."</attrIndex>
+                            <attrType>C</attrType>
+                            <attrValue>".$this->input->post($value->column_name)."</attrValue>
+                            <startDat/>
+                            <endDat/>
+                          </accAttribute>";
+        }
+
+        $account_attr = (string)$this->getAttrValue($accAttr);
+        
+        $xmlHeader = "<?xml version=".'"1.0"'."?>
+                        <orderHeader>
+                          <orderType>B2P</orderType>
+                          <orderSubType>0000</orderSubType>
+                          <orderCode>B2P</orderCode>
+                          <orderId>".$AccountNumber."</orderId>
+                          <previousOrderId/>
+                          <orderDate>".$this->makeDate(getSysdate())."</orderDate>
+                          <soldToParty>".$inNipnas."</soldToParty>
+                          <org/>
+                          <nipnas/>
+                          <bundling>F</bundling>
+                          <bundlingRef/>
+                          <DC>DIVES</DC>
+                        </orderHeader> 
+                        ";   
+
+        $xmlDetail = "<?xml version=".'"1.0"'."?>
+               <accountDoc>
+                <customerRef>".$inNipnas."</customerRef>
+                <accountNum>".$AccountNumber."</accountNum>
+                <accountName>".$inAccountName."</accountName>
+                <marketSegment/>
+                <billPeriod>".$inBillPeriode."</billPeriod>
+                <billPeriodUnit>".$inSLBillPeriode."</billPeriodUnit>
+                <paymentMethod>".$inPaymentMethod."</paymentMethod>
+                <currency>".$inAccountCurrency."</currency>
+                <taxInclusive>".$inTaxStatus."</taxInclusive>
+                <accountStatus>".$this->input->post('accStatus')."</accountStatus>
+                <goLiveDtm>".$this->makeDate($inAccountToGoLive)."</goLiveDtm>
+                <nextBillDtm>".$this->makeDate($inNextBillDate)."</nextBillDtm>
+                <accountContact>
+                  <firstName>".$inFirstName."</firstName>
+                  <lastName>".$inLastName."</lastName>
+                  <salutationName>".$inCompanyName."</salutationName>
+                  <phone>".$inMobileNumber."</phone>
+                  <contactAddress>
+                    <addr1>".$inStreetName."</addr1>
+                    <addr2>".$inBlockName."</addr2>
+                    <addr3>".$inCity."</addr3>
+                    <addr4>".$inDistrictName."</addr4>
+                    <addr5>".$inProvinsi."</addr5>
+                    <postCode>".$inZipCode."</postCode>
+                    <country>INDONESIA</country>
+                  </contactAddress>
+                </accountContact>
+                <accAttributes>
+                  ".$accAttr."
+                </accAttributes>
+              </accountDoc>
+              ";
+   
+       
+        $i_Order_Type = 'B2P';
+        $i_Order_No = $AccountNumber;
+        $i_Customer_Ref = $inNipnas;
+        $i_Account_Num = $AccountNumber;
+        $i_UserName = getUserName();
+        $i_orderHeader = $xmlHeader;
+        $i_orderDoc = $xmlDetail;
+
+        $sql = " BEGIN "
+                    . " TLKCAMWEBINTERFACE.CreateBill2Party ("
+                    . " :i_Order_Type, "
+                    . " :i_Order_No, "
+                    . " :i_Customer_Ref, "
+                    . " :i_Account_Num, "
+                    . " :i_UserName, "
+                    . " :i_orderHeader, "
+                    . " :i_orderDoc, "
+                    . " :o_orderStatus "
+                    . "); END;";
+
+      
+            $stmt = oci_parse($this->db->conn_id, $sql);
+
+            //  Bind the input parameter
+            oci_bind_by_name($stmt, ':i_Order_Type', $i_Order_Type);
+            oci_bind_by_name($stmt, ':i_Order_No', $i_Order_No);
+            oci_bind_by_name($stmt, ':i_Customer_Ref', $i_Customer_Ref);
+            oci_bind_by_name($stmt, ':i_Account_Num', $i_Account_Num);
+            oci_bind_by_name($stmt, ':i_UserName', $i_UserName);
+            oci_bind_by_name($stmt, ':i_orderHeader', $i_orderHeader);
+            oci_bind_by_name($stmt, ':i_orderDoc', $i_orderDoc);
+
+            // Bind the output parameter
+            oci_bind_by_name($stmt, ':o_orderStatus', $o_orderStatus, 2000000);
+
+            ociexecute($stmt);
+
+            $statusTrx = substr($o_orderStatus,0,5) == 'ERROR' ? 'F' : 'T';
+            $dt = array('strMessage' => $o_orderStatus.' | Account Number : '.$i_Account_Num,
+                         'statusCode' => $statusTrx);
+
+            echo json_encode($dt);
+            //echo $xmlHeader.'|'.$xmlDetail;
+        exit;
+
+         /*$pIN2 = array(
             'pIn_accAccountNum' => $AccountNumber,
             'pIn_accCustomerRef' => $inNipnas,
             'pIn_accAccountName' => $inAccountName,
@@ -384,26 +427,42 @@ class Account extends CI_Controller
             'pIn_cntdetDepartment' => NULL,
             'pIn_accattrValue' => $account_attr
         );
-
+*/
 
         // Exec Create Account SIN_CORE
         /*$conn_db = "corecrm";
         $out = $this->M_helper->exec_cursor($pck_name, $pIN, $conn_db);*/
 
-        $conn_db2 = "default";
+      /*  $conn_db2 = "default";
         $pck_name2 = "PKG_TIBSACCOUNT.createAccountWrapper";
-        $out = $this->M_helper->exec_cursor($pck_name2, $pIN2, $conn_db2);
-
-        /*if($out['statusCode'][0] == "T"){
-            // Exec Create Account Tibs
-            $conn_db2 = "tosdb";
-            $pck_name2 = "SINACCOUNT.createAccountWrapper";
-            $out = $this->M_helper->exec_cursor($pck_name2, $pIN2, $conn_db2);
-        }*/
-
-        echo json_encode($out);
+        $out = $this->M_helper->exec_cursor($pck_name2, $pIN2, $conn_db2);*/
 
     }
+    
+    private function getAttrValue($arr){
+        $vAttributes = '';
+        for($i = 2; $i <= count($arr); $i++){
+            $vAttribute = '';
+            $vAttrType = 'C';
+            $vAttribute = $arr[0]."|".$i."|".$vAttrType."|".$arr[$i]."|";
+            if($vAttributes != '')
+            {
+                $vAttributes .= "*".$vAttribute;
+            }
+            else
+            {
+                $vAttributes .= $vAttribute;
+            }
+        }
 
+        return $vAttributes;
+    }
+
+    function makeDate($date){
+
+        $dates = date_create($date);
+        return date_format($dates,"Ymd H:i:s");
+
+    }
 
 }
