@@ -151,11 +151,11 @@ class Home extends CI_Controller
         $uploadPath = 'uploads';
 
         for($i = 0; $i < $filesCount; $i++){
-            $_FILES['attributes']['name'] = $_FILES['attributess']['name'][$i];
-            $_FILES['attributes']['type'] = $_FILES['attributess']['type'][$i];
-            $_FILES['attributes']['tmp_name'] = $_FILES['attributess']['tmp_name'][$i];
-            $_FILES['attributes']['error'] = $_FILES['attributess']['error'][$i];
-            $_FILES['attributes']['size'] = $_FILES['attributess']['size'][$i];
+            $_FILES['attributes']['name'] = $_FILES['attributes']['name'][$i];
+            $_FILES['attributes']['type'] = $_FILES['attributes']['type'][$i];
+            $_FILES['attributes']['tmp_name'] = $_FILES['attributes']['tmp_name'][$i];
+            $_FILES['attributes']['error'] = $_FILES['attributes']['error'][$i];
+            $_FILES['attributes']['size'] = $_FILES['attributes']['size'][$i];
 
 
             $config['upload_path'] = $uploadPath;
