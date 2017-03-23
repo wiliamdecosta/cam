@@ -39,7 +39,7 @@ class Customer extends Abstract_model {
                                         s08 as SAP_CODE_UNBILL ,
                                         n01 as MARKET_SEGMENT_ID ,
                                         s04 as PARENT_CUSTOMER_REF ,
-                                        n02 as INVOICING_CO_ID 
+                                        n02 as INVOICING_CO_ID
                                  from table(pack_list_cust_acc_prod.customer_list(%s, ''))
                                  ) ct ";
 
@@ -49,7 +49,7 @@ class Customer extends Abstract_model {
         parent::__construct();
         //$this->db = $this->load->database('tosdb', TRUE);
         //$this->db->_escape_char = ' ';
-        $this->fromClause = sprintf($this->fromClause, "'".$this->session->userdata('user_name')."'"); 
+        $this->fromClause = sprintf($this->fromClause, "'".$this->session->userdata('user_name')."'");
 
         $this->db_crm = $this->load->database('corecrm', TRUE);
         $this->db_crm->_escape_char = ' ';
@@ -104,6 +104,45 @@ class Customer extends Abstract_model {
         oci_fetch_all($cursor, $res);
         echo json_encode($res);
     }
+
+
+     public function getDetailCustomer($customer_ref = ''){
+        $sql = "select s01 as customer_ref,
+          s02 as customer_name,
+          s03 as parent_customer_ref,
+          s04 as parent_customer_name,
+          s05 as customer_type_name,
+          s06 as provider_name,
+          s07 as password,
+          s08 as invoicing_co_name,
+          s09 as market_segment_name,
+          s10 as tax_exempt_ref,
+          s11 as vat_registration,
+          s12 as is_hirarcy_bill,
+          n01 as bill_period,
+          s13 as bill_period_units,
+          s14 as next_bill_dtm,
+          n01 as bills_per_statement
+            from table(pack_list_cust_acc_prod.customer_details_customer('".$this->session->userdata('user_name')."','".$customer_ref."'))";
+        $query = $this->db->query($sql);
+
+        return $query->row_array();
+    }
+
+    public function getContactDetails($customer_ref = ''){
+        $sql = "select    s01 as customer_name,
+          s21 as address,
+          s02 as email_address,
+          s03 as daytime_contact_tel,
+          s04 as evening_contact_tel,
+          s05 as mobile_contact_tel,
+          s06 as fax_contact_tel
+        from table(pack_list_cust_acc_prod.customer_details_attribute('".$this->session->userdata('user_name')."','".$customer_ref."'))";
+        $query = $this->db->query($sql);
+
+        return $query->row_array();
+    }
+
 
 }
 
