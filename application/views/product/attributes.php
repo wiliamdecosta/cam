@@ -153,7 +153,7 @@
                 {label: 'File Name',name: 'file_name',width: 150, align: "left",editable: false, hidden:true },
                 {label: 'Attribute',name: 'attribute_ua_name',width: 150, align: "left",editable: false },
                 {label: 'Value',name: 'attribute_value',width: 200, align: "left",editable: false },
-                {label: 'Attachment Documen',name: 'orig_file_name',width: 150, align: "left",editable: false,
+                {label: 'Attachment Document',name: 'orig_file_name',width: 150, align: "left",editable: false,
                     formatter: function(cellvalue, options, rowObject) {
                         // console.log(cellvalue);
                         if(rowObject['orig_file_name']){
