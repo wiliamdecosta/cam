@@ -22,7 +22,7 @@
                         <strong> Product </strong>
                     </a>
                 </li>
-                <li class="active">
+                <li class="">
                     <a href="javascript:;" data-toggle="tab" aria-expanded="true" id="tab-2">
                         <i class="blue"></i>
                         <strong> Status </strong>
@@ -40,7 +40,7 @@
                         <strong> Attributes </strong>
                     </a>
                 </li>
-                 <li class="">
+                 <li class="active">
                     <a href="javascript:;" data-toggle="tab" aria-expanded="true" id="tab-5">
                         <i class="blue"></i>
                         <strong> Service Addresses </strong>
@@ -80,6 +80,13 @@
             product_seq : "<?php echo $this->input->post('product_seq');?>"
         });
     });
+    $('#tab-2').on('click', function(event){
+        event.stopPropagation();
+        loadContentWithParams("product.status", {
+            customer_ref: "<?php echo $this->input->post('customer_ref');?>",
+            product_seq : "<?php echo $this->input->post('product_seq');?>"
+        });
+    });
     $('#tab-3').on('click', function(event){
         event.stopPropagation();
         loadContentWithParams("product.finance", {
@@ -90,13 +97,6 @@
     $('#tab-4').on('click', function(event){
         event.stopPropagation();
         loadContentWithParams("product.attributes", {
-            customer_ref: "<?php echo $this->input->post('customer_ref');?>",
-            product_seq : "<?php echo $this->input->post('product_seq');?>"
-        });
-    });
-    $('#tab-5').on('click', function(event){
-        event.stopPropagation();
-        loadContentWithParams("product.service_address", {
             customer_ref: "<?php echo $this->input->post('customer_ref');?>",
             product_seq : "<?php echo $this->input->post('product_seq');?>"
         });
@@ -122,7 +122,7 @@
         var pager_selector = "#grid-pager";
 
         jQuery("#grid-table").jqGrid({
-            url: '<?php echo WS_JQGRID."product.detailproduct_controller/read_status"; ?>',
+            url: '<?php echo WS_JQGRID."product.detailproduct_controller/read_service_address"; ?>',
             datatype: "json",
             mtype: "POST",
             postData: { 
@@ -130,9 +130,9 @@
                 product_seq : "<?php echo $this->input->post('product_seq');?>"
             },
             colModel: [
-                {label: 'Start Date Time',name: 'effective_dtm',width: 150, align: "left",editable: false },
-                {label: 'Status',name: 'product_status',width: 200, align: "left",editable: false },
-                {label: 'Reason',name: 'status_reason_txt',width: 150, align: "left",editable: false }
+                {label: 'Address',name: 'address',width: 550, align: "left",editable: false },
+                {label: 'Start Date',name: 'start_date',width: 150, align: "left",editable: false },
+                {label: 'End Date',name: 'end_date',width: 150, align: "left",editable: false }
             ],
             height: '100%',
             autowidth: true,

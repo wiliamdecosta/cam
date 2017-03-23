@@ -96,13 +96,25 @@
     });
     
     $('#tab-5').on('click', function(event){
-        return false;
+        event.stopPropagation();
+        loadContentWithParams("product.service_address", {
+            customer_ref: "<?php echo $this->input->post('customer_ref');?>",
+            product_seq : "<?php echo $this->input->post('product_seq');?>"
+        });
     });
     $('#tab-6').on('click', function(event){
-        return false;
+        event.stopPropagation();
+        loadContentWithParams("product.price_plan", {
+            customer_ref: "<?php echo $this->input->post('customer_ref');?>",
+            product_seq : "<?php echo $this->input->post('product_seq');?>"
+        });
     });
     $('#tab-7').on('click', function(event){
-        return false;
+        event.stopPropagation();
+        loadContentWithParams("product.override_price", {
+            customer_ref: "<?php echo $this->input->post('customer_ref');?>",
+            product_seq : "<?php echo $this->input->post('product_seq');?>"
+        });
     });
 </script>
 <script type="text/javascript">
@@ -125,7 +137,7 @@
                 {label: 'Value',name: 'attribute_value',width: 200, align: "left",editable: false },
                 {label: 'Attachment Documen',name: 'orig_file_name',width: 150, align: "left",editable: false,
                     formatter: function(cellvalue, options, rowObject) {
-                        console.log(cellvalue);
+                        // console.log(cellvalue);
                         if(rowObject['orig_file_name']){
                             var link = rowObject['file_dir']+'/'+rowObject['file_name'];
                             return '<a href="<?php echo base_url();?>'+link+'" target="_blank">'+cellvalue+'</a>';

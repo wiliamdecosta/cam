@@ -180,13 +180,25 @@
         });
     });
     $('#tab-5').on('click', function(event){
-        return false;
+        event.stopPropagation();
+        loadContentWithParams("product.service_address", {
+            customer_ref: "<?php echo $this->input->post('customer_ref');?>",
+            product_seq : "<?php echo $this->input->post('product_seq');?>"
+        });
     });
     $('#tab-6').on('click', function(event){
-        return false;
+        event.stopPropagation();
+        loadContentWithParams("product.price_plan", {
+            customer_ref: "<?php echo $this->input->post('customer_ref');?>",
+            product_seq : "<?php echo $this->input->post('product_seq');?>"
+        });
     });
     $('#tab-7').on('click', function(event){
-        return false;
+        event.stopPropagation();
+        loadContentWithParams("product.override_price", {
+            customer_ref: "<?php echo $this->input->post('customer_ref');?>",
+            product_seq : "<?php echo $this->input->post('product_seq');?>"
+        });
     });
 
     $.ajax({

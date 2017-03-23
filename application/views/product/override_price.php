@@ -22,7 +22,7 @@
                         <strong> Product </strong>
                     </a>
                 </li>
-                <li class="active">
+                <li class="">
                     <a href="javascript:;" data-toggle="tab" aria-expanded="true" id="tab-2">
                         <i class="blue"></i>
                         <strong> Status </strong>
@@ -52,7 +52,7 @@
                         <strong> Price Plan </strong>
                     </a>
                 </li>
-                <li class="">
+                <li class="active">
                     <a href="javascript:;" data-toggle="tab" aria-expanded="true" id="tab-7">
                         <i class="blue"></i>
                         <strong> Override Price </strong>
@@ -80,6 +80,13 @@
             product_seq : "<?php echo $this->input->post('product_seq');?>"
         });
     });
+    $('#tab-2').on('click', function(event){
+        event.stopPropagation();
+        loadContentWithParams("product.status", {
+            customer_ref: "<?php echo $this->input->post('customer_ref');?>",
+            product_seq : "<?php echo $this->input->post('product_seq');?>"
+        });
+    });
     $('#tab-3').on('click', function(event){
         event.stopPropagation();
         loadContentWithParams("product.finance", {
@@ -94,6 +101,7 @@
             product_seq : "<?php echo $this->input->post('product_seq');?>"
         });
     });
+    
     $('#tab-5').on('click', function(event){
         event.stopPropagation();
         loadContentWithParams("product.service_address", {
@@ -108,13 +116,6 @@
             product_seq : "<?php echo $this->input->post('product_seq');?>"
         });
     });
-    $('#tab-7').on('click', function(event){
-        event.stopPropagation();
-        loadContentWithParams("product.override_price", {
-            customer_ref: "<?php echo $this->input->post('customer_ref');?>",
-            product_seq : "<?php echo $this->input->post('product_seq');?>"
-        });
-    });
 </script>
 <script type="text/javascript">
     jQuery(function($) {
@@ -122,7 +123,7 @@
         var pager_selector = "#grid-pager";
 
         jQuery("#grid-table").jqGrid({
-            url: '<?php echo WS_JQGRID."product.detailproduct_controller/read_status"; ?>',
+            url: '<?php echo WS_JQGRID."product.detailproduct_controller/read_override_price"; ?>',
             datatype: "json",
             mtype: "POST",
             postData: { 
@@ -130,9 +131,15 @@
                 product_seq : "<?php echo $this->input->post('product_seq');?>"
             },
             colModel: [
-                {label: 'Start Date Time',name: 'effective_dtm',width: 150, align: "left",editable: false },
-                {label: 'Status',name: 'product_status',width: 200, align: "left",editable: false },
-                {label: 'Reason',name: 'status_reason_txt',width: 150, align: "left",editable: false }
+                {label: 'Start Date',name: 'start_dat',width: 150, align: "left",editable: false },
+                {label: 'End Date',name: 'end_dat',width: 150, align: "left",editable: false },
+                {label: 'Initiation',name: 'initiation',width: 200, align: "left",editable: false },
+                {label: 'Periodic',name: 'periodic',width: 200, align: "left",editable: false },
+                {label: 'Termination',name: 'termination',width: 200, align: "left",editable: false },
+                {label: 'Suspension',name: 'suspension',width: 200, align: "left",editable: false },
+                {label: 'Suspension_periodic',name: 'suspension_periodic',width: 200, align: "left",editable: false },
+                {label: 'Reactivation',name: 'reactivation',width: 200, align: "left",editable: false },
+                {label: 'Notes_txt',name: 'notes_txt',width: 200, align: "left",editable: false }            
             ],
             height: '100%',
             autowidth: true,
@@ -142,7 +149,7 @@
             rownumbers: true, // show row numbers
             rownumWidth: 35, // the width of the row numbers columns
             altRows: true,
-            shrinkToFit: true,
+            shrinkToFit: false,
             multiboxonly: true,
             onSelectRow: function (rowid) {
                 /*do something when selected*/
