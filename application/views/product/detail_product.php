@@ -6,6 +6,14 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
+            <span>Product</span>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>List Product</span>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
             <span>Detail Product</span>
         </li>
     </ul>
@@ -16,6 +24,12 @@
     <div class="col-xs-12">
         <div class="tabbable">
             <ul class="nav nav-tabs">
+                <li class="">
+                    <a href="javascript:;" data-toggle="tab" aria-expanded="true" id="tab-0">
+                        <i class="blue"></i>
+                        <strong> List Product </strong>
+                    </a>
+                </li>
                 <li class="active">
                     <a href="javascript:;" data-toggle="tab" aria-expanded="true" id="tab-1">
                         <i class="blue"></i>
@@ -158,6 +172,10 @@
 </div>
 
 <script>
+    $('#tab-0').on('click', function(event){
+        event.stopPropagation();
+        loadContentWithParams("product.list_product", {});
+    });
     $('#tab-2').on('click', function(event){
         event.stopPropagation();
         loadContentWithParams("product.status", {
