@@ -74,7 +74,7 @@
                     label: 'Bulan N',
                     name: 'jml_bulan_n',
                     width: 300,
-                    align: 'left',
+                    align: 'right',
                     hidden: false
                 },
                 {
@@ -82,14 +82,14 @@
                     name: 'jml_bulan_n_1',
                     hidden: false,
                     width: 300,
-                    align: 'left'
+                    align: 'right'
                 },
                 {
                     label: 'Growth',
                     name: 'jml_growth',
                     hidden: false,
                     width: 270,
-                    align: 'left'
+                    align: 'right'
                 }
             ],
             height: '100%',

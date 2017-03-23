@@ -86,10 +86,10 @@
                 },
                 {
                     label: 'Jumlah BC',
-                    name: 'Jumlah_bc',
+                    name: 'jml_bc',
                     hidden: false,
-                    width: 270,
-                    align: 'left'
+                    width: 250,
+                    align: 'right'
                 }
             ],
             height: '100%',
