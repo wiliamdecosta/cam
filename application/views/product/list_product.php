@@ -29,7 +29,7 @@
             </div>
             <!-- CONTENT PORTLET -->
             <div class="form-body">
-            <!-- <button class="btn btn-danger"> <i class="fa fa-trash-o"></i>Delete</button> -->
+            <button class="btn btn-success" id="detail-prod" disabled=""> <i class="fa fa-newspaper-o"></i>Detail Product</button>
 
             <div class="row">
                                 <div class="col-md-12 green">
@@ -43,6 +43,25 @@
     </div>
 </div>
 <script>
+    $('#detail-prod').on('click', function(event){
+        event.stopPropagation();
+        var grid = $('#grid-table-account');
+        var rowid = grid.jqGrid ('getGridParam', 'selrow');
+        var custRef = grid.jqGrid ('getCell', rowid, 'customer_ref');
+        var prodSeq = grid.jqGrid ('getCell', rowid, 'product_seq');
+
+        if(rowid == null) {
+            swal('Informasi','Silahkan pilih salah satu product','info');
+            return false;
+        }
+
+        loadContentWithParams("product.detail_product", {
+            customer_ref: custRef,
+            product_seq : prodSeq
+        });
+
+    });
+
     jQuery(function ($) {
         var grid_selector = "#grid-table-account";
         var pager_selector = "#grid-pager-account";
@@ -214,6 +233,8 @@
             multiboxonly: true,
             onSelectRow: function (rowid) {
                 /*do something when selected*/
+                
+                $('#detail-prod').prop( "disabled", false );
 
             },
             sortorder: '',

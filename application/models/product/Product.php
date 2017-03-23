@@ -120,6 +120,22 @@ class Product extends Abstract_model {
         echo json_encode($res);
     }
 
+    public function getDetailProduct($customer_ref, $product_seq){
+        $sql = "select  s01 as product_name, 
+                        s02 as cust_order_num , 
+                        s03 as supplier_order_num , 
+                        s04 as package_name , 
+                        s05 as parent_prod_name , 
+                        s06 as prod_billed_to ,  
+                        s07 as chg_alow_from ,          
+                        s08 as cur_product_status ,  
+                        s09 as inv_co_name 
+                     from table(pack_list_cust_acc_prod.product_details_product('".$this->session->userdata('user_name')."','".$customer_ref."', ".$product_seq."))";
+        $query = $this->db->query($sql);
+
+        return $query->result_array();
+    }
+
 }
 
 /* End of file Users.php */
