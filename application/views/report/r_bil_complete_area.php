@@ -12,7 +12,7 @@
             <span>Billing Complete per Area</span>
              <i class="fa fa-circle"></i>
         </li>
-    </ul>
+    </ul> 
 </div>
 <!-- end breadcrumb -->
 <div class="space-4"></div>
