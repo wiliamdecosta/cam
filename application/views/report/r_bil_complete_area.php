@@ -35,7 +35,7 @@
                         <label class="control-label col-md-2">Periode</label>
                         <div class="col-md-4">
                             <div class="input-group">
-                                <input type="text" class="form-control datepicker1" name="in_Periode">
+                                <input type="text" class="form-control datepicker1" name="in_Periode" id="in_Periode">
                                 <span class="input-group-btn">
                                     <button class="btn btn-success" type="button" id="btn-search">
                                     <i class="fa fa-search"></i>
@@ -266,12 +266,13 @@
     function toExcelAccount() {
         // alert("Convert to Excel");
 
-        var url = "<?php echo WS_JQGRID . "account.account_controller/excelAccountList/?"; ?>";
+        var url = "<?php echo WS_JQGRID . "report.r_bil_complete_area_controller/excelAccountList/?"; ?>";
         url += "<?php echo $this->security->get_csrf_token_name(); ?>=<?php echo $this->security->get_csrf_hash(); ?>";
         url += "&_search=" + $("#grid-table-billing-complete-area").getGridParam("postData")._search;
         url += "&searchField=" + $("#grid-table-billing-complete-area").getGridParam("postData").searchField;
         url += "&searchOper=" + $("#grid-table-billing-complete-area").getGridParam("postData").searchOper;
         url += "&searchString=" + $("#grid-table-billing-complete-area").getGridParam("postData").searchString;
+        url += "&periode=" + $("#grid-table-billing-complete-area").getGridParam("postData").periode;
         window.location = url;
     }
 
@@ -315,9 +316,9 @@
     }
 </script>
 <script>
-    $("#btn-add-account").click(function () {
-        loadContentWithParams('account.add_account', {});
-    });
+    // $("#btn-add-account").click(function () {
+    //     loadContentWithParams('account.add_account', {});
+    // });
 
     /*$.ajax({
         url: "<?php echo base_url().'home/get_date/'; ?>" ,
@@ -339,10 +340,14 @@
 
     $("#btn-search").on('click', function() {
         var periode = $('#in_Periode').val();
-        // if(customer_ref == "") {
-        //     swal('Info','Customer harus diisi terlebih dahulu','info');
-        //     return;
-        // }
+        //alert(periode);
+        $('#grid-table-billing-complete-area').jqGrid('setGridParam', {
+            url: '<?php echo WS_JQGRID . "report.r_bil_complete_area_controller/read"; ?>',
+            postData: {periode: periode}
+        });
+
+        $('#grid-table-billing-complete-area').jqGrid('setCaption', 'Billing Complete Area :: ' + periode);
+        $("#grid-table-billing-complete-area").trigger("reloadGrid");
     });
 
 </script>

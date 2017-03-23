@@ -21,7 +21,7 @@ class R_bil_complete_area_controller {
             $ci = & get_instance();
             $ci->load->model('report/r_bil_complete_area');
             //$table = $ci->r_bil_complete_area;
-            $table = R_bil_complete_area($periode);
+            $table = new R_bil_complete_area($periode);
 
             $req_param = array(
                 "sort_by" => $sidx,
