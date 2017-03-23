@@ -43,12 +43,6 @@
                             </div>
                         </div>
                         <label class="col-md-2 control-label"> YYYYMM</label>
-                        <div class="col-md-4">
-                            <span class="input-group-btn">
-                                <button class="btn btn-success" type="button" id="btn-search" onClick="toExcelAccount()">
-                                <i class="fa fa-file-excel-o"></i>
-                            </span>
-                        </div>
                     </div><br><br>
                     <table id="grid-table-billing-per-portofolio-product"></table>
                     <div id="grid-pager-billing-per-portofolio-product"></div>
@@ -263,7 +257,7 @@
                 }
             }
             )
-            /*.navButtonAdd('#grid-pager-biliing-complete-area', {
+            .navButtonAdd('#grid-pager-billing-per-portofolio-product', {
                 caption: "",
                 buttonicon: "fa fa-file-excel-o green bigger-120",
                 position: "last",
@@ -272,7 +266,7 @@
                 onClickButton: toExcelAccount,
                 id: "excel"
             });
-*/
+
 
     });
 
