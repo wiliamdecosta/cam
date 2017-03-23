@@ -31,7 +31,7 @@ class Detailcustomer_controller {
     }
 
 
-    function read_contact_details() {
+    /*function read_contact_details() {
         $page = getVarClean('page','int',1);
         $limit = getVarClean('rows','int',5);
         $sidx = getVarClean('sidx','str','customer_name');
@@ -94,6 +94,30 @@ class Detailcustomer_controller {
         }
 
         return $data;
+    }*/
+
+    function read_contact_details() {
+
+        $customer_ref = getVarClean('customer_ref', 'str', '');
+
+        $data = array('rows' => array(), 'success' => false, 'message' => '', 'records' => 0, 'total' => 0);
+
+        try {
+
+            $ci = & get_instance();
+            $ci->load->model('customer/customer');
+            $table = $ci->customer;
+
+            $items = $table->getContactDetails($customer_ref);
+
+            $data['items'] = $items;
+            $data['success'] = true;
+        }catch (Exception $e) {
+            $data['message'] = $e->getMessage();
+        }
+
+        echo json_encode($data);
+        exit;
     }
 
     function read_additional_information() {

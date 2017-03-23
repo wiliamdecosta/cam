@@ -137,7 +137,7 @@ class Customer extends Abstract_model {
           s04 as evening_contact_tel,
           s05 as mobile_contact_tel,
           s06 as fax_contact_tel
-        from table(pack_list_cust_acc_prod.customer_details_attribute('".$this->session->userdata('user_name')."','".$customer_ref."'))";
+        from table(pack_list_cust_acc_prod.customer_details_contact('".$this->session->userdata('user_name')."','".$customer_ref."'))";
         $query = $this->db->query($sql);
 
         return $query->row_array();
