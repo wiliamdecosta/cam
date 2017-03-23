@@ -43,12 +43,6 @@
                             </div>
                         </div>
                         <label class="col-md-2 control-label"> YYYYMM</label>
-                        <div class="col-md-4">
-                            <span class="input-group-btn">
-                                <button class="btn btn-success" type="button" id="btn-excel" onClick="toExcelAccount()">
-                                <i class="fa fa-file-excel-o"></i>
-                            </span>
-                        </div>
                     </div><br><br>
                     <table id="grid-table-billing-complete-area"></table>
                     <div id="grid-pager-biliing-complete-area"></div>
@@ -257,20 +251,26 @@
                 }
             }
             )
-            /*.navButtonAdd('#grid-pager-biliing-complete-area', {
+            /*.navButtonAdd('#grid-pager', {
+              caption: '',
+              title: "Save To Excel",
+              buttonicon: "fa   fa fa-file-excel-o green bigger-120",
+              onClickButton: function() {
+                 alert('test');
+              }
+            });*/
+            .navButtonAdd('#grid-pager-biliing-complete-area', {
                 caption: "",
                 buttonicon: "fa fa-file-excel-o green bigger-120",
                 position: "last",
                 title: "Export To Excel",
                 cursor: "pointer",
-                onClickButton: toExcelAccount,
+                onClickButton: toExcelBillingCompleteArea,
                 id: "excel"
             });
-*/
-
     });
 
-    function toExcelAccount() {
+    function toExcelBillingCompleteArea() {
         // alert("Convert to Excel");
 
         var url = "<?php echo WS_JQGRID . "report.r_bil_complete_area_controller/excelAccountList/?"; ?>";
@@ -343,6 +343,11 @@
     $('.datepicker1').datetimepicker({
         format: 'YYYYMM',
         // defaultDate: new Date()
+    });
+
+    $('#excel').on('click', function() {
+        //alert('test');
+        toExcelBillingCompleteArea();
     });
 
     $("#btn-search").on('click', function() {
