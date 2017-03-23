@@ -34,7 +34,8 @@ class R_bil_complete_area_controller {
                 "search" => $_REQUEST['_search'],
                 "search_field" => isset($_REQUEST['searchField']) ? $_REQUEST['searchField'] : null,
                 "search_operator" => isset($_REQUEST['searchOper']) ? $_REQUEST['searchOper'] : null,
-                "search_str" => isset($_REQUEST['searchString']) ? $_REQUEST['searchString'] : null
+                "search_str" => isset($_REQUEST['searchString']) ? $_REQUEST['searchString'] : null,
+                "periode" => isset($_REQUEST['periode']) ? $_REQUEST['periode'] : null
             );
 
             // Filter Table
@@ -70,6 +71,79 @@ class R_bil_complete_area_controller {
         }
 
         return $data;
+    }
+
+    function excelAccountList()
+    {
+        $sidx = getVarClean('sidx', 'str', 'area');
+        $sord = getVarClean('sord', 'str', 'asc');
+        $periode = getVarClean('periode','str','');
+
+        try {
+
+            $ci = &get_instance();
+            $ci->load->model('report/r_bil_complete_area');
+            //$table = $ci->r_bil_complete_area;
+            $table = new R_bil_complete_area($periode);
+
+            $req_param = array(
+                "sort_by" => $sidx,
+                "sord" => $sord,
+                "limit" => null,
+                "field" => null,
+                "where" => null,
+                "where_in" => null,
+                "where_not_in" => null,
+                "search" => getVarClean('_search'),
+                "search_field" => getVarClean('searchField'),
+                "search_operator" => getVarClean('searchOper'),
+                "search_str" => getVarClean('searchString'),
+                "periode" => getVarClean('periode')
+            );
+
+            // Filter Table
+            $req_param['where'] = array();
+
+            // if (!empty($periode)) {
+            //     $req_param['where'][] = "periode = '" . $periode . "'";
+            // }
+
+            $table->setJQGridParam($req_param);
+            $items = $table->getAll();
+
+            startExcel(date("dmy") . '_BILLING_COMPLETE_AREA.xls');
+            echo '<html>';
+            echo '<head><title>Billing Complete Area</title></head>';
+            echo '<body>';
+            echo '<table border="1">';
+            echo '<tr>';
+            echo '<th>No</th>';
+            echo '<th>Area</th>';
+            echo '<th>FM</th>';
+            echo '<th>BM</th>';
+            echo '<th>Jumlah BC</th>';
+            echo '</tr>';
+            $i = 1;
+            foreach ($items as $item) {
+                echo '<tr>';
+                echo '<td>' . $i++ . '</td>';
+                echo '<td>' . $item['area'] . '</td>';
+                echo '<td>' . $item['fm'] . '</td>';
+                echo '<td>' . $item['bm'] . '</td>';
+                echo '<td>' . $item['jml_bc'] . '</td>';
+                echo '</tr>';
+            }
+            echo '</table>';
+            echo '</body>';
+            echo '</html>';
+            exit;
+
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            exit;
+        }
+
+
     }
 }
 

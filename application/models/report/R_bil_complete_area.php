@@ -13,11 +13,15 @@ class R_bil_complete_area extends Abstract_model {
     public $fields          = array();
     //public $sessionUsername = $this->session->userdata('user_name');
 
-    public $selectClause    = " s01 ||'-' || s02 as area,
-                              s03 ||'-' || s04 as fm,
-                              s05 ||'-' || s06 as bm,
-                              n02 as jml_bc ";
-    public $fromClause      = "table(pack_report.rep_bill_complete_per_ba(%s,%s,2,''))  ";
+    public $selectClause    = " area,
+                               fm,
+                               bm,
+                               jml_bc ";
+    public $fromClause      = "( select    s01 ||'-' || s02 as area,
+                                          s03 ||'-' || s04 as fm,
+                                          s05 ||'-' || s06 as bm,
+                                          n02 as jml_bc
+                                from table(pack_report.rep_bill_complete_per_ba(%s,%s,2,'')) ) ";
 
     public $refs            = array();
 
@@ -27,8 +31,8 @@ class R_bil_complete_area extends Abstract_model {
         //$this->db->_escape_char = ' ';
         $this->fromClause = sprintf($this->fromClause, "'".$this->session->userdata('user_name')."'", "'".$periode."'"); 
 
-        //$this->db_crm = $this->load->database('corecrm', TRUE);
-        //$this->db_crm->_escape_char = ' ';
+        $this->db_crm = $this->load->database('corecrm', TRUE);
+        $this->db_crm->_escape_char = ' ';
     }
 
     function validate() {

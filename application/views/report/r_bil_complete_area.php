@@ -43,6 +43,12 @@
                             </div>
                         </div>
                         <label class="col-md-2 control-label"> YYYYMM</label>
+                        <div class="col-md-4">
+                            <span class="input-group-btn">
+                                <button class="btn btn-success" type="button" id="btn-excel" onClick="toExcelAccount()">
+                                <i class="fa fa-file-excel-o"></i>
+                            </span>
+                        </div>
                     </div><br><br>
                     <table id="grid-table-billing-complete-area"></table>
                     <div id="grid-pager-biliing-complete-area"></div>
@@ -128,7 +134,6 @@
         jQuery('#grid-table-billing-complete-area').jqGrid('navGrid', '#grid-pager-biliing-complete-area',
             {   //navbar options
                 edit: false,
-                excel: true,
                 editicon: 'fa fa-pencil blue bigger-120',
                 add: false,
                 addicon: 'fa fa-plus-circle purple bigger-120',
@@ -141,6 +146,8 @@
                     // some code here
                     jQuery("#detailsPlaceholder").hide();
                 },
+                excel: true,
+                editicon: 'fa fa-pencil blue bigger-120',
 
                 refreshicon: 'fa fa-refresh green bigger-120',
                 view: true,
