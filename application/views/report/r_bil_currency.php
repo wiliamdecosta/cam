@@ -43,12 +43,6 @@
                             </div>
                         </div>
                         <label class="col-md-2 control-label"> YYYYMM</label>
-                        <div class="col-md-4">
-                            <span class="input-group-btn">
-                                <button class="btn btn-success" type="button" id="btn-search" onClick="toExcelBilCurr()">
-                                <i class="fa fa-file-excel-o"></i>
-                            </span>
-                        </div>
                     </div><br><br>
                     <table id="grid-table-billing-currency"></table>
                     <div id="grid-pager-biliing-currency"></div>
@@ -135,7 +129,7 @@
             {   //navbar options
                 excel: true,
                 excelicon: 'fa fa-file-excel-o blue bigger-120',
-                edit: true,
+                edit: false,
                 editicon: 'fa fa-pencil blue bigger-120',
                 add: false,
                 addicon: 'fa fa-plus-circle purple bigger-120',
@@ -257,6 +251,15 @@
                 }
             }
             )
+            .navButtonAdd('#grid-pager-biliing-currency', {
+                caption: "",
+                buttonicon: "fa fa-file-excel-o green bigger-120",
+                position: "last",
+                title: "Export To Excel",
+                cursor: "pointer",
+                onClickButton: toExcelBilCurr,
+                id: "excel"
+            });
             /*.navButtonAdd('#grid-pager-biliing-currency', {
                 caption: "",
                 buttonicon: "fa fa-file-excel-o green bigger-120",

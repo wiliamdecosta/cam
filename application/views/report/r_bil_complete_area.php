@@ -251,14 +251,6 @@
                 }
             }
             )
-            /*.navButtonAdd('#grid-pager', {
-              caption: '',
-              title: "Save To Excel",
-              buttonicon: "fa   fa fa-file-excel-o green bigger-120",
-              onClickButton: function() {
-                 alert('test');
-              }
-            });*/
             .navButtonAdd('#grid-pager-biliing-complete-area', {
                 caption: "",
                 buttonicon: "fa fa-file-excel-o green bigger-120",
@@ -323,9 +315,6 @@
     }
 </script>
 <script>
-    // $("#btn-add-account").click(function () {
-    //     loadContentWithParams('account.add_account', {});
-    // });
 
     /*$.ajax({
         url: "<?php echo base_url().'home/get_date/'; ?>" ,
@@ -343,11 +332,6 @@
     $('.datepicker1').datetimepicker({
         format: 'YYYYMM',
         // defaultDate: new Date()
-    });
-
-    $('#excel').on('click', function() {
-        //alert('test');
-        toExcelBillingCompleteArea();
     });
 
     $("#btn-search").on('click', function() {
