@@ -9,7 +9,7 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Billing per Currency</span>
+            <span>Billing per Area</span>
              <i class="fa fa-circle"></i>
         </li>
     </ul>
@@ -23,7 +23,7 @@
             <div class="portlet-title">
                 <div class="caption">
                     <i class=" icon-list font-red"></i>
-                    <span class="caption-subject font-red bold uppercase"> List Of Billing per Currency
+                    <span class="caption-subject font-red bold uppercase"> List Of Billing per area
                     </span>
                 </div>
             </div>
@@ -45,13 +45,13 @@
                         <label class="col-md-2 control-label"> YYYYMM</label>
                         <div class="col-md-4">
                             <span class="input-group-btn">
-                                <button class="btn btn-success" type="button" id="btn-search" onClick="toExcelBilCurr()">
+                                <button class="btn btn-success" type="button" id="btn-search" onClick="toExcelBilArea()">
                                 <i class="fa fa-file-excel-o"></i>
                             </span>
                         </div>
                     </div><br><br>
-                    <table id="grid-table-billing-currency"></table>
-                    <div id="grid-pager-biliing-currency"></div>
+                    <table id="grid-table-billing-area"></table>
+                    <div id="grid-pager-biliing-area"></div>
                 </div>
             </div>
             </div>
@@ -61,17 +61,31 @@
 </div>
 <script>
     jQuery(function ($) {
-        var grid_selector = "#grid-table-billing-currency";
-        var pager_selector = "#grid-pager-biliing-currency";
+        var grid_selector = "#grid-table-billing-area";
+        var pager_selector = "#grid-pager-biliing-area";
 
-        jQuery("#grid-table-billing-currency").jqGrid({
-            url: '<?php echo WS_JQGRID . "report.r_bil_currency_controller/read"; ?>',
+        jQuery("#grid-table-billing-area").jqGrid({
+            url: '<?php echo WS_JQGRID . "report.r_bil_area_controller/read"; ?>',
             datatype: "json",
             mtype: "POST",
             colModel: [
                 {
-                    label: 'Curr Type',
-                    name: 'currency_code',
+                    label: 'Area',
+                    name: 'area',
+                    width: 300,
+                    align: 'left',
+                    hidden: false
+                },
+                {
+                    label: 'FM',
+                    name: 'fm',
+                    width: 300,
+                    align: 'left',
+                    hidden: false
+                },
+                {
+                    label: 'BM',
+                    name: 'profit_center',
                     width: 300,
                     align: 'left',
                     hidden: false
@@ -113,7 +127,7 @@
 
             },
             sortorder: '',
-            pager: '#grid-pager-biliing-currency',
+            pager: '#grid-pager-biliing-area',
             jsonReader: {
                 root: 'rows',
                 id: 'id',
@@ -126,12 +140,12 @@
                 responsive_jqgrid(grid_selector, pager_selector);
             },
             //memanggil controller jqgrid yang ada di controller crud
-            //editurl: '<?php echo WS_JQGRID . "report.r_bil_currency_controller/read"; ?>',
-            caption: "Billing per Currency"
+            //editurl: '<?php echo WS_JQGRID . "report.r_bil_area_controller/read"; ?>',
+            caption: "Billing per Area"
 
         });
 
-        jQuery('#grid-table-billing-currency').jqGrid('navGrid', '#grid-pager-biliing-currency',
+        jQuery('#grid-table-billing-area').jqGrid('navGrid', '#grid-pager-biliing-area',
             {   //navbar options
                 excel: true,
                 excelicon: 'fa fa-file-excel-o blue bigger-120',
@@ -257,7 +271,7 @@
                 }
             }
             )
-            /*.navButtonAdd('#grid-pager-biliing-currency', {
+            /*.navButtonAdd('#grid-pager-biliing-area', {
                 caption: "",
                 buttonicon: "fa fa-file-excel-o green bigger-120",
                 position: "last",
@@ -270,15 +284,15 @@
 
     });
 
-    function toExcelBilCurr() {
+    function toExcelBilArea() {
         // alert("Convert to Excel");
 
-        var url = "<?php echo WS_JQGRID . "report.r_bil_currency_controller/excelAccountList/?"; ?>";
+        var url = "<?php echo WS_JQGRID . "report.r_bil_area_controller/excelAccountList/?"; ?>";
         url += "<?php echo $this->security->get_csrf_token_name(); ?>=<?php echo $this->security->get_csrf_hash(); ?>";
-        url += "&_search=" + $("#grid-table-billing-currency").getGridParam("postData")._search;
-        url += "&searchField=" + $("#grid-table-billing-currency").getGridParam("postData").searchField;
-        url += "&searchOper=" + $("#grid-table-billing-currency").getGridParam("postData").searchOper;
-        url += "&searchString=" + $("#grid-table-billing-currency").getGridParam("postData").searchString;
+        url += "&_search=" + $("#grid-table-billing-area").getGridParam("postData")._search;
+        url += "&searchField=" + $("#grid-table-billing-area").getGridParam("postData").searchField;
+        url += "&searchOper=" + $("#grid-table-billing-area").getGridParam("postData").searchOper;
+        url += "&searchString=" + $("#grid-table-billing-area").getGridParam("postData").searchString;
         window.location = url;
     }
     function responsive_jqgrid(grid_selector, pager_selector) {
@@ -312,13 +326,13 @@
     $("#btn-search").on('click', function() {
         var periode = $('#in_Periode').val();
         // alert(periode);
-        $('#grid-table-billing-currency').jqGrid('setGridParam', {
-            url: '<?php echo WS_JQGRID . "report.r_bil_currency_controller/read"; ?>',
+        $('#grid-table-billing-area').jqGrid('setGridParam', {
+            url: '<?php echo WS_JQGRID . "report.r_bil_area_controller/read"; ?>',
             postData: {periode: periode}
         });
 
-        $('#grid-table-billing-currency').jqGrid('setCaption', 'Billing per Currency :: ' + periode);
-        $("#grid-table-billing-currency").trigger("reloadGrid");
+        $('#grid-table-billing-area').jqGrid('setCaption', 'Billing per Area :: ' + periode);
+        $("#grid-table-billing-area").trigger("reloadGrid");
     });
 
 </script>
