@@ -135,7 +135,7 @@
             {   //navbar options
                 excel: true,
                 excelicon: 'fa fa-file-excel-o blue bigger-120',
-                edit: false,
+                edit: true,
                 editicon: 'fa fa-pencil blue bigger-120',
                 add: false,
                 addicon: 'fa fa-plus-circle purple bigger-120',
