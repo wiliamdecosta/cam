@@ -303,7 +303,7 @@ class Home extends CI_Controller
                 for($i = 0; $i < $filesCount; $i++){
 
                       if(empty($_FILES['attributesImage']['name'][$i])) continue;
-                      $_FILES['uploadfile']['name'] = date("Ymdhis").'_'.$_FILES['attributesImage']['name'][$i];            
+                      $_FILES['uploadfile']['name'] = date("Ymdhis").'_'.str_replace(" ","_",$_FILES['attributesImage']['name'][$i]);            
                       $_FILES['uploadfile']['type'] = $_FILES['attributesImage']['type'][$i];
                       $_FILES['uploadfile']['tmp_name'] = $_FILES['attributesImage']['tmp_name'][$i];
                       $_FILES['uploadfile']['error'] = $_FILES['attributesImage']['error'][$i];
