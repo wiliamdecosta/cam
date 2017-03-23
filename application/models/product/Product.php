@@ -136,6 +136,28 @@ class Product extends Abstract_model {
         return $query->result_array();
     }
 
+    public function getFinance($customer_ref, $product_seq){
+        $sql = "select    s01 as account_num,
+                          s02 as subscription ,
+                          s03 as budget_centre_name ,
+                          s04 as contract_reff ,
+                          s05 as product_label ,
+                          s06 as cps_name ,
+                          s07 as tax_exempt_ref ,
+                          s08 as tax_exempt_txt ,
+                          s09 as contact_name ,
+                          s10 as daytime_contact_tel ,
+                          s11 as evening_contact_tel ,
+                          s12 as fax_contact_tel ,
+                          s13 as mobile_contact_tel ,
+                          s14 as email ,
+                          s21 as adress 
+                     from table(pack_list_cust_acc_prod.product_details_finance('".$this->session->userdata('user_name')."','".$customer_ref."', ".$product_seq."))";
+        $query = $this->db->query($sql);
+
+        return $query->result_array();
+    }
+
 }
 
 /* End of file Users.php */

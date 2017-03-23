@@ -158,27 +158,39 @@
 </div>
 
 <script>
-    $('#tab-2').on('click', function(){
+    $('#tab-2').on('click', function(event){
+        event.stopPropagation();
+        loadContentWithParams("product.status", {
+            customer_ref: "<?php echo $this->input->post('customer_ref');?>",
+            product_seq : "<?php echo $this->input->post('product_seq');?>"
+        });
+    });
+    $('#tab-3').on('click', function(event){
+        event.stopPropagation();
+        loadContentWithParams("product.finance", {
+            customer_ref: "<?php echo $this->input->post('customer_ref');?>",
+            product_seq : "<?php echo $this->input->post('product_seq');?>"
+        });
+    });
+    $('#tab-4').on('click', function(event){
+        event.stopPropagation();
+        loadContentWithParams("product.attributes", {
+            customer_ref: "<?php echo $this->input->post('customer_ref');?>",
+            product_seq : "<?php echo $this->input->post('product_seq');?>"
+        });
+    });
+    $('#tab-5').on('click', function(event){
         return false;
     });
-    $('#tab-3').on('click', function(){
+    $('#tab-6').on('click', function(event){
         return false;
     });
-    $('#tab-4').on('click', function(){
-        return false;
-    });
-    $('#tab-5').on('click', function(){
-        return false;
-    });
-    $('#tab-6').on('click', function(){
-        return false;
-    });
-    $('#tab-7').on('click', function(){
+    $('#tab-7').on('click', function(event){
         return false;
     });
 
     $.ajax({
-        url: '<?php echo WS_JQGRID."product.detailproduct_controller/read"; ?>',
+        url: '<?php echo WS_JQGRID."product.detailproduct_controller/read_detail_prod"; ?>',
         type: "POST",
         dataType: "json",
         data: {
