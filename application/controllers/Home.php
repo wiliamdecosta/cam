@@ -309,7 +309,7 @@ class Home extends CI_Controller
                       $_FILES['uploadfile']['error'] = $_FILES['attributesImage']['error'][$i];
                       $_FILES['uploadfile']['size'] = $_FILES['attributesImage']['size'][$i];
 
-
+                      $config['overwrite'] = TRUE; //overwrite user avatar
                       $config['upload_path'] = $uploadPath;
                       $config['allowed_types'] = 'doc|pdf|png|jpg|jpeg|txt|docx|xlsx|xls';
 
