@@ -104,7 +104,7 @@ class R_bc_per_portofolio_product_controller {
             $table->setJQGridParam($req_param);
             $items = $table->getAll();
 
-            startExcel(date("dmy") . 'bc_per_portofolio_product.xls');
+            startExcel(date("dmy") . 'billcom_per_portofolio_product.xls');
             echo '<html>';
             echo '<head><title>Billing Completed per Protofolio Product</title></head>';
             echo '<body>';
