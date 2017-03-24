@@ -15,8 +15,8 @@ class R_billing_per_portofolio_product extends Abstract_model {
 
     public $selectClause    = " s01 ||'-' || s02 as area,
                               s03 as portofolio,
-                              n02 as jml_bln_n,
-                              n03 as jml_bln_1,
+                              n02 as jml_bulan_n,
+                              n03 as jml_bulan_n_1,
                               n04 as jml_growth ";
     public $fromClause      = "table(pack_report.rep_billing_per_pfp(%s,%s,2,''))  ";
 

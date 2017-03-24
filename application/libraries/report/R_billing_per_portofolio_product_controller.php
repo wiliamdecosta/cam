@@ -123,8 +123,8 @@ class R_billing_per_portofolio_product_controller {
                 echo '<td>' . $i++ . '</td>';
                 echo '<td>' . $item['area'] . '</td>';
                 echo '<td>' . $item['portofolio'] . '</td>';
-                echo '<td>' . $item['jml_bln_n'] . '</td>';
-                echo '<td>' . $item['jml_bln_1'] . '</td>';
+                echo '<td>' . $item['jml_bulan_n'] . '</td>';
+                echo '<td>' . $item['jml_bulan_n_1'] . '</td>';
                 echo '<td>' . $item['jml_growth'] . '</td>';
                 echo '</tr>';
             }
