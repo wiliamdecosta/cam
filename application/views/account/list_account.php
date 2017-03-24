@@ -29,6 +29,8 @@
             </div>
             <!-- CONTENT PORTLET -->
             <div class="form-body">
+            <button class="btn btn-success" id="detail-acc" disabled=""> <i class="fa fa-newspaper-o"></i>Detail Account</button>
+
             <div class="row">
                                 <div class="col-md-12 green">
                                     <table id="grid-table-account"></table>
@@ -41,6 +43,23 @@
     </div>
 </div>
 <script>
+    $('#detail-acc').on('click', function(event){
+        event.stopPropagation();
+        var grid = $('#grid-table-account');
+        var rowid = grid.jqGrid ('getGridParam', 'selrow');
+        var accnum = grid.jqGrid ('getCell', rowid, 'account_num');
+
+        if(rowid == null) {
+            swal('Informasi','Silahkan pilih salah satu account','info');
+            return false;
+        }
+
+        loadContentWithParams("account.detail_account", {
+            account_num: accnum
+        });
+
+    });
+
     jQuery(function ($) {
         var grid_selector = "#grid-table-account";
         var pager_selector = "#grid-pager-account";
@@ -123,6 +142,7 @@
             multiboxonly: true,
             onSelectRow: function (rowid) {
                 /*do something when selected*/
+                $('#detail-acc').prop( "disabled", false );
 
             },
             sortorder: '',

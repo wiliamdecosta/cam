@@ -97,6 +97,27 @@ class Account extends Abstract_model {
         return true;
     }
 
+    public function getDetailAccount($account_num){
+        $sql = "select  s01 as customer_ref,
+                        s02 as account_num,
+                        s03 as account_name,
+                        s04 as go_live_dat,
+                        s05 as go_live_time, 
+                        s06 as account_status,
+                        s07 as account_in_use,
+                        s08 as invoicing_co_name,
+                        s09 as cps_name,
+                        s10 as tax_status,
+                        s11 as last_bill_dtm,
+                        s12 as termination_dat,
+                        s13 as termination_reason_name 
+                     from table(pack_list_cust_acc_prod.account_details_account('".$this->session->userdata('user_name')."','".$account_num."'))";
+        $query = $this->db->query($sql);
+
+        return $query->result_array();
+    }
+
+
 }
 
 /* End of file Users.php */
