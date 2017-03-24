@@ -88,7 +88,7 @@
                     label: 'Jumlah BC',
                     name: 'jml_bc',
                     hidden: false,
-                    width: 250,
+                    width: 150,
                     align: 'right'
                 }
             ],
