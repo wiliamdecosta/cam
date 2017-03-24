@@ -121,7 +121,7 @@
                     },
                     
                 },
-                {label: 'Description',name: 'description',width: 200, align: "left",editable: true,
+                {label: 'Description',name: 'description',width: 300, align: "left",editable: true,
                     edittype:'textarea',
                     editoptions: {
                         rows: 2,
