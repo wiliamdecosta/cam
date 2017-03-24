@@ -184,7 +184,7 @@
                                                 <div class="col-md-8">
                                                     <input type="text" class="form-control required uppercase"
                                                            id="inAccountName"
-                                                           name="inAccountName" onkeyup="">
+                                                           name="inAccountName" onkeyup="" maxlength="40">
                                                 </div>
                                             </div>
                                              <div class="form-group">
