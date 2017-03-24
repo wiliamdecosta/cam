@@ -303,7 +303,7 @@ if (!function_exists('generatehtml')) {
 
             }else{
 
-                $html .= "<div class='col-md-4'>";
+                $html .= "<div class='col-md-5'>";
                 $html .= "<input type='hidden' class='form-control' name='attributesType[]' value='D'>";
                 $html .= "<input type='hidden' class='form-control' name='attributesId[]' value='".$data['attribute_bill_name']."'>";
                 $html .= "<input type='text' class='form-control datepickerON".$req."' name='attributes[]'>";

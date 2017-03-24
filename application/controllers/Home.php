@@ -310,6 +310,7 @@ class Home extends CI_Controller
                       $_FILES['uploadfile']['size'] = $_FILES['attributesImage']['size'][$i];
 
                       $config['overwrite'] = TRUE; //overwrite user avatar
+                      $config['remove_spaces'] = FALSE; //overwrite user avatar
                       $config['upload_path'] = $uploadPath;
                       $config['allowed_types'] = 'doc|pdf|png|jpg|jpeg|txt|docx|xlsx|xls';
 
