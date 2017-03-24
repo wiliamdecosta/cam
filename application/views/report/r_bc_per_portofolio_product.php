@@ -66,14 +66,14 @@
                 {
                     label: 'Area',
                     name: 'area',
-                    width: 300,
+                    width: 335,
                     align: 'left',
                     hidden: false
                 },
                 {
                     label: 'PORTOFOLIO',
                     name: 'portofolio',
-                    width: 300,
+                    width: 335,
                     align: 'left',
                     hidden: false
                 },
@@ -81,8 +81,8 @@
                     label: 'Jumlah BC',
                     name: 'jml_bc',
                     hidden: false,
-                    width: 270,
-                    align: 'left'
+                    width: 325,
+                    align: 'right'
                 }
             ],
             height: '100%',

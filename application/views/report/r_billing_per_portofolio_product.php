@@ -82,21 +82,21 @@
                     name: 'jml_bulan_n',
                     hidden: false,
                     width: 270,
-                    align: 'left'
+                    align: 'right'
                 },
                 {
                     label: 'Jumlah Bill Bulan N-1',
                     name: 'jml_bulan_n_1',
                     hidden: false,
                     width: 270,
-                    align: 'left'
+                    align: 'right'
                 },
                 {
                     label: 'Growth',
                     name: 'jml_growth',
                     hidden: false,
                     width: 270,
-                    align: 'left'
+                    align: 'right'
                 }
             ],
             height: '100%',
