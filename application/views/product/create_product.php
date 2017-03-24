@@ -494,24 +494,23 @@
 
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Periodic
-                                                    <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-4">
                                                     <div class="input-group">
                                                     <?php echo buatcombo2 (
                                                         $name='recurring_mod_type_id',
                                                         $id='recurring_mod_type_id',
-                                                        $table="table(pack_lov.get_modtypeid_list('".getUserName()."')) order by N01 desc",
+                                                        $table="table(pack_lov.get_modtypeid_list('".getUserName()."')) order by N01 asc",
                                                         $field='s01',
                                                         $pk='n01',
                                                         $kondisi=array(),
-                                                        $required='Y',
+                                                        $required='N',
                                                         ''
                                                     ); ?>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="text" class="form-control priceformat required" name="wizard5_periodic_price" id="wizard5_periodic_price">
+                                                    <input type="text" class="form-control priceformat" name="wizard5_periodic_price" id="wizard5_periodic_price" style="display: none">
                                                 </div>
                                             </div>
 
