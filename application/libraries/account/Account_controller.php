@@ -388,6 +388,9 @@ class Account_controller
         $sidx = getVarClean('sidx', 'str', 'a.account_num');
         $sord = getVarClean('sord', 'str', 'asc');
 
+        
+
+
         $data = array('rows' => array(), 'page' => 1, 'records' => 0, 'total' => 1, 'success' => false, 'message' => '');
         $customer_ref = getVarClean('customer_ref', 'str', '');
 
@@ -411,16 +414,26 @@ class Account_controller
             );
 
             // Filter Table
-            /*$req_param['where'] = array(
-//                "b.account_status = 'OK'",
-                "c.billing_contact_seq = e.contact_seq",
-                "e.address_seq = f.address_seq",
-                "c.end_dat is null",
-                "e.end_dat is null"
-            );*/
+
+            $req_param['where'][] =' 1=1 ';
 
             if (!empty($customer_ref)) {
                 $req_param['where'][] = "a.customer_ref = '" . $customer_ref . "'";
+            }
+
+            // filterToolbar Search 
+            $filterToolbar = getVarClean('filters', 'str', '');
+            if(!empty($filterToolbar)){
+
+                $whereSql = filterToolbarJqgrid($filterToolbar, 'true');
+                $req_param['where'][] .= $whereSql;
+                /*{"groupOp":"AND","rules":[{"field":"account_name","op":"cn","data":"ACC"}]}
+                $searchSql = "";
+                $opS = $filterToolbar['groupOp'];
+                foreach ($filterToolbar['rules'] as $key => $value) {
+                    $searchSql .= $value['field']." = '".$value['']."'";
+                }
+                $req_param['where'][] .= $searchSql; //"a.customer_ref = '" . $customer_ref . "'";*/
             }
 
             $table->setJQGridParam($req_param);

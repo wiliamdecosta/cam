@@ -616,6 +616,7 @@
                                                 <div class="col-md-8">
                                                     <select class="form-control" name="inAccountingMethod">
                                                         <option value="1">Balance Forward</option>
+                                                        <option value="2">Open Item</option>
                                                     </select>
                                                 </div>
                                             </div>

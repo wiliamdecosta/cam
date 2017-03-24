@@ -104,6 +104,38 @@ $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
 
+$db['invoice']['hostname'] ='
+(DESCRIPTION=
+    (ADDRESS=
+      (PROTOCOL=TCP)
+      (HOST=10.60.180.14)
+      (PORT=1521)
+    )
+    (CONNECT_DATA=
+      (SERVER=dedicated)
+      (SERVICE_NAME=tibssub)
+    )
+  )';
+
+/*-----------------------------------------------*/
+/*  Invoice TIBSUBB
+/*
+/*-----------------------------------------------*/
+$db['invoice']['username'] = 'invoice';
+$db['invoice']['password'] = 'invoice';
+$db['invoice']['database'] = 'orcl';
+$db['invoice']['dbdriver'] = 'oci8';
+$db['invoice']['dbprefix'] = '';
+$db['invoice']['pconnect'] = FALSE;
+$db['invoice']['db_debug'] = TRUE;
+$db['invoice']['cache_on'] = FALSE;
+$db['invoice']['cachedir'] = '';
+$db['invoice']['char_set'] = 'utf8';
+$db['invoice']['dbcollat'] = 'utf8_general_ci';
+$db['invoice']['swap_pre'] = '';
+$db['invoice']['autoinit'] = TRUE;
+$db['invoice']['stricton'] = FALSE;
+
 /*-----------------------------------------------*/
 /*  Optimal Connection
 /*

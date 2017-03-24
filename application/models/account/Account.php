@@ -40,6 +40,7 @@ class Account extends Abstract_model {
                                 a.email, 
                                 a.npwp,
                                 a.address, 
+                                a.customer_ref, 
                                 a.invoicing_co_name ";
     public $fromClause      = "  ( select s01 as customer_ref,
                                           s02 as ACCOUNT_NUM ,

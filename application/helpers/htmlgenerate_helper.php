@@ -422,6 +422,87 @@ if (!function_exists('generatehtml')) {
 
     }
 
+    function filterToolbarJqgrid($filters, $search){
+
+    $where = "";
+
+    if(($search==true) &&($filters != "")) {
+
+
+        $filters = json_decode($filters);
+        $where = "  ";
+        $whereArray = array();
+        $rules = $filters->rules;
+        $groupOperation = $filters->groupOp;
+        foreach($rules as $rule) {
+
+            $fieldName = $rule->field;
+            //$fieldData = mysql_real_escape_string($rule->data);
+            $fieldData = $rule->data;
+            switch ($rule->op) {
+           case "eq":
+                $fieldOperation = " = '".$fieldData."'";
+                break;
+           case "ne":
+                $fieldOperation = " != '".$fieldData."'";
+                break;
+           case "lt":
+                $fieldOperation = " < '".$fieldData."'";
+                break;
+           case "gt":
+                $fieldOperation = " > '".$fieldData."'";
+                break;
+           case "le":
+                $fieldOperation = " <= '".$fieldData."'";
+                break;
+           case "ge":
+                $fieldOperation = " >= '".$fieldData."'";
+                break;
+           case "nu":
+                $fieldOperation = " = ''";
+                break;
+           case "nn":
+                $fieldOperation = " != ''";
+                break;
+           case "in":
+                $fieldOperation = " IN (".$fieldData.")";
+                break;
+           case "ni":
+                $fieldOperation = " NOT IN '".$fieldData."'";
+                break;
+           case "bw":
+                $fieldOperation = " LIKE '".$fieldData."%'";
+                break;
+           case "bn":
+                $fieldOperation = " NOT LIKE '".$fieldData."%'";
+                break;
+           case "ew":
+                $fieldOperation = " LIKE '%".$fieldData."'";
+                break;
+           case "en":
+                $fieldOperation = " NOT LIKE '%".$fieldData."'";
+                break;
+           case "cn":
+                $fieldOperation = " LIKE '%".$fieldData."%'";
+                break;
+           case "nc":
+                $fieldOperation = " NOT LIKE '%".$fieldData."%'";
+                break;
+            default:
+                $fieldOperation = "";
+                break;
+                }
+            if($fieldOperation != "") $whereArray[] = $fieldName.$fieldOperation;
+        }
+        if (count($whereArray)>0) {
+            $where .= join(" ".$groupOperation." ", $whereArray);
+        } else {
+            $where = "";
+        }
+    }
+        return $where;
+    }
+
 }
 
 
