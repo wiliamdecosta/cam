@@ -200,7 +200,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group" id="inAccountToGoLiveDiv">
-                                                <label class="col-md-4 control-label">Account To Go Live
+                                                <label class="col-md-4 control-label">Account Go To Live
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-5">
