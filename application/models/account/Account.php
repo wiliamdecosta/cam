@@ -118,6 +118,32 @@ class Account extends Abstract_model {
     }
 
 
+    public function getBilling($account_num){
+        $sql = "select  s01 as bill_period,
+                        s02 as bill_period_units,
+                        s03 as accounting_method,
+                        s04 as bills_per_statement,
+                        s05 as payment_method_name,
+                        s06 as bill_style_name,
+                        s07 as bill_handling_code,
+                        s08 as credit_class_name,
+                        s09 as payment_term_desc,
+                        s10 as credit_limit_mny,
+                        s11 as package_disc_account_num,
+                        s12 as event_disc_account_num,
+                        s13 as address_name,
+                        s14 as ls_address,
+                        s15 as email_address,
+                        s16 as daytime_contact_tel,
+                        s17 as evening_contact_tel,
+                        s18 as mobile_contact_tel,
+                        s19 as fax_contact_tel
+                     from table(pack_list_cust_acc_prod_2. account_details_billing ('".$this->session->userdata('user_name')."','".$account_num."'))";
+        $query = $this->db->query($sql);
+
+        return $query->result_array();
+    }
+
 }
 
 /* End of file Users.php */
