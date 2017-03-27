@@ -144,6 +144,19 @@ class Account extends Abstract_model {
         return $query->result_array();
     }
 
+    public function getServiceAddress($account_num){
+        $sql = "select  s01 as country_name,
+                        s02 as address_1,
+                        s03 as address_2,          
+                        s04 as zipcode,
+                        s05 as address_3,
+                        s06 as country_2
+                     from table(pack_list_cust_acc_prod_2.account_details_srvaddress ('".$this->session->userdata('user_name')."','".$account_num."'))";
+        $query = $this->db->query($sql);
+
+        return $query->result_array();
+    }
+
 }
 
 /* End of file Users.php */

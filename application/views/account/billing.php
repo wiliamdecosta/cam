@@ -163,12 +163,12 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-5">Credit Limit
                                         </label>
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <input type="text" class="form-control" name="credit_limit_mny" id="credit_limit_mny" readonly>
                                         </div>
-                                        <div class="col-md-2">
+                                        <!-- <div class="col-md-2">
                                             <button class="btn "> Get </button>
-                                        </div>
+                                        </div> -->
                                     </div>
 
                                     <div class="form-group">
@@ -187,13 +187,13 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
+                                    <!-- <div class="form-group">
                                         <label class="control-label col-md-5">Discount CPS
                                         </label>
                                         <div class="col-md-6">
                                             <input type="text" class="form-control" name="discount_cps" id="discount_cps" readonly>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                             <!-- Product -->
