@@ -73,7 +73,7 @@ class R_billing_per_portofolio_product_controller {
     }
 
 
-    function excelAccountList()
+    function excel()
     {
         $sidx = getVarClean('sidx', 'str', 'area');
         $sord = getVarClean('sord', 'str', 'asc');

@@ -9,7 +9,7 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Billing per Currency</span>
+            <span>Detail Tagihan</span>
              <i class="fa fa-circle"></i>
         </li>
     </ul>
@@ -23,7 +23,7 @@
             <div class="portlet-title">
                 <div class="caption">
                     <i class=" icon-list font-red"></i>
-                    <span class="caption-subject font-red bold uppercase"> List Of Billing per Currency
+                    <span class="caption-subject font-red bold uppercase"> List Of Detail Tagihan
                     </span>
                 </div>
             </div>
@@ -44,8 +44,8 @@
                         </div>
                         <label class="col-md-2 control-label"> YYYYMM</label>
                     </div><br><br>
-                    <table id="grid-table-billing-currency"></table>
-                    <div id="grid-pager-biliing-currency"></div>
+                    <table id="grid-table-detail-tagihan"></table>
+                    <div id="grid-pager-detail-tagihan"></div>
                 </div>
             </div>
             </div>
@@ -55,38 +55,157 @@
 </div>
 <script>
     jQuery(function ($) {
-        var grid_selector = "#grid-table-billing-currency";
-        var pager_selector = "#grid-pager-biliing-currency";
+        var grid_selector = "#grid-table-detail-tagihan";
+        var pager_selector = "#grid-pager-detail-tagihan";
 
-        jQuery("#grid-table-billing-currency").jqGrid({
-            url: '<?php echo WS_JQGRID . "report.r_bil_currency_controller/read"; ?>',
+        jQuery("#grid-table-detail-tagihan").jqGrid({
+            url: '<?php echo WS_JQGRID . "report.r_detail_tagihan_controller/read"; ?>',
             datatype: "json",
             mtype: "POST",
             colModel: [
                 {
-                    label: 'Curr Type',
-                    name: 'currency_code',
+                    label: 'Customer Ref',
+                    name: 'customer_ref',
                     width: 300,
                     align: 'left',
                     hidden: false
                 },
                 {
-                    label: 'Bulan N',
-                    name: 'jml_bulan_n',
+                    label: 'Account Num',
+                    name: 'account_num',
                     width: 300,
                     align: 'right',
                     hidden: false
                 },
                 {
-                    label: 'Bulan N-1',
-                    name: 'jml_bulan_n_1',
+                    label: 'Account Name',
+                    name: 'account_name',
                     hidden: false,
                     width: 300,
                     align: 'right'
                 },
                 {
-                    label: 'Growth',
-                    name: 'jml_growth',
+                    label: 'Invoice Num',
+                    name: 'invoice_num',
+                    hidden: false,
+                    width: 270,
+                    align: 'right'
+                }, 
+                {
+                    label: 'NPWP',
+                    name: 'npwp',
+                    width: 300,
+                    align: 'left',
+                    hidden: false
+                },
+                {
+                    label: 'Revenue Code id',
+                    name: 'revenue_code_id',
+                    width: 300,
+                    align: 'right',
+                    hidden: false
+                },
+                {
+                    label: 'Product Group',
+                    name: 'product_group',
+                    hidden: false,
+                    width: 300,
+                    align: 'right'
+                },
+                {
+                    label: 'Product Name',
+                    name: 'product_name',
+                    hidden: false,
+                    width: 270,
+                    align: 'right'
+                },//-----
+                {
+                    label: 'Product Label',
+                    name: 'product_label',
+                    width: 300,
+                    align: 'left',
+                    hidden: false
+                },
+                {
+                    label: 'Prod Period',
+                    name: 'prod_period',
+                    width: 300,
+                    align: 'right',
+                    hidden: false
+                },
+                {
+                    label: 'Gl Account',
+                    name: 'gl_account',
+                    hidden: false,
+                    width: 300,
+                    align: 'right'
+                },
+                {
+                    label: 'Curr Type',
+                    name: 'curr_type',
+                    hidden: false,
+                    width: 270,
+                    align: 'right'
+                }, 
+                {
+                    label: 'Bill Mny',
+                    name: 'bill_mny',
+                    width: 300,
+                    align: 'left',
+                    hidden: false
+                },
+                {
+                    label: 'Installation',
+                    name: 'installation',
+                    width: 300,
+                    align: 'right',
+                    hidden: false
+                },
+                {
+                    label: 'Abonemen',
+                    name: 'abonemen',
+                    hidden: false,
+                    width: 300,
+                    align: 'right'
+                },
+                {
+                    label: 'Charge Start Dat',
+                    name: 'charge_start_dat',
+                    hidden: false,
+                    width: 270,
+                    align: 'right'
+                },
+                {
+                    label: 'Cust Order Num',
+                    name: 'cust_order_num',
+                    hidden: false,
+                    width: 270,
+                    align: 'right'
+                }, 
+                {
+                    label: 'Product Id',
+                    name: 'product_id',
+                    width: 300,
+                    align: 'left',
+                    hidden: false
+                },
+                {
+                    label: 'Product Seq',
+                    name: 'product_seq',
+                    width: 300,
+                    align: 'right',
+                    hidden: false
+                },
+                {
+                    label: 'Sap Code Bill',
+                    name: 'sap_code_bill',
+                    hidden: false,
+                    width: 300,
+                    align: 'right'
+                },
+                {
+                    label: 'Sap Code Unbill',
+                    name: 'sap_code_unbill',
                     hidden: false,
                     width: 270,
                     align: 'right'
@@ -107,7 +226,7 @@
 
             },
             sortorder: '',
-            pager: '#grid-pager-biliing-currency',
+            pager: '#grid-pager-detail-tagihan',
             jsonReader: {
                 root: 'rows',
                 id: 'id',
@@ -120,12 +239,12 @@
                 responsive_jqgrid(grid_selector, pager_selector);
             },
             //memanggil controller jqgrid yang ada di controller crud
-            //editurl: '<?php echo WS_JQGRID . "report.r_bil_currency_controller/read"; ?>',
-            caption: "Billing per Currency"
+            //editurl: '<?php echo WS_JQGRID . "report.r_detail_tagihan_controller/read"; ?>',
+            caption: "Detail Tagihan"
 
         });
 
-        jQuery('#grid-table-billing-currency').jqGrid('navGrid', '#grid-pager-biliing-currency',
+        jQuery('#grid-table-detail-tagihan').jqGrid('navGrid', '#grid-pager-detail-tagihan',
             {   //navbar options
                 excel: true,
                 excelicon: 'fa fa-file-excel-o blue bigger-120',
@@ -251,7 +370,7 @@
                 }
             }
             )
-            .navButtonAdd('#grid-pager-biliing-currency', {
+            .navButtonAdd('#grid-pager-detail-tagihan', {
                 caption: "",
                 buttonicon: "fa fa-file-excel-o green bigger-120",
                 position: "last",
@@ -260,7 +379,7 @@
                 onClickButton: toExcelBilCurr,
                 id: "excel"
             });
-            /*.navButtonAdd('#grid-pager-biliing-currency', {
+            /*.navButtonAdd('#grid-pager-detail-tagihan', {
                 caption: "",
                 buttonicon: "fa fa-file-excel-o green bigger-120",
                 position: "last",
@@ -276,12 +395,12 @@
     function toExcelBilCurr() {
         // alert("Convert to Excel");
 
-        var url = "<?php echo WS_JQGRID . "report.r_bil_currency_controller/excel/?"; ?>";
+        var url = "<?php echo WS_JQGRID . "report.r_detail_tagihan_controller/excel/?"; ?>";
         url += "<?php echo $this->security->get_csrf_token_name(); ?>=<?php echo $this->security->get_csrf_hash(); ?>";
-        url += "&_search=" + $("#grid-table-billing-currency").getGridParam("postData")._search;
-        url += "&searchField=" + $("#grid-table-billing-currency").getGridParam("postData").searchField;
-        url += "&searchOper=" + $("#grid-table-billing-currency").getGridParam("postData").searchOper;
-        url += "&searchString=" + $("#grid-table-billing-currency").getGridParam("postData").searchString;
+        url += "&_search=" + $("#grid-table-detail-tagihan").getGridParam("postData")._search;
+        url += "&searchField=" + $("#grid-table-detail-tagihan").getGridParam("postData").searchField;
+        url += "&searchOper=" + $("#grid-table-detail-tagihan").getGridParam("postData").searchOper;
+        url += "&searchString=" + $("#grid-table-detail-tagihan").getGridParam("postData").searchString;
         window.location = url;
     }
     function responsive_jqgrid(grid_selector, pager_selector) {
@@ -315,13 +434,13 @@
     $("#btn-search").on('click', function() {
         var periode = $('#in_Periode').val();
         // alert(periode);
-        $('#grid-table-billing-currency').jqGrid('setGridParam', {
-            url: '<?php echo WS_JQGRID . "report.r_bil_currency_controller/read"; ?>',
+        $('#grid-table-detail-tagihan').jqGrid('setGridParam', {
+            url: '<?php echo WS_JQGRID . "report.r_detail_tagihan_controller/read"; ?>',
             postData: {periode: periode}
         });
 
-        $('#grid-table-billing-currency').jqGrid('setCaption', 'Billing per Currency :: ' + periode);
-        $("#grid-table-billing-currency").trigger("reloadGrid");
+        $('#grid-table-detail-tagihan').jqGrid('setCaption', 'Detail Tagihan :: ' + periode);
+        $("#grid-table-detail-tagihan").trigger("reloadGrid");
     });
 
 </script>

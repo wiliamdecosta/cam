@@ -73,7 +73,7 @@ class R_bil_currency_controller {
         return $data;
     }
 
-    function excelAccountList()
+    function excel()
     {
         $sidx = getVarClean('sidx', 'str', 'currency_code');
         $sord = getVarClean('sord', 'str', 'asc');

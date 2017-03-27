@@ -273,7 +273,7 @@
     function toExcelAccount() {
         // alert("Convert to Excel");
 
-        var url = "<?php echo WS_JQGRID . "report.r_billing_per_portofolio_product_controller/excelAccountList/?"; ?>";
+        var url = "<?php echo WS_JQGRID . "report.r_billing_per_portofolio_product_controller/excel/?"; ?>";
         url += "<?php echo $this->security->get_csrf_token_name(); ?>=<?php echo $this->security->get_csrf_hash(); ?>";
         url += "&_search=" + $("#grid-table-billing-per-portofolio-product").getGridParam("postData")._search;
         url += "&searchField=" + $("#grid-table-billing-per-portofolio-product").getGridParam("postData").searchField;

@@ -290,7 +290,7 @@
     function toExcelBilArea() {
         // alert("Convert to Excel");
 
-        var url = "<?php echo WS_JQGRID . "report.r_bil_area_controller/excelAccountList/?"; ?>";
+        var url = "<?php echo WS_JQGRID . "report.r_bil_area_controller/excel/?"; ?>";
         url += "<?php echo $this->security->get_csrf_token_name(); ?>=<?php echo $this->security->get_csrf_hash(); ?>";
         url += "&_search=" + $("#grid-table-billing-area").getGridParam("postData")._search;
         url += "&searchField=" + $("#grid-table-billing-area").getGridParam("postData").searchField;

@@ -73,7 +73,7 @@ class R_bil_area_controller {
         return $data;
     }
 
-    function excelAccountList()
+    function excel()
     {
         $sidx = getVarClean('sidx', 'str', 'area');
         $sord = getVarClean('sord', 'str', 'asc');

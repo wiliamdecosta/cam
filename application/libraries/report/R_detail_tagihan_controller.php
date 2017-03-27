@@ -1,16 +1,16 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
 * Json library
-* @class Customer_controller
+* @class R_detail_tagihan_controller
 * @version 07/05/2015 12:18:00
 */
-class R_bc_per_portofolio_product_controller {
-
+class R_detail_tagihan_controller {
+ 
     function read() {
 
         $page = getVarClean('page','int',1);
         $limit = getVarClean('rows','int',5);
-        $sidx = getVarClean('sidx','str','area');
+        $sidx = getVarClean('sidx','str','customer_ref');
         $sord = getVarClean('sord','str','asc');
         $periode = getVarClean('periode','str','');
 
@@ -18,10 +18,11 @@ class R_bc_per_portofolio_product_controller {
 
         try {
 
-            $ci = & get_instance();
-            $ci->load->model('report/r_bc_per_portofolio_product');
+            $ci = & get_instance(); 
+            $ci->load->model('report/r_detail_tagihan');
             //$table = $ci->r_bil_complete_area;
-            $table = new R_bc_per_portofolio_product($periode);
+             //$periode='201712';;
+            $table = new r_detail_tagihan($periode);
 
             $req_param = array(
                 "sort_by" => $sidx,
@@ -72,18 +73,17 @@ class R_bc_per_portofolio_product_controller {
         return $data;
     }
 
-
     function excel()
     {
-        $sidx = getVarClean('sidx', 'str', 'area');
+        $sidx = getVarClean('sidx', 'str', 'customer_ref');
         $sord = getVarClean('sord', 'str', 'asc');
         $periode = getVarClean('periode','str','');
 
         try {
 
             $ci = &get_instance();
-           $ci->load->model('report/r_bc_per_portofolio_product');
-            $table = new r_bc_per_portofolio_product($periode);
+           $ci->load->model('report/r_detail_tagihan');
+            $table = new r_detail_tagihan($periode);
 
             $req_param = array(
                 "sort_by" => $sidx,
@@ -99,29 +99,65 @@ class R_bc_per_portofolio_product_controller {
                 "search_str" => getVarClean('searchString')
             );
 
-
+            
 
             $table->setJQGridParam($req_param);
             $items = $table->getAll();
 
-            startExcel(date("dmy") . 'billcom_per_portofolio_product.xls');
+            startExcel(date("dmy") . '_R_DETAIL_TAGIHAN.xls');
             echo '<html>';
-            echo '<head><title>Billing Completed per Protofolio Product</title></head>';
+            echo '<head><title>Detail Tagihan</title></head>';
             echo '<body>';
             echo '<table border="1">';
             echo '<tr>';
             echo '<th>No</th>';
-            echo '<th>Area</th>';
-            echo '<th>Portofolio</th>';
-            echo '<th>Jumlah BC</th>';
+            echo '<th>Customer Ref</th>';
+            echo '<th>Account Num</th>';
+            echo '<th>Account Name</th>';
+            echo '<th>Invoice Num</th>';
+            echo '<th>NPWP</th>';
+            echo '<th>Revenue Code id</th>';
+            echo '<th>Product Group</th>';
+            echo '<th>Product Name</th>';
+            echo '<th>Product Label</th>';
+            echo '<th>Prod Period</th>';
+            echo '<th>Gl Account</th>'; 
+            echo '<th>Curr Type</th>';
+            echo '<th>Bill Mny</th>';
+            echo '<th>Installation</th>';
+            echo '<th>Abonemen</th>';
+            echo '<th>Charge Start Dat</th>';
+            echo '<th>Cust Order Num</th>';//-------
+            echo '<th>Product Id</th>';
+            echo '<th>Product Seq</th>';
+            echo '<th>Sap Code Bill</th>';
+            echo '<th>Sap Code Unbill</th>';
             echo '</tr>';
             $i = 1;
             foreach ($items as $item) {
                 echo '<tr>';
                 echo '<td>' . $i++ . '</td>';
-                echo '<td>' . $item['area'] . '</td>';
-                echo '<td>' . $item['portofolio'] . '</td>';
-                echo '<td>' . $item['jml_bc'] . '</td>';
+                echo '<td>' . $item['customer_ref'] . '</td>';
+                echo '<td>' . $item['account_num'] . '</td>';
+                echo '<td>' . $item['account_name'] . '</td>';
+                echo '<td>' . $item['invoice_num'] . '</td>';
+                echo '<td>' . $item['npwp'] . '</td>';
+                echo '<td>' . $item['revenue_code_id'] . '</td>';
+                echo '<td>' . $item['product_group'] . '</td>';
+                echo '<td>' . $item['product_name'] . '</td>';
+                echo '<td>' . $item['product_label'] . '</td>';
+                echo '<td>' . $item['prod_period'] . '</td>';
+                echo '<td>' . $item['gl_account'] . '</td>';
+                echo '<td>' . $item['curr_type'] . '</td>';
+                echo '<td>' . $item['bill_mny'] . '</td>';
+                echo '<td>' . $item['installation'] . '</td>';
+                echo '<td>' . $item['abonemen'] . '</td>';
+                echo '<td>' . $item['charge_start_dat'] . '</td>';
+                echo '<td>' . $item['cust_order_num'] . '</td>';
+                echo '<td>' . $item['product_id'] . '</td>';
+                echo '<td>' . $item['product_seq'] . '</td>';
+                echo '<td>' . $item['sap_code_bill'] . '</td>';
+                echo '<td>' . $item['sap_code_unbill'] . '</td>';
                 echo '</tr>';
             }
             echo '</table>';
