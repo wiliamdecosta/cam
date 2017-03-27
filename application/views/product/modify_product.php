@@ -145,6 +145,7 @@
                                            $this->security->get_csrf_hash(); ?>">
                                     <input type="hidden" name="wizard1_customer_ref" id="wizard1_customer_ref" value="<?php echo $this->input->post('customer_ref');?>">
                                     <input type="hidden" name="wizard1_account_num" id="wizard1_account_num" value="<?php echo $this->input->post('account_num');?>">
+                                    <input type="hidden" name="wizard1_parent_product_id" id="wizard1_parent_product_id" value="<?php echo $this->input->post('parent_product_id');?>">
                                     <input type="hidden" name="product_seq" id="product_seq" value="<?php echo $this->input->post('product_seq');?>">
                                 </div>
 

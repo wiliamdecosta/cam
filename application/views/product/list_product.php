@@ -70,6 +70,7 @@
         var custRef = grid.jqGrid ('getCell', rowid, 'customer_ref');
         var accnum = grid.jqGrid ('getCell', rowid, 'account_num');
         var prodid = grid.jqGrid ('getCell', rowid, 'product_id');
+        var parentprodid = grid.jqGrid ('getCell', rowid, 'parent_product_seq');
         var prodSeq = grid.jqGrid ('getCell', rowid, 'product_seq');
 
         if(rowid == null) {
@@ -81,6 +82,7 @@
             customer_ref: custRef,
             account_num : accnum,
             product_id : prodid,
+            parent_product_id : parentprodid,
             product_seq : prodSeq
         });
 
