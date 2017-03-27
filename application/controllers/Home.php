@@ -436,6 +436,8 @@ class Home extends CI_Controller
         $i_Customer_Ref = $this->input->post('wizard1_customer_ref');
         $i_Account_Num = $this->input->post('wizard1_account_num');
         $i_Product_Id = $this->input->post('wizard2_product_id');
+        $i_productSeq = $this->input->post('product_seq');
+
         $i_UserName = getUserName();
         $i_orderHeader = "<?xml version='1.0'?>
             <orderHeader>
@@ -533,19 +535,18 @@ class Home extends CI_Controller
                               </product>
                             </products>";
 
-            die($i_orderDoc);
-            exit;
+          
             $sql = "BEGIN "
-                    . " TLKCAMWEBINTERFACE.CreateOrderAO ("
+                    . " TLKCAMWEBINTERFACE.CreateOrderMO ("
                     . " :i_Order_Type, "
                     . " :i_Order_No, "
                     . " :i_Customer_Ref, "
                     . " :i_Account_Num, "
+                    . " :i_productSeq, "
                     . " :i_UserName, "
                     . " :i_orderHeader, "
                     . " :i_orderDoc, "
-                    . " :o_orderStatus, "
-                    . " :o_productSeq "
+                    . " :o_orderStatus "
                     . "); END;";
 
             // var_dump($this->cust->db->conn_id);
@@ -557,18 +558,18 @@ class Home extends CI_Controller
             oci_bind_by_name($stmt, ':i_Order_No', $i_Order_No);
             oci_bind_by_name($stmt, ':i_Customer_Ref', $i_Customer_Ref);
             oci_bind_by_name($stmt, ':i_Account_Num', $i_Account_Num);
+            oci_bind_by_name($stmt, ':i_productSeq', $i_productSeq);
             oci_bind_by_name($stmt, ':i_UserName', $i_UserName);
             oci_bind_by_name($stmt, ':i_orderHeader', $i_orderHeader);
             oci_bind_by_name($stmt, ':i_orderDoc', $i_orderDoc);
 
             // Bind the output parameter
             oci_bind_by_name($stmt, ':o_orderStatus', $o_orderStatus, 2000000);
-            oci_bind_by_name($stmt, ':o_productSeq', $o_productSeq, 2000000);
 
             ociexecute($stmt);
 
             $dt = array('status' => $o_orderStatus,
-                        'product_seq' => $o_productSeq,
+                        'product_seq' => $i_productSeq,
                         'msg'=>null);
 
             if($dt['status'] == 'COMPLETED'){
@@ -618,7 +619,7 @@ class Home extends CI_Controller
                         oci_bind_by_name($stmt, ':pIn_Customer_Ref', $i_Customer_Ref);
                         oci_bind_by_name($stmt, ':pIn_Account_Num', $i_Account_Num);
                         oci_bind_by_name($stmt, ':pIn_UserName', $i_UserName);
-                        oci_bind_by_name($stmt, ':pIn_ProductSeq', $o_productSeq);
+                        oci_bind_by_name($stmt, ':pIn_ProductSeq', $i_productSeq);
                         oci_bind_by_name($stmt, ':pIn_Productid', $i_Product_Id);
                         oci_bind_by_name($stmt, ':pIn_ProdAttrSubid', $attrSubId[$i]);
                         oci_bind_by_name($stmt, ':pIn_FileName', $_FILES['uploadfile']['name']);
