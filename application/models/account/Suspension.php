@@ -4,7 +4,7 @@
  * Pembuatan schema Model
  *
  */
-class Price_plan extends Abstract_model {
+class Suspension extends Abstract_model {
 
     public $table           = "";
     public $pkey            = "";
@@ -12,28 +12,20 @@ class Price_plan extends Abstract_model {
 
     public $fields          = array();
 
-    public $selectClause    = 	" tariff_name,
-                                  product_quantity ,
-                                  additions_quantity ,
-                                  start_dat ,
-                                  end_dat,
-                                  tariff_id";
+    public $selectClause    = 	" effective_dtm,
+                                  status_reason_txt";
 
-    public $fromClause      = "(select  s01 as tariff_name,
-                                          n01 as product_quantity ,
-                                          n02 as additions_quantity ,
-                                          s02 as start_dat ,
-                                          s03 as end_dat,
-                                          n03 as tariff_id
-                                from table(pack_list_cust_acc_prod.product_details_priceplan(%s,%s, %d)))";
+    public $fromClause      = "(select  s01 as effective_dtm,
+                                        s02 as status_reason_txt
+                                from table(pack_list_cust_acc_prod_2.account_details_suspension(%s,%s)))";
 
     public $refs            = array();
 
-    function __construct($customer_ref='', $product_seq=0) {
+    function __construct($account_num='') {
         parent::__construct();
 
         //$this->fromClause = sprintf($this->fromClause, "'".$this->session->userdata('user_name')."'");
-        $this->fromClause = sprintf($this->fromClause, "'".$this->session->userdata('user_name')."'", "'".$customer_ref."'",$product_seq);
+        $this->fromClause = sprintf($this->fromClause, "'".$this->session->userdata('user_name')."'", "'".$account_num."'");
         // $this->db_crm = $this->load->database('default', TRUE);
         // $this->db_crm->_escape_char = ' ';
     }

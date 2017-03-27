@@ -24,6 +24,7 @@ class Service_address extends Abstract_model {
                                   nm_jalan ,
                                   nm_kota ,
                                   propinsi ,
+                                  country_id,
                                   address";
 
     public $fromClause      = "(select    s01 address_1,
@@ -38,6 +39,7 @@ class Service_address extends Abstract_model {
                                           s21 nm_jalan,
                                           s22 nm_kota,
                                           s23 propinsi,
+                                          n01 country_id,
                                           s21||','||s22||','||s23||','||s07 address
                                 from table(pack_list_cust_acc_prod.product_details_address(%s,%s, %d)))";
 

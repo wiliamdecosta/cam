@@ -151,7 +151,9 @@ class Product extends Abstract_model {
                           s12 as fax_contact_tel ,
                           s13 as mobile_contact_tel ,
                           s14 as email ,
-                          s21 as adress 
+                          s21 as adress,
+                          n01 as cps_id,
+                          n02 as budget_centre_seq
                      from table(pack_list_cust_acc_prod.product_details_finance('".$this->session->userdata('user_name')."','".$customer_ref."', ".$product_seq."))";
         $query = $this->db->query($sql);
 

@@ -30,6 +30,7 @@
             <!-- CONTENT PORTLET -->
             <div class="form-body">
             <button class="btn btn-success" id="detail-prod" disabled=""> <i class="fa fa-newspaper-o"></i>Detail Product</button>
+            <button class="btn btn-warning" id="modify-prod" disabled=""> <i class="fa fa-pencil-square-o"></i>Modify Product</button>
 
             <div class="row">
                                 <div class="col-md-12 green">
@@ -57,6 +58,29 @@
 
         loadContentWithParams("product.detail_product", {
             customer_ref: custRef,
+            product_seq : prodSeq
+        });
+
+    });
+
+    $('#modify-prod').on('click', function(event){
+        event.stopPropagation();
+        var grid = $('#grid-table-account');
+        var rowid = grid.jqGrid ('getGridParam', 'selrow');
+        var custRef = grid.jqGrid ('getCell', rowid, 'customer_ref');
+        var accnum = grid.jqGrid ('getCell', rowid, 'account_num');
+        var prodid = grid.jqGrid ('getCell', rowid, 'product_id');
+        var prodSeq = grid.jqGrid ('getCell', rowid, 'product_seq');
+
+        if(rowid == null) {
+            swal('Informasi','Silahkan pilih salah satu product','info');
+            return false;
+        }
+
+        loadContentWithParams("product.modify_product", {
+            customer_ref: custRef,
+            account_num : accnum,
+            product_id : prodid,
             product_seq : prodSeq
         });
 
@@ -178,13 +202,13 @@
                     formatter :'number', 
                     formatoptions: {decimalSeparator:".", thousandsSeparator: ",", decimalPlaces: 2, defaultValue: '0.00'}
                 },
-               /* {
+                {
                     label: 'Product ID',
                     name: 'product_id',
-                    hidden: false,
-                    width: 500,
+                    hidden: true,
+                    width: 200,
                     align: 'left'
-                },*/
+                },
                 {
                     label: 'Parent Product Seq',
                     name: 'parent_product_seq',
@@ -235,6 +259,7 @@
                 /*do something when selected*/
                 
                 $('#detail-prod').prop( "disabled", false );
+                $('#modify-prod').prop( "disabled", false );
 
             },
             sortorder: '',
