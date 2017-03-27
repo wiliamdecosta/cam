@@ -65,7 +65,7 @@ class Detailaccount_controller {
     function read_add_info() {
         $page = getVarClean('page','int',1);
         $limit = getVarClean('rows','int',5);
-        $sidx = getVarClean('sidx','str','effective_dtm');
+        $sidx = getVarClean('sidx','str','business_share');
         $sord = getVarClean('sord','str','desc');
 
         $account_num = getVarClean('account_num', 'str', '');

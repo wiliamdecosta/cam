@@ -12,8 +12,10 @@ class Additional_information extends Abstract_model {
 
     public $fields          = array();
 
-    public $selectClause    = 	" effective_dtm,
-                                  status_reason_txt";
+    public $selectClause    = 	" business_share,
+                                  npwp,   
+                                  is_monthly_invoice,   
+                                  sap_account";
 
     public $fromClause      = "(select s01 as  business_share,
                                         s02 as npwp,
