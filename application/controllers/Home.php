@@ -164,7 +164,6 @@ class Home extends CI_Controller
         $i_Order_Type = 'ZXAO';
         // $i_Order_No = $this->input->post('in_Customer_Order_Number');
         $i_Order_No = $this->gen_con();
-        var_dump($i_Order_No); exit;
         $i_Customer_Ref = $this->input->post('wizard1_customer_ref');
         $i_Account_Num = $this->input->post('wizard1_account_num');
         $i_Product_Id = $this->input->post('wizard2_product_id');
