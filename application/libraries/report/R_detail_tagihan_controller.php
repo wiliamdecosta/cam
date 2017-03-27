@@ -137,27 +137,35 @@ class R_detail_tagihan_controller {
             foreach ($items as $item) {
                 echo '<tr>';
                 echo '<td>' . $i++ . '</td>';
+<<<<<<< .mine
+                echo '<td>' . $item['customer_ref'] . '&nbsp;</td>';
+                echo '<td>' . $item['account_num'] . '&nbsp;</td>';
+||||||| .r183
+                echo '<td>' . $item['customer_ref'] . '</td>';
+                echo '<td>' . $item['account_num'] . '</td>';
+=======
                 echo '<td>' . $item['customer_ref'] . '</td>';
                 echo '<td>' . $item['account_num']. '</td>';
+>>>>>>> .r185
                 echo '<td>' . $item['account_name'] . '</td>';
-                echo '<td>' . $item['invoice_num'] . '</td>';
+                echo '<td>' . $item['invoice_num'] . '&nbsp;</td>';
                 echo '<td>' . $item['npwp'] . '</td>';
-                echo '<td>' . $item['revenue_code_id'] . '</td>';
+                echo '<td>' . $item['revenue_code_id'] . '&nbsp</td>';
                 echo '<td>' . $item['product_group'] . '</td>';
                 echo '<td>' . $item['product_name'] . '</td>';
-                echo '<td>' . $item['product_label'] . '</td>';
-                echo '<td>' . $item['prod_period'] . '</td>';
-                echo '<td>' . $item['gl_account'] . '</td>';
+                echo '<td>' . $item['product_label'] . '&nbsp</td>';
+                echo '<td>' . $item['prod_period'] . '&nbsp;</td>';
+                echo '<td>' . $item['gl_account'] . '&nbsp</td>';
                 echo '<td>' . $item['curr_type'] . '</td>';
                 echo '<td>' . $item['bill_mny'] . '</td>';
                 echo '<td>' . $item['installation'] . '</td>';
                 echo '<td>' . $item['abonemen'] . '</td>';
-                echo '<td>' . $item['charge_start_dat'] . '</td>';
-                echo '<td>' . $item['cust_order_num'] . '</td>';
-                echo '<td>' . $item['product_id'] . '</td>';
-                echo '<td>' . $item['product_seq'] . '</td>';
-                echo '<td>' . $item['sap_code_bill'] . '</td>';
-                echo '<td>' . $item['sap_code_unbill'] . '</td>';
+                echo '<td>' . $item['charge_start_dat'] . '&nbsp</td>';
+                echo '<td>' . $item['cust_order_num'] . '&nbsp</td>';
+                echo '<td>' . $item['product_id'] . '&nbsp</td>';
+                echo '<td>' . $item['product_seq'] . '&nbsp</td>';
+                echo '<td>' . $item['sap_code_bill'] . '&nbsp</td>';
+                echo '<td>' . $item['sap_code_unbill'] . '&nbsp</td>';
                 echo '</tr>';
             }
             echo '</table>';
