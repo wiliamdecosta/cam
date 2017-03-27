@@ -72,9 +72,9 @@
         <div class="tab-content no-border">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="portlet red box menu-panel">
+                    <div class="portlet blue box menu-panel">
                         <div class="portlet-title">
-                            <div class="caption">Default Service Address is not in use</div>
+                            <div class="caption">Service Address</div>
                             <div class="tools">
                                 <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
                             </div>
@@ -84,52 +84,73 @@
                             <div class="form-horizontal">
                                 <div class="row">
                                     <div class="form-group">
-                                        <label class="control-label col-md-5">Country
+                                        <label class="control-label col-md-2">Country
                                         </label>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <input type="text" class="form-control" name="country_name" id="country_name" readonly>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="control-label col-md-5">Address Line 1
+                                        <label class="control-label col-md-2">Address Line 1
                                         </label>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <input type="text" class="form-control" name="address_1" id="address_1" readonly>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="control-label col-md-5">Address Line 2
+                                        <label class="control-label col-md-2">Address Line 2
                                         </label>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <input type="text" class="form-control" name="address_2" id="address_2" readonly>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="control-label col-md-5">Zip Code
+                                        <label class="control-label col-md-2">Zip Code
                                         </label>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <input type="text" class="form-control" name="zipcode" id="zipcode" readonly>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="control-label col-md-5">City
+                                        <label class="control-label col-md-2">City
                                         </label>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <input type="text" class="form-control" name="address_3" id="address_3" readonly>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="control-label col-md-5">Country
+                                        <label class="control-label col-md-2">Country
                                         </label>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <input type="text" class="form-control" name="country_2" id="country_2" readonly>
                                         </div>
                                     </div>
+
+                                    <br><br><br>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">
+                                        </label>
+                                        <div class="col-md-4">
+                                            <div class="checkbox">
+                                              <label><input type="checkbox" name="use_address" id="use_address" value="Y">Use an Existing Address</label>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">
+                                        </label>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control" name="address" id="address" readonly>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                             <!-- Product -->
