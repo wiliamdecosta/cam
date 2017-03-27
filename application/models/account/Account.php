@@ -130,7 +130,7 @@ class Account extends Abstract_model {
                         s09 as payment_term_desc,
                         s10 as credit_limit_mny,
                         s11 as package_disc_account_num,
-                        s12 as event_disc_account_num,
+                        s12 as event_disc_account_num, 
                         s13 as address_name,
                         s14 as ls_address,
                         s15 as email_address,

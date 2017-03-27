@@ -36,7 +36,7 @@ class Detailaccount_controller {
 
     function read_billing() {
 
-        $account_num = getVarClean('bill_period', 'str', '');
+        $account_num = getVarClean('account_num', 'str', '');
 
         $data = array('rows' => array(), 'success' => false, 'message' => '', 'records' => 0, 'total' => 0);
 
