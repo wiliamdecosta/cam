@@ -138,7 +138,7 @@ class R_detail_tagihan_controller {
                 echo '<tr>';
                 echo '<td>' . $i++ . '</td>';
                 echo '<td>' . $item['customer_ref'] . '</td>';
-                echo '<td>' . $item['account_num'] . '</td>';
+                echo '<td>' . $item['account_num']. '</td>';
                 echo '<td>' . $item['account_name'] . '</td>';
                 echo '<td>' . $item['invoice_num'] . '</td>';
                 echo '<td>' . $item['npwp'] . '</td>';
