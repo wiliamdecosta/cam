@@ -304,6 +304,16 @@
         window.location = url;
     }
 
+    function printInvoice(acc, prd){
+        url = '<?php echo base_url(); ?>'+'pdf/invoice/'+acc+'/'+prd+'/0';
+        openInNewTab(url);
+        //http://127.0.0.1/telpro/pdf/invoice/ACC0001/201701/0
+    }
+    function openInNewTab(url) {
+      var win = window.open(url, '_blank');
+      win.focus();
+    }
+
     $('#cari_account').click(function () {
             alert();
             var myGrid = jQuery("#grid-table-account").jqGrid({

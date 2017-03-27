@@ -375,9 +375,9 @@ if (!function_exists('generatehtml')) {
             $required = $value->nullable == 'Y' ? 'required' : '';
 
             $dataType = $value->data_type == 'NUMBER' ? 'number' : 'text';
-            
+            $oKU = '';
             if($value->column_name == 'NPWP'){ // need to change to parameter
-                $dataType = 'number';
+                $oKU = "onkeypress='return isAlphaNumeric(event);'";
             }
             // change this condition to parameter ASAP
             if($value->column_name == 'IS_MONTHLY_INVOICE'){ 
@@ -386,8 +386,9 @@ if (!function_exists('generatehtml')) {
                             </label>
                             <div class='col-md-8'>
                             <select class='form-control ".$required."' ".$required." name='".$value->column_name."' id='".$value->column_name."'>
-                                                            <option value='Y'>Yes</option>
+                                                            
                                                             <option value='N'>No</option>
+                                                            <option value='Y'>Yes</option>
                                                         </select>
                             </div>
                             </div>";
@@ -397,7 +398,7 @@ if (!function_exists('generatehtml')) {
                         <label class='control-label col-md-4'>".ucwords(strtolower(str_replace('_',' ',$value->column_name)))."
                         </label>
                         <div class='col-md-8'>
-                            <input type='".$dataType."' class='a form-control ".$required."' name='".$value->column_name."' id='".$value->column_name."' ".$required.">
+                            <input type='".$dataType."' class='a form-control ".$required."' name='".$value->column_name."' id='".$value->column_name."' ".$required." ".$oKU." >
                         </div>
                     </div> ";
            

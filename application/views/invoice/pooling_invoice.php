@@ -64,7 +64,7 @@
                
                 {label: 'Action', name: ' ', width: 100,  sortable:false,  align:"center", editable: false,
                     formatter: function(cellvalue, options, rowObject) {
-                        return '<button type="button" class="btn btn-xs btn-primary" title="print" onclick="showDiskon(\''+rowObject.account_num+'\',\''+rowObject.customer_ref+'\',\''+rowObject.account_name+'\',\''+rowObject.created_date+'\',\''+rowObject.schema_id+'\')"><i class="fa fa-print"></i></button>';
+                        return '<button type="button" class="btn btn-xs btn-primary" title="pooling invoice" onclick="showDiskon(\''+rowObject.account_num+'\',\''+rowObject.customer_ref+'\',\''+rowObject.account_name+'\',\''+rowObject.created_date+'\',\''+rowObject.schema_id+'\')"><i class="fa fa-rocket "></i></button>';
                     }
                 },
                 {
