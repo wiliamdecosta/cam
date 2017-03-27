@@ -111,7 +111,7 @@
                                         <label class="control-label col-md-2">Zip Code
                                         </label>
                                         <div class="col-md-4">
-                                            <input type="text" class="form-control" name="zipcode" id="zipcode" readonly>
+                                            <input type="text" class="form-control numberformat" name="zipcode" id="zipcode" readonly>
                                         </div>
                                     </div>
 
@@ -244,6 +244,12 @@
             account_num: "<?php echo $this->input->post('account_num');?>"
         });
     });
+
+    $(".priceformat").number( true, 0 , '.',','); /* price number format */
+    $(".priceformat").css("text-align", "right");
+
+    $(".numberformat").number( true, 0 , '.',',');
+    $(".numberformat").css("text-align", "right");
 
     $.ajax({
         url: '<?php echo WS_JQGRID."account.detailaccount_controller/read_service_address"; ?>',

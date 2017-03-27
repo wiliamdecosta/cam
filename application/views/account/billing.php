@@ -91,7 +91,7 @@
                                         <label class="control-label col-md-5">Bill period <span class="required">  * </span>
                                         </label>
                                         <div class="col-md-2">
-                                            <input type="text" class="form-control required" name="bill_period" id="bill_period" readonly>
+                                            <input type="text" class="form-control required numberformat" name="bill_period" id="bill_period" readonly>
                                         </div>
                                         <div class="col-md-4">
                                             <input type="text" class="form-control required" name="bill_period_units" id="bill_period_units" readonly>
@@ -110,7 +110,7 @@
                                         <label class="control-label col-md-5">Statement Every <span class="required">  * </span>
                                         </label>
                                         <div class="col-md-4">
-                                            <input type="text" class="form-control required" name="bills_per_statement" id="bills_per_statement" readonly>
+                                            <input type="text" class="form-control required numberformat" name="bills_per_statement" id="bills_per_statement" readonly>
                                         </div>
                                         <label class="control-label col-md-2">Bill(s)
                                         </label>
@@ -164,7 +164,7 @@
                                         <label class="control-label col-md-5">Credit Limit
                                         </label>
                                         <div class="col-md-6">
-                                            <input type="text" class="form-control" name="credit_limit_mny" id="credit_limit_mny" readonly>
+                                            <input type="text" class="form-control priceformat" name="credit_limit_mny" id="credit_limit_mny" readonly>
                                         </div>
                                         <!-- <div class="col-md-2">
                                             <button class="btn "> Get </button>
@@ -309,6 +309,12 @@
             account_num: "<?php echo $this->input->post('account_num');?>"
         });
     });
+
+    $(".priceformat").number( true, 0 , '.',','); /* price number format */
+    $(".priceformat").css("text-align", "right");
+
+    $(".numberformat").number( true, 0 , '.',',');
+    $(".numberformat").css("text-align", "right");
 
     $.ajax({
         url: '<?php echo WS_JQGRID."account.detailaccount_controller/read_billing"; ?>',
