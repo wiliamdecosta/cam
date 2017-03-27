@@ -259,7 +259,7 @@
                                 <div class="tab-pane" id="tab3">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <div class="form-group">
+                                            <!-- <div class="form-group">
                                                 <label class="control-label col-md-6">Customer Order Number
                                                 <span class="required"> * </span>
                                                 </label>
@@ -267,7 +267,7 @@
                                                     <input type="text" readonly class="form-control required" name="in_Customer_Order_Number" id="in_Customer_Order_Number">
                                                 </div>
                                             </div>
-
+ -->
                                             <div class="form-group">
                                                 <label class="control-label col-md-6">Supplier Order Number
                                                 </label>
@@ -1169,18 +1169,18 @@ $('#susp_recur_mod_type_id').on('change', function() {
     //     autoclose: true
     // });
 
-    $.ajax({
-        url: "<?php echo base_url().'home/gen_con/'; ?>" ,
-        type: "POST",
-        dataType: "json",
-        data: {},
-        success: function (data) {
-            $('#in_Customer_Order_Number').val(data.jml);
-        },
-        error: function (xhr, status, error) {
-            swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
-        }
-    });
+    // $.ajax({
+    //     url: "<?php echo base_url().'home/gen_con/'; ?>" ,
+    //     type: "POST",
+    //     dataType: "json",
+    //     data: {},
+    //     success: function (data) {
+    //         $('#in_Customer_Order_Number').val(data.jml);
+    //     },
+    //     error: function (xhr, status, error) {
+    //         swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
+    //     }
+    // });
 
 
 
