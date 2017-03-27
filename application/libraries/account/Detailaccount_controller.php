@@ -219,5 +219,33 @@ class Detailaccount_controller {
         echo json_encode($data);
         exit;
     }
+
+    function read_finance() {
+
+        $account_num = getVarClean('account_num', 'str', '');
+
+        $data = array('rows' => array(), 'success' => false, 'message' => '', 'records' => 0, 'total' => 0);
+
+        try {
+
+            $ci = & get_instance();
+            $ci->load->model('account/account');
+            $table = $ci->account;
+            
+            $items = $table->getFinance($account_num);
+
+            $data['total'] = 1;
+            $data['records'] = 1;
+
+            $data['rows'] = $items;
+            $data['success'] = true;
+
+        }catch (Exception $e) {
+            $data['message'] = $e->getMessage();
+        }
+
+        echo json_encode($data);
+        exit;
+    }
    
 }

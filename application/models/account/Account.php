@@ -157,6 +157,22 @@ class Account extends Abstract_model {
         return $query->result_array();
     }
 
+    public function getFinance($account_num){
+        $sql = "select  s01 as currency_code_acc,
+                        s02 as currency_code_inf,
+                        s03 as billing_status,
+                        s04 as next_bill_dtm,
+                        s05 as prepay_boo, 
+                        s06 as delete_events_on_billing_boo,
+                        s07 as holiday_profile_id,
+                        s08 as events_per_day
+                     from table(pack_list_cust_acc_prod_2.account_details_finance ('".$this->session->userdata('user_name')."','".$account_num."'))";
+        $query = $this->db->query($sql);
+
+        return $query->result_array();
+    }
+
+
 }
 
 /* End of file Users.php */
