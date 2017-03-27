@@ -137,16 +137,16 @@ class R_detail_tagihan_controller {
             foreach ($items as $item) {
                 echo '<tr>';
                 echo '<td>' . $i++ . '</td>';
-<<<<<<< .mine
+//<<<<<<< .mine
                 echo '<td>' . $item['customer_ref'] . '&nbsp;</td>';
                 echo '<td>' . $item['account_num'] . '&nbsp;</td>';
-||||||| .r183
+//||||||| .r183
                 echo '<td>' . $item['customer_ref'] . '</td>';
                 echo '<td>' . $item['account_num'] . '</td>';
-=======
+//=======
                 echo '<td>' . $item['customer_ref'] . '</td>';
                 echo '<td>' . $item['account_num']. '</td>';
->>>>>>> .r185
+//>>>>>>> .r185
                 echo '<td>' . $item['account_name'] . '</td>';
                 echo '<td>' . $item['invoice_num'] . '&nbsp;</td>';
                 echo '<td>' . $item['npwp'] . '</td>';
