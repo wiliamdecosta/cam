@@ -332,7 +332,7 @@
                                 <!--- TAB 4 -->
                                 <div class="tab-pane" id="tab4">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-8">
                                             <!--- generate html -->
                                             <div id="step-content"></div>
 

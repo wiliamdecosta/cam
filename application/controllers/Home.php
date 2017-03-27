@@ -382,4 +382,33 @@ class Home extends CI_Controller
         exit;
     }
 
+    function load_modify_html() {
+        $customer_ref = $this->input->post('customer_ref');
+        $product_seq = $this->input->post('product_seq');
+        
+        $sql = "select  n01 as product_id ,
+                        n02 as product_attribute_subid ,
+                        s01 as attribute_ua_name,
+                        s02 as attribute_bill_name,
+                        s03 as mandatory_boo,
+                        s04 as attribute_units,
+                        n03 as display_position ,
+                        s05 as val_type,
+                        s06 as val_refference,
+                        s07 as attr_value,
+                        s21 as file_name,
+                        s22 as orig_file_name
+              from table(pack_lov.get_prodattr_list_byprodseq('".getUserName()."', '".$customer_ref."', ".$product_seq.",''))
+              order by display_position asc";
+
+        $query = $this->db->query($sql);
+        $items = $query->result_array();
+        // print_r($items);
+        $htlm = genAttributesModifyHTML($items);
+
+        echo $htlm;
+        exit;
+    }
+
+
 }

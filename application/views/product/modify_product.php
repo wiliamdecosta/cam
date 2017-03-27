@@ -225,7 +225,7 @@
                                 <!--- TAB 3 -->
                                 <div class="tab-pane" id="tab3">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-9">
                                             <!--- generate html -->
                                             <div id="step-content"></div>
 
@@ -984,9 +984,12 @@ $('#susp_recur_mod_type_id').on('change', function() {
     });
 
     $.ajax({
-        url: "<?php echo base_url().'home/load_html/'.$this->input->post('product_id'); ?>",
+        url: "<?php echo base_url().'home/load_modify_html/'; ?>",
         type: "POST",
-        data: {},
+        data: {
+            customer_ref: "<?php echo $this->input->post('customer_ref'); ?>",
+            product_seq : "<?php echo $this->input->post('product_seq'); ?>"
+        },
         success: function (data) {
             $( "#step-content" ).html( data );
         },
