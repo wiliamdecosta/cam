@@ -66,15 +66,15 @@
                 {
                     label: 'Customer Ref',
                     name: 'customer_ref',
-                    width: 300,
+                    width: 150,
                     align: 'left',
                     hidden: false
                 },
                 {
                     label: 'Account Num',
                     name: 'account_num',
-                    width: 300,
-                    align: 'right',
+                    width: 150,
+                    align: 'left',
                     hidden: false
                 },
                 {
@@ -82,14 +82,14 @@
                     name: 'account_name',
                     hidden: false,
                     width: 300,
-                    align: 'right'
+                    align: 'left'
                 },
                 {
                     label: 'Invoice Num',
                     name: 'invoice_num',
                     hidden: false,
-                    width: 270,
-                    align: 'right'
+                    width: 150,
+                    align: 'left'
                 }, 
                 {
                     label: 'NPWP',
@@ -101,8 +101,8 @@
                 {
                     label: 'Revenue Code id',
                     name: 'revenue_code_id',
-                    width: 300,
-                    align: 'right',
+                    width: 150,
+                    align: 'left',
                     hidden: false
                 },
                 {
@@ -110,54 +110,54 @@
                     name: 'product_group',
                     hidden: false,
                     width: 300,
-                    align: 'right'
+                    align: 'left'
                 },
                 {
                     label: 'Product Name',
                     name: 'product_name',
                     hidden: false,
                     width: 270,
-                    align: 'right'
+                    align: 'left'
                 },//-----
                 {
                     label: 'Product Label',
                     name: 'product_label',
-                    width: 300,
+                    width: 150,
                     align: 'left',
                     hidden: false
                 },
                 {
                     label: 'Prod Period',
                     name: 'prod_period',
-                    width: 300,
-                    align: 'right',
+                    width: 150,
+                    align: 'left',
                     hidden: false
                 },
                 {
                     label: 'Gl Account',
                     name: 'gl_account',
                     hidden: false,
-                    width: 300,
-                    align: 'right'
+                    width: 150,
+                    align: 'left'
                 },
                 {
                     label: 'Curr Type',
                     name: 'curr_type',
                     hidden: false,
-                    width: 270,
-                    align: 'right'
+                    width: 100,
+                    align: 'left'
                 }, 
                 {
                     label: 'Bill Mny',
                     name: 'bill_mny',
-                    width: 300,
-                    align: 'left',
+                    width: 150,
+                    align: 'right',
                     hidden: false
                 },
                 {
                     label: 'Installation',
                     name: 'installation',
-                    width: 300,
+                    width: 150,
                     align: 'right',
                     hidden: false
                 },
@@ -165,50 +165,50 @@
                     label: 'Abonemen',
                     name: 'abonemen',
                     hidden: false,
-                    width: 300,
+                    width: 150,
                     align: 'right'
                 },
                 {
                     label: 'Charge Start Dat',
                     name: 'charge_start_dat',
                     hidden: false,
-                    width: 270,
-                    align: 'right'
+                    width: 150,
+                    align: 'left'
                 },
                 {
                     label: 'Cust Order Num',
                     name: 'cust_order_num',
                     hidden: false,
-                    width: 270,
-                    align: 'right'
+                    width: 150,
+                    align: 'left'
                 }, 
                 {
                     label: 'Product Id',
                     name: 'product_id',
-                    width: 300,
+                    width: 100,
                     align: 'left',
                     hidden: false
                 },
                 {
                     label: 'Product Seq',
                     name: 'product_seq',
-                    width: 300,
-                    align: 'right',
+                    width: 100,
+                    align: 'left',
                     hidden: false
                 },
                 {
                     label: 'Sap Code Bill',
                     name: 'sap_code_bill',
                     hidden: false,
-                    width: 300,
-                    align: 'right'
+                    width: 150,
+                    align: 'left'
                 },
                 {
                     label: 'Sap Code Unbill',
                     name: 'sap_code_unbill',
                     hidden: false,
-                    width: 270,
-                    align: 'right'
+                    width: 150,
+                    align: 'left'
                 }
             ],
             height: '100%',
