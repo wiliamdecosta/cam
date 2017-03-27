@@ -534,7 +534,7 @@ class Home extends CI_Controller
                             </products>";
 
             die($i_orderDoc);
-
+            exit;
             $sql = "BEGIN "
                     . " TLKCAMWEBINTERFACE.CreateOrderAO ("
                     . " :i_Order_Type, "
