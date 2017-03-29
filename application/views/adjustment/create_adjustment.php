@@ -34,25 +34,31 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="control-label col-md-2">Account <span class="required">  * </span>
+                                    <label class="control-label col-md-4">Product <span class="required">  * </span>
                                     </label>
                                     <div class="col-md-4">
-                                        <input type="text" class="form-control required" name="wizard1_customer_ref" id="wizard1_customer_ref" readonly>
-                                    </div>
-                                    <div class="col-md-4">
                                         <div class="input-group">                                            
-                                            <input type="text" class="form-control required" name="wizard1_customer_code" id="wizard1_customer_code" readonly>
+                                            <input type="text" class="form-control required" name="wizard1_product" id="wizard1_product" readonly>
                                             <span class="input-group-btn">
-                                                <button class="btn btn-success" type="button" id="btn-lov-customer">
+                                                <button class="btn btn-success" type="button" id="btn-lov-product">
                                                 <i class="fa fa-search"></i></button>
                                             </span>
                                         </div>
                                     </div>
                                 </div>
 
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Account <span class="required">  * </span>
+                                    </label>
+                                    </label>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control required" name="account" id="account" readonly>
+                                    </div>
+                                </div>
+
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-2">Account Name <span class="required">  * </span>
+                                    <label class="control-label col-md-4">Account Name <span class="required">  * </span>
                                     </label>
                                     </label>
                                     <div class="col-md-4">
@@ -61,7 +67,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-2">Adjustment Type <span class="required">  * </span>
+                                    <label class="control-label col-md-4">Adjustment Type <span class="required">  * </span>
                                     </label>
                                     <div class="col-md-4">
                                         <div class="input-group">                                            
@@ -75,7 +81,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-2">Balance Type <span class="required">  * </span>
+                                    <label class="control-label col-md-4">Balance Type <span class="required">  * </span>
                                     </label>
                                     <div class="col-md-3">                                           
                                         <input type="text" class="form-control required" name="balance_type" id="balance_type">
@@ -84,7 +90,7 @@
 
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-2">Value
+                                    <label class="control-label col-md-4">Value
                                     </label>
                                     <div class="col-md-3">                                           
                                         <input type="text" class="form-control" name="val" id="val">
@@ -92,7 +98,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-2">Adjustment Date <span class="required">  * </span>
+                                    <label class="control-label col-md-4">Adjustment Date <span class="required">  * </span>
                                     </label>
                                     <div class="col-md-3">                                           
                                         <input type="text" class="form-control datepicker required" name="adjestment_date" id="adjestment_date">
@@ -100,14 +106,14 @@
                                 </div>
 
                                  <div class="form-group">
-                                    <label class="control-label col-md-2">Description 
+                                    <label class="control-label col-md-4">Description 
                                     </label>
                                     <div class="col-md-4">                                           
                                         <textarea rows="4" cols="50" class="form-control" name="description" id="description"> </textarea>
                                     </div>
                                 </div>
 
-                                <div class="form-group">
+                               <!--  <div class="form-group">
                                     <label class="control-label col-md-2">Send Date <span class="required">  * </span>
                                     </label>
                                     <div class="col-md-3">                                           
@@ -139,10 +145,10 @@
                                         <input type="text" class="form-control" readonly="" name="create_by" id="create_by">
                                     </div>
                                 </div>
-
+ -->
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-2"></label>
+                                    <label class="control-label col-md-4"></label>
                                     <div class="col-md-3">
                                         <button class="btn green button-submit"> Submit</button>
                                     </div>
