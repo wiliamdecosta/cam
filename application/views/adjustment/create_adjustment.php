@@ -44,6 +44,12 @@
                                                 <button class="btn btn-success" type="button" id="btn-lov-product">
                                                 <i class="fa fa-search"></i></button>
                                             </span>
+
+                                            <input type="hidden" class="form-control required" name="product_label" id="product_label" readonly>
+                                            <input type="hidden" class="form-control required" name="customer_ref" id="customer_ref" readonly>
+                                            <input type="hidden" class="form-control required" name="product_seq" id="product_seq" readonly>
+                                            <input type="hidden" class="form-control required" name="cps_id" id="cps_id" readonly>
+
                                         </div>
                                     </div>
                                 </div>
@@ -195,7 +201,7 @@ $("#btn-lov-adjusment-type").on('click',function(){
     modal_lov_adjustment_type_show('adjestment_type_id','adjestment_type');
 });
 $("#btn-lov-product").on('click',function(){
-    modal_lov_product_adjustment_show('product_id','product_name','account','account_name');
+    modal_lov_product_adjustment_show('product_id','product_name','account','account_name','product_label','customer_ref','product_seq','cps_id');
 });
 
 </script>

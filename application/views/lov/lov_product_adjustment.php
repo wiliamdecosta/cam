@@ -11,6 +11,10 @@
             <input type="hidden" id="modal_lov_product_adjustment_code_val" value="" />
             <input type="hidden" id="modal_lov_product_adjustment_account_num" value="" />
             <input type="hidden" id="modal_lov_product_adjustment_account_name" value="" />
+            <input type="hidden" id="modal_lov_product_adjustment_product_label" value="" />
+            <input type="hidden" id="modal_lov_product_adjustment_customer_ref" value="" />
+            <input type="hidden" id="modal_lov_product_adjustment_product_seq" value="" />
+            <input type="hidden" id="modal_lov_product_adjustment_cps_id" value="" />
 
             <!-- modal body -->
             <div class="modal-body">
@@ -58,30 +62,45 @@
             $("#"+ $("#modal_lov_product_adjustment_code_val").val()).val("");
             $("#"+ $("#modal_lov_product_adjustment_account_num").val()).val("");
             $("#"+ $("#modal_lov_product_adjustment_account_name").val()).val("");
+
+            $("#"+ $("#modal_lov_product_adjustment_product_label").val()).val("");
+            $("#"+ $("#modal_lov_product_adjustment_customer_ref").val()).val("");
+            $("#"+ $("#modal_lov_product_adjustment_product_seq").val()).val("");
+            $("#"+ $("#modal_lov_product_adjustment_cps_id").val()).val("");
             $("#modal_lov_product_adjustment").modal("toggle");
         });
     });
 
-    function modal_lov_product_adjustment_show(the_id_field, the_code_field,account_num,account_name) {
-        modal_lov_product_adjustment_set_field_value(the_id_field, the_code_field,account_num,account_name);
+    function modal_lov_product_adjustment_show(the_id_field, the_code_field,account_num,account_name,product_label,customer_ref,product_seq,cps_id) {
+        modal_lov_product_adjustment_set_field_value(the_id_field, the_code_field,account_num,account_name,product_label,customer_ref,product_seq,cps_id);
         $("#modal_lov_product_adjustment").modal({backdrop: 'static'});
         modal_lov_product_adjustment_prepare_table();
     }
 
 
-    function modal_lov_product_adjustment_set_field_value(the_id_field, the_code_field,account_num,account_name) {
+    function modal_lov_product_adjustment_set_field_value(the_id_field, the_code_field,account_num,account_name,product_label,customer_ref,product_seq,cps_id) {
          $("#modal_lov_product_adjustment_id_val").val(the_id_field);
          $("#modal_lov_product_adjustment_code_val").val(the_code_field);
          $("#modal_lov_product_adjustment_account_num").val(account_num);
          $("#modal_lov_product_adjustment_account_name").val(account_name);
 
+         $("#modal_lov_product_adjustment_product_label").val(product_label);
+         $("#modal_lov_product_adjustment_customer_ref").val(customer_ref);
+         $("#modal_lov_product_adjustment_product_seq").val(product_seq);
+         $("#modal_lov_product_adjustment_cps_id").val(cps_id);
+
     }
 
-    function modal_lov_product_adjustment_set_value(the_id_val, the_code_val,account_num,account_name) {
+    function modal_lov_product_adjustment_set_value(the_id_val, the_code_val,account_num,account_name,product_label,customer_ref,product_seq,cps_id) {
          $("#"+ $("#modal_lov_product_adjustment_id_val").val()).val(the_id_val);
          $("#"+ $("#modal_lov_product_adjustment_code_val").val()).val(the_code_val);
          $("#"+ $("#modal_lov_product_adjustment_account_num").val()).val(account_num);
          $("#"+ $("#modal_lov_product_adjustment_account_name").val()).val(account_name);
+
+         $("#"+ $("#modal_lov_product_adjustment_product_label").val()).val(product_label);
+         $("#"+ $("#modal_lov_product_adjustment_customer_ref").val()).val(customer_ref);
+         $("#"+ $("#modal_lov_product_adjustment_product_seq").val()).val(product_seq);
+         $("#"+ $("#modal_lov_product_adjustment_cps_id").val()).val(cps_id);
 
          $("#modal_lov_product_adjustment").modal("toggle");
 
@@ -89,6 +108,11 @@
          $("#"+ $("#modal_lov_product_adjustment_code_val").val()).change();
          $("#"+ $("#modal_lov_product_adjustment_account_num").val()).change();
          $("#"+ $("#modal_lov_product_adjustment_account_name").val()).change();
+
+         $("#"+ $("#modal_lov_product_adjustment_product_label").val()).change();
+         $("#"+ $("#modal_lov_product_adjustment_customer_ref").val()).change();
+         $("#"+ $("#modal_lov_product_adjustment_product_seq").val()).change();
+         $("#"+ $("#modal_lov_product_adjustment_cps_id").val()).change();
     }
 
     function modal_lov_product_adjustment_prepare_table() {
@@ -96,7 +120,7 @@
         $("#modal_lov_product_adjustment_grid_selection").bootgrid({
              formatters: {
                 "opt-edit" : function(col, row) { 
-                    return '<a href="javascript:;" title="Set Value" onclick="modal_lov_product_adjustment_set_value(\''+ row.product_id +'\', \''+ row.product_name +'\',\''+row.account_num+'\',\''+row.account_name+'\')" class="blue"><i class="fa fa-pencil-square-o bigger-130"></i></a>';
+                    return '<a href="javascript:;" title="Set Value" onclick="modal_lov_product_adjustment_set_value(\''+ row.product_id +'\', \''+ row.product_name +'\',\''+row.account_num+'\',\''+row.account_name+'\',\''+row.product_label+'\',\''+row.customer_ref+'\',\''+row.product_seq+'\',\''+row.cps_id+'\')" class="blue"><i class="fa fa-pencil-square-o bigger-130"></i></a>';
                 }
              },
              rowCount:[5,10],
