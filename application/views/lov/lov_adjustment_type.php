@@ -21,7 +21,7 @@
                 <thead>
                   <tr>
                      <th data-header-align="center" data-align="center" data-formatter="opt-edit" data-sortable="false" data-width="100">Options</th>
-                     <th data-column-id="adjustment_type_id" data-sortable="true" data-visible="true">Adjustment Type ID</th>
+                     <th data-column-id="adjustment_type_id" data-sortable="true" data-visible="false">Adjustment Type ID</th>
                      <th data-column-id="adjustment_type_name">Adjustment Type Name</th>
                      <th data-column-id="revenue_code_desc">Revenue Code Description</th>
                   </tr>

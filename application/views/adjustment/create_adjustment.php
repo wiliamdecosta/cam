@@ -70,10 +70,11 @@
                                     <label class="control-label col-md-4">Adjustment Type <span class="required">  * </span>
                                     </label>
                                     <div class="col-md-4">
-                                        <div class="input-group">                                            
+                                        <div class="input-group">  
+                                            <input type="hidden" class="form-control required" name="adjestment_type_id" id="adjestment_type_id" readonly>                                          
                                             <input type="text" class="form-control required" name="adjestment_type" id="adjestment_type" readonly>
                                             <span class="input-group-btn">
-                                                <button class="btn btn-success" type="button" id="btn-lov-customer">
+                                                <button class="btn btn-success" type="button" id="btn-lov-adjusment-type">
                                                 <i class="fa fa-search"></i></button>
                                             </span>
                                         </div>
@@ -162,6 +163,7 @@
     </div>
 </div>
 
+<?php $this->load->view('lov/lov_adjustment_type.php'); ?>
 
 <script>
 
@@ -185,6 +187,10 @@ $('.datepicker').datetimepicker({
 $('.datepickerRO').datetimepicker({
     format: 'DD/MM/YYYY',
     defaultDate: new Date()
+});
+
+$("#btn-lov-adjusment-type").on('click',function(){
+    modal_lov_adjustment_type_show('adjestment_type_id','adjestment_type');
 });
 
 
