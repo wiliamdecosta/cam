@@ -1,16 +1,16 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
 * Json library
-* @class R_detail_tagihan_controller
+* @class Customer_controller
 * @version 07/05/2015 12:18:00
 */
-class R_detail_tagihan_controller {
+class R_bill_unbill_summary_controller {
  
     function read() {
 
         $page = getVarClean('page','int',1);
         $limit = getVarClean('rows','int',5);
-        $sidx = getVarClean('sidx','str','customer_ref');
+        $sidx = getVarClean('sidx','str','business_area_code');
         $sord = getVarClean('sord','str','asc');
         $periode = getVarClean('periode','str','');
 
@@ -19,10 +19,10 @@ class R_detail_tagihan_controller {
         try {
 
             $ci = & get_instance(); 
-            $ci->load->model('report/r_detail_tagihan');
+            $ci->load->model('report/r_bill_unbill_summary');
             //$table = $ci->r_bil_complete_area;
              //$periode='201712';;
-            $table = new r_detail_tagihan($periode);
+            $table = new r_bill_unbill_summary($periode);
 
             $req_param = array(
                 "sort_by" => $sidx,
@@ -75,15 +75,15 @@ class R_detail_tagihan_controller {
 
     function excel()
     {
-        $sidx = getVarClean('sidx', 'str', 'customer_ref');
+        $sidx = getVarClean('sidx', 'str', 'business_area_code');
         $sord = getVarClean('sord', 'str', 'asc');
         $periode = getVarClean('periode','str','');
 
         try {
 
             $ci = &get_instance();
-           $ci->load->model('report/r_detail_tagihan');
-            $table = new r_detail_tagihan($periode);
+           $ci->load->model('report/r_bill_unbill_summary');
+            $table = new r_bill_unbill_summary($periode);
 
             $req_param = array(
                 "sort_by" => $sidx,
@@ -104,60 +104,32 @@ class R_detail_tagihan_controller {
             $table->setJQGridParam($req_param);
             $items = $table->getAll();
 
-            startExcel(date("dmy") . '_R_DETAIL_TAGIHAN.xls');
+            startExcel(date("dmy") . '_R_BILL_UNBILL_SUMMARY.xls');
             echo '<html>';
-            echo '<head><title>Detail Tagihan</title></head>';
+            echo '<head><title>BILL UNBILL SUMMARY</title></head>';
             echo '<body>';
             echo '<table border="1">';
             echo '<tr>';
             echo '<th>No</th>';
-            echo '<th>Customer Ref</th>';
-            echo '<th>Account Num</th>';
-            echo '<th>Account Name</th>';
-            echo '<th>Invoice Num</th>';
-            echo '<th>NPWP</th>';
-            echo '<th>Revenue Code id</th>';
-            echo '<th>Product Group</th>';
-            echo '<th>Product Name</th>';
-            echo '<th>Product Label</th>';
-            echo '<th>Billing Period</th>';
-            echo '<th>Gl Account</th>'; 
-            echo '<th>Curr Type</th>';
-            echo '<th>Bill Mny</th>';
-            echo '<th>Installation</th>';
-            echo '<th>Abonemen</th>';
-            echo '<th>Charge Start Dat</th>';
-            echo '<th>Cust Order Num</th>';
-            echo '<th>Sap Code Bill</th>';
-            echo '<th>Sap Code Unbill</th>';
-            echo '<th>Profit Center</th>';
-            echo '<th>Bill Unbill Status</th>';
+            echo '<th>Business Area Code</th>';
+            echo '<th>FM</th>';
+            echo '<th>BM</th>';
+            echo '<th>Jumlah Bill Bulan N</th>';
+            echo '<th>Jumlah Bill Bulan N-1</th>';
+            echo '<th>Growth</th>';
             echo '</tr>';
-            $i = 1;
+            $i = 1;             
             foreach ($items as $item) {
                 echo '<tr>';
                 echo '<td>' . $i++ . '</td>';
-                echo '<td>' . $item['customer_ref'] . '&nbsp;</td>';
-                echo '<td>' . $item['account_num'] . '&nbsp;</td>';
-                echo '<td>' . $item['account_name'] . '</td>';
-                echo '<td>' . $item['invoice_num'] . '&nbsp;</td>';
-                echo '<td>' . $item['npwp'] . '</td>';
-                echo '<td>' . $item['revenue_code_id'] . '&nbsp</td>';
-                echo '<td>' . $item['product_group'] . '</td>';
-                echo '<td>' . $item['product_name'] . '</td>';
-                echo '<td>' . $item['product_label'] . '&nbsp</td>';
-                echo '<td>' . $item['bill_prd'] . '&nbsp;</td>';
-                echo '<td>' . $item['gl_account'] . '&nbsp</td>';
-                echo '<td>' . $item['curr_type'] . '</td>';
-                echo '<td>' . $item['bill_mny'] . '</td>';
-                echo '<td>' . $item['installation'] . '</td>';
-                echo '<td>' . $item['abonemen'] . '</td>';
-                echo '<td>' . $item['charge_start_dat'] . '&nbsp</td>';
-                echo '<td>' . $item['cust_order_num'] . '&nbsp</td>';
-                echo '<td>' . $item['sap_code_bill'] . '&nbsp</td>';
-                echo '<td>' . $item['sap_code_unbill'] . '&nbsp</td>';
-                echo '<td>' . $item['profit_center'] . '&nbsp</td>';
-                echo '<td>' . $item['bill_unbill_status'] . '&nbsp</td>';
+                echo '<td>' . $item['business_area_code'] . '</td>';
+                echo '<td>' . $item['business_area_name'] . '</td>';
+                echo '<td>' . $item['bill_count'] . '</td>';
+                echo '<td>' . $item['unbill_count'] . '</td>';
+                echo '<td>' . $item['growth_count'] . '</td>';
+                echo '<td>' . $item['bill_amount'] . '</td>';
+                echo '<td>' . $item['unbill_amount'] . '</td>';
+                echo '<td>' . $item['growth_amount'] . '</td>';
                 echo '</tr>';
             }
             echo '</table>';

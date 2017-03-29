@@ -35,7 +35,8 @@ class R_detail_tagihan extends Abstract_model {
                                   sap_code_bill,
                                   sap_code_unbill,
                                   bill_prd,
-                                  profit_center";
+                                  profit_center,
+                                  bill_unbill_status";
                                   
     public $fromClause      = "( select s01 as customer_ref, 
                                   s02 as account_num, 
@@ -59,7 +60,8 @@ class R_detail_tagihan extends Abstract_model {
                                   s14 as sap_code_bill,
                                   s15 as sap_code_unbill,
                                   s16 as bill_prd,
-                                  s17 as profit_center
+                                  s17 as profit_center,
+                                  s18 as bill_unbill_status
                                 from table(pack_report.rep_billing_product_detail(%s,%s,null,''))
                                 )";
 

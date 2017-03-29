@@ -219,6 +219,13 @@
                     hidden: false,
                     width: 150,
                     align: 'left'
+                },
+                {
+                    label: 'Bill Unbill Status',
+                    name: 'bill_unbill_status',
+                    hidden: false,
+                    width: 150,
+                    align: 'left'
                 }
             ],
             height: '100%',

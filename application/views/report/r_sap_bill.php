@@ -59,7 +59,7 @@
         var pager_selector = "#grid-pager-sap-bill";
 
         jQuery("#grid-table-sap-bill").jqGrid({
-            url: '<?php echo WS_JQGRID . "report.r_bil_area_controller/read"; ?>',
+            url: '<?php echo WS_JQGRID . "report.r_sap_bill_controller/read"; ?>',
             datatype: "json",
             mtype: "POST",
             colModel: [
@@ -88,27 +88,22 @@
                     label: 'Journal No',
                     name: 'journal_no',
                     width: 150,
-                    align: 'right',
-                    hidden: false,
-                    sorttype :'number'
+                    align: 'left',
+                    hidden: false
                 },
                 {
                     label: 'Line Item',
                     name: 'line_item',
                     hidden: false,
                     width: 150,
-                    align: 'right',
-                    sorttype :'number'
+                    align: 'left'
                 },
                 {
                     label: 'Customer Gl',
                     name: 'customer_gl',
                     hidden: false,
                     width: 150,
-                    align: 'right',
-                    sorttype :'number'
-
-
+                    align: 'left'
                 },
                 {
                     label: 'Cust Gl Type',
@@ -128,42 +123,36 @@
                     label: 'Profit center',
                     name: 'profit_center',
                     width: 150,
-                    align: 'right',
-                    hidden: false,
-                    sorttype :'number'
+                    align: 'left',
+                    hidden: false
                 },
                 {
                     label: 'Post Date',
                     name: 'post_date',
                     hidden: false,
                     width: 150,
-                    align: 'right',
-                    sorttype :'number'
+                    align: 'left'
                 },
                 {
                     label: 'Doc Date',
                     name: 'doc_date',
                     hidden: false,
                     width: 150,
-                    align: 'right',
-                    sorttype :'number'
-
-                }
+                    align: 'left'
+                },
                 {
                     label: 'AMOUNT',
                     name: 'amount',
                     hidden: false,
                     width: 150,
-                    align: 'right',
-                    sorttype :'number'
+                    align: 'left'
                 },
                 {
                     label: 'TEXT',
                     name: 'text',
                     hidden: false,
                     width: 150,
-                    align: 'right',
-                    sorttype :'number'
+                    align: 'left'
                 }
             ],
             height: '100%',
@@ -331,7 +320,7 @@
                 position: "last",
                 title: "Export To Excel",
                 cursor: "pointer",
-                onClickButton: toExcelBilArea,
+                onClickButton: toExcel,
                 id: "excel"
             });
             /*.navButtonAdd('#grid-pager-sap-bill', {
@@ -347,7 +336,7 @@
 
     });
 
-    function toExcelBilArea() {
+    function toExcel() {
         // alert("Convert to Excel");
 
         var url = "<?php echo WS_JQGRID . "report.r_sap_bill_controller/excel/?"; ?>";
