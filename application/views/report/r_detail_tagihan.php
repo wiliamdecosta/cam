@@ -152,21 +152,24 @@
                     name: 'bill_mny',
                     width: 150,
                     align: 'right',
-                    hidden: false
+                    hidden: false,
+                    sorttype :'number'
                 },
                 {
                     label: 'Installation',
                     name: 'installation',
                     width: 150,
                     align: 'right',
-                    hidden: false
+                    hidden: false,
+                    sorttype :'number'
                 },
                 {
                     label: 'Abonemen',
                     name: 'abonemen',
                     hidden: false,
                     width: 150,
-                    align: 'right'
+                    align: 'right',
+                    sorttype :'number'
                 },
                 {
                     label: 'Charge Start Dat',

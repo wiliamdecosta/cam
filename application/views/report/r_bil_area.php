@@ -89,21 +89,24 @@
                     name: 'jml_bulan_n',
                     width: 150,
                     align: 'right',
-                    hidden: false
+                    hidden: false,
+                    sorttype :'number'
                 },
                 {
                     label: 'Bulan N-1',
                     name: 'jml_bulan_n_1',
                     hidden: false,
                     width: 150,
-                    align: 'right'
+                    align: 'right',
+                    sorttype :'number'
                 },
                 {
                     label: 'Growth',
                     name: 'jml_growth',
                     hidden: false,
                     width: 150,
-                    align: 'right'
+                    align: 'right',
+                    sorttype :'number'
                 }
             ],
             height: '100%',
