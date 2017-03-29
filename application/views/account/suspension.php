@@ -57,7 +57,7 @@
                  <li class="">
                     <a href="javascript:;" data-toggle="tab" aria-expanded="true" id="tab-5">
                         <i class="blue"></i>
-                        <strong> Suspension </strong>
+                        <strong> Additional Information </strong>
                     </a>
                 </li>
                  <li class="active">

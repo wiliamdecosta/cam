@@ -138,7 +138,7 @@ class Account extends Abstract_model {
                         s17 as evening_contact_tel,
                         s18 as mobile_contact_tel,
                         s19 as fax_contact_tel
-                     from table(pack_list_cust_acc_prod_2. account_details_billing ('".$this->session->userdata('user_name')."','".$account_num."'))";
+                     from table(pack_list_cust_acc_prod. account_details_billing ('".$this->session->userdata('user_name')."','".$account_num."'))";
         $query = $this->db->query($sql);
 
         return $query->result_array();
@@ -151,7 +151,7 @@ class Account extends Abstract_model {
                         s04 as zipcode,
                         s05 as address_3,
                         s06 as country_2
-                     from table(pack_list_cust_acc_prod_2.account_details_srvaddress ('".$this->session->userdata('user_name')."','".$account_num."'))";
+                     from table(pack_list_cust_acc_prod.account_details_srvaddress ('".$this->session->userdata('user_name')."','".$account_num."'))";
         $query = $this->db->query($sql);
 
         return $query->result_array();
@@ -166,7 +166,7 @@ class Account extends Abstract_model {
                         s06 as delete_events_on_billing_boo,
                         s07 as holiday_profile_id,
                         s08 as events_per_day
-                     from table(pack_list_cust_acc_prod_2.account_details_finance ('".$this->session->userdata('user_name')."','".$account_num."'))";
+                     from table(pack_list_cust_acc_prod.account_details_finance ('".$this->session->userdata('user_name')."','".$account_num."'))";
         $query = $this->db->query($sql);
 
         return $query->result_array();

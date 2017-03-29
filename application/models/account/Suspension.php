@@ -17,7 +17,7 @@ class Suspension extends Abstract_model {
 
     public $fromClause      = "(select  s01 as effective_dtm,
                                         s02 as status_reason_txt
-                                from table(pack_list_cust_acc_prod_2.account_details_suspension(%s,%s)))";
+                                from table(pack_list_cust_acc_prod.account_details_suspension(%s,%s)))";
 
     public $refs            = array();
 

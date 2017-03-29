@@ -21,7 +21,7 @@ class Additional_information extends Abstract_model {
                                         s02 as npwp,
                                         s03 as is_monthly_invoice,          
                                         s04 as sap_account
-                                from table(pack_list_cust_acc_prod_2.account_details_addinformation(%s,%s)))";
+                                from table(pack_list_cust_acc_prod.account_details_addinformation(%s,%s)))";
 
     public $refs            = array();
 
