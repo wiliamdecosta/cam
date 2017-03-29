@@ -82,7 +82,8 @@
                     name: 'jml_bc',
                     hidden: false,
                     width: 325,
-                    align: 'right'
+                    align: 'right',
+                    sorttype :'number'
                 }
             ],
             height: '100%',
