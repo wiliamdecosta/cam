@@ -161,7 +161,7 @@
             rownumbers: true, // show row numbers
             rownumWidth: 35, // the width of the row numbers columns
             altRows: true,
-            shrinkToFit: true,
+            shrinkToFit: false,
             multiboxonly: true,
             onSelectRow: function (rowid) {
                 /*do something when selected*/
