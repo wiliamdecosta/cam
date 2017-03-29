@@ -1,16 +1,16 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
 * Json library
-* @class R_detail_tagihan_controller
+* @class Customer_controller
 * @version 07/05/2015 12:18:00
 */
-class R_detail_tagihan_controller {
+class R_sap_bill_controller {
  
     function read() {
 
         $page = getVarClean('page','int',1);
         $limit = getVarClean('rows','int',5);
-        $sidx = getVarClean('sidx','str','customer_ref');
+        $sidx = getVarClean('sidx','str','nper');
         $sord = getVarClean('sord','str','asc');
         $periode = getVarClean('periode','str','');
 
@@ -19,10 +19,10 @@ class R_detail_tagihan_controller {
         try {
 
             $ci = & get_instance(); 
-            $ci->load->model('report/r_detail_tagihan');
+            $ci->load->model('report/r_sap_bill');
             //$table = $ci->r_bil_complete_area;
              //$periode='201712';;
-            $table = new r_detail_tagihan($periode);
+            $table = new r_sap_bill($periode);
 
             $req_param = array(
                 "sort_by" => $sidx,
@@ -75,15 +75,15 @@ class R_detail_tagihan_controller {
 
     function excel()
     {
-        $sidx = getVarClean('sidx', 'str', 'customer_ref');
+        $sidx = getVarClean('sidx', 'str', 'nper');
         $sord = getVarClean('sord', 'str', 'asc');
         $periode = getVarClean('periode','str','');
 
         try {
 
             $ci = &get_instance();
-           $ci->load->model('report/r_detail_tagihan');
-            $table = new r_detail_tagihan($periode);
+           $ci->load->model('report/r_sap_bill');
+            $table = new r_sap_bill($periode);
 
             $req_param = array(
                 "sort_by" => $sidx,
@@ -104,62 +104,47 @@ class R_detail_tagihan_controller {
             $table->setJQGridParam($req_param);
             $items = $table->getAll();
 
-            startExcel(date("dmy") . '_R_DETAIL_TAGIHAN.xls');
+            startExcel(date("dmy") . '_R_SAP_BILL.xls');
             echo '<html>';
-            echo '<head><title>Detail Tagihan</title></head>';
+            echo '<head><title>SAP BILL</title></head>';
             echo '<body>';
             echo '<table border="1">';
             echo '<tr>';
-            echo '<th>No</th>';
-            echo '<th>Customer Ref</th>';
-            echo '<th>Account Num</th>';
-            echo '<th>Account Name</th>';
-            echo '<th>Invoice Num</th>';
-            echo '<th>NPWP</th>';
-            echo '<th>Revenue Code id</th>';
-            echo '<th>Product Group</th>';
-            echo '<th>Product Name</th>';
-            echo '<th>Product Label</th>';
-            echo '<th>Billing Period</th>';
-            echo '<th>Gl Account</th>'; 
-            echo '<th>Curr Type</th>';
-            echo '<th>Bill Mny</th>';
-            echo '<th>Installation</th>';
-            echo '<th>Abonemen</th>';
-            echo '<th>Charge Start Dat</th>';
-            echo '<th>Cust Order Num</th>';
-            echo '<th>Sap Code Bill</th>';
-            echo '<th>Sap Code Unbill</th>';
-            echo '<th>Profit Center</th>';
+                echo '<th>No</th>';
+                echo '<th>NPER</th>';
+                echo '<th>Doc No</th>';
+                echo '<th>Invoice No</th>';
+                echo '<th>Journal No</th>';
+                echo '<th>Line Item</th>';
+                echo '<th>Customer Gl</th>';
+                echo '<th>Cust Gl Type</th>';
+                echo '<th>BA</th>';
+                echo '<th>Profit center</th>';
+                echo '<th>Post Date</th>';
+                echo '<th>Doc Date</th>';
+                echo '<th>AMOUNT</th>';
+                echo '<th>TEXT</th>';
             echo '</tr>';
             $i = 1;
+                                
             foreach ($items as $item) {
                 echo '<tr>';
-                echo '<td>' . $i++ . '</td>';
-                echo '<td>' . $item['customer_ref'] . '&nbsp;</td>';
-                echo '<td>' . $item['account_num'] . '&nbsp;</td>';
-                echo '<td>' . $item['customer_ref'] . '</td>';
-                echo '<td>' . $item['account_num'] . '</td>';
-                echo '<td>' . $item['customer_ref'] . '</td>';
-                echo '<td>' . $item['account_num']. '</td>';
-                echo '<td>' . $item['account_name'] . '</td>';
-                echo '<td>' . $item['invoice_num'] . '&nbsp;</td>';
-                echo '<td>' . $item['npwp'] . '</td>';
-                echo '<td>' . $item['revenue_code_id'] . '&nbsp</td>';
-                echo '<td>' . $item['product_group'] . '</td>';
-                echo '<td>' . $item['product_name'] . '</td>';
-                echo '<td>' . $item['product_label'] . '&nbsp</td>';
-                echo '<td>' . $item['bill_prd'] . '&nbsp;</td>';
-                echo '<td>' . $item['gl_account'] . '&nbsp</td>';
-                echo '<td>' . $item['curr_type'] . '</td>';
-                echo '<td>' . $item['bill_mny'] . '</td>';
-                echo '<td>' . $item['installation'] . '</td>';
-                echo '<td>' . $item['abonemen'] . '</td>';
-                echo '<td>' . $item['charge_start_dat'] . '&nbsp</td>';
-                echo '<td>' . $item['cust_order_num'] . '&nbsp</td>';
-                echo '<td>' . $item['sap_code_bill'] . '&nbsp</td>';
-                echo '<td>' . $item['sap_code_unbill'] . '&nbsp</td>';
-                echo '<td>' . $item['profit_center'] . '&nbsp</td>';
+                    echo '<td>' . $i++ . '</td>';
+                    echo '<td>' . $item['nper'] . '</td>';
+                    echo '<td>' . $item['doc_no'] . '</td>';
+                    echo '<td>' . $item['invoice_no'] . '</td>';
+                    echo '<td>' . $item['journal_no'] . '</td>';
+                    echo '<td>' . $item['line_item'] . '</td>';
+                    echo '<td>' . $item['customer_gl'] . '</td>';
+
+                    echo '<td>' . $item['cust_gl_type'] . '</td>';
+                    echo '<td>' . $item['ba'] . '</td>';
+                    echo '<td>' . $item['profit_center'] . '</td>';
+
+                    echo '<td>' . $item['post_date'] . '</td>';
+                    echo '<td>' . $item['doc_date'] . '</td>';
+                    echo '<td>' . $item['amount'] . '</td>';
+                    echo '<td>' . $item['text'] . '</td>';
                 echo '</tr>';
             }
             echo '</table>';

@@ -9,7 +9,7 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Detail Tagihan</span>
+            <span>Sap Bill</span>
              <i class="fa fa-circle"></i>
         </li>
     </ul>
@@ -23,7 +23,7 @@
             <div class="portlet-title">
                 <div class="caption">
                     <i class=" icon-list font-red"></i>
-                    <span class="caption-subject font-red bold uppercase"> List Of Detail Tagihan
+                    <span class="caption-subject font-red bold uppercase"> List Of Sap Bill
                     </span>
                 </div>
             </div>
@@ -44,8 +44,8 @@
                         </div>
                         <label class="col-md-2 control-label"> YYYYMM</label>
                     </div><br><br>
-                    <table id="grid-table-detail-tagihan"></table>
-                    <div id="grid-pager-detail-tagihan"></div>
+                    <table id="grid-table-sap-bill"></table>
+                    <div id="grid-pager-sap-bill"></div>
                 </div>
             </div>
             </div>
@@ -55,170 +55,115 @@
 </div>
 <script>
     jQuery(function ($) {
-        var grid_selector = "#grid-table-detail-tagihan";
-        var pager_selector = "#grid-pager-detail-tagihan";
+        var grid_selector = "#grid-table-sap-bill";
+        var pager_selector = "#grid-pager-sap-bill";
 
-        jQuery("#grid-table-detail-tagihan").jqGrid({
-            url: '<?php echo WS_JQGRID . "report.r_detail_tagihan_controller/read"; ?>',
+        jQuery("#grid-table-sap-bill").jqGrid({
+            url: '<?php echo WS_JQGRID . "report.r_bil_area_controller/read"; ?>',
             datatype: "json",
             mtype: "POST",
             colModel: [
                 {
-                    label: 'Customer Ref',
-                    name: 'customer_ref',
-                    width: 150,
-                    align: 'left',
-                    hidden: false
-                },
-                {
-                    label: 'Account Num',
-                    name: 'account_num',
-                    width: 150,
-                    align: 'left',
-                    hidden: false
-                },
-                {
-                    label: 'Account Name',
-                    name: 'account_name',
-                    hidden: false,
-                    width: 300,
-                    align: 'left'
-                },
-                {
-                    label: 'Invoice Num',
-                    name: 'invoice_num',
-                    hidden: false,
-                    width: 150,
-                    align: 'left'
-                }, 
-                {
-                    label: 'NPWP',
-                    name: 'npwp',
+                    label: 'NPER',
+                    name: 'nper',
                     width: 300,
                     align: 'left',
                     hidden: false
                 },
                 {
-                    label: 'Revenue Code id',
-                    name: 'revenue_code_id',
-                    width: 150,
-                    align: 'left',
-                    hidden: false
-                },
-                {
-                    label: 'Product Group',
-                    name: 'product_group',
-                    hidden: false,
+                    label: 'Doc No',
+                    name: 'doc_no',
                     width: 300,
-                    align: 'left'
-                },
-                {
-                    label: 'Product Name',
-                    name: 'product_name',
-                    hidden: false,
-                    width: 270,
-                    align: 'left'
-                },//-----
-                {
-                    label: 'Product Label',
-                    name: 'product_label',
-                    width: 150,
                     align: 'left',
                     hidden: false
                 },
                 {
-                    label: 'Billing Period',
-                    name: 'bill_prd',
-                    width: 150,
+                    label: 'Invoice No',
+                    name: 'invoice_no',
+                    width: 300,
                     align: 'left',
                     hidden: false
                 },
                 {
-                    label: 'Gl Account',
-                    name: 'gl_account',
-                    hidden: false,
-                    width: 150,
-                    align: 'left'
-                },
-                {
-                    label: 'Curr Type',
-                    name: 'curr_type',
-                    hidden: false,
-                    width: 100,
-                    align: 'left'
-                }, 
-                {
-                    label: 'Bill Mny',
-                    name: 'bill_mny',
+                    label: 'Journal No',
+                    name: 'journal_no',
                     width: 150,
                     align: 'right',
                     hidden: false,
                     sorttype :'number'
                 },
                 {
-                    label: 'Installation',
-                    name: 'installation',
-                    width: 150,
-                    align: 'right',
-                    hidden: false,
-                    sorttype :'number'
-                },
-                {
-                    label: 'Abonemen',
-                    name: 'abonemen',
+                    label: 'Line Item',
+                    name: 'line_item',
                     hidden: false,
                     width: 150,
                     align: 'right',
                     sorttype :'number'
                 },
                 {
-                    label: 'Charge Start Dat',
-                    name: 'charge_start_dat',
+                    label: 'Customer Gl',
+                    name: 'customer_gl',
                     hidden: false,
                     width: 150,
-                    align: 'left'
+                    align: 'right',
+                    sorttype :'number'
+
+
                 },
                 {
-                    label: 'Cust Order Num',
-                    name: 'cust_order_num',
-                    hidden: false,
-                    width: 150,
-                    align: 'left'
-                }, 
-                /*{
-                    label: 'Product Id',
-                    name: 'product_id',
-                    width: 100,
+                    label: 'Cust Gl Type',
+                    name: 'cust_gl_type',
+                    width: 300,
                     align: 'left',
                     hidden: false
                 },
                 {
-                    label: 'Product Seq',
-                    name: 'product_seq',
-                    width: 100,
+                    label: 'BA',
+                    name: 'ba',
+                    width: 300,
                     align: 'left',
                     hidden: false
-                },*/
-                {
-                    label: 'Sap Code Bill',
-                    name: 'sap_code_bill',
-                    hidden: false,
-                    width: 150,
-                    align: 'left'
                 },
                 {
-                    label: 'Sap Code Unbill',
-                    name: 'sap_code_unbill',
-                    hidden: false,
-                    width: 150,
-                    align: 'left'
-                },
-                {
-                    label: 'Profit Center',
+                    label: 'Profit center',
                     name: 'profit_center',
+                    width: 150,
+                    align: 'right',
+                    hidden: false,
+                    sorttype :'number'
+                },
+                {
+                    label: 'Post Date',
+                    name: 'post_date',
                     hidden: false,
                     width: 150,
-                    align: 'left'
+                    align: 'right',
+                    sorttype :'number'
+                },
+                {
+                    label: 'Doc Date',
+                    name: 'doc_date',
+                    hidden: false,
+                    width: 150,
+                    align: 'right',
+                    sorttype :'number'
+
+                }
+                {
+                    label: 'AMOUNT',
+                    name: 'amount',
+                    hidden: false,
+                    width: 150,
+                    align: 'right',
+                    sorttype :'number'
+                },
+                {
+                    label: 'TEXT',
+                    name: 'text',
+                    hidden: false,
+                    width: 150,
+                    align: 'right',
+                    sorttype :'number'
                 }
             ],
             height: '100%',
@@ -236,7 +181,7 @@
 
             },
             sortorder: '',
-            pager: '#grid-pager-detail-tagihan',
+            pager: '#grid-pager-sap-bill',
             jsonReader: {
                 root: 'rows',
                 id: 'id',
@@ -249,12 +194,12 @@
                 responsive_jqgrid(grid_selector, pager_selector);
             },
             //memanggil controller jqgrid yang ada di controller crud
-            //editurl: '<?php echo WS_JQGRID . "report.r_detail_tagihan_controller/read"; ?>',
-            caption: "Detail Tagihan"
+            //editurl: '<?php echo WS_JQGRID . "report.r_sap_bill_controller/read"; ?>',
+            caption: "Sap Bill"
 
         });
 
-        jQuery('#grid-table-detail-tagihan').jqGrid('navGrid', '#grid-pager-detail-tagihan',
+        jQuery('#grid-table-sap-bill').jqGrid('navGrid', '#grid-pager-sap-bill',
             {   //navbar options
                 excel: true,
                 excelicon: 'fa fa-file-excel-o blue bigger-120',
@@ -380,16 +325,16 @@
                 }
             }
             )
-            .navButtonAdd('#grid-pager-detail-tagihan', {
+            .navButtonAdd('#grid-pager-sap-bill', {
                 caption: "",
                 buttonicon: "fa fa-file-excel-o green bigger-120",
                 position: "last",
                 title: "Export To Excel",
                 cursor: "pointer",
-                onClickButton: toExcelBilCurr,
+                onClickButton: toExcelBilArea,
                 id: "excel"
             });
-            /*.navButtonAdd('#grid-pager-detail-tagihan', {
+            /*.navButtonAdd('#grid-pager-sap-bill', {
                 caption: "",
                 buttonicon: "fa fa-file-excel-o green bigger-120",
                 position: "last",
@@ -402,15 +347,15 @@
 
     });
 
-    function toExcelBilCurr() {
+    function toExcelBilArea() {
         // alert("Convert to Excel");
 
-        var url = "<?php echo WS_JQGRID . "report.r_detail_tagihan_controller/excel/?"; ?>";
+        var url = "<?php echo WS_JQGRID . "report.r_sap_bill_controller/excel/?"; ?>";
         url += "<?php echo $this->security->get_csrf_token_name(); ?>=<?php echo $this->security->get_csrf_hash(); ?>";
-        url += "&_search=" + $("#grid-table-detail-tagihan").getGridParam("postData")._search;
-        url += "&searchField=" + $("#grid-table-detail-tagihan").getGridParam("postData").searchField;
-        url += "&searchOper=" + $("#grid-table-detail-tagihan").getGridParam("postData").searchOper;
-        url += "&searchString=" + $("#grid-table-detail-tagihan").getGridParam("postData").searchString;
+        url += "&_search=" + $("#grid-table-sap-bill").getGridParam("postData")._search;
+        url += "&searchField=" + $("#grid-table-sap-bill").getGridParam("postData").searchField;
+        url += "&searchOper=" + $("#grid-table-sap-bill").getGridParam("postData").searchOper;
+        url += "&searchString=" + $("#grid-table-sap-bill").getGridParam("postData").searchString;
         window.location = url;
     }
     function responsive_jqgrid(grid_selector, pager_selector) {
@@ -444,13 +389,13 @@
     $("#btn-search").on('click', function() {
         var periode = $('#in_Periode').val();
         // alert(periode);
-        $('#grid-table-detail-tagihan').jqGrid('setGridParam', {
-            url: '<?php echo WS_JQGRID . "report.r_detail_tagihan_controller/read"; ?>',
+        $('#grid-table-sap-bill').jqGrid('setGridParam', {
+            url: '<?php echo WS_JQGRID . "report.r_sap_bill_controller/read"; ?>',
             postData: {periode: periode}
         });
 
-        $('#grid-table-detail-tagihan').jqGrid('setCaption', 'Detail Tagihan :: ' + periode);
-        $("#grid-table-detail-tagihan").trigger("reloadGrid");
+        $('#grid-table-sap-bill').jqGrid('setCaption', 'Sap Bill :: ' + periode);
+        $("#grid-table-sap-bill").trigger("reloadGrid");
     });
 
 </script>
