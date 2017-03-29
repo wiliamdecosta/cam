@@ -37,8 +37,9 @@
                                     <label class="control-label col-md-4">Product <span class="required">  * </span>
                                     </label>
                                     <div class="col-md-4">
-                                        <div class="input-group">                                            
-                                            <input type="text" class="form-control required" name="wizard1_product" id="wizard1_product" readonly>
+                                        <div class="input-group">  
+                                            <input type="hidden" class="form-control required" name="product_id" id="product_id" readonly>                                          
+                                            <input type="text" class="form-control required" name="product_name" id="product_name" readonly>
                                             <span class="input-group-btn">
                                                 <button class="btn btn-success" type="button" id="btn-lov-product">
                                                 <i class="fa fa-search"></i></button>
@@ -164,6 +165,7 @@
 </div>
 
 <?php $this->load->view('lov/lov_adjustment_type.php'); ?>
+<?php $this->load->view('lov/lov_product_adjustment.php'); ?>
 
 <script>
 
@@ -192,6 +194,8 @@ $('.datepickerRO').datetimepicker({
 $("#btn-lov-adjusment-type").on('click',function(){
     modal_lov_adjustment_type_show('adjestment_type_id','adjestment_type');
 });
-
+$("#btn-lov-product").on('click',function(){
+    modal_lov_product_adjustment_show('product_id','product_name','account','account_name');
+});
 
 </script>

@@ -36,7 +36,7 @@ class Product_adjustment extends Abstract_model {
 
     public $refs            = array();
 
-    function __construct($) {
+    function __construct() {
         parent::__construct();
        
         $this->fromClause = sprintf($this->fromClause, "'".$this->session->userdata('user_name')."'");
