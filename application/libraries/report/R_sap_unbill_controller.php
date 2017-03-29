@@ -10,7 +10,7 @@ class R_sap_unbill_controller {
 
         $page = getVarClean('page','int',1);
         $limit = getVarClean('rows','int',5);
-        $sidx = getVarClean('sidx','str','area');
+        $sidx = getVarClean('sidx','str','nper');
         $sord = getVarClean('sord','str','asc');
         $periode = getVarClean('periode','str','');
 
@@ -75,7 +75,7 @@ class R_sap_unbill_controller {
 
     function excel()
     {
-        $sidx = getVarClean('sidx', 'str', 'area');
+        $sidx = getVarClean('sidx', 'str', 'nper');
         $sord = getVarClean('sord', 'str', 'asc');
         $periode = getVarClean('periode','str','');
 
@@ -84,7 +84,7 @@ class R_sap_unbill_controller {
             $ci = &get_instance();
             $ci->load->model('report/r_sap_unbill');
             //$table = $ci->r_bil_complete_area;
-            $table = new R_bil_complete_area($periode);
+            $table = new R_sap_unbill($periode);
 
             $req_param = array(
                 "sort_by" => $sidx,
@@ -135,11 +135,11 @@ class R_sap_unbill_controller {
             foreach ($items as $item) {
                 echo '<tr>';
                 echo '<td>' . $i++ . '</td>';
-                echo '<td>' . $item['nper'] . '</td>';
-                echo '<td>' . $item['doc_no'] . '</td>';
-                echo '<td>' . $item['journal_no'] . '</td>';
+                echo '<td>' . $item['nper'] . '&nbsp;</td>';
+                echo '<td>' . $item['doc_no'] . '&nbsp;</td>';
+                echo '<td>' . $item['journal_no'] . '&nbsp;</td>';
                 echo '<td>' . $item['line_item'] . '</td>';
-                echo '<td>' . $item['customer_gl'] . '</td>';
+                echo '<td>' . $item['customer_gl'] . '&nbsp;</td>';
                 echo '<td>' . $item['cust_gl_type'] . '</td>';
                 echo '<td>' . $item['ba'] . '</td>';
                 echo '<td>' . $item['profit_center'] . '</td>';

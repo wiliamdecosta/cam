@@ -318,54 +318,53 @@
                 position: "last",
                 title: "Export To Excel",
                 cursor: "pointer",
-                onClickButton: toExcelBillingCompleteArea,
+                onClickButton: toExcelSapUnbill,
                 id: "excel"
             });
     });
 
-    function toExcelBillingCompleteArea() {
+    function toExcelSapUnbill() {
         // alert("Convert to Excel");
-
         var url = "<?php echo WS_JQGRID . "report.r_sap_unbill_controller/excel/?"; ?>";
         url += "<?php echo $this->security->get_csrf_token_name(); ?>=<?php echo $this->security->get_csrf_hash(); ?>";
         url += "&_search=" + $("#grid-table-sap-unbill").getGridParam("postData")._search;
         url += "&searchField=" + $("#grid-table-sap-unbill").getGridParam("postData").searchField;
-        url += "&searchOper=" + $("#grid-sap-unbill-sap-unbill").getGridParam("postData").searchOper;
+        url += "&searchOper=" + $("#grid-table-sap-unbill").getGridParam("postData").searchOper;
         url += "&searchString=" + $("#grid-table-sap-unbill").getGridParam("postData").searchString;
         url += "&periode=" + $("#grid-table-sap-unbill").getGridParam("postData").periode;
         window.location = url;
     }
 
-    $('#cari_account').click(function () {
-            alert();
-            var myGrid = jQuery("#grid-table-sap-unbill").jqGrid({
-                url: '<?php echo WS_JQGRID . "account.account_controller/read"; ?>',
-                postData: {
-                    account_number: function () {
-                        return jQuery("#kata_kunci").val();
-                    }
-                }
-                // ...
-            });
-            var myReload = function () {
-                myGrid.trigger('reloadGrid');
-            };
-            var keyupHandler = function (e, refreshFunction, obj) {
-                var keyCode = e.keyCode || e.which;
-                if (keyCode === 33 /*page up*/ || keyCode === 34 /*page down*/ ||
-                    keyCode === 35 /*end*/ || keyCode === 36 /*home*/ ||
-                    keyCode === 38 /*up arrow*/ || keyCode === 40 /*down arrow*/) {
+    // $('#cari_account').click(function () {
+    //         alert();
+    //         var myGrid = jQuery("#grid-table-sap-unbill").jqGrid({
+    //             url: '<?php echo WS_JQGRID . "account.account_controller/read"; ?>',
+    //             postData: {
+    //                 account_number: function () {
+    //                     return jQuery("#kata_kunci").val();
+    //                 }
+    //             }
+    //             // ...
+    //         });
+    //         var myReload = function () {
+    //             myGrid.trigger('reloadGrid');
+    //         };
+    //         var keyupHandler = function (e, refreshFunction, obj) {
+    //             var keyCode = e.keyCode || e.which;
+    //             if (keyCode === 33 /*page up*/ || keyCode === 34 /*page down*/ ||
+    //                 keyCode === 35 /*end*/ || keyCode === 36 /*home*/ ||
+    //                 keyCode === 38 /*up arrow*/ || keyCode === 40 /*down arrow*/) {
 
-                    if (typeof refreshFunction === "function") {
-                        refreshFunction(obj);
-                    }
-                }
-            };
-            $("#kata_kunci").change(myReload).keyup(function (e) {
-                keyupHandler(e, myReload, this);
-            })
-        }
-    )
+    //                 if (typeof refreshFunction === "function") {
+    //                     refreshFunction(obj);
+    //                 }
+    //             }
+    //         };
+    //         $("#kata_kunci").change(myReload).keyup(function (e) {
+    //             keyupHandler(e, myReload, this);
+    //         })
+    //     }
+    // )
 
     function responsive_jqgrid(grid_selector, pager_selector) {
 
