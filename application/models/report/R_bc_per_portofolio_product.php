@@ -13,10 +13,14 @@ class R_bc_per_portofolio_product extends Abstract_model {
     public $fields          = array();
     //public $sessionUsername = $this->session->userdata('user_name');
 
-    public $selectClause    = " s01 ||'-' || s02 as area,
-                              s03 as portofolio,
-                              n02 as jml_bc ";
-    public $fromClause      = "table(pack_report.rep_bill_complete_per_pfp(%s,%s,2,''))  ";
+    public $selectClause    = "area,
+                              portofolio,
+                              jml_bc ";
+    public $fromClause      = "(select s01 ||'-' || s02 as area,
+                                       s03 as portofolio,
+                                       n02 as jml_bc
+                                from table (pack_report.rep_bill_complete_per_pfp(%s,%s,null,''))
+                               )";
 
     public $refs            = array();
 
