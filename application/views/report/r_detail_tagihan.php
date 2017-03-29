@@ -182,7 +182,7 @@
                     width: 150,
                     align: 'left'
                 }, 
-                {
+                /*{
                     label: 'Product Id',
                     name: 'product_id',
                     width: 100,
@@ -195,7 +195,7 @@
                     width: 100,
                     align: 'left',
                     hidden: false
-                },
+                },*/
                 {
                     label: 'Sap Code Bill',
                     name: 'sap_code_bill',
