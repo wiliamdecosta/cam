@@ -64,48 +64,65 @@
             mtype: "POST",
             colModel: [
                 {
-                    label: 'Area',
-                    name: 'area',
+                    label: 'Business Area Code',
+                    name: 'business_area_code',
                     width: 300,
                     align: 'left',
                     hidden: false
                 },
                 {
-                    label: 'FM',
-                    name: 'fm',
+                    label: 'Business Area Name',
+                    name: 'business_area_name',
                     width: 300,
                     align: 'left',
                     hidden: false
                 },
                 {
-                    label: 'BM',
-                    name: 'profit_center',
+                    label: 'Bill Count',
+                    name: 'bill_count',
                     width: 300,
-                    align: 'left',
-                    hidden: false
-                },
-                {
-                    label: 'Bulan N',
-                    name: 'jml_bulan_n',
-                    width: 150,
                     align: 'right',
                     hidden: false,
                     sorttype :'number'
                 },
                 {
-                    label: 'Bulan N-1',
-                    name: 'jml_bulan_n_1',
-                    hidden: false,
-                    width: 150,
+                    label: 'Unbill Count',
+                    name: 'unbill_count',
+                    width: 300,
                     align: 'right',
+                    hidden: false,
                     sorttype :'number'
                 },
                 {
-                    label: 'Growth',
-                    name: 'jml_growth',
-                    hidden: false,
-                    width: 150,
+                    label: 'Growth Count',
+                    name: 'growth_count',
+                    width: 300,
                     align: 'right',
+                    hidden: false,
+                    sorttype :'number'
+                },
+                {
+                    label: 'Bill Amount',
+                    name: 'bill_amount',
+                    width: 300,
+                    align: 'right',
+                    hidden: false,
+                    sorttype :'number'
+                },
+                {
+                    label: 'Unbill Amount',
+                    name: 'unbill_amount',
+                    width: 300,
+                    align: 'right',
+                    hidden: false,
+                    sorttype :'number'
+                },
+                {
+                    label: 'Growth Amount',
+                    name: 'growth_amount',
+                    width: 300,
+                    align: 'right',
+                    hidden: false,
                     sorttype :'number'
                 }
             ],
