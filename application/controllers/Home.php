@@ -646,4 +646,88 @@ class Home extends CI_Controller
     }
 
 
+    function save_adjustment(){
+        $i_Order_No = $this->gen_con();
+        $i_Order_Type = 'ADJ';
+        $i_Customer_Ref = $this->input->post('customer_ref');
+        $i_Account_Num = $this->input->post('account');
+        $i_product_seq = $this->input->post('product_seq');
+        
+        $i_UserName = getUserName();
+
+        $order_date = change_date_format($this->input->post('adjestment_date'));
+        $adjestment_type_id = $this->input->post('adjestment_type_id');
+        $product_label = $this->input->post('product_label');
+        $balance_type = $this->input->post('balance_type');
+        $description = $this->input->post('description');
+        $cps_id = $this->input->post('cps_id');
+        $val = str_replace(",","",$this->input->post('val'));
+
+        $i_orderHeader = "<?xml version='1.0'?>
+                          <orderHeader>
+                            <orderType>".$i_Order_Type."</orderType>
+                            <orderSubType>0000</orderSubType>
+                            <orderCode>".$i_Order_Type."</orderCode>
+                            <orderId>".$i_Order_No."</orderId>
+                            <previousOrderId></previousOrderId>
+                            <orderDate>".$order_date."</orderDate>
+                          </orderHeader>";
+
+
+        $i_orderDoc = "<?xml version='1.0'?>
+                            <adjustments>
+                              <adjustment>
+                                <accountNum>".$i_Account_Num."</accountNum>
+                                <orderNum>".$i_Order_No."</orderNum> 
+                                <adjType>".$adjestment_type_id."</adjType>
+                                <amount>".$val."</amount>
+                                <sid>".$product_label."</sid>
+                                <conditionType>".$balance_type."</conditionType>
+                                <billingPeriod>".$order_date."</billingPeriod>
+                                <adjText>".$description."</adjText>
+                                <cpsId>".$cps_id."</cpsId>
+                                <invoiceInfo>".$product_label."</invoiceInfo>
+                                <notes>".$description."<notes>
+                              </adjustment>
+                            </adjustments>";
+                            
+        $sql = "BEGIN "
+                    . " TLKCAMWEBINTERFACE. CreateAdjustment ("
+                    . " :i_Order_Type, "
+                    . " :i_Order_No, "
+                    . " :i_Customer_Ref, "
+                    . " :i_Account_Num, "
+                    . " :i_product_seq, "
+                    . " :i_UserName, "
+                    . " :i_orderHeader, "
+                    . " :i_orderDoc, "
+                    . " :o_orderStatus "
+                    . "); END;";
+
+            // var_dump($this->cust->db->conn_id);
+            // exit;
+            $stmt = oci_parse($this->cust->db->conn_id, $sql);
+
+            //  Bind the input parameter
+            oci_bind_by_name($stmt, ':i_Order_Type', $i_Order_Type);
+            oci_bind_by_name($stmt, ':i_Order_No', $i_Order_No);
+            oci_bind_by_name($stmt, ':i_Customer_Ref', $i_Customer_Ref);
+            oci_bind_by_name($stmt, ':i_Account_Num', $i_Account_Num);
+            oci_bind_by_name($stmt, ':i_product_seq', $i_product_seq);
+            oci_bind_by_name($stmt, ':i_UserName', $i_UserName);
+            oci_bind_by_name($stmt, ':i_orderHeader', $i_orderHeader);
+            oci_bind_by_name($stmt, ':i_orderDoc', $i_orderDoc);
+
+            // Bind the output parameter
+            oci_bind_by_name($stmt, ':o_orderStatus', $o_orderStatus, 2000000);
+
+            ociexecute($stmt);
+
+            $dt = array('status' => $o_orderStatus);
+
+            echo json_encode($dt);
+            exit;
+    }
+
+
 }

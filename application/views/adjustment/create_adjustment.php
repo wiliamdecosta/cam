@@ -22,7 +22,7 @@
 <div class="space-4"></div>
 <div class="row">
     <div class="col-md-12">
-        <div class="portlet red box menu-panel">
+        <div class="portlet blue box menu-panel">
             <div class="portlet-title">
                 <div class="caption">Create Adjustment</div>
                 <div class="tools">
@@ -49,6 +49,7 @@
                                             <input type="hidden" class="form-control required" name="customer_ref" id="customer_ref" readonly>
                                             <input type="hidden" class="form-control required" name="product_seq" id="product_seq" readonly>
                                             <input type="hidden" class="form-control required" name="cps_id" id="cps_id" readonly>
+                                            <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
 
                                         </div>
                                     </div>
@@ -59,7 +60,7 @@
                                     </label>
                                     </label>
                                     <div class="col-md-4">
-                                        <input type="text" class="form-control required" name="account" id="account" readonly>
+                                        <input type="text" class="form-control" name="account" id="account" readonly>
                                     </div>
                                 </div>
 
@@ -69,7 +70,7 @@
                                     </label>
                                     </label>
                                     <div class="col-md-4">
-                                        <input type="text" class="form-control required" name="account_name" id="account_name" readonly>
+                                        <input type="text" class="form-control" name="account_name" id="account_name" readonly>
                                     </div>
                                 </div>
 
@@ -91,17 +92,21 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-4">Balance Type <span class="required">  * </span>
                                     </label>
-                                    <div class="col-md-3">                                           
-                                        <input type="text" class="form-control required" name="balance_type" id="balance_type">
+                                    <div class="col-md-3">        
+                                        <select class="form-control required" name="balance_type">
+                                            <option value="1">Penambah Bill</option>
+                                            <option value="-1">Pengurang Bill</option>
+                                        </select>
+                                        <span class="help-block"></span>                                   
                                     </div>
                                 </div>
 
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-4">Value
+                                    <label class="control-label col-md-4">Value <span class="required">  * </span>
                                     </label>
                                     <div class="col-md-3">                                           
-                                        <input type="text" class="form-control" name="val" id="val">
+                                        <input type="text" class="form-control priceformat required" name="val" id="val">
                                     </div>
                                 </div>
 
@@ -111,6 +116,7 @@
                                     <div class="col-md-3">                                           
                                         <input type="text" class="form-control datepicker required" name="adjestment_date" id="adjestment_date">
                                     </div>
+                                    <label class="control-label col-md-1">DD/MM/YYYY</label>
                                 </div>
 
                                  <div class="form-group">
@@ -120,41 +126,6 @@
                                         <textarea rows="4" cols="50" class="form-control" name="description" id="description"> </textarea>
                                     </div>
                                 </div>
-
-                               <!--  <div class="form-group">
-                                    <label class="control-label col-md-2">Send Date <span class="required">  * </span>
-                                    </label>
-                                    <div class="col-md-3">                                           
-                                        <input type="text" class="form-control datepickerRO" readonly="" name="send_date" id="send_date">
-                                    </div>
-                                    <div class="col-md-3">                                           
-                                        <input type="text" class="form-control" readonly="" name="sender" id="sender">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-2">Update Date <span class="required">  * </span>
-                                    </label>
-                                    <div class="col-md-3">                                           
-                                        <input type="text" class="form-control datepickerRO" readonly="" name="update_date" id="update_date">
-                                    </div>
-                                    <div class="col-md-3">                                           
-                                        <input type="text" class="form-control" readonly="" name="update_by" id="update_by">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-2">Create Date <span class="required">  * </span>
-                                    </label>
-                                    <div class="col-md-3">                                           
-                                        <input type="text" class="form-control datepickerRO" readonly="" name="create_date" id="create_date">
-                                    </div>
-                                    <div class="col-md-3">                                           
-                                        <input type="text" class="form-control" readonly="" name="create_by" id="create_by">
-                                    </div>
-                                </div>
- -->
-
                                 <div class="form-group">
                                     <label class="control-label col-md-4"></label>
                                     <div class="col-md-3">
@@ -189,7 +160,8 @@ $(".numberformat").number( true, 0 , '.',',');
 $(".numberformat").css("text-align", "right");
 
 $('.datepicker').datetimepicker({
-    format: 'DD/MM/YYYY'
+    format: 'DD/MM/YYYY',
+    defaultDate: new Date()
 });
 
 $('.datepickerRO').datetimepicker({
@@ -203,5 +175,43 @@ $("#btn-lov-adjusment-type").on('click',function(){
 $("#btn-lov-product").on('click',function(){
     modal_lov_product_adjustment_show('product_id','product_name','account','account_name','product_label','customer_ref','product_seq','cps_id');
 });
+
+$('#submit_form').on('submit', (function (e) {
+    if(!$("#submit_form").valid()) {
+        return false;
+    }
+    // Stop form from submitting normally
+    e.preventDefault();
+
+    var postData = new FormData(this),
+        url = "<?php echo site_url('home/save_adjustment');?>";
+    // Send the data using post
+    $.ajax({
+        url: url,
+        type: "POST",
+        dataType: "json",
+        contentType: false,
+        cache: false,
+        processData:false,
+        data: postData,
+        success: function (data) {
+            if(data.status == "COMPLETED"){                        
+
+                
+                swal('',data.status);
+
+                // setTimeout(function(){
+                //      loadContentWithParams('product.list_product',{});
+                // }, 3000);
+            }else{
+                swal('',data.status);
+            }
+
+        },
+        error: function (xhr, status, error) {
+            swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
+        }
+    });
+}));
 
 </script>
