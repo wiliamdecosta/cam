@@ -81,7 +81,7 @@
         $("#modal_lov_adjustment_type_grid_selection").bootgrid({
              formatters: {
                 "opt-edit" : function(col, row) {
-                    return '<a href="javascript:;" title="Set Value" onclick="modal_lov_adjustment_type_set_value(\''+ row.adjustment_type_id +'\', \''+ row.adjustment_type_id + '-' + row.adjustment_type_name +'\')" class="blue"><i class="fa fa-pencil-square-o bigger-130"></i></a>';
+                    return '<a href="javascript:;" title="Set Value" onclick="modal_lov_adjustment_type_set_value(\''+ row.adjustment_type_id +'\', \'' + row.adjustment_type_name +'\')" class="blue"><i class="fa fa-pencil-square-o bigger-130"></i></a>';
                 }
              },
              rowCount:[5,10],
