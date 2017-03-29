@@ -112,11 +112,13 @@ class R_bill_unbill_summary_controller {
             echo '<tr>';
             echo '<th>No</th>';
             echo '<th>Business Area Code</th>';
-            echo '<th>FM</th>';
-            echo '<th>BM</th>';
-            echo '<th>Jumlah Bill Bulan N</th>';
-            echo '<th>Jumlah Bill Bulan N-1</th>';
-            echo '<th>Growth</th>';
+            echo '<th>Business Area Name</th>';
+            echo '<th>Bill Count</th>';
+            echo '<th>Unbill Count</th>';
+            echo '<th>Growth Count</th>';
+            echo '<th>Bill Amount</th>';
+            echo '<th>Unbill Amount</th>';
+            echo '<th>Growth Amount</th>';
             echo '</tr>';
             $i = 1;             
             foreach ($items as $item) {
