@@ -44,7 +44,7 @@
                 {
                     label: 'Process Periode',
                     name: 'process_period',
-                    width: 150, 
+                    width: 250, 
                     align: "left"
 
                 },
@@ -57,21 +57,21 @@
                 {
                     label: 'Batch Type',
                     name: 'batch_type',
-                    width: 250, 
+                    width: 270, 
                     align: "left"
 
                 },
                 {
                     label: 'Process Start Time',
                     name: 'process_start_time',
-                    width: 200, 
+                    width: 250, 
                     align: "left"
 
                 },
                 {
                     label: 'Process end Time',
                     name: 'process_end_time',
-                    width: 150, 
+                    width: 250, 
                     align: "left"
 
                 },
@@ -99,21 +99,21 @@
                 {
                     label: 'Input Rec',
                     name: 'input_rec',
-                    width: 150, 
+                    width: 250, 
                     align: "left"
 
                 },
                 {
                     label: 'Valid Rec',
                     name: 'valid_rec',
-                    width: 200, 
+                    width: 230, 
                     align: "left"
                 },
 
                 {
                     label: 'Invalid Rec',
                     name: 'invalid_rec',
-                    width: 150, 
+                    width: 250, 
                     align: "left"
 
                 },
@@ -134,7 +134,7 @@
             rownumbers: true, // show row numbers
             rownumWidth: 35, // the width of the row numbers columns
             altRows: true,
-            shrinkToFit: true,
+            shrinkToFit: false,
             multiboxonly: true,
             onSelectRow: function (rowid) {
                 /*do something when selected*/
