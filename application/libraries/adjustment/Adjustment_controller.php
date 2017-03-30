@@ -21,7 +21,7 @@ class Adjustment_controller {
         $data = array('rows' => array(), 'success' => false, 'message' => '', 'current' => $start, 'rowCount' => $limit, 'total' => 0);
 
         try {
-            permission_check('view-account');
+            //permission_check('view-account');
 
             $ci = &get_instance();
             $ci->load->model('lov/product_adjustment');
