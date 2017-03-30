@@ -3,7 +3,7 @@
 <script src="<?php echo base_url(); ?>assets/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
 
 <div id="modal_lov_generate" class="modal fade" tabindex="-1" style="overflow-y: scroll;">
-    <div class="modal-dialog" style="width:700px;">
+    <div class="modal-dialog" style="width:500px;">
         <div class="modal-content">
             <!-- modal title -->
             <div class="modal-header no-padding">
@@ -16,21 +16,21 @@
 
             <!-- modal body -->
             <div class="modal-body">
-                <form class="form-horizontal" action="#" id="submit_form" method="post">
+                <form class="form-horizontal">
                     <div class="form-wizard">
                         <div class="form-body">
                             <div class="form-group">
-                                <label class="control-label col-md-2">Periode
+                                <label class="control-label col-md-3">Periode
                                 </label>
-                                <div class="col-md-3">
+                                <div class="col-md-5">
                                     <input type="text" class="form-control datepicker1" name="periode" id="periode">
                                 </div>
                                 <label class="col-md-1 control-label"> YYYYMM</label>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-2">Description
+                                <label class="control-label col-md-3">Description
                                 </label>
-                                <div class="col-md-4">
+                                <div class="col-md-8">
                                     <!-- <input type="text" class="form-control" name="in_Notes"> -->
                                     <textarea rows="4" cols="50" class="form-control" name="desc" id="desc" maxlength="255"> </textarea>
                                 </div>
@@ -39,13 +39,13 @@
 
                         <div class="form-actions">
                             <div class="row">
-                                <div class="col-md-offset-3 col-md-9">
+                                <div class="col-md-offset-3 col-md-9">                                    
+                                    <button type="button" class="btn green btn-sm radius-4 button-submit" id="sub_form"> Submit
+                                        <i class="fa fa-check"></i>
+                                    </button>
                                     <button class="btn btn-danger btn-sm radius-4" data-dismiss="modal">
                                         <i class="fa fa-times"></i>
                                         Close
-                                    </button>
-                                    <button type="submit" class="btn green btn-sm radius-4 button-submit"> Submit
-                                        <i class="fa fa-check"></i>
                                     </button>
                                 </div>
                             </div>
@@ -76,13 +76,12 @@
     });
 
     function modal_lov_generate_show() {
+        $('#periode').val('');
+        $('#desc').val('');
         $("#modal_lov_generate").modal({backdrop: 'static'});
     }
 
-    $('#submit_form').on('submit', (function (e) {
-        if(!$("#submit_form").valid()) {
-            return false;
-        }
+    $('#sub_form').on('click', function(){
         $.ajax({
         url: '<?php echo WS_JQGRID."invoice.generate_sap_unbill_controller/submit_sap"; ?>',
             type: "POST",
@@ -92,10 +91,10 @@
                 i_desc : $('#desc').val()
             },
             success: function (data) {
-
                 if(data.success){
-                    swal( 'SUCCESS!', 'Generate SUCCESS', 'success' );
+                    swal( 'SUCCESS!', data.rows.msg, 'success' );
                     $('#grid-table').trigger("reloadGrid");
+                    $('#modal_lov_generate').modal('hide');
                 }    
 
             },
@@ -103,6 +102,8 @@
                 swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
             }
         });
-    }));
+
+
+    });
     
 </script>

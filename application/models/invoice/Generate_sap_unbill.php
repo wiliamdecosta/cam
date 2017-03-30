@@ -76,22 +76,22 @@ class Generate_sap_unbill extends Abstract_model {
                         . "); END;";
 
                
-                $stmt = oci_parse($this->cust->db->conn_id, $sql);
+          $stmt = oci_parse($this->cust->db->conn_id, $sql);
 
-                //  Bind the input parameter
-                oci_bind_by_name($stmt, ':i_user_name', $i_user_name);
-                oci_bind_by_name($stmt, ':i_nper', $i_nper);
-                oci_bind_by_name($stmt, ':i_desc', $i_desc);            
+          //  Bind the input parameter
+          oci_bind_by_name($stmt, ':i_user_name', $i_user_name);
+          oci_bind_by_name($stmt, ':i_nper', $i_nper);
+          oci_bind_by_name($stmt, ':i_desc', $i_desc);            
 
-                // Bind the output parameter
-                oci_bind_by_name($stmt, ':o_result_code', $o_result_code, 2000000);
-                oci_bind_by_name($stmt, ':o_result_msg', $o_result_msg, 2000000);
+          // Bind the output parameter
+          oci_bind_by_name($stmt, ':o_result_code', $o_result_code, 2000000);
+          oci_bind_by_name($stmt, ':o_result_msg', $o_result_msg, 2000000);
 
-                ociexecute($stmt);
+          ociexecute($stmt);
 
-                $dt = array('code' => $o_result_code, 'msg' => $o_result_msg);
-
-                return $dt;
+          $dt = array('code' => $o_result_code, 'msg' => $o_result_msg);
+          // $dt = array('code' => '001', 'msg' => 'SUKSES');
+          return $dt;
         }
 
 }

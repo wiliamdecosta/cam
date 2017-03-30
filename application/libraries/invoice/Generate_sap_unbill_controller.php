@@ -98,7 +98,7 @@ class Generate_sap_unbill_controller {
 function submit_sap() {
 
         $i_nper = getVarClean('i_nper', 'str', '');
-        $i_desc = getVarClean('i_desc', 'int', 0);
+        $i_desc = getVarClean('i_desc', 'str', '');
 
         $data = array('rows' => array(), 'success' => false, 'message' => '', 'records' => 0, 'total' => 0);
 
