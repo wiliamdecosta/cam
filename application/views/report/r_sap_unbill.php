@@ -66,7 +66,7 @@
                 {
                     label: 'Periode Billing',
                     name: 'nper',
-                    width: 300,
+                    width: 150,
                     align: 'left',
                     hidden: false,
                     sorttype :'number'
@@ -82,14 +82,14 @@
                     label: 'Journal No',
                     name: 'journal_no',
                     hidden: false,
-                    width: 300,
+                    width: 250,
                     align: 'left'
                 },
                 {
                     label: 'Line Item',
                     name: 'line_item',
                     hidden: false,
-                    width: 150,
+                    width: 100,
                     align: 'right',
                     sorttype :'number'
                 },
@@ -97,35 +97,35 @@
                     label: 'Customer GL',
                     name: 'customer_gl',
                     hidden: false,
-                    width: 300,
+                    width: 200,
                     align: 'left'
                 },
                 {
                     label: 'Cust GL Type',
                     name: 'cust_gl_type',
                     hidden: false,
-                    width: 300,
+                    width: 150,
                     align: 'left'
                 },
                 {
                     label: 'BA',
                     name: 'ba',
                     hidden: false,
-                    width: 300,
+                    width: 150,
                     align: 'left'
                 },
                 {
                     label: 'Profit Center',
                     name: 'profit_center',
                     hidden: false,
-                    width: 300,
+                    width: 150,
                     align: 'left'
                 },
                 {
                     label: 'Post Date',
                     name: 'post_date',
                     hidden: false,
-                    width: 300,
+                    width: 150,
                     align: 'right',
                     sorttype :'number'
                 },
@@ -133,7 +133,7 @@
                     label: 'Doc Date',
                     name: 'doc_date',
                     hidden: false,
-                    width: 300,
+                    width: 150,
                     align: 'right',
                     sorttype :'number'
                 },
@@ -141,7 +141,7 @@
                     label: 'Amount',
                     name: 'amount',
                     hidden: false,
-                    width: 300,
+                    width: 250,
                     align: 'right',
                     sorttype :'number'
                 },
