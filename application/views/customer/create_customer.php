@@ -420,7 +420,7 @@
                                                 <label class="control-label col-md-4">SAP Code Bill
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="number" class="a form-control required" name="sapCodeBill" required>
+                                                    <input type="text" class="form-control required" name="sapCodeBill" style="text-transform:uppercase" required>
                                                 </div>
                                             </div>
 
