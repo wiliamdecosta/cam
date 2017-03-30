@@ -67,7 +67,7 @@
                     label: 'Periode Billing',
                     name: 'nper',
                     width: 300,
-                    align: 'right',
+                    align: 'left',
                     hidden: false,
                     sorttype :'number'
                 },
