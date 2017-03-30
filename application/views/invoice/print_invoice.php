@@ -37,7 +37,7 @@
             </div>
             <div class="space-4"></div>
             <div class="row">
-                <div class="col-md-12 green">
+                <div class="col-md-12 green" style="display:none">
                     <table id="grid-table-billing"></table>
                     <div id="grid-pager-billing"></div>
                 </div>
@@ -49,7 +49,8 @@
 </div>
 
 <!-- Modal Edit  -->
- <div class="modal fade bs-modal-lg" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true">
+ <!-- Modal Edit  -->
+ <div class="modal fade bs-modal-lg" id="modalEditSigner" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -57,13 +58,74 @@
                 <h4 class="modal-title">Invoice Data</h4>
             </div>
             <div class="modal-body"> 
-                 <h4 class="modal-title" id="MaccountNum"></h4> 
-                 <hr>
+                 <h4 class="modal-title" id="MDesc">Signer Data</h4>
+                 <hr> 
+                 <div class="space-4"></div>
+                 <div id="formAdd">
+                  <form class="form-horizontal" role="form" id="myForm1"  >
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Signer</label>
+                                <div class="col-md-6">
+                                   <?php echo buatcombo2($nama = 'signer',
+                                                        $id= 'signer',
+                                                        $table= "invoice.parameter_invoice",
+                                                        $field= 'value',
+                                                        $pk = 'param_id',
+                                                        $kondisi = array("name" => "SIGNER"),
+                                                        $required ='N',
+                                                        $default =''
+                                                    ); ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">UP</label>
+                                <div class="col-md-6">
+                                    <div class="input-icon right">
+                                        <i class="fa fa-"></i>
+                                        <input type="text" name="up" class="form-control" placeholder=""> </div>
+                                        <input type="hidden" id="account_num" name="account_num" class="form-control" placeholder="">
+                                        <input type="hidden" id="periode" name="periode" class="form-control" placeholder="">
+                                         <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
+                                         </div>
+                                </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Bank Account</label>
+                                <div class="col-md-6">
+                                   <?php echo buatcombo2($nama = 'bank',
+                                                        $id= 'bank',
+                                                        $table= "invoice.parameter_invoice",
+                                                        $field= 'value',
+                                                        $pk = 'param_id',
+                                                        $kondisi = array("name" => "BANK_ACCOUNT"),
+                                                        $required ='N',
+                                                        $default =''
+                                                    ); ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Perihal</label>
+                                <div class="col-md-6">
+                                    <div class="input-icon right">
+                                        <i class="fa fa-"></i>
+                                        <textarea height="2" type="text" name="perihal" class="form-control" placeholder=""> </textarea></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                             <label class="col-md-3 control-label"></label>
+                                <div class="col-md-6">
+                                   <button type="submit" class="btn btn-primary">Submit</button>
+                             </div>
+                             </div>
 
+                        </div>
+
+                    </form>
+                 </div>
+                   
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                <button type="button" class="btn green">Save changes</button>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -71,11 +133,48 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- END Edit -->
+<!-- END Edit -->
 
 <script>
+
+ $(document).ready(function(){
+
+    $("#myForm1").on('submit', (function (e) {
+          e.preventDefault();
+          var data = new FormData(this);
+
+          $.ajax({
+            type: 'POST',
+            dataType: "json",
+            url: '<?php echo WS_JQGRID."invoice.invoice_controller/UpdDataInv"; ?>',
+            data: data,
+            // timeout: 10000,
+            contentType: false, // The content type used when sending data to the server.
+            cache: false, // To unable request pages to be cached
+            processData: false,
+            success: function(response) {
+              if(response.success) {
+
+                  swal({title: 'Info', text: response.message, html: true, type: "info"});
+
+              }else{
+                  swal({title: 'Attention', text: response.message, html: true, type: "warning"});
+              }
+            }
+
+          });
+
+          return false;
+      }));
+
+
+
+});
     function openEdit(account_num, periode, account_name){
-        $('#modalEdit').modal({backdrop: 'static'});
-        $('#MaccountNum').html('Account : <b>'+ account_num +' - '+periode+ ' | '+ account_name+ '</b>');
+        $('#modalEditSigner').modal({backdrop: 'static'});
+        $('#MDesc').html('Account : <b>'+ account_num +' - '+periode+ ' | '+ account_name+ '</b>');
+        $('#account_num').val(account_num);
+        $('#periode').val(periode);
     }
 
     $(document).ready(function(){
@@ -106,7 +205,13 @@
                         return '<button type="button" class="btn btn-xs btn-primary" title="print" onclick="printInvoice(\''+rowObject.account_num+'\',\''+rowObject.bill_prd+'\')"><i class="fa fa-print"></i></button> '+ '<button type="button" class="btn btn-xs btn-default" title="Edit Data" onclick="openEdit(\''+rowObject.account_num+'\',\''+rowObject.bill_prd+'\', \''+rowObject.account_name+'\')"><i class="fa fa-edit"></i></button>';
                     }
                 },
-
+                {
+                    label: 'Printed',
+                    name: 'print_seq',
+                    width: 75,
+                    align: 'center',
+                    hidden: false
+                },
                 {
                     label: 'Customer Ref',
                     name: 'customer_ref',
@@ -161,19 +266,19 @@
                 
             ],
             height: '100%',
-            autowidth: false,
+            autowidth: true,
             viewrecords: true,
             rowNum: 10,
             rowList: [10, 20, 50],
             rownumbers: true, // show row numbers
             rownumWidth: 35, // the width of the row numbers columns
             altRows: true,
-            shrinkToFit: true,
+            shrinkToFit: false,
             //multiSort:true,
             multiboxonly: true,
             onSelectRow: function (rowid) {
                 /*do something when selected*/
-                var celValue = $('#grid-table-account').jqGrid('getCell', rowid, 'account_num');
+                /*var celValue = $('#grid-table-account').jqGrid('getCell', rowid, 'account_num');
                 var grid_id = $("#grid-table-billing");
                 if (rowid != null) {
                     grid_id.jqGrid('setGridParam', {
@@ -186,7 +291,7 @@
                     $("#grid-table-billing").trigger("reloadGrid");
                 }
 
-                responsive_jqgrid('#grid-table-billing', '#grid-table-billingPager');
+                responsive_jqgrid('#grid-table-billing', '#grid-table-billingPager');*/
 
             },
             sortorder: '',

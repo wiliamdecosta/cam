@@ -662,6 +662,43 @@ class Invoice_controller {
         exit;
     }
 
+    function UpdDataInv() {
+
+        $ci = & get_instance();
+        $ci->load->model('invoice/invoice');
+        $table = $ci->invoice;
+
+        $signer = getVarClean('signer', 'str', '');
+        $up = getVarClean('up', 'str', '');
+        $perihal = getVarClean('perihal', 'str', '');
+        $bank = getVarClean('bank', 'str', '');
+        $account_num = getVarClean('account_num', 'str', '');
+        $periode = getVarClean('periode', 'str', '');
+
+        $data = array('success' => false, 'message' => '');
+
+        try{
+                $data['account_num'] = $account_num;
+                $data['periode'] = $periode;
+                $data['signer'] = $signer;
+                $data['up'] = $up;
+                $data['perihal'] = $perihal;
+                $data['bank'] = $bank;
+                
+                $table->UpdDataInv($data);
+
+            $data['message'] = 'Updated';
+            $data['success'] = true;
+
+        }catch (Exception $e) {
+            $data['message'] = $e->getMessage();
+        }
+
+        echo json_encode($data);
+        exit;
+    }
+
+
 
 }
 

@@ -35,7 +35,9 @@ class Invoice extends Abstract_model {
                                 a.BILLSTYLE_ID,
                                 a.EXEC_DATE,
                                 a.INVOICE_DUE_DATE,
-                                b.account_name ";
+                                b.account_name,
+                                nvl((select p10 from account_param_invoice where p1 = a.invoice_num),0) print_seq
+                                ";
     public $fromClause      = "  CC_INVOICE_INFO a
                                  JOIN account b ON a.account_num = b.account_num
                                  ";
@@ -142,6 +144,75 @@ class Invoice extends Abstract_model {
 
     }
 
+      function getCustInfo2($data){
+
+       $sql = " SELECT account_num,
+                       period,
+                       p1 invocie_num,
+                       p2 real_inv_num,
+                       to_date(p3,'DD-Mon-YYYY') tgl,
+                       p5 up,
+                       p6 perihal,
+                       to_char(to_date(p3,'DD-Mon-YYYY'),'DD') || ' ' || INVOICE.MAKE_BULAN(period)  tgl2,
+                       (SELECT VALUE FROM parameter_invoice where param_id = a.p4) signer,
+                       (SELECT VALUE FROM parameter_invoice where param_id = a.p7) bank
+                       from      account_param_invoice a
+                        where p1 = '".$data['invoice_num']."'
+        ";
+        $query = $this->db->query($sql);
+
+        return $query->result_array();
+        //return  $data['account_num'];
+
+    }
+
+    function getKontrak($data){
+
+    $sql = "    select customer_ref, product_seq from 
+                ( select   s01 as ACCOUNT_NUM, 
+                                          s02 as ACCOUNT_NAME , 
+                                          s03 as CUSTOMER_REF , 
+                                          n01 as PRODUCT_SEQ , 
+                                          s04 as PRODUCT_NAME , 
+                                          s05 as PRODUCT_LABEL , 
+                                          s06 as START_DAT ,  
+                                          s07 as END_DAT ,          
+                                          s08 as CUST_ORDER_NUM ,  
+                                          s09 as CURRENCY_CODE ,  
+                                          n04 as INSTALL ,  
+                                          n05 as ABONEMEN ,  
+                                          n02 as PRODUCT_ID , 
+                                          n03 as PARENT_PRODUCT_SEQ , 
+                                          s12 as KONTRAK , 
+                                          s13 as KONTRAK_START_DAT ,  
+                                          s14 as KONTRAK_END_DAT ,  
+                                          s15 as BA ,  
+                                          s16 as PROFIT_CENTER 
+                                from table(camweb.pack_list_cust_acc_prod.product_list( '".$this->session->userdata('user_name')."',null, null,''))
+                                                                 ) ct 
+                                        where account_num = '".$data['account_num']."'
+                                        and product_seq is not null
+                                        and rownum = 1 
+        ";
+        $query = $this->db->query($sql);
+
+        $d =  $query->result_array();
+
+        $sql = "  select  (select CAMWEB.GET_PRODUCTATTR('".$d[0]['customer_ref']."', '".$d[0]['product_seq']."', 'KONTRAK') from dual ) KONTRAK,
+                    (select to_char(to_date(CAMWEB.GET_PRODUCTATTR('".$d[0]['customer_ref']."', '".$d[0]['product_seq']."', 'KONTRAK_START_DAT'
+                    ),'yyyymmdd'),'dd') || ' ' ||  INVOICE.MAKE_BULAN (to_char(to_date(CAMWEB.GET_PRODUCTATTR('".$d[0]['customer_ref']."', '".$d[0]['product_seq']."', 'KONTRAK_START_DAT'
+                    ),'yyyymmdd'),'yyyymm')) from dual )
+                    KONTRAK_START_DAT
+                    from dual
+        ";
+        $query = $this->db->query($sql);
+
+        return $query->result_array();
+
+    }
+
+
+
     function getIdPooling(){
         $sql = "select nvl(max(id),0)+1 id from invoice_log_pooling ";
         $query = $this->db->query($sql);
@@ -207,6 +278,34 @@ class Invoice extends Abstract_model {
 
     }
     
+    function setPrintSeq($data){
+      $sql = "update account_param_invoice set p10 = nvl(p10,0)+1 
+              where account_num = '".$data['account_num']."'
+              and period = '".$data['periode']."'
+              and p1 = '".$data['invoice_num']."'
+               ";
+
+      if($data['account_num'] != ''){
+        $query = $this->db->query($sql);
+      }
+    }
+
+    function UpdDataInv($data){
+
+      $sql = "update account_param_invoice 
+              set p4 = '".$data['signer']."',
+                  p5 = '".$data['up']."',
+                  p6 = '".$data['perihal']."',
+                  p7 = '".$data['bank']."'
+              where account_num = '".$data['account_num']."'
+              and period = '".$data['periode']."'
+               ";
+
+      if($data['account_num'] != ''){
+        $query = $this->db->query($sql);
+      }
+    }
+
     function getInvSummary($data){
 
     }

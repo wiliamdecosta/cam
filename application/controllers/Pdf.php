@@ -9,7 +9,8 @@ class Pdf extends CI_Controller
     function __construct() {
 
         parent::__construct();
-        $this->pathInvoice = 'images/invoice/';
+        //$this->pathInvoice = 'images/invoice/';
+        $this->pathInvoice = './application/third_party/uploads/invoice_signer/';
      
     }
 
@@ -24,9 +25,25 @@ class Pdf extends CI_Controller
         
         $param['account_num'] = $account_num;
         $param['periode'] = $periode;
-
+        
         $data = $table->getCustInfo($param);
         
+
+        $param['invoice_num'] = $data[0]['invoice_num'];
+        $table->setPrintSeq($param);
+        $dataCust = $table->getCustInfo2($param);
+        $kontrak = $table->getKontrak($param);
+
+        $kontrak_id = @$kontrak[0]['kontrak'];
+        $kontrak_sd = @$kontrak[0]['kontrak_start_dat'];
+
+        $up = @$dataCust[0]['up'];
+        $tgl = @$dataCust[0]['tgl2'];
+        $real_inv_num = @$dataCust[0]['real_inv_num'];
+        $perihal = @$dataCust[0]['perihal'];
+        $signer = explode('|', $dataCust[0]['signer']);
+        $bank = explode('|', $dataCust[0]['bank']);
+
         $pdf = new invoiceall();
         $pdf->AddPage();
         $pdf->Ln(10);
@@ -47,7 +64,7 @@ class Pdf extends CI_Controller
         $pdf->Cell(30, 15, "Invoice Number");
         $pdf->SetFont('');
         $pdf->Cell(5, 15, " : ", 0, 0);
-        $pdf->Cell(30, 15, $invoice_num, 0, 0);
+        $pdf->Cell(30, 15, $real_inv_num, 0, 0);
         $pdf->Ln(5);
 
         //buat nampilin official receipt no 
@@ -76,7 +93,7 @@ class Pdf extends CI_Controller
         $pdf->SetFont('Arial', '', 8);
         $pdf->setKata2(@$data[0]['address'],80,$x+$positionTxt,50,10,4);
         $pdf->SetFont('Arial', 'B', 8);
-        $pdf->setKata2('UP : SGM SSO',35,$x+$positionTxt,50,10,4);
+        $pdf->setKata2('UP : '.$up,35,$x+$positionTxt,50,10,4);
 
         $pdf->SetX($x);
         $pdf->setY($y+5);
@@ -88,7 +105,8 @@ class Pdf extends CI_Controller
         $pdf->Cell(30, 15, "Project Name");
         $pdf->SetFont('');
         $pdf->Cell(5, 15, " : ", 0, 0);
-        $kata = 'Tagihan Pekerjaan Pengadaan Revitalisasi Gedung Telkom Triwulan 1 2016 '.$account_num .'-'.$periode;
+        //$kata = 'Tagihan Pekerjaan Pengadaan Revitalisasi Gedung Telkom Triwulan 1 2016 '.$account_num .'-'.$periode;
+        $kata = $perihal;
 
 
         $pdf->setKata2($kata,90,45,50,15,5);
@@ -103,7 +121,8 @@ class Pdf extends CI_Controller
 
                 
         $curr_type = 'Rp.';
-        $invoice_num = @$data[0]['invoice_num'];        
+        $invoice_num = $real_inv_num;        
+        //$invoice_num = @$data[0]['invoice_num'];        
         $customer_name = @$data[0]['account_name'];        
         $address = @$data[0]['address'];        
         $jumlah = number_format(@$data[0]['invoice_mny'],2, '.', ',');
@@ -161,29 +180,34 @@ class Pdf extends CI_Controller
         $pdf->SetFont('Arial', '', 8);
         $kata = 'Please make full payment to transfer to our rupiah or dollar account as per the following details :';
         $pdf->setKata2($kata,120,10,50,10,5);
-        $kata = 'Behalf of PT. Graha Sarana Duta';
+        //$kata = 'Behalf of PT. Graha Sarana Duta';
+        $kata = $bank[0];
         $pdf->setKata2($kata,90,10,50,10,5);
         $kata = 'Mandiri Wisma Alia';
         $pdf->setKata2($kata,90,10,50,10,5);
-        $kata = 'ACC : IDR : 123-0098-158-51-4';
+        //$kata = 'ACC : IDR : 123-0098-158-51-4';
+        $kata = 'ACC : '.$bank[1].' : '.$bank[2];
         $pdf->setKata2($kata,90,10,50,10,5);
         $pdf->Ln(10);
         // ------------------- BANK INFO ---------------//
 
         // ------------------- TTD ---------------//
         $pos = 150;
-        $kata = 'Jakarta 01 Maret 2017';
+        //$kata = 'Jakarta 01 Maret 2017';
+        $kata = 'Jakarta '.$tgl;
         $pdf->setKata2($kata,90,$pos,50,10,5);
-        $pdf->Ln(1);
+        $pdf->Ln(20);
 
         /*$signature = 'signer/MAT+TTD.jpg';
         $signature = $this->pathInvoice.$signature;
         $pdf->Image($signature, $pos, null, 40, 30);*/
 
-        $kata = 'M. WISNU ADJI';
+        //$kata = 'M. WISNU ADJI';
+        $kata = $signer[0];
         $pdf->setKata2($kata,90,$pos,50,5,5);
 
-        $kata = 'Finance & GA Director';
+        //$kata = 'Finance & GA Director';
+        $kata = $signer[1];
         $pdf->setKata2($kata,90,$pos,50,5,5);
         // ------------------- TTD ---------------//
 
@@ -217,13 +241,14 @@ class Pdf extends CI_Controller
         $pdf->Cell(20, 10, "Perihal");
         $pdf->SetFont('');
         $pdf->Cell(5, 10, " : ", 0, 0);
-        $kata = 'Tagihan Pekerjaan Pengadaan Revitalisasi Gedung Telkom Triwulan 1 2016';
+        //$kata = 'Tagihan Pekerjaan Pengadaan Revitalisasi Gedung Telkom Triwulan 1 2016';
+        $kata = $perihal;
         $pdf->setKata2($kata,90,35,50,10,5);
         $pdf->Ln(10);
 
         $kata = 'Dengan Hormat, ';
         $pdf->setKata2($kata,90,10,50,10,5);
-        $kata = 'Menunjuk kontrak perjanjian pengadaan revitalisasi gedung Telkom Triwulan 1 Tahun 2016 Nomor : 098908709890-201701 / 098908709890-201701 Tanggal 25 Februari 2016 ';
+        $kata = 'Menunjuk kontrak perjanjian pengadaan '.$perihal.' Nomor : '.$kontrak_id.' Tanggal '.$kontrak_sd;
         $pdf->setKata2($kata,120,10,50,10,5);
         $kata = 'bersama ini disampaikan tagihan tersebut sebagai berikut : ';
         $pdf->setKata2($kata,120,10,50,10,5);
@@ -275,7 +300,7 @@ class Pdf extends CI_Controller
 
         $pdf->Ln(10);
         $pdf->SetFont('Arial', '', 9);
-        $kata = 'Untuk pembayaran tagihan tersebut diatas dapat di transfer ke rekening PT. Graha Sarana Duta di Mandiri Wisma Alia ACC:123-0098-158-51-4, bukti transfer dan bukti potong pph pasal 23 agar dikirim kepada kami pada kesempatan pertama.';
+        $kata = 'Untuk pembayaran tagihan tersebut diatas dapat di transfer ke rekening '.$bank[0].' di Mandiri Wisma Alia ACC:'.$bank[2].', bukti transfer dan bukti potong pph pasal 23 agar dikirim kepada kami pada kesempatan pertama.';
         $pdf->setKata2($kata,120,10,50,10,5);
         $pdf->Ln(10);
         $kata = 'Demikian disampaikan atas perhatian dan kerjasamanya kami ucapkan terima kasih';
@@ -285,16 +310,18 @@ class Pdf extends CI_Controller
         $pos = 10;
         $kata = 'Hormat Kami,';
         $pdf->setKata2($kata,90,$pos,50,10,5);
-        $pdf->Ln(1);
+        $pdf->Ln(20);
 
         /*$signature = 'signer/MAT+TTD.jpg';
         $signature = $this->pathInvoice.$signature;
         $pdf->Image($signature, $pos, null, 40, 30);*/
 
-        $kata = 'M. WISNU ADJI';
+        //$kata = 'M. WISNU ADJI';
+        $kata = $signer[0];
         $pdf->setKata2($kata,90,$pos,50,5,5);
 
-        $kata = 'Finance & GA Director';
+        //$kata = 'Finance & GA Director';
+        $kata = $signer[1];
         $pdf->setKata2($kata,90,$pos,50,5,5);
 
 
@@ -378,11 +405,17 @@ class Pdf extends CI_Controller
         $pdf->Cell(60, 10, " In Payment Of");
         $pdf->Cell(5, 12.5, " : ", 0, 0);
         $pdf->SetFont('Arial', '', 9);
-        $kata = 'Tagihan Pekerjaan Pengadaan Revitalisasi Gedung Revitalisasi Gedung Revitalisasi';
+        //$kata = 'Tagihan Pekerjaan Pengadaan Revitalisasi Gedung Revitalisasi Gedung Revitalisasi';
+        $kata = $perihal;
+        if(strlen($kata) < 80){
+            $posHW = 10;
+        }else{
+            $posHW = 2;
+        }
         $pdf->setKata2($kata,70,75,50,12.5,4);
         //$pdf->Cell(40, 12.5, 'PT TELEKOMUNIKASI INDINESIA Tbk.', 0, 0, 'L');
         $pdf->SetFont('Arial', 'B', 9);
-        $pdf->Cell(115, 2, " Untuk Pembayaran ");
+        $pdf->Cell(115, $posHW, " Untuk Pembayaran ");
         $pdf->Ln(10);
 
         $pdf->Cell(60, 10, " Amount ");
@@ -392,7 +425,7 @@ class Pdf extends CI_Controller
         $pdf->Cell(5, 12.5, $curr_type, 'TBL');  
         $pdf->Cell(40, 12.5, $total.'  ', 'TBR', 0, 'R');
         $pdf->SetFont('Arial', '', 9);
-        $pdf->Cell(80, 12.5,'Jakarta , 30 Maret 2017', 'T', 0, 'C');
+        $pdf->Cell(80, 12.5,'Jakarta ,'.$tgl, 'T', 0, 'C');
         $pdf->Ln(3);
         $pdf->SetFont('Arial', 'BI', 9);
         $pdf->Cell(115, 10, " Jumlah");
@@ -401,14 +434,17 @@ class Pdf extends CI_Controller
 
         // ------------------- TTD ---------------//
         $pos = 145;
-        $signature = 'signer/MAT+TTD.jpg';
+        //$signature = 'signer/MAT+TTD.jpg';
+        $signature = $signer[2];
         $signature = $this->pathInvoice.$signature;
         $pdf->Image($signature, $pos, null, 40, 30);
 
-        $kata = 'M. WISNU ADJI';
+        //$kata = 'M. WISNU ADJI';
+        $kata = $signer[0];
         $pdf->setKata2($kata,90,$pos,50,5,5,0,'C');
 
-        $kata = 'Finance & GA Director';
+        //$kata = 'Finance & GA Director';
+        $kata = $signer[1];
         $pdf->setKata2($kata,90,$pos,50,5,5,0,'C');
         // ------------------- TTD ---------------//
 
@@ -710,6 +746,7 @@ class Pdf extends CI_Controller
         $pdf->setKata2($kata,90,$pos,50,10,5);
         $pdf->Ln(1);
 
+        //$signature = 'signer/MAT+TTD.jpg';
         $signature = 'signer/MAT+TTD.jpg';
         $signature = $this->pathInvoice.$signature;
         $pdf->Image($signature, $pos, null, 40, 30);
