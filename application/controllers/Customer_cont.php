@@ -80,7 +80,7 @@ class Customer_cont extends CI_Controller
         $userId = (int)$this->input->post('userId');
         $custAttr = (string)$this->getAttrValue(array($custReff,$sapCodeBill,$sapCodeUnBill,$sold2party));
 
-        print_r($custAttr);exit;
+        // print_r($custAttr);exit;
        /* $pck_name = "SINCUSTOMER.createCustomer";
         $pIN = array(
             'pIn_customerRef' => $custReff,
