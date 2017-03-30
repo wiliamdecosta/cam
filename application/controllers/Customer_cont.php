@@ -80,7 +80,7 @@ class Customer_cont extends CI_Controller
         $userId = (int)$this->input->post('userId');
         $custAttr = (string)$this->getAttrValue(array($custReff,$sapCodeBill,$sapCodeUnBill,$sold2party));
 
-
+        print_r($custAttr);exit;
        /* $pck_name = "SINCUSTOMER.createCustomer";
         $pIN = array(
             'pIn_customerRef' => $custReff,
@@ -183,8 +183,9 @@ class Customer_cont extends CI_Controller
     }
 
     private function getAttrValue($arr){
+        // print_r($arr); exit;
         $vAttributes = '';
-        for($i = 2; $i < count($arr); $i++){
+        for($i = 1; $i < count($arr); $i++){
             $vAttribute = '';
             $vAttrType = 'C';
             $vAttribute = $arr[0]."|".$i."|".$vAttrType."|".$arr[$i]."|";
@@ -200,4 +201,5 @@ class Customer_cont extends CI_Controller
 
         return $vAttributes;
     }
+
 }
