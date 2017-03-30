@@ -46,7 +46,7 @@ class Customer_cont extends CI_Controller
         $custReff = $this->input->post('custReff');
         $customerRef = $this->input->post('customerRef');
         $parentCusref = $this->input->post('parentCusref');
-        $sapCodeBill = $this->input->post('sapCodeBill');
+        $sapCodeBill = strtoupper($this->input->post('sapCodeBill'));
         $sapCodeUnBill = $this->input->post('sapCodeUnBill');
         $sold2party = $this->input->post('sold2party');
         $groupId = (int)$this->input->post('groupId');
