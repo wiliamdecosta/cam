@@ -7,7 +7,7 @@
     <!-- BEGIN HEAD -->
     <head>
         <meta charset="utf-8" />
-        <title>CAMWEB</title>
+        <title>TOS</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="" name="description" />
@@ -19,7 +19,7 @@
     <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-md page-header-fixed page-sidebar-fixed">
         <!-- BEGIN HEADER -->
         <div class="logo-cam">
-            <img src="<?php echo base_url().'assets/image/logo_cam.png'; ?>" height="30px">
+            <img src="<?php echo base_url().'assets/image/logo_tos.png'; ?>" height="25px">
         </div>
         <div class="page-header navbar navbar-fixed-top">
             <!-- BEGIN HEADER INNER -->
