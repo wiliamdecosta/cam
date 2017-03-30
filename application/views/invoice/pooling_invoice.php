@@ -30,54 +30,165 @@
             <div class="portlet-title">
                 <div class="caption">
                     <i class=" icon-list font-red"></i>
-                    <span class="caption-subject font-red bold uppercase"> Print Invoice
+                    <span class="caption-subject font-red bold uppercase"> Pooling Invoice
                     </span>
                 </div>
             </div>
             <!-- CONTENT PORTLET -->
             <div class="form-body">
+             <form method="post" action="" class="form-horizontal" id="myForm">
+                    <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
+                    <div class="form-body">
+                    <div class="clearfix">
+                <div class="clearfix margin-bottom-10"> </div>
+                <div class="btn-group btn-group-solid">
+                    <button type="button" class="btn red" id="TotalAccount">
+                        <i class="fa fa-shield"></i> Total Account  &nbsp; :  &nbsp; &nbsp; <span id="jmlAcc">0</span></button>
+                        <input type="hidden" id="rowidData" name="rowidData">
+                        <input type="hidden" id="oper" name="oper" value="add">
+                        &nbsp;&nbsp;
+                    <button type="button" class="btn green" id="StartPooling">
+                        <i class="fa fa-rocket"></i> &nbsp; Start Pooling &nbsp;&nbsp;&nbsp;</button>
+                </div>
+            </div>
+         </div>
+          </form>
+             
+
+        <div class="space-4"></div>
+
             <div class="row">
-                                <div class="col-md-6 green">
-                                    <table id="grid-table-account"></table>
-                                    <div id="grid-pager-account"></div>
-                                </div>
-                                <div class="col-md-6 green">
-                                    <table id="grid-table-billing"></table>
-                                    <div id="grid-pager-billing"></div>
-                                </div>
-                            </div>
+            <div class="col-md-12 green">
+                <table id="grid-table-account"></table>
+                <div id="grid-pager-account"></div>
+            </div>
+            </div>
+
+            <div class="space-4"></div>
+
+            <div class="row">
+                <div class="col-md-6 green">
+                    <table id="grid-table-billing"></table>
+                    <div id="grid-pager-billing"></div>
+                </div>
+                 <div class="col-md-6 green">
+                    
+                </div>
+            </div>
+
             </div>
             <!-- END CONTENT PORTLET -->
         </div>
     </div>
 </div>
+
 <script>
+
+    $(document).ready(function(){
+
+        $('#StartPooling').click(function(){
+
+            totalAcc = $('#jmlAcc').html();
+            //rowid = totalAcc;
+            //account1 = $('#grid-table-account').jqGrid('getCell', rowid, 'account_num');
+            data = $('#rowidData').val().split('|');
+            if(totalAcc > 0){
+                swal({
+                  title: "Confirm Pooling Invoice",
+                  text: "Total Account : "+totalAcc ,
+                  type: "info",
+                  showCancelButton: true,
+                  confirmButtonColor: "",
+                  confirmButtonText: "Yes",
+                  cancelButtonText: "No",
+                  closeOnConfirm: true,
+                  closeOnCancel: true
+                },
+                function(isConfirm){
+                  if (isConfirm) {
+                    StartPooling(data);
+                  }
+                });
+            }else{
+                swal("Oops !", "Please Choose Account Number !", "info");
+            }
+            
+        });
+
+    });
+
+    function StartPooling(data){
+
+        var items = [];
+        var len = data.length;
+        for (var i = 0; i < len; i++) {
+            items.push({
+                account_num: $('#grid-table-account').jqGrid('getCell',  data[i], 'account_num'),
+                bill_prd: $('#grid-table-account').jqGrid('getCell',  data[i], 'bill_prd'),
+                oper:'add'
+            });
+        }
+        var url = '<?php echo WS_JQGRID."invoice.invoice_controller/crud"; ?>';
+        $.ajax({
+            type: "POST",
+            url: url,
+            dataType : 'json',
+            data: {items: JSON.stringify(items),oper:'add'},
+            success: function(response) {
+
+                if(response.success != true){
+                    swal('Warning',response.message,'warning');
+                }else{
+                    loadContentWithParams('invoice.pooling_invoice',{});
+                }
+
+            }
+        });
+    }
+
+    function loadGridBilling(account_num, periode){
+                    
+        var celValue = account_num; //$('#grid-table-account').jqGrid('getCell', rowid, 'account_num');
+        var prd = periode; //$('#grid-table-account').jqGrid('getCell', rowid, 'bill_prd');
+        var grid_id = $("#grid-table-billing");
+
+            grid_id.jqGrid('setGridParam', {
+                url: "<?php echo WS_JQGRID."invoice.invoice_controller/readDataBilling"; ?>",
+                datatype: 'json',
+                postData: {accountNum: celValue, periode:prd}
+            });
+            grid_id.jqGrid('setCaption', 'Billing Data For Account :: ' + celValue + '|'+prd);
+            $("#grid-table-billing").trigger("reloadGrid");
+
+        responsive_jqgrid('#grid-table-billing', '#grid-table-billingPager');
+
+    }
     jQuery(function ($) {
         var grid_selector = "#grid-table-account";
         var pager_selector = "#grid-pager-account";
 
         jQuery("#grid-table-account").jqGrid({
-            url: '<?php echo WS_JQGRID . "account.account_controller/crud"; ?>',
+            url: '<?php echo WS_JQGRID . "invoice.invoice_controller/readDataRBill"; ?>',
             datatype: "json",
             mtype: "POST",
             colModel: [
                
-                {label: 'Action', name: ' ', width: 100,  sortable:false,  align:"center", editable: false,
+                {label: 'Billing', name: ' ', width: 50,  sortable:false,  align:"center", editable: false,
                     formatter: function(cellvalue, options, rowObject) {
-                        return '<button type="button" class="btn btn-xs btn-primary" title="pooling invoice" onclick="showDiskon(\''+rowObject.account_num+'\',\''+rowObject.customer_ref+'\',\''+rowObject.account_name+'\',\''+rowObject.created_date+'\',\''+rowObject.schema_id+'\')"><i class="fa fa-rocket "></i></button>';
+                        return '<button type="button" class="btn btn-xs btn-primary" title="Billing Data" onclick="loadGridBilling(\''+rowObject.account_num+'\',\''+rowObject.bill_prd+'\')"><i class="fa fa-dollar "></i></button>';
                     }
                 },
                 {
                     label: 'Customer Ref',
                     name: 'customer_ref',
-                    width: 150,
+                    width: 100,
                     align: 'left',
                     hidden: false
                 },
                  {
                     label: 'Account Number',
                     name: 'account_num',
-                    width: 150,
+                    width: 100,
                     align: 'left',
                     hidden: false
                 },
@@ -85,38 +196,101 @@
                     label: 'Account Name',
                     name: 'account_name',
                     hidden: false,
-                    width: 300,
+                    width: 250,
+                    align: 'left'
+                },
+                {
+                    label: 'Bill Number',
+                    name: 'invoice_num',
+                    hidden: false,
+                    width: 120,
+                    align: 'left'
+                },
+                {
+                    label: 'Product Group',
+                    name: 'product_group',
+                    hidden: false,
+                    width: 250,
+                    align: 'left'
+                },
+                {
+                    label: 'Product Name',
+                    name: 'product_name',
+                    hidden: false,
+                    width: 250,
+                    align: 'left'
+                },
+                {
+                    label: 'Bill Periode',
+                    name: 'bill_prd',
+                    hidden: true,
+                    width: 250,
                     align: 'left'
                 }
                 
             ],
             height: '100%',
-            autowidth: false,
+            autowidth: true,
             viewrecords: true,
             rowNum: 10,
             rowList: [10, 20, 50],
             rownumbers: true, // show row numbers
             rownumWidth: 35, // the width of the row numbers columns
             altRows: true,
+            multiselect: true,
             shrinkToFit: true,
             multiboxonly: true,
-            onSelectRow: function (rowid) {
+            gridview: true,
+            /*beforeSelectRow: function(rowid, e) {
+                totalCheck = jQuery('#grid-table-account').jqGrid('getGridParam', 'selarrrow');
+                $('#jmlAcc').html(totalCheck.length);
+                return false;
+            },*/
+            onSelectRow: function (rowid, status) {
                 /*do something when selected*/
 
-                var celValue = $('#grid-table-account').jqGrid('getCell', rowid, 'account_num');
-                var grid_id = $("#grid-table-billing");
-                if (rowid != null) {
-                    grid_id.jqGrid('setGridParam', {
-                        url: "<?php echo WS_JQGRID."invoice.invoice_controller/readDataBilling"; ?>",
-                        datatype: 'json',
-                        postData: {accountNum: celValue},
-                        userData: {row: rowid}
-                    });
-                    grid_id.jqGrid('setCaption', 'Billing Data For Account :: ' + celValue);
-                    $("#grid-table-billing").trigger("reloadGrid");
+                totalCheck = jQuery('#grid-table-account').jqGrid('getGridParam', 'selarrrow');
+                $('#jmlAcc').html(totalCheck.length);
+                var str = totalCheck+'';
+                var data = str.split(',');
+                var str  = '';
+                for (var i = data.length - 1; i >= 0; i--) {
+                    /*account = $('#grid-table-account').jqGrid('getCell',  data[i], 'account_num');
+                    prd = $('#grid-table-account').jqGrid('getCell',  data[i], 'bill_prd');
+                    str += account+'-'+prd+'|';*/
+                    str += data[i]+'|';
                 }
+                $('#jmlAcc').html(data.length);
+                $('#rowidData').val(str);
 
-                responsive_jqgrid('#grid-table-billing', '#grid-table-billingPager');
+
+               
+            },
+            onSelectAll : function(rowid, status){
+                
+                if(status){
+                    
+                    var str = rowid+'';
+                    var data = str.split(',');
+                    var str  = '';
+
+                    for (var i = data.length - 1; i >= 0; i--) {
+                        /*account = $('#grid-table-account').jqGrid('getCell',  data[i], 'account_num');
+                        prd = $('#grid-table-account').jqGrid('getCell',  data[i], 'bill_prd');
+                        str += account+'-'+prd+'|';*/
+                        str += data[i]+'|';
+                    }
+                    
+                    $('#jmlAcc').html(data.length);
+                    $('#rowidData').val(str);
+
+                }else{
+                    
+                    $('#jmlAcc').html(0);
+                    $('#rowidData').val('');
+
+                }
+                
             },
             sortorder: '',
             pager: '#grid-pager-account',
@@ -133,7 +307,7 @@
             },
             //memanggil controller jqgrid yang ada di controller crud
             editurl: '<?php echo WS_JQGRID . "invoice.invoice_controller/crud"; ?>',
-            caption: "Invoice "
+            caption: "Customer Data "
 
         });
         
@@ -267,6 +441,16 @@
                 }
             }
             )
+            /*.navButtonAdd('#grid-pager-account', {
+                caption: "",
+                buttonicon: "fa fa-file-excel-o green bigger-120",
+                position: "last",
+                title: "Export To Excel",
+                cursor: "pointer",
+                onClickButton: function({}),
+                id: "excel"
+            }
+            );*/
  
 
     });
@@ -283,47 +467,17 @@
 
                
                  {
-                    label: 'Account Num',
-                    name: 'account_num',
+                    label: 'Product',
+                    name: 'product',
                     width: 150,
                     align: 'left',
                     hidden: false
                 },
                 {
-                    label: 'Bill Seq',
-                    name: 'bill_seq',
+                    label: 'Value',
+                    name: 'value',
                     hidden: false,
                     width: 100,
-                    align: 'center'
-                },
-                {
-                    label: 'Periode',
-                    name: 'bill_period',
-                    hidden: false,
-                    width: 100,
-                    align: 'left'
-                },
-                {
-                    label: 'Amount',
-                    name: 'invoice_net_mny',
-                    align: 'right',
-                    formatter :'number', 
-                    formatoptions: {decimalSeparator:".", thousandsSeparator: ",", decimalPlaces: 2, defaultValue: '0.00'}
-                },
-                {
-                    label: 'PPN',
-                    name: 'invoice_tax_mny',
-                    hidden: false,
-                    width: 180,
-                    align: 'right',
-                    formatter :'number', 
-                    formatoptions: {decimalSeparator:".", thousandsSeparator: ",", decimalPlaces: 2, defaultValue: '0.00'}
-                },
-                {
-                    label: 'Total Amount',
-                    name: 'invoice_with_ppn',
-                    hidden: false,
-                    width: 180,
                     align: 'right',
                     formatter :'number', 
                     formatoptions: {decimalSeparator:".", thousandsSeparator: ",", decimalPlaces: 2, defaultValue: '0.00'}
@@ -331,7 +485,7 @@
                 
             ],
             height: '100%',
-            autowidth: false,
+            autowidth: true,
             viewrecords: true,
             rowNum: 10,
             rowList: [10, 20, 50],
@@ -359,14 +513,11 @@
             },
             //memanggil controller jqgrid yang ada di controller crud
             editurl: '<?php echo WS_JQGRID . "invoice.invoice_controller/crud"; ?>',
-            caption: "Invoice "
+            caption: "Billing Data "
 
         });
         
-        jQuery("#grid-table-billing").jqGrid('filterToolbar', { stringResult: true, 
-                                                                searchOnEnter: true, 
-                                                                defaultSearch: "cn" 
-                                                               });
+       
         
         jQuery('#grid-table-billing').jqGrid('navGrid', '#grid-pager-billing',
             {   //navbar options
@@ -507,6 +658,9 @@
 
     });
 
+
+
+
     function toExcelAccount() {
         // alert("Convert to Excel");
 
@@ -553,7 +707,7 @@
     function responsive_jqgrid(grid_selector, pager_selector) {
 
         var parent_column = $(grid_selector).closest('[class*="col-"]');
-        $(grid_selector).jqGrid('setGridWidth', $(".col-md-6").width());
+        $(grid_selector).jqGrid('setGridWidth', $(".col-md").width());
         $(pager_selector).jqGrid('setGridWidth', parent_column.width());
 
     }

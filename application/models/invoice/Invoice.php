@@ -6,8 +6,8 @@
  */
 class Invoice extends Abstract_model {
 
-    public $table           = "account";
-    public $pkey            = "account_num";
+    public $table           = "CC_INVOICE_INFO";
+    public $pkey            = "";
     public $alias           = "a";
 
     public $fields          = array(
@@ -48,6 +48,7 @@ class Invoice extends Abstract_model {
         $this->db = $this->load->database('invoice', TRUE);
         $this->db->_escape_char = ' ';
         $this->fromClause = sprintf($this->fromClause, "'".$this->session->userdata('user_name')."'");
+        $this->userSession = $this->session->userdata('user_name');
     }
 
     function validate() {
@@ -56,8 +57,10 @@ class Invoice extends Abstract_model {
         if($this->actionType == 'CREATE') {
             //do something
             // example :
-            //$this->record['created_date'] = date('Y-m-d');
-            //$this->record['updated_date'] = date('Y-m-d');
+            $this->setModelLogInvoice();
+            $this->record['userid'] = $this->session->userdata('user_name');
+           /* $this->record['id'] = $this->getIdPooling();
+            $this->record['pooling_date'] ="sysdate";*/
 
         }else {
             //do something
@@ -67,6 +70,15 @@ class Invoice extends Abstract_model {
 
         }
         return true;
+    }
+
+    function setModelLogInvoice(){
+
+      $this->table = 'invoice_log_pooling';
+      $this->pkey  = 'id';
+      $this->selectClause = ' ID, ACCOUNT_NUM, BILL_PRD, STATUS, USERID, INFO, MSG, POOLING_DATE ';
+      $this->fromClause = 'invoice_log_pooling';
+
     }
 
     function getCustInfo($data){
@@ -130,6 +142,71 @@ class Invoice extends Abstract_model {
 
     }
 
+    function getIdPooling(){
+        $sql = "select nvl(max(id),0)+1 id from invoice_log_pooling ";
+        $query = $this->db->query($sql);
+
+        $data =  $query->result_array();
+        $ret = '';
+        foreach ($data as $key => $value) {
+          $ret = $value['id'];
+        }
+        return $ret;
+    }
+    
+   
+    function saveDataPooling($data){
+      
+     /*foreach ($data as $key => $value) {
+       
+       $account_num = $value['account_num'];
+       $bill_prd = $value['bill_prd'];
+       $id = $value['id'];
+       $user = $value['userid'];
+
+     }*/
+       $account_num = $data['account_num'];
+       $bill_prd = $data['bill_prd'];
+       $id = $data['id'];
+       $user = $data['userid'];
+
+      $sql = "INSERT INTO invoice_log_pooling(ID, ACCOUNT_NUM, BILL_PRD, USERID, POOLING_DATE, STATUS)
+              VALUES ('".$id."','".$account_num."','".$bill_prd."','".$user."', sysdate, 'init') ";
+
+      if($account_num != ''){
+        $query = $this->db->query($sql);
+      }
+
+    }
+
+    function startPooling($id){
+      $sql = "BEGIN "
+                . " INVOICE.RUN_JOB_POOLING ("
+                . " :IN_ID "
+                . "); END;";
+
+      $stmt = oci_parse($this->db->conn_id, $sql);
+
+      //  Bind the input parameter
+      oci_bind_by_name($stmt, ':IN_ID', $id);
+
+      ociexecute($stmt);
+
+    }
+
+     function saveDataParam($data){
+    
+
+
+      $sql = "INSERT INTO parameter_invoice(PARAM_ID, NAME, TYPE, VALUE, STATUS, VALID_FROM, CREATED_BY, UPDATED_BY, CREATED_DATE, UPDATED_DATE)
+              VALUES ('".$data['param_id']."','".$data['name']."','s','".$data['value']."', 1, sysdate,'".$this->session->userdata('user_name')."', '".$this->session->userdata('user_name')."', sysdate, sysdate) ";
+
+      if($data['name'] != ''){
+        $query = $this->db->query($sql);
+      }
+
+    }
+    
     function getInvSummary($data){
 
     }

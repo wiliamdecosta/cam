@@ -382,10 +382,10 @@ if (!function_exists('generatehtml')) {
             // change this condition to parameter ASAP
             if($value->column_name == 'IS_MONTHLY_INVOICE'){ 
                 $ret .= "<div class='form-group'>
-                            <label class='control-label col-md-4'>".ucwords(strtolower(str_replace('_',' ',$value->column_name)))."
+                            <label class='control-label col-md-4 '>".ucwords(strtolower(str_replace('_',' ',$value->column_name)))."
                             </label>
                             <div class='col-md-8'>
-                            <select class='form-control ".$required."' ".$required." name='".$value->column_name."' id='".$value->column_name."'>
+                            <select class='form-control uppercase ".$required."' ".$required." name='".$value->column_name."' id='".$value->column_name."'>
                                                             
                                                             <option value='N'>No</option>
                                                             <option value='Y'>Yes</option>
@@ -398,7 +398,7 @@ if (!function_exists('generatehtml')) {
                         <label class='control-label col-md-4'>".ucwords(strtolower(str_replace('_',' ',$value->column_name)))."
                         </label>
                         <div class='col-md-8'>
-                            <input type='".$dataType."' class='a form-control ".$required."' name='".$value->column_name."' id='".$value->column_name."' ".$required." ".$oKU." >
+                            <input type='".$dataType."' class='a form-control uppercase ".$required."' name='".$value->column_name."' id='".$value->column_name."' ".$required." ".$oKU." >
                         </div>
                     </div> ";
            
@@ -435,6 +435,7 @@ if (!function_exists('generatehtml')) {
         $whereArray = array();
         $rules = $filters->rules;
         $groupOperation = $filters->groupOp;
+        $i = 0;
         foreach($rules as $rule) {
 
             $fieldName = $rule->field;
@@ -494,8 +495,9 @@ if (!function_exists('generatehtml')) {
                 break;
                 }
             if($fieldOperation != "") $whereArray[] = $fieldName.$fieldOperation;
+            $i++;
         }
-        if (count($whereArray)>0) {
+        if (count($whereArray)>0 && $i > 0) {
             $where .= join(" ".$groupOperation." ", $whereArray);
         } else {
             $where = "";

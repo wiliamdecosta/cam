@@ -40,7 +40,86 @@ class Invoice_controller {
 
             // filterToolbar Search 
             $filterToolbar = getVarClean('filters', 'str', '');
-            if(!empty($filterToolbar)){
+            $filtesToolbarArr = json_decode($filterToolbar, true);
+            if(count($filtesToolbarArr['rules']) > 0){
+                $whereSql = filterToolbarJqgrid($filterToolbar, 'true');
+                $req_param['where'][] .= $whereSql;
+            }
+
+
+            $table->setJQGridParam($req_param);
+            $count = $table->countAll();
+
+            if ($count > 0) $total_pages = ceil($count / $limit);
+            else $total_pages = 1;
+
+            if ($page > $total_pages) $page = $total_pages;
+            $start = $limit * $page - ($limit); // do not put $limit*($page - 1)
+
+            $req_param['limit'] = array(
+                'start' => $start,
+                'end' => $limit
+            );
+
+            $table->setJQGridParam($req_param);
+
+            if ($page == 0) $data['page'] = 1;
+            else $data['page'] = $page;
+
+            $data['total'] = $total_pages;
+            $data['records'] = $count;
+
+            $data['rows'] = $table->getAll();
+            $data['success'] = true;
+
+        }catch (Exception $e) {
+            $data['message'] = $e->getMessage();
+        }
+
+        return $data;
+    }
+
+    function readLog() {
+
+        $page = getVarClean('page','int',1);
+        $limit = getVarClean('rows','int',5);
+        $sidx = getVarClean('sidx','str','id');
+        $sord = getVarClean('sord','str','desc');
+
+        $data = array('rows' => array(), 'page' => 1, 'records' => 0, 'total' => 1, 'success' => false, 'message' => '');
+
+        try {
+
+            $ci = & get_instance();
+            $ci->load->model('invoice/invoice');
+            $table = $ci->invoice;
+
+            $req_param = array(
+                "sort_by" => $sidx,
+                "sord" => $sord,
+                "limit" => null,
+                "field" => null,
+                "where" => null,
+                "where_in" => null,
+                "where_not_in" => null,
+                "search" => $_REQUEST['_search'],
+                "search_field" => isset($_REQUEST['searchField']) ? $_REQUEST['searchField'] : null,
+                "search_operator" => isset($_REQUEST['searchOper']) ? $_REQUEST['searchOper'] : null,
+                "search_str" => isset($_REQUEST['searchString']) ? $_REQUEST['searchString'] : null
+            );
+
+            // Filter Table
+            $req_param['where'][] =' 1=1 ';
+            // Filter Table
+            $req_param['where'][] .=  "userid = '".getUserName()."' " ;
+
+            // set table 
+            $table->setModelLogInvoice();
+
+            // filterToolbar Search 
+            $filterToolbar = getVarClean('filters', 'str', '');
+            $filtesToolbarArr = json_decode($filterToolbar, true);
+            if(count($filtesToolbarArr['rules']) > 0){
                 $whereSql = filterToolbarJqgrid($filterToolbar, 'true');
                 $req_param['where'][] .= $whereSql;
             }
@@ -78,13 +157,174 @@ class Invoice_controller {
         return $data;
     }
     
+    function readDataParameter() {
+
+        $page = getVarClean('page','int',1);
+        $limit = getVarClean('rows','int',5);
+        $sidx = getVarClean('sidx','str','name');
+        $sord = getVarClean('sord','str','asc');
+        $param_name = getVarClean('param_name','str','');
+        $isHeader = getVarClean('isHeader','str','');
+
+        $data = array('rows' => array(), 'page' => 1, 'records' => 0, 'total' => 1, 'success' => false, 'message' => '');
+
+        try {
+
+            $ci = & get_instance();
+            $ci->load->model('invoice/parameter');
+            $table = $ci->parameter;
+
+            $req_param = array(
+                "sort_by" => $sidx,
+                "sord" => $sord,
+                "limit" => null,
+                "field" => null,
+                "where" => null,
+                "where_in" => null,
+                "where_not_in" => null,
+                "search" => $_REQUEST['_search'],
+                "search_field" => isset($_REQUEST['searchField']) ? $_REQUEST['searchField'] : null,
+                "search_operator" => isset($_REQUEST['searchOper']) ? $_REQUEST['searchOper'] : null,
+                "search_str" => isset($_REQUEST['searchString']) ? $_REQUEST['searchString'] : null
+            );
+            
+            // init filter
+            $req_param['where'][] =' 1=1 ';
+            // Filter Table
+            if(!$isHeader){
+                $sidx = 'param_id';
+                $table->setSelect();
+                $req_param['where'][] .=  "name = '".$param_name."' " ;
+            }
+
+            // filterToolbar Search 
+            $filterToolbar = getVarClean('filters', 'str', '');
+            $filtesToolbarArr = json_decode($filterToolbar, true);
+            if(count($filtesToolbarArr['rules']) > 0){
+                $whereSql = filterToolbarJqgrid($filterToolbar, 'true');
+                $req_param['where'][] .= $whereSql;
+                //die($whereSql);
+            }
+
+            //var_dump($filtesToolbarArr['rules']);
+            $table->setJQGridParam($req_param);
+            $count = $table->countAll();
+
+            if ($count > 0) $total_pages = ceil($count / $limit);
+            else $total_pages = 1;
+
+            if ($page > $total_pages) $page = $total_pages;
+            $start = $limit * $page - ($limit); // do not put $limit*($page - 1)
+
+            $req_param['limit'] = array(
+                'start' => $start,
+                'end' => $limit
+            );
+
+            $table->setJQGridParam($req_param);
+
+            if ($page == 0) $data['page'] = 1;
+            else $data['page'] = $page;
+
+            $data['total'] = $total_pages;
+            $data['records'] = $count;
+
+            $data['rows'] = $table->getAll();
+            $data['success'] = true;
+
+        }catch (Exception $e) {
+            $data['message'] = $e->getMessage();
+        }
+
+        return $data;
+    }
+
+     function readDataRBill() {
+
+        $page = getVarClean('page','int',1);
+        $limit = getVarClean('rows','int',5);
+        $sidx = getVarClean('sidx','str','customer_ref');
+        $sord = getVarClean('sord','str','asc');
+        $param_name = getVarClean('param_name','str','');
+        $isHeader = getVarClean('isHeader','str','');
+
+        $data = array('rows' => array(), 'page' => 1, 'records' => 0, 'total' => 1, 'success' => false, 'message' => '');
+
+        try {
+
+            $ci = & get_instance();
+            $ci->load->model('report/r_detail_tagihan');
+            $table = $ci->r_detail_tagihan;
+
+            $req_param = array(
+                "sort_by" => $sidx,
+                "sord" => $sord,
+                "limit" => null,
+                "field" => null,
+                "where" => null,
+                "where_in" => null,
+                "where_not_in" => null,
+                "search" => $_REQUEST['_search'],
+                "search_field" => isset($_REQUEST['searchField']) ? $_REQUEST['searchField'] : null,
+                "search_operator" => isset($_REQUEST['searchOper']) ? $_REQUEST['searchOper'] : null,
+                "search_str" => isset($_REQUEST['searchString']) ? $_REQUEST['searchString'] : null
+            );
+            
+            // init filter
+            $req_param['where'][] =' 1=1 ';
+
+            // set filter default 
+            $req_param['where'][] =" product_group not in ('PPN') and bill_unbill_status = 'UNBILL' ";
+
+            // filterToolbar Search 
+            $filterToolbar = getVarClean('filters', 'str', '');
+            $filtesToolbarArr = json_decode($filterToolbar, true);
+            if(count($filtesToolbarArr['rules']) > 0){
+                $whereSql = filterToolbarJqgrid($filterToolbar, 'true');
+                $req_param['where'][] .= $whereSql;
+            }
+
+            $table->setJQGridParam($req_param);
+            $count = $table->countAll();
+
+            if ($count > 0) $total_pages = ceil($count / $limit);
+            else $total_pages = 1;
+
+            if ($page > $total_pages) $page = $total_pages;
+            $start = $limit * $page - ($limit); // do not put $limit*($page - 1)
+
+            $req_param['limit'] = array(
+                'start' => $start,
+                'end' => $limit
+            );
+
+            $table->setJQGridParam($req_param);
+
+            if ($page == 0) $data['page'] = 1;
+            else $data['page'] = $page;
+
+            $data['total'] = $total_pages;
+            $data['records'] = $count;
+
+            $data['rows'] = $table->getAll();
+            $data['success'] = true;
+
+        }catch (Exception $e) {
+            $data['message'] = $e->getMessage();
+        }
+
+        return $data;
+    }
+
+
     function readDataBilling() {
 
         $page = getVarClean('page','int',1);
         $limit = getVarClean('rows','int',5);
-        $sidx = getVarClean('sidx','str','bill_seq');
-        $sord = getVarClean('sord','str','desc');
+        $sidx = getVarClean('sidx','str','ord');
+        $sord = getVarClean('sord','str','asc');
         $accountNum = getVarClean('accountNum','str','');
+        $periode = getVarClean('periode','str','');
 
         $data = array('rows' => array(), 'page' => 1, 'records' => 0, 'total' => 1, 'success' => false, 'message' => '');
 
@@ -111,7 +351,8 @@ class Invoice_controller {
             // init filter
             $req_param['where'][] =' 1=1 ';
             // Filter Table
-            $req_param['where'] = array( "account_num = '".$accountNum."'"  );
+            //$req_param['where'] = array( "account_num = '".$accountNum."'"  );
+            $table->setSelectBilling($accountNum, $periode);
 
             // filterToolbar Search 
             $filterToolbar = getVarClean('filters', 'str', '');
@@ -160,7 +401,7 @@ class Invoice_controller {
         $oper = getVarClean('oper', 'str', '');
         switch ($oper) {
             case 'add' :
-                permission_check('can-add-invoice');
+                permission_check('can-pooling-invoice');
                 $data = $this->create();
             break;
 
@@ -195,6 +436,14 @@ class Invoice_controller {
         $jsonItems = getVarClean('items', 'str', '');
         $items = jsonDecode($jsonItems);
 
+        /*$items = array();
+        foreach ($items as $key => $value) {
+            $items['id'] = $table->getIdPooling;
+            $items['id'] = $table->getIdPooling;
+
+        }
+*/
+
         if (!is_array($items)){
             $data['message'] = 'Invalid items parameter';
             return $data;
@@ -205,21 +454,26 @@ class Invoice_controller {
 
         if (isset($items[0])){
             $numItems = count($items);
+            $idPooling = $table->getIdPooling();
             for($i=0; $i < $numItems; $i++){
                 try{
-
-                    $table->db->trans_begin(); //Begin Trans
-
-                        $table->setRecord($items[$i]);
-                        $table->create();
-
-                    $table->db->trans_commit(); //Commit Trans
-
+                 
+                    $items[$i]['id'] = $idPooling;
+                    $items[$i]['userid'] = $table->userSession;
+                    
+                    //save data 
+                    $table->saveDataPooling($items[$i]);
+                    
+                   
                 }catch(Exception $e){
-
-                    $table->db->trans_rollback(); //Rollback Trans
                     $errors[] = $e->getMessage();
                 }
+            }
+
+            try{
+                $table->startPooling($idPooling);
+            }catch(Exception $e){
+                $errors[] = $e->getMessage();
             }
 
             $numErrors = count($errors);
@@ -230,26 +484,6 @@ class Invoice_controller {
                 $data['message'] = 'Data added successfully';
             }
             $data['rows'] =$items;
-        }else {
-
-            try{
-                $table->db->trans_begin(); //Begin Trans
-
-                    $table->setRecord($items);
-                    $table->create();
-
-                $table->db->trans_commit(); //Commit Trans
-
-                $data['success'] = true;
-                $data['message'] = 'Data added successfully';
-
-            }catch (Exception $e) {
-                $table->db->trans_rollback(); //Rollback Trans
-
-                $data['message'] = $e->getMessage();
-                $data['rows'] = $items;
-            }
-
         }
         return $data;
 
@@ -374,6 +608,61 @@ class Invoice_controller {
         }
         return $data;
     }
+
+    function uploadSigner() {
+
+        $ci = & get_instance();
+        $ci->load->model('invoice/parameter');
+        $table = $ci->parameter;
+
+        $name = getVarClean('name', 'str', '');
+        $position = getVarClean('position', 'str', '');
+
+        $data = array('success' => false, 'message' => '');
+
+        try{
+
+            $config['upload_path'] = './application/third_party/uploads/invoice_signer/';
+            $config['allowed_types'] = 'jpg|JPG|JPEG';
+            $config['max_size'] = '10000000';
+            $config['overwrite'] = TRUE;
+            $config['file_name'] = str_replace(' ','_',$name)."_signer_";//.date('Ymd h:i:s');
+
+            $ci->load->library('upload');
+            $ci->upload->initialize($config);
+
+            if (!$ci->upload->do_upload("file_upload")) {
+                throw new Exception( $ci->upload->display_errors() );
+            }else{
+                $filedata = $ci->upload->data();
+            }
+             
+                $data['param_id'] = $table->getIdParam();
+                $data['value'] = $name.'|'.$position.'|'.$config['file_name'];
+                $data['name'] = 'SIGNER';
+                
+                $table->saveDataParam($data);
+
+            //$table->db->insert( $table->table, $rec );
+            /*foreach($datainsert as $rec) {
+                $table->db->insert( $table->table, $rec );
+            }
+*/
+            //$table->insertPeriodeExpense($batch_id);
+            // update batch id di sc_schema 
+
+            $data['message'] = 'Upload data success';
+            $data['success'] = true;
+
+        }catch (Exception $e) {
+            $data['message'] = $e->getMessage();
+        }
+
+        echo json_encode($data);
+        exit;
+    }
+
+
 }
 
 /* End of file Groups_controller.php */

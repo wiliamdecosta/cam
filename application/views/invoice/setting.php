@@ -10,14 +10,21 @@
              <i class="fa fa-circle"></i>
         </li>
          <li>
-            <span>Print Invoice</span>
+            <span>Pooling Invoice</span>
         </li>
     </ul>
+    <div class="page-toolbar">
+        <div class="btn-group pull-right">
+            <button type="button" class="btn green btn-sm btn-outline dropdown-toggle" > <?php echo ''; ?>
+                <i class="fa fa-angle-down"></i>
+            </button>
+        </div>
+    </div>
 </div>
 <!-- end breadcrumb -->
 <div class="space-4"></div>
 <div class="row">
-
+<input type="hidden" id="nameParamAdd" >
   <div class="col-md-12">
         <div class="portlet light bordered">
             <div class="portlet-title">
@@ -30,23 +37,87 @@
             <!-- CONTENT PORTLET -->
             <div class="form-body">
             <div class="row">
-                <div class="col-md-12 green">
-                    <table id="grid-table-account"></table>
-                    <div id="grid-pager-account"></div>
-                </div>
-            </div>
-            <div class="space-4"></div>
-            <div class="row">
-                <div class="col-md-12 green">
-                    <table id="grid-table-billing"></table>
-                    <div id="grid-pager-billing"></div>
-                </div>
-            </div>
+                                <div class="col-md-4 green">
+                                    <table id="grid-table-account"></table>
+                                    <div id="grid-pager-account"></div>
+                                </div>
+                                <div class="col-md-8 green">
+                                    <table id="grid-table-billing"></table>
+                                    <div id="grid-pager-billing"></div>
+                                </div>
+                            </div>
             </div>
             <!-- END CONTENT PORTLET -->
         </div>
     </div>
 </div>
+<!-- Modal Edit  -->
+ <div class="modal fade bs-modal-lg" id="modalEditSigner" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Invoice Data</h4>
+            </div>
+            <div class="modal-body"> 
+                 <h4 class="modal-title" id="MDesc">Signer Data</h4>
+                 <hr> 
+                 <div class="space-4"></div>
+                 <div id="formAdd">
+                  <form class="form-horizontal" role="form" id="myForm1" enctype="multipart/form-data" accept-charset="utf-8">
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Name</label>
+                                <div class="col-md-6">
+                                    <div class="input-icon right">
+                                        <i class="fa fa-"></i>
+                                        <input type="text" name="name" class="form-control" placeholder=""> </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Position</label>
+                                <div class="col-md-6">
+                                    <div class="input-icon right">
+                                        <i class="fa fa-"></i>
+                                        <input type="text" name="position" class="form-control" placeholder=""> </div>
+                                </div>
+                            </div>
+                             <div class="form-group">
+                             <label class="col-md-3 control-label">File</label>
+                                <div class="col-md-6">
+                             <input type="file" name="file_upload" id="file_upload" />
+                               <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
+                             </div>
+                             </div>
+                             <div class="form-group">
+                             <label class="col-md-3 control-label"></label>
+                                <div class="col-md-6">
+                                    <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+                                    <img src="" alt="" id="blah"/> </div>
+                             </div>
+                             </div>
+                            <div class="form-group">
+                             <label class="col-md-3 control-label"></label>
+                                <div class="col-md-6">
+                                   <button type="submit" class="btn btn-primary">Submit</button>
+                             </div>
+                             </div>
+
+                        </div>
+
+                    </form>
+                 </div>
+                   
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- END Edit -->
 
 <!-- Modal Edit  -->
  <div class="modal fade bs-modal-lg" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true">
@@ -71,97 +142,89 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- END Edit -->
-
 <script>
-    function openEdit(account_num, periode, account_name){
-        $('#modalEdit').modal({backdrop: 'static'});
-        $('#MaccountNum').html('Account : <b>'+ account_num +' - '+periode+ ' | '+ account_name+ '</b>');
+$(document).ready(function(){
+
+    $("#myForm1").on('submit', (function (e) {
+          e.preventDefault();
+          var data = new FormData(this);
+
+          $.ajax({
+            type: 'POST',
+            dataType: "json",
+            url: '<?php echo WS_JQGRID."invoice.invoice_controller/uploadSigner"; ?>',
+            data: data,
+            // timeout: 10000,
+            contentType: false, // The content type used when sending data to the server.
+            cache: false, // To unable request pages to be cached
+            processData: false,
+            success: function(response) {
+              if(response.success) {
+
+                  $('#file_upload').val('');
+
+                  swal({title: 'Info', text: response.message, html: true, type: "info"});
+
+              }else{
+                  swal({title: 'Attention', text: response.message, html: true, type: "warning"});
+              }
+            }
+
+          });
+
+          return false;
+      }));
+
+
+
+});
+
+
+
+function readURL(input) {
+
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#blah').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
     }
+}
 
-    $(document).ready(function(){
-
-      
-
-    });
-
+$("#file_upload").change(function(){
+    readURL(this);
+});
 
     jQuery(function ($) {
         var grid_selector = "#grid-table-account";
         var pager_selector = "#grid-pager-account";
 
         jQuery("#grid-table-account").jqGrid({
-            url: '<?php echo WS_JQGRID . "invoice.invoice_controller/crud"; ?>',
+            url: '<?php echo WS_JQGRID . "invoice.invoice_controller/readDataParameter"; ?>',
             datatype: "json",
             mtype: "POST",
+            postData:{isHeader:1},
             colModel: [
-                /*{
-                    label: 'Action',
-                    name: 'address',
-                    hidden: false,
-                    width: 100,
-                    align: 'left'
-                },*/
-                {label: 'Action', name: ' ', width: 150,  sortable:false,  align:"center", editable: false,
+               
+                /*{label: 'Action', name: ' ', width: 100,  sortable:false,  align:"center", editable: false,
                     formatter: function(cellvalue, options, rowObject) {
-                        return '<button type="button" class="btn btn-xs btn-primary" title="print" onclick="printInvoice(\''+rowObject.account_num+'\',\''+rowObject.bill_prd+'\')"><i class="fa fa-print"></i></button> '+ '<button type="button" class="btn btn-xs btn-default" title="Edit Data" onclick="openEdit(\''+rowObject.account_num+'\',\''+rowObject.bill_prd+'\', \''+rowObject.account_name+'\')"><i class="fa fa-edit"></i></button>';
+                        return '<button type="button" class="btn btn-xs btn-primary" title="pooling invoice" onclick="showDiskon(\''+rowObject.account_num+'\',\''+rowObject.customer_ref+'\',\''+rowObject.account_name+'\',\''+rowObject.created_date+'\',\''+rowObject.schema_id+'\')"><i class="fa fa-rocket "></i></button>';
                     }
-                },
-
+                },*/
                 {
-                    label: 'Customer Ref',
-                    name: 'customer_ref',
-                    width: 150,
+                    label: 'Param Name',
+                    name: 'name',
+                    width: 100,
                     align: 'left',
                     hidden: false
                 },
-                 {
-                    label: 'Account Number',
-                    name: 'account_num',
-                    width: 150,
-                    align: 'left',
-                    hidden: false
-                },
-                {
-                    label: 'Account Name',
-                    name: 'account_name',
-                    hidden: false,
-                    width: 300,
-                    align: 'left'
-                },
-                {
-                    label: 'Periode',
-                    name: 'bill_prd',
-                    hidden: false
-                },
-                {
-                    label: 'Amount',
-                    name: 'invoice_mny',
-                    align: 'right',
-                    formatter :'number', 
-                    formatoptions: {decimalSeparator:".", thousandsSeparator: ",", decimalPlaces: 2, defaultValue: '0.00'}
-                },
-                {
-                    label: 'PPN',
-                    name: 'invoice_tax',
-                    hidden: false,
-                    width: 180,
-                    align: 'right',
-                    formatter :'number', 
-                    formatoptions: {decimalSeparator:".", thousandsSeparator: ",", decimalPlaces: 2, defaultValue: '0.00'}
-                },
-                {
-                    label: 'Total Amount',
-                    name: 'tot_bill',
-                    hidden: false,
-                    width: 180,
-                    align: 'right',
-                    formatter :'number', 
-                    formatoptions: {decimalSeparator:".", thousandsSeparator: ",", decimalPlaces: 2, defaultValue: '0.00'}
-                }
                 
             ],
             height: '100%',
-            autowidth: false,
+            autowidth: true,
             viewrecords: true,
             rowNum: 10,
             rowList: [10, 20, 50],
@@ -169,25 +232,25 @@
             rownumWidth: 35, // the width of the row numbers columns
             altRows: true,
             shrinkToFit: true,
-            //multiSort:true,
             multiboxonly: true,
             onSelectRow: function (rowid) {
                 /*do something when selected*/
-                var celValue = $('#grid-table-account').jqGrid('getCell', rowid, 'account_num');
+
+                var celValue = $('#grid-table-account').jqGrid('getCell', rowid, 'name');
+                $('#nameParamAdd').val(celValue);
                 var grid_id = $("#grid-table-billing");
                 if (rowid != null) {
                     grid_id.jqGrid('setGridParam', {
                         url: "<?php echo WS_JQGRID."invoice.invoice_controller/readDataParameter"; ?>",
                         datatype: 'json',
-                        postData: {accountNum: celValue},
+                        postData: {param_name: celValue},
                         userData: {row: rowid}
                     });
-                    grid_id.jqGrid('setCaption', 'Invoice Data For Account :: ' + celValue);
+                    grid_id.jqGrid('setCaption', 'Data Parameter :: ' + celValue);
                     $("#grid-table-billing").trigger("reloadGrid");
                 }
 
                 responsive_jqgrid('#grid-table-billing', '#grid-table-billingPager');
-
             },
             sortorder: '',
             pager: '#grid-pager-account',
@@ -204,14 +267,13 @@
             },
             //memanggil controller jqgrid yang ada di controller crud
             editurl: '<?php echo WS_JQGRID . "invoice.invoice_controller/crud"; ?>',
-            caption: "Invoice "
+            caption: "Parameter "
 
         });
         
         jQuery("#grid-table-account").jqGrid('filterToolbar', { stringResult: true, 
                                                                 searchOnEnter: true, 
-                                                                defaultSearch: "cn" ,
-                                                                //searchOperators : true
+                                                                defaultSearch: "cn" 
                                                                });
         
         jQuery('#grid-table-account').jqGrid('navGrid', '#grid-pager-account',
@@ -339,21 +401,11 @@
                 }
             }
             )
-       /*     .navButtonAdd('#grid-pager-account', {
-                caption: "",
-                buttonicon: "fa fa-file-excel-o green bigger-120",
-                position: "last",
-                title: "Export To Excel",
-                cursor: "pointer",
-                onClickButton: toExcelAccount,
-                id: "excel"
-            }
-            );*/
-
+ 
 
     });
 
-     jQuery(function ($) {
+    jQuery(function ($) {
         var grid_selector = "#grid-table-billing";
         var pager_selector = "#grid-pager-billing";
 
@@ -362,24 +414,24 @@
             datatype: "json",
             mtype: "POST",
             colModel: [
-                 {
-                    label: 'Name',
-                    name: 'name',
+                {label: 'ID', name: 'param_id', key: true, width: 5, sorttype: 'number', editable: true, hidden: true},
+                {
+                    label: 'Param Data',
+                    name: 'value',
                     width: 150,
                     align: 'left',
                     hidden: false
                 },
                 {
-                    label: 'Data',
-                    name: 'value',
-                    hidden: false,
-                    width: 300,
-                    align: 'left'
+                    label: 'Param Data',
+                    name: 'description',
+                    width: 150,
+                    align: 'left',
+                    hidden: true
                 }
-                
             ],
             height: '100%',
-            autowidth: false,
+            autowidth: true,
             viewrecords: true,
             rowNum: 10,
             rowList: [10, 20, 50],
@@ -407,7 +459,7 @@
             },
             //memanggil controller jqgrid yang ada di controller crud
             editurl: '<?php echo WS_JQGRID . "invoice.invoice_controller/crud"; ?>',
-            caption: "Invoice Data "
+            caption: "Data "
 
         });
         
@@ -423,7 +475,7 @@
                 editicon: 'fa fa-pencil blue bigger-120',
                 add: false,
                 addicon: 'fa fa-plus-circle purple bigger-120',
-                del: false,
+                del: true,
                 delicon: 'fa fa-trash-o red bigger-120',
                 search: true,
                 searchicon: 'fa fa-search orange bigger-120',
@@ -452,6 +504,7 @@
                     var form = $(e[0]);
                     style_edit_form(form);
 
+
                 },
                 afterShowForm: function (form) {
                     form.closest('.ui-jqdialog').center();
@@ -478,7 +531,8 @@
                 viewPagerButtons: false,
                 beforeShowForm: function (e, form) {
                     var form = $(e[0]);
-                    style_edit_form(form);
+                    /*style_edit_form(form);*/
+                     alert(form);
                 },
                 afterShowForm: function (form) {
                     form.closest('.ui-jqdialog').center();
@@ -541,9 +595,41 @@
                 }
             }
             )
+            /*.navButtonAdd('#grid-pager-billing', {
+                caption: "",
+                buttonicon: "fa fa-edit blue bigger-120",
+                position: "first",
+                title: "Edit",
+                cursor: "pointer",
+                onClickButton: toExcelAccount,
+                id: "addParamInv2"
+            })*/
+            .navButtonAdd('#grid-pager-billing', {
+                caption: "",
+                buttonicon: "fa fa-plus green bigger-120",
+                position: "first",
+                title: "Add Data",
+                cursor: "pointer",
+                onClickButton: addDataInv,
+                id: "addParamInv"
+            });
+            
+
 
     });
 
+    function addDataInv(){
+        name = $('#nameParamAdd').val();
+        if(name == 'SIGNER'){ // change to dynamic when have time 
+            $('#modalEditSigner').modal({backdrop: 'static'});
+            $('#MDesc').html(name);
+            $("#myForm1").closest('form').find("input[type=text],input[type=file] textarea").val("");
+        }else{
+            $('#modalEdit').modal({backdrop: 'static'});
+            $('#MDesc').html(name);
+            $("#myForm1").closest('form').find("input[type=text], textarea").val("");
+        }
+    }
 
     function toExcelAccount() {
         // alert("Convert to Excel");
@@ -555,16 +641,6 @@
         url += "&searchOper=" + $("#grid-table-account").getGridParam("postData").searchOper;
         url += "&searchString=" + $("#grid-table-account").getGridParam("postData").searchString;
         window.location = url;
-    }
-
-    function printInvoice(acc, prd){
-        url = '<?php echo base_url(); ?>'+'pdf/invoice/'+acc+'/'+prd+'/0';
-        openInNewTab(url);
-        //http://127.0.0.1/telpro/pdf/invoice/ACC0001/201701/0
-    }
-    function openInNewTab(url) {
-      var win = window.open(url, '_blank');
-      win.focus();
     }
 
     $('#cari_account').click(function () {
@@ -601,7 +677,7 @@
     function responsive_jqgrid(grid_selector, pager_selector) {
 
         var parent_column = $(grid_selector).closest('[class*="col-"]');
-        $(grid_selector).jqGrid('setGridWidth', $(".form-body").width());
+        $(grid_selector).jqGrid('setGridWidth', $(".col-md").width());
         $(pager_selector).jqGrid('setGridWidth', parent_column.width());
 
     }
