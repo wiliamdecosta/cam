@@ -76,7 +76,7 @@ class Generate_sap_unbill extends Abstract_model {
                         . "); END;";
 
                
-          $stmt = oci_parse($this->cust->db->conn_id, $sql);
+          $stmt = oci_parse($this->db->conn_id, $sql);
 
           //  Bind the input parameter
           oci_bind_by_name($stmt, ':i_user_name', $i_user_name);
