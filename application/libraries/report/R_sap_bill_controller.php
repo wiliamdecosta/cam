@@ -111,9 +111,9 @@ class R_sap_bill_controller {
             echo '<table border="1">';
             echo '<tr>';
                 echo '<th>No</th>';
-                echo '<th>NPER</th>';
-                echo '<th>Doc No</th>';
+                echo '<th>Periode Billing</th>';
                 echo '<th>Invoice No</th>';
+                echo '<th>Doc No</th>';
                 echo '<th>Journal No</th>';
                 echo '<th>Line Item</th>';
                 echo '<th>Customer Gl</th>';
@@ -131,11 +131,11 @@ class R_sap_bill_controller {
                 echo '<tr>';
                     echo '<td>' . $i++ . '</td>';
                     echo '<td>' . $item['nper'] . '</td>';
-                    echo '<td>' . $item['doc_no'] . '</td>';
-                    echo '<td>' . $item['invoice_no'] . '</td>';
-                    echo '<td>' . $item['journal_no'] . '</td>';
+                    echo '<td>' . $item['invoice_no'] . '&nbsp;</td>';
+                    echo '<td>' . $item['doc_no'] . '&nbsp;</td>';
+                    echo '<td>' . $item['journal_no'] . '&nbsp;</td>';
                     echo '<td>' . $item['line_item'] . '</td>';
-                    echo '<td>' . $item['customer_gl'] . '</td>';
+                    echo '<td>' . $item['customer_gl'] . '&nbsp;</td>';
 
                     echo '<td>' . $item['cust_gl_type'] . '</td>';
                     echo '<td>' . $item['ba'] . '</td>';

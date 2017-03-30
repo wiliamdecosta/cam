@@ -64,8 +64,16 @@
             mtype: "POST",
             colModel: [
                 {
-                    label: 'NPER',
+                    label: 'Periode Billing',
                     name: 'nper',
+                    width: 300,
+                    align: 'right',
+                    hidden: false,
+                    sorttype :'number'
+                },
+                {
+                    label: 'Invoice No',
+                    name: 'invoice_no',
                     width: 300,
                     align: 'left',
                     hidden: false
@@ -73,13 +81,6 @@
                 {
                     label: 'Doc No',
                     name: 'doc_no',
-                    width: 300,
-                    align: 'left',
-                    hidden: false
-                },
-                {
-                    label: 'Invoice No',
-                    name: 'invoice_no',
                     width: 300,
                     align: 'left',
                     hidden: false
@@ -96,7 +97,8 @@
                     name: 'line_item',
                     hidden: false,
                     width: 150,
-                    align: 'left'
+                    align: 'right',
+                    sorttype :'number'
                 },
                 {
                     label: 'Customer Gl',
@@ -131,21 +133,24 @@
                     name: 'post_date',
                     hidden: false,
                     width: 150,
-                    align: 'left'
+                    align: 'right',
+                    sorttype :'number'
                 },
                 {
                     label: 'Doc Date',
                     name: 'doc_date',
                     hidden: false,
                     width: 150,
-                    align: 'left'
+                    align: 'right',
+                    sorttype :'number'
                 },
                 {
                     label: 'AMOUNT',
                     name: 'amount',
                     hidden: false,
                     width: 150,
-                    align: 'left'
+                    align: 'right',
+                    sorttype :'number'
                 },
                 {
                     label: 'TEXT',
