@@ -64,99 +64,177 @@
             mtype: "POST",
             colModel: [
                 {
-                    label: 'Periode Billing',
-                    name: 'nper',
-                    width: 300,
-                    align: 'right',
-                    hidden: false,
-                    sorttype :'number'
-                },
-                {
-                    label: 'Invoice No',
-                    name: 'invoice_no',
-                    width: 300,
-                    align: 'left',
-                    hidden: false
-                },
-                {
-                    label: 'Doc No',
-                    name: 'doc_no',
-                    width: 300,
-                    align: 'left',
-                    hidden: false
-                },
-                {
                     label: 'Journal No',
                     name: 'journal_no',
-                    width: 150,
-                    align: 'left',
-                    hidden: false
+                    hidden: false,
+                    width: 250,
+                    align: 'left'
                 },
                 {
                     label: 'Line Item',
                     name: 'line_item',
                     hidden: false,
+                    width: 100,
+                    align: 'right',
+                    sorttype :'number'
+                },
+                {
+                    label: 'CO Code',
+                    name: 'co_code',
+                    hidden: false,
+                    width: 100,
+                    align: 'left'
+                },
+                {
+                    label: 'Doc Type',
+                    name: 'doc_type',
+                    hidden: false,
+                    width: 100,
+                    align: 'left'
+                },
+                {
+                    label: 'Periode',
+                    name: 'period',
+                    width: 100,
+                    align: 'left',
+                    hidden: false,
+                    sorttype :'number'
+                },
+                {
+                    label: 'Curr',
+                    name: 'curr',
+                    width: 100,
+                    align: 'left',
+                    hidden: false
+                },
+                {
+                    label: 'Profit Center',
+                    name: 'profit_center',
+                    hidden: false,
+                    width: 150,
+                    align: 'left'
+                },
+                {
+                    label: 'Reference',
+                    name: 'reference',
+                    hidden: false,
+                    width: 250,
+                    align: 'left'
+                },
+                {
+                    label: 'Doc Header',
+                    name: 'doc_header',
+                    width: 250,
+                    align: 'left',
+                    hidden: false
+                },
+                {
+                    label: 'Doc Date',
+                    name: 'doc_date',
+                    hidden: false,
+                    width: 100,
+                    align: 'right',
+                    sorttype :'number'
+                },
+                {
+                    label: 'Post Date',
+                    name: 'post_date',
+                    hidden: false,
+                    width: 100,
+                    align: 'right',
+                    sorttype :'number'
+                },
+                {
+                    label: 'Post Key',
+                    name: 'post_key',
+                    hidden: false,
                     width: 150,
                     align: 'right',
                     sorttype :'number'
                 },
                 {
-                    label: 'Customer Gl',
+                    label: 'Customer GL',
                     name: 'customer_gl',
                     hidden: false,
                     width: 150,
                     align: 'left'
                 },
                 {
-                    label: 'Cust Gl Type',
-                    name: 'cust_gl_type',
-                    width: 300,
-                    align: 'left',
-                    hidden: false
-                },
-                {
                     label: 'BA',
                     name: 'ba',
-                    width: 300,
-                    align: 'left',
-                    hidden: false
+                    hidden: false,
+                    width: 100,
+                    align: 'left'
                 },
                 {
-                    label: 'Profit center',
+                    label: 'Cost Center',
+                    name: 'cost_center',
+                    hidden: false,
+                    width: 150,
+                    align: 'left'
+                },
+                {
+                    label: 'Profit Center',
                     name: 'profit_center',
-                    width: 150,
-                    align: 'left',
-                    hidden: false
-                },
-                {
-                    label: 'Post Date',
-                    name: 'post_date',
                     hidden: false,
                     width: 150,
-                    align: 'right',
-                    sorttype :'number'
+                    align: 'left'
                 },
                 {
-                    label: 'Doc Date',
-                    name: 'doc_date',
+                    label: 'Activity Type',
+                    name: 'activity_type',
                     hidden: false,
                     width: 150,
-                    align: 'right',
-                    sorttype :'number'
+                    align: 'left'
                 },
                 {
-                    label: 'AMOUNT',
-                    name: 'amount',
+                    label: 'Assignment',
+                    name: 'assignment',
                     hidden: false,
                     width: 150,
-                    align: 'right',
-                    sorttype :'number'
+                    align: 'left'
                 },
                 {
-                    label: 'TEXT',
+                    label: 'Text',
                     name: 'text',
                     hidden: false,
+                    width: 250,
+                    align: 'left'
+                },
+                {
+                    label: 'Amount Doc',
+                    name: 'amount_doc',
+                    hidden: false,
+                    width: 200,
+                    align: 'left'
+                },
+                {
+                    label: 'Amount Local',
+                    name: 'amount_local',
+                    hidden: false,
+                    width: 200,
+                    align: 'right',
+                    sorttype :'number'
+                },
+                {
+                    label: 'Cust GL Type',
+                    name: 'cust_gl_type',
+                    hidden: false,
                     width: 150,
+                    align: 'left'
+                },
+                {
+                    label: 'D_C',
+                    name: 'd_c',
+                    hidden: false,
+                    width: 150,
+                    align: 'left'
+                },
+                {
+                    label: 'Trade Partner',
+                    name: 'trade_partner',
+                    hidden: false,
+                    width: 250,
                     align: 'left'
                 }
             ],

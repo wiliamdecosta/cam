@@ -10,7 +10,7 @@ class R_sap_bill_controller {
 
         $page = getVarClean('page','int',1);
         $limit = getVarClean('rows','int',5);
-        $sidx = getVarClean('sidx','str','nper');
+        $sidx = getVarClean('sidx','str','journal_no');
         $sord = getVarClean('sord','str','asc');
         $periode = getVarClean('periode','str','');
 
@@ -75,7 +75,7 @@ class R_sap_bill_controller {
 
     function excel()
     {
-        $sidx = getVarClean('sidx', 'str', 'nper');
+        $sidx = getVarClean('sidx', 'str', 'journal_no');
         $sord = getVarClean('sord', 'str', 'asc');
         $periode = getVarClean('periode','str','');
 
@@ -111,40 +111,58 @@ class R_sap_bill_controller {
             echo '<table border="1">';
             echo '<tr>';
                 echo '<th>No</th>';
-                echo '<th>Periode Billing</th>';
-                echo '<th>Invoice No</th>';
-                echo '<th>Doc No</th>';
                 echo '<th>Journal No</th>';
                 echo '<th>Line Item</th>';
-                echo '<th>Customer Gl</th>';
-                echo '<th>Cust Gl Type</th>';
-                echo '<th>BA</th>';
-                echo '<th>Profit center</th>';
-                echo '<th>Post Date</th>';
+                echo '<th>Co Code</th>';
+                echo '<th>Doc Type</th>';
+                echo '<th>Period</th>';
+                echo '<th>Curr</th>';
+                echo '<th>Reference</th>';
+                echo '<th>Doc Header</th>';
                 echo '<th>Doc Date</th>';
-                echo '<th>AMOUNT</th>';
-                echo '<th>TEXT</th>';
+                echo '<th>Post Date</th>';
+                echo '<th>Pos Key</th>';
+                echo '<th>Customer Gl</th>';
+                echo '<th>Ba</th>';
+                echo '<th>Cost Center</th>';
+                echo '<th>Profit Center</th>';
+                echo '<th>Activity Type</th>';
+                echo '<th>Assignment</th>';
+                echo '<th>Text</th>';
+                echo '<th>Amount Doc</th>';
+                echo '<th>Amount Local</th>';
+                echo '<th>Cust Gl Type</th>';
+                echo '<th>D_C</th>';
+                echo '<th>Trade Partner</th>';
             echo '</tr>';
             $i = 1;
                                 
             foreach ($items as $item) {
                 echo '<tr>';
                     echo '<td>' . $i++ . '</td>';
-                    echo '<td>' . $item['nper'] . '</td>';
-                    echo '<td>' . $item['invoice_no'] . '&nbsp;</td>';
-                    echo '<td>' . $item['doc_no'] . '&nbsp;</td>';
                     echo '<td>' . $item['journal_no'] . '&nbsp;</td>';
                     echo '<td>' . $item['line_item'] . '</td>';
-                    echo '<td>' . $item['customer_gl'] . '&nbsp;</td>';
-
-                    echo '<td>' . $item['cust_gl_type'] . '</td>';
-                    echo '<td>' . $item['ba'] . '</td>';
-                    echo '<td>' . $item['profit_center'] . '</td>';
-
-                    echo '<td>' . $item['post_date'] . '</td>';
+                    echo '<td>' . $item['co_code'] . '</td>';
+                    echo '<td>' . $item['doc_type'] . '</td>';
+                    echo '<td>' . $item['period'] . '</td>';
+                    echo '<td>' . $item['curr'] . '</td>';
+                    echo '<td>' . $item['reference'] . '</td>';
+                    echo '<td>' . $item['doc_header'] . '</td>';
                     echo '<td>' . $item['doc_date'] . '</td>';
-                    echo '<td>' . $item['amount'] . '</td>';
+                    echo '<td>' . $item['post_date'] . '</td>';
+                    echo '<td>' . $item['pos_key'] . '</td>';
+                    echo '<td>' . $item['customer_gl'] . '&nbsp;</td>';
+                    echo '<td>' . $item['ba'] . '</td>';
+                    echo '<td>' . $item['cost_center'] . '</td>';
+                    echo '<td>' . $item['profit_center'] . '</td>';
+                    echo '<td>' . $item['activity_type'] . '</td>';
+                    echo '<td>' . $item['assignment'] . '</td>';
                     echo '<td>' . $item['text'] . '</td>';
+                    echo '<td>' . $item['amount_doc'] . '</td>';
+                    echo '<td>' . $item['amount_local'] . '</td>';
+                    echo '<td>' . $item['cust_gl_type'] . '</td>';
+                    echo '<td>' . $item['d_c'] . '</td>';
+                    echo '<td>' . $item['trade_partner'] . '</td>';
                 echo '</tr>';
             }
             echo '</table>';
