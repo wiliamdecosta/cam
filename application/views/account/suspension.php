@@ -111,7 +111,7 @@
     });
     $('#tab-1').on('click', function(event){
         event.stopPropagation();
-        loadContentWithParams("account.suspension", {
+        loadContentWithParams("account.detail_account", {
             account_num: "<?php echo $this->input->post('account_num');?>"
         });
     });
