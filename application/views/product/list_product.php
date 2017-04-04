@@ -31,8 +31,8 @@
             <div class="form-body">
             <button class="btn btn-success" id="detail-prod" disabled=""> <i class="fa fa-newspaper-o"></i>Detail Product</button>
             <button class="btn btn-warning" id="modify-prod" disabled=""> <i class="fa fa-pencil-square-o"></i>Modify Product</button>
-            <button class="btn btn-default" id="reactivate-prod" disabled=""> <i class="fa fa-pencil-square-o"></i>Reactivate Product</button>
             <button class="btn btn-primary" id="suspend-prod" disabled=""> <i class="fa fa-tasks"></i>Suspend</button>
+            <button class="btn btn-default" id="reactivate-prod" disabled=""> <i class="fa fa-pencil-square-o"></i>Reactivate Product</button>
 
             <div class="row">
                                 <div class="col-md-12 green">
@@ -90,7 +90,6 @@
 
     });
 
-<<<<<<< .mine
     $('#reactivate-prod').on('click', function(event){
         event.stopPropagation();
         var grid = $('#grid-table-account');
@@ -110,8 +109,6 @@
 
     });
 
-||||||| .r248
-=======
     $('#suspend-prod').on('click', function(event){
         event.stopPropagation();
         var grid = $('#grid-table-account');
@@ -134,7 +131,6 @@
 
     });
 
->>>>>>> .r249
     jQuery(function ($) {
         var grid_selector = "#grid-table-account";
         var pager_selector = "#grid-pager-account";
@@ -309,12 +305,8 @@
                 
                 $('#detail-prod').prop( "disabled", false );
                 $('#modify-prod').prop( "disabled", false );
-<<<<<<< .mine
                 $('#reactivate-prod').prop( "disabled", false );
-||||||| .r248
-=======
                 $('#suspend-prod').prop( "disabled", false );
->>>>>>> .r249
 
             },
             sortorder: '',
