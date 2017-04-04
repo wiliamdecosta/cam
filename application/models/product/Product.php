@@ -147,6 +147,7 @@ class Product extends Abstract_model {
         return $query->result_array();
     }
 
+
     public function getFinance($customer_ref, $product_seq){
         $sql = "select    s01 as account_num,
                           s02 as subscription ,

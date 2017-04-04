@@ -423,4 +423,6 @@ class Detailproduct_controller {
         echo json_encode($data);
         exit;
     }
+
+
 }
