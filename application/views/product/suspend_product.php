@@ -59,8 +59,10 @@
                                         <div class="form-body">
                                     
                                             <div class="form-group">
+
                                                 <label class="control-label col-md-3">Status
                                                     <span class="required">  * </span>
+                                                <label class="control-label col-md-6" style="text-align: left !important;" id="prod_status_code" name="prod_status_code"></label>
                                                 </label>
                                                 <div class="col-md-2">
                                                     <input type="hidden" class="form-control required" name="status_code" id="status_code"  value="SU">
@@ -167,7 +169,7 @@
     });
 
 
-     $('#tab-0').on('click', function(event){
+     $('#cancel').on('click', function(event){
         event.stopPropagation();
         loadContentWithParams("product.list_product", {});
     });
@@ -195,10 +197,5 @@
         error: function (xhr, status, error) {
             swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
         }
-    });
-
-    $('#cancel').on('click', function(event){
-        event.stopPropagation();
-        loadContentWithParams("product.list_product", {});
     });
 </script>

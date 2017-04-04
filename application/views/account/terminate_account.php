@@ -41,7 +41,9 @@
                                     <div class="row">
                                         <div class="form-body">
                                             <div class="form-group">
+
                                                 <label class="control-label col-md-3">Terminate Date <span class="required">  * </span></label>
+                                                <label class="control-label col-md-6" style="text-align: left !important;" id="prod_status_code" name="prod_status_code"></label>
                                                 <div class="col-md-2">
                                                     <input type="text" class="form-control datepicker1 required" name="terminate_date" id="terminate_date">
 

@@ -57,7 +57,9 @@
                                 <div class="row">
                                     <div class="form-body">
                                         <div class="form-group">
+
                                             <label class="control-label col-md-3">Status</label>
+                                            <label class="control-label col-md-6" style="text-align: left !important;" id="prod_status_code" name="prod_status_code"></label>
                                             <div class="col-md-3">
                                                 <label class="control-label col-md-3" style="text-align: left !important;" id="prod_status_code" name="prod_status_code">Terminated</label>
                                                 <input type="hidden" class="form-control required" name="prod_status_code1" id="prod_status_code1" readonly>
