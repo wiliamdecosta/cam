@@ -465,4 +465,136 @@ class Account extends CI_Controller
 
     }
 
+    function gen_con(){
+        $sql = "select pack_lov.f_get_order_num ('".getUserName()."') as jml from dual";
+        $query = $this->db->query($sql);
+        $items = $query->row(0);
+
+        return $items->jml; 
+    }
+
+    function modifyAccount(){
+        // account attr
+        $attr = getColomTable($table = 'accountattributes', $conn = 'default');
+        $accAttr = '';
+        foreach ($attr as $key => $value) {            
+            $accAttr .= "<accAttribute>
+                            <attrName>".$value->column_name."</attrName>
+                            <attrIndex>".$value->column_id."</attrIndex>
+                            <attrType>C</attrType>
+                            <attrValue>".$this->input->post($value->column_name)."</attrValue>
+                            <startDat></startDat>
+                            <endDat></endDat>
+                          </accAttribute>";
+        }
+
+        $account_name = $this->input->post('account_name');
+        $bill_period = $this->input->post('inBillPeriode');
+        $period_unit = $this->input->post('inSLBillPeriode');
+        $pay_method = $this->input->post('inPaymentMethod');
+        $inAccountCurrency = $this->input->post('inAccountCurrency');
+        $inTaxStatus = $this->input->post('inTaxStatus');
+        $accStatus = $this->input->post('accStatus');
+        $inAccountToGoLive = $this->input->post('inAccountToGoLive');
+        $inNextBillDate = $this->input->post('inNextBillDate');
+        $inFirstName = $this->input->post('inFirstName');
+        $inLastName = $this->input->post('inLastName');
+        $inCompanyName = $this->input->post('inCompanyName');
+        $inEmail = $this->input->post('inEmail');
+        $inMobileNumber = $this->input->post('inMobileNumber');
+        $inStreetName = $this->input->post('inStreetName');
+        $inBlockName = $this->input->post('inBlockName');
+        $inCity = $this->input->post('inCity');
+        $inDistrictName = $this->input->post('inDistrictName');
+        $inProvinsi = $this->input->post('inProvinsi');
+        $inZipCode = $this->input->post('inZipCode');
+        $country = $this->input->post('wizard5_country_code');
+
+        $i_Order_Type = 'MOACC';
+        $i_Order_No = $this->gen_con();
+        $i_Customer_Ref = $this->input->post('customer_ref');
+        $i_Account_Num = $this->input->post('AccountNumber');
+        $i_UserName = getUserName();
+        $i_orderHeader = "<?xml version='1.0'?>
+                            <orderHeader>
+                              <orderType>".$i_Order_Type."</orderType>
+                              <orderSubType>1100</orderSubType>
+                              <orderCode>UB2P</orderCode>
+                              <orderId>".$i_Order_No."</orderId>
+                              <previousOrderId></previousOrderId>
+                              <orderDate>".date('Ymd h:i:s')."</orderDate>
+                              <soldToParty>".$i_Customer_Ref."</soldToParty>
+                              <org></org>
+                              <nipnas></nipnas>
+                              <bundling>F</bundling>
+                              <bundlingRef></bundlingRef>
+                              <DC>DIVES</DC>
+                            </orderHeader>";
+
+        $i_orderDoc = "<?xml version='1.0'?>
+                        <accountDoc>
+                          <customerRef>".$i_Customer_Ref."</customerRef>
+                          <accountNum>".$i_Account_Num."</accountNum>
+                          <accountName>".$account_name."</accountName>
+                          <marketSegment></marketSegment>
+                          <billPeriod>".$bill_period."</billPeriod>
+                          <billPeriodUnit>".$period_unit."</billPeriodUnit>
+                          <paymentMethod>".$pay_method."</paymentMethod>
+                          <currency>".$inAccountCurrency."</currency>
+                          <taxInclusive>".$inTaxStatus."</taxInclusive>
+                          <accountStatus>".$accStatus."</accountStatus>
+                          <goLiveDtm>".$inAccountToGoLive."</goLiveDtm>
+                          <nextBillDtm>".$inNextBillDate."</nextBillDtm>
+                          <accountContact>
+                            <firstName>".$inFirstName."</firstName>
+                            <lastName>".$inLastName."</lastName>
+                            <salutationName>".$inCompanyName."</salutationName>
+                            <email>".$inEmail."</email>
+                            <phone>".$inMobileNumber."</phone>
+                            <contactAddress>
+                              <addr1>".$inStreetName."</addr1>
+                              <addr2>".$inBlockName."</addr2>
+                              <addr3>".$inCity."</addr3>
+                              <addr4>".$inDistrictName."</addr4>
+                              <addr5>".$inProvinsi."</addr5>
+                              <postCode>".$inZipCode."</postCode>
+                              <country>".$country."</country>
+                            </contactAddress>
+                          </accountContact>
+                          <accAttributes>
+                            ".$accAttr."
+                          </accAttributes>
+                        </accountDoc>";
+        // die($i_orderDoc); exit;
+
+        $sql = " BEGIN "
+                . " TLKCAMWEBINTERFACE.ModifyBill2Party ("
+                . " :i_Order_Type, "
+                . " :i_Order_No, "
+                . " :i_Customer_Ref, "
+                . " :i_Account_Num, "
+                . " :i_UserName, "
+                . " :i_orderHeader, "
+                . " :i_orderDoc, "
+                . " :o_orderStatus "
+                . "); END;";
+
+        $stmt = oci_parse($this->db->conn_id, $sql);
+
+        //  Bind the input parameter
+        oci_bind_by_name($stmt, ':i_Order_Type', $i_Order_Type);
+        oci_bind_by_name($stmt, ':i_Order_No', $i_Order_No);
+        oci_bind_by_name($stmt, ':i_Customer_Ref', $i_Customer_Ref);
+        oci_bind_by_name($stmt, ':i_Account_Num', $i_Account_Num);
+        oci_bind_by_name($stmt, ':i_UserName', $i_UserName);
+        oci_bind_by_name($stmt, ':i_orderHeader', $i_orderHeader);
+        oci_bind_by_name($stmt, ':i_orderDoc', $i_orderDoc);
+
+        // Bind the output parameter
+        oci_bind_by_name($stmt, ':o_orderStatus', $o_orderStatus, 2000000);
+
+        ociexecute($stmt);
+
+    }
+
 }

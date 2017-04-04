@@ -30,6 +30,7 @@
             <!-- CONTENT PORTLET -->
             <div class="form-body">
             <button class="btn btn-success" id="detail-acc" disabled=""> <i class="fa fa-newspaper-o"></i>Detail Account</button>
+            <button class="btn btn-warning" id="modify-acc" disabled=""> <i class="fa fa-pencil-square-o"></i>Modify Account</button>
 
             <div class="row">
                                 <div class="col-md-12 green">
@@ -60,6 +61,28 @@
 
     });
 
+
+    $('#modify-acc').on('click', function(event){
+        event.stopPropagation();
+        var grid = $('#grid-table-account');
+        var rowid = grid.jqGrid ('getGridParam', 'selrow');
+        var accnum = grid.jqGrid ('getCell', rowid, 'account_num');
+        var accname = grid.jqGrid ('getCell', rowid, 'account_name');
+        var cusref = grid.jqGrid ('getCell', rowid, 'customer_ref');
+
+        if(rowid == null) {
+            swal('Informasi','Silahkan pilih salah satu account','info');
+            return false;
+        }
+
+        loadContentWithParams("account.modify_account", {
+            account_num : accnum,
+            customer_ref : cusref,
+            account_name : accname
+        });
+
+    });
+
     jQuery(function ($) {
         var grid_selector = "#grid-table-account";
         var pager_selector = "#grid-pager-account";
@@ -75,15 +98,14 @@
                     width: 150,
                     align: 'left',
                     hidden: false
-                },/*
+                },
                 {
-                    label: 'Action',
-                    name: 'action',
-                    hidden: false,
+                    label: 'Customer Ref',
+                    name: 'customer_ref',
                     width: 150,
-                    align: 'right'
-
-                },*/
+                    align: 'left',
+                    hidden: true
+                },
                 {
                     label: 'Account Name',
                     name: 'account_name',
@@ -143,6 +165,7 @@
             onSelectRow: function (rowid) {
                 /*do something when selected*/
                 $('#detail-acc').prop( "disabled", false );
+                $('#modify-acc').prop( "disabled", false );
 
             },
             sortorder: '',

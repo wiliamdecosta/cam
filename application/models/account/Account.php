@@ -173,6 +173,59 @@ class Account extends Abstract_model {
     }
 
 
+    public function getModifyAccount($account_num){
+        $sql = "select  s01 as customer_ref,
+                      s02 as account_num ,
+                      s03 as account_name ,
+                      s04 as currency_code,
+                      s05 as next_bill_dtm ,
+                      s06 as tax_status ,
+                      s07 as email ,
+                      n01 as country_id,
+                      s08 as country_name,
+                      s09 as company_name,
+                      n03 as bilper_statement,
+                      s10 as bill_handling_code,
+                      n04 as credit_limit_mny,
+                      n05 as acontact_id,
+                      s11 as package_disc_account_num,
+                      s12 as event_disc_account_num,
+                      s13 as mobile_contact_tel,
+                      s14 as address1,
+                      s15 as address2,
+                      s16 as address3,
+                      s17 as address4,
+                      s18 as address5,
+                      s19 as zipcode,
+                      s20 as payment_term_desc,
+                      s21 as first_name,
+                      s22 as last_name,
+                      s23 as go_live_date,
+                      s24 as account_status
+               from table(pack_list_cust_acc_prod_2.account_modify_billing ('".$this->session->userdata('user_name')."','".$account_num."'))";
+        $query = $this->db->query($sql);
+
+        return $query->result_array();
+    }
+
+    public function getModifyBillInfo($account_num){
+        $sql = "select s03 as business_share ,
+                      s04 as npwp,
+                      s05 as is_monthly_invoice ,
+                      s06 as sap_account ,
+                      s07 as slbill_period,
+                      n01 as bill_period,
+                      n02 as accounting_method,
+                      n03 as bill_style_id,
+                      n04 as credit_class_id,
+                      n05 as payment_method_id
+               from table(pack_list_cust_acc_prod_2.account_modify_billing_nexttab ('".$this->session->userdata('user_name')."','".$account_num."'))";
+        $query = $this->db->query($sql);
+
+        return $query->result_array();
+    }
+
+
 }
 
 /* End of file Users.php */

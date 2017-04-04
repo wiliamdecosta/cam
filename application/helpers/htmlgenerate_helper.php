@@ -377,7 +377,7 @@ if (!function_exists('generatehtml')) {
             $dataType = $value->data_type == 'NUMBER' ? 'number' : 'text';
             $oKU = '';
             if($value->column_name == 'NPWP'){ // need to change to parameter
-                $oKU = "onkeypress='return isAlphaNumeric(event);'";
+                //$oKU = "onkeypress='return isAlphaNumeric(event);'";
             }
             // change this condition to parameter ASAP
             if($value->column_name == 'IS_MONTHLY_INVOICE'){ 
