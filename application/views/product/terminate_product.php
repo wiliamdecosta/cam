@@ -53,16 +53,18 @@
                         </div>
                         <div class="portlet-body">                      
                             <!-- Product -->
+                        <form class="form-horizontal" action="#" id="submit_form" method="POST">
                             <div class="form-horizontal">
                                 <div class="row">
                                     <div class="form-body">
                                         <div class="form-group">
-
                                             <label class="control-label col-md-3">Status</label>
-                                            <label class="control-label col-md-6" style="text-align: left !important;" id="prod_status_code" name="prod_status_code"></label>
                                             <div class="col-md-3">
                                                 <label class="control-label col-md-3" style="text-align: left !important;" id="prod_status_code" name="prod_status_code">Terminated</label>
                                                 <input type="hidden" class="form-control required" name="prod_status_code1" id="prod_status_code1" readonly>
+                                                <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>"
+                                           value="<?php echo
+                                           $this->security->get_csrf_hash(); ?>">
                                             </div>
                                         </div>
 
@@ -104,6 +106,7 @@
                                     </div>
                                 </div>
                             </div>
+                        </form>
                             <!-- Product -->
                         </div>
                     </div>
@@ -119,8 +122,7 @@
         // defaultDate: new Date()
     });
 
-    $('#tab-0').on('click', function(event){
-        event.stopPropagation();
+    $('#cancel').on('click', function(event){
         loadContentWithParams("product.list_product", {});
     });
 
@@ -146,10 +148,5 @@
         error: function (xhr, status, error) {
             swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
         }
-    });
-
-    $('#cancel').on('click', function(event){
-        event.stopPropagation();
-        loadContentWithParams("product.list_product", {});
     });
 </script>
