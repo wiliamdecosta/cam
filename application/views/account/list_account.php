@@ -31,7 +31,7 @@
             <div class="form-body">
             <button class="btn btn-success" id="detail-acc" disabled=""> <i class="fa fa-newspaper-o"></i>Detail Account</button>
             <button class="btn btn-warning" id="modify-acc" disabled=""> <i class="fa fa-pencil-square-o"></i>Modify Account</button>
-            <button class="btn btn-default" id="terminate-acc" disabled=""> <i class="fa fa-pencil-square-o"></i>Terminate Account</button>
+            <button class="btn btn-primary" id="terminate-acc" disabled=""> <i class="fa fa-tasks"></i>Terminate Account</button>
 
             <div class="row">
                                 <div class="col-md-12 green">
