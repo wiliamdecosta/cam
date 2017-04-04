@@ -24,7 +24,7 @@
 <div class="space-4"></div>
 <div class="row">
     <div class="col-xs-12">
-        <div class="tabbable">
+        <!--<div class="tabbable">
             <ul class="nav nav-tabs">
                 <li class="">
                     <a href="javascript:;" data-toggle="tab" aria-expanded="true" id="tab-0">
@@ -39,11 +39,11 @@
                     </a>
                 </li>
             </ul>
-        </div>
+        </div>-->
 
         <div class="tab-content no-border">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="portlet red box menu-panel">
                         <div class="portlet-title">
                             <div class="caption">Terminate Product</div>
@@ -55,43 +55,50 @@
                             <!-- Product -->
                             <div class="form-horizontal">
                                 <div class="row">
-                                    <div class="form-group">
-                                        <label class="control-label col-md-5">Status</label>
-                                        <div class="col-md-6">
-                                            <label class="control-label col-md-6" style="text-align: left !important;" id="prod_status_code" name="prod_status_code">Terminated</label>
-                                            <input type="hidden" class="form-control required" name="prod_status_code1" id="prod_status_code1" readonly>
+                                    <div class="form-body">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">Status</label>
+                                            <div class="col-md-3">
+                                                <label class="control-label col-md-3" style="text-align: left !important;" id="prod_status_code" name="prod_status_code">Terminated</label>
+                                                <input type="hidden" class="form-control required" name="prod_status_code1" id="prod_status_code1" readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">Effective From</label>
+                                            <div class="col-md-3">
+                                                <input type="text" class="form-control datepicker1" name="current_effective_dtm" id="current_effective_dtm">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">Current Status</label>
+                                            <div class="col-md-3">
+                                                <label class="control-label col-md-3" style="text-align: left !important;" id="current_status" name="current_status"></label>
+                                                <input type="hidden" class="form-control required" name="current_status1" id="current_status1" readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">Reason</label>
+                                            <div class="col-md-6">
+                                                <textarea class="form-control" name="current__reason_txt" id="current__reason_txt"></textarea> 
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label class="control-label col-md-5">Effective From</label>
-                                        <div class="col-md-6">
-                                            <input type="text" class="form-control datepicker1" name="current_effective_dtm" id="current_effective_dtm">
+                                    <div class="form-actions">
+                                        <div class="row">
+                                            <div class="col-md-offset-3 col-md-9">
+                                                <button type="submit" class="btn green button-submit"> Submit
+                                                    <i class="fa fa-check"></i>
+                                                </button>
+                                                <button class="btn btn-danger radius-4" id="cancel" >
+                                                    <i class="fa fa-times"></i>
+                                                    Cancel
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="control-label col-md-5">Current Status</label>
-                                        <div class="col-md-6">
-                                            <label class="control-label col-md-6" style="text-align: left !important;" id="current_status" name="current_status"></label>
-                                            <input type="hidden" class="form-control required" name="current_status1" id="current_status1" readonly>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="control-label col-md-5">Reason</label>
-                                        <div class="col-md-6">
-                                            <textarea class="form-control" name="current__reason_txt" id="current__reason_txt"></textarea> 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-actions">
-                                <div class="row">
-                                    <div class="col-md-offset-3 col-md-9">
-                                        <button type="submit" class="btn green button-submit"> Submit
-                                            <i class="fa fa-check"></i>
-                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -137,5 +144,10 @@
         error: function (xhr, status, error) {
             swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
         }
+    });
+
+    $('#cancel').on('click', function(event){
+        event.stopPropagation();
+        loadContentWithParams("product.list_product", {});
     });
 </script>

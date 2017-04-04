@@ -25,7 +25,7 @@
 <div class="space-4"></div>
 <div class="row">
     <div class="col-xs-12">
-        <div class="tabbable">
+        <!--<div class="tabbable">
             <ul class="nav nav-tabs">
                 <li class="">
                     <a href="javascript:;" data-toggle="tab" aria-expanded="true" id="tab-0">
@@ -40,7 +40,7 @@
                     </a>
                 </li>
             </ul>
-        </div>
+        </div>-->
 
         <div class="tab-content no-border">
             <div class="row">
@@ -122,6 +122,10 @@
                                                 <button type="submit" class="btn green btn-sm radius-4 button-submit" id="sub_form"> Submit
                                                     <i class="fa fa-check"></i>
                                                 </button>
+                                                <button class="btn btn-danger radius-4" id="cancel" >
+                                                    <i class="fa fa-times"></i>
+                                                    Cancel
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -189,5 +193,10 @@
         error: function (xhr, status, error) {
             swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
         }
+    });
+
+    $('#cancel').on('click', function(event){
+        event.stopPropagation();
+        loadContentWithParams("product.list_product", {});
     });
 </script>
