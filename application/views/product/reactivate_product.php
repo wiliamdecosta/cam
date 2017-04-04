@@ -59,6 +59,7 @@
                                         <label class="control-label col-md-5">Status</label>
                                         <div class="col-md-6">
                                             <label class="control-label col-md-6" style="text-align: left !important;" id="prod_status_code" name="prod_status_code"></label>
+                                            <input type="hidden" class="form-control required" name="prod_status_code1" id="prod_status_code1" readonly>
                                         </div>
                                     </div>
 
@@ -73,6 +74,7 @@
                                         <label class="control-label col-md-5">Current Status</label>
                                         <div class="col-md-6">
                                             <label class="control-label col-md-6" style="text-align: left !important;" id="current_status" name="current_status"></label>
+                                            <input type="hidden" class="form-control required" name="current_status1" id="current_status1" readonly>
                                         </div>
                                     </div>
 
@@ -126,13 +128,17 @@
                 var dt = data.rows[0];
                 if(dt.prod_status_code == "OK"){
                     $('#prod_status_code').text("ACTIVE");
+                    $('#prod_status_code1').val(dt.prod_status_code);
                     $('#current_effective_dtm').val(dt.current_effective_dtm);
                     $('#current_status').text(dt.current_status);
+                    $('#current_status1').text(dt.current_status);
                     $('#current__reason_txt').val(dt.current__reason_txt);
                 }else{
                     $('#prod_status_code').text(dt.prod_status_code);
+                    $('#prod_status_code1').val(dt.prod_status_code);
                     $('#current_effective_dtm').val(dt.current_effective_dtm);
                     $('#current_status').text(dt.current_status);
+                    $('#current_status1').val(dt.current_status);
                     $('#current__reason_txt').val(dt.current__reason_txt);
                 }
             }
