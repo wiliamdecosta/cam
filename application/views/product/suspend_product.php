@@ -53,8 +53,8 @@
                             </div>
                         </div>
                         <div class="portlet-body">                      
-                            <form class="form-horizontal" action="#" id="submit_form" method="POST">
-                                <div class="form-horizontal">
+                            <form class="form-horizontal" method="POST">
+                                
                                     <div class="row">
                                         <div class="form-body">
                                     
@@ -126,7 +126,7 @@
                                                     Submit
                                                         
                                                     </button>
-                                                    <button class="btn btn-danger btn-sm radius-4" id="cancel" >
+                                                    <button class="btn btn-danger btn-sm radius-4" id="cancel">
                                                         <i class="fa fa-times"></i>
                                                         Cancel
                                                     </button>
@@ -135,7 +135,7 @@
                                         </div>
 
                                     </div>
-                                </div>
+                                
                             </form>
 
                         </div>
@@ -173,6 +173,10 @@
         event.stopPropagation();
         loadContentWithParams("product.list_product", {});
     });
+
+     /*function cancel (){
+        alert ('tes');
+    }*/
 
 
     $.ajax({

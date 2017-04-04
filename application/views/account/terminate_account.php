@@ -43,7 +43,6 @@
                                             <div class="form-group">
 
                                                 <label class="control-label col-md-3">Terminate Date <span class="required">  * </span></label>
-                                                <label class="control-label col-md-6" style="text-align: left !important;" id="prod_status_code" name="prod_status_code"></label>
                                                 <div class="col-md-2">
                                                     <input type="text" class="form-control datepicker1 required" name="terminate_date" id="terminate_date">
 
@@ -53,6 +52,7 @@
                                                                name="<?php echo $this->security->get_csrf_token_name(); ?>"
                                                                value="<?php echo
                                                                $this->security->get_csrf_hash(); ?>" >
+                                                    <label class="control-label col-md-6" style="text-align: left !important;" id="prod_status_code" name="prod_status_code"></label>
                                                 </div>
                                             </div>
 
@@ -75,11 +75,11 @@
                                         <div class="form-actions">
                                             <div class="row">
                                                 <div class="col-md-offset-3 col-md-9">
-                                                    <button type="submit" class="btn green btn-sm radius-4 button-submit" id="sub_form">
+                                                    <button type="submit" class="btn green radius-4 button-submit" id="sub_form">
                                                     <i class="fa fa-check"></i>
                                                     Submit    
                                                     </button>
-                                                    <button class="btn btn-danger btn-sm radius-4" id="cancel" >
+                                                    <button class="btn btn-danger radius-4" id="cancel" >
                                                         <i class="fa fa-times"></i>
                                                         Cancel
                                                     </button>
@@ -130,6 +130,7 @@
         event.stopPropagation();
         loadContentWithParams("account.list_account", {});
     });
+
 
     
 </script>
