@@ -8,11 +8,11 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Product</span>
+            <span>Account</span>
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>List Product</span>
+            <span>List Account</span>
             <i class="fa fa-circle"></i>
         </li>
         <li>
@@ -27,10 +27,10 @@
 
         <div class="tab-content no-border">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="portlet red box menu-panel">
                         <div class="portlet-title">
-                            <div class="caption">Terminate Product</div>
+                            <div class="caption">Terminate Account</div>
                             <div class="tools">
                                 <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
                             </div>
@@ -41,16 +41,18 @@
                                 <div class="row">
 
                                     <div class="form-group">
-                                        <label class="control-label col-md-4">Terminate Date <span class="required">  * </span></label>
-                                        <div class="col-md-3">
+                                        <label class="control-label col-md-3">Terminate Date <span class="required">  * </span></label>
+                                        <div class="col-md-2">
                                             <input type="text" class="form-control datepicker1 required" name="terminate_date" id="terminate_date">
+
+                                            <input type="hidden" class="form-control" name="cust_order_number" id="cust_order_number">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="control-label col-md-4">Terminate Reason <span class="required">  * </span>
+                                        <label class="control-label col-md-3">Terminate Reason <span class="required">  * </span>
                                         </label>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <div class="input-group">
                                                 <input type="hidden" class="form-control required" name="terminate_reason_id" id="terminate_reason_id" readonly>
                                                 <input type="text" class="form-control required" name="terminate_reason_code" id="terminate_reason_code" readonly>
@@ -71,7 +73,7 @@
                                         </button>
                                         <button class="btn btn-danger btn-sm radius-4" id="cancel" >
                                             <i class="fa fa-times"></i>
-                                            Close
+                                            Cancel
                                         </button>
                                     </div>
                                 </div>
