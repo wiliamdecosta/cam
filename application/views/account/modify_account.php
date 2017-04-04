@@ -699,11 +699,11 @@
                         if(data.status == "COMPLETED"){                        
 
                             
-                            swal({title: data.status, text: data.msg, html: true, type: "info"});
+                            swal('',data.status);
 
-                            // setTimeout(function(){
-                            //      loadContentWithParams('account.list_account',{});
-                            // }, 3000);
+                            setTimeout(function(){
+                                 loadContentWithParams('account.list_account',{});
+                            }, 3000);
 
                         }else{
                             swal('',data.status);

@@ -23,104 +23,86 @@
 <!-- end breadcrumb -->
 <div class="space-4"></div>
 <div class="row">
-    <div class="col-xs-12">
-        <!--<div class="tabbable">
-            <ul class="nav nav-tabs">
-                <li class="">
-                    <a href="javascript:;" data-toggle="tab" aria-expanded="true" id="tab-0">
-                        <i class="blue"></i>
-                        <strong> List Product </strong>
-                    </a>
-                </li>
-                <li class="active">
-                    <a href="javascript:;" data-toggle="tab" aria-expanded="true" id="tab-1">
-                        <i class="blue"></i>
-                        <strong>Reactivate Product </strong>
-                    </a>
-                </li>
-            </ul>
-        </div>-->
-
-        <div class="tab-content no-border">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="portlet red box menu-panel">
-                        <div class="portlet-title">
-                            <div class="caption">Reactivate Product</div>
-                            <div class="tools">
-                                <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+    <div class="col-md-12">
+        <div class="portlet red box menu-panel">
+            <div class="portlet-title">
+                <div class="caption">Reactivate Product</div>
+                <div class="tools">
+                    <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
+                </div>
+            </div>
+            <div class="portlet-body">                      
+                <!-- Product -->
+                <form class="form-horizontal" action="#" id="submit_form" method="post">
+                <div class="form-horizontal">
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label col-md-4">Status</label>
+                            <div class="col-md-6">
+                                <label class="control-label col-md-6" style="text-align: left !important;" id="prod_status_code" name="prod_status_code"></label>
+                                <input type="hidden" class="form-control required" name="prod_status_code1" id="prod_status_code1" readonly>
+                                <input type="hidden" class="form-control required" name="customer_ref" id="customer_ref" value="<?php echo $this->input->post('customer_ref'); ?>">
+                                <input type="hidden" class="form-control required" name="product_seq" id="product_seq" value="<?php echo $this->input->post('product_seq'); ?>">
+                                <input type="hidden" class="form-control required" name="account_num" id="account_num" value="<?php echo $this->input->post('account_num'); ?>">
+                                <input type="hidden" class="form-control required" name="product_label" id="product_label" value="<?php echo $this->input->post('product_label'); ?>">
+                                <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
                             </div>
                         </div>
-                        <div class="portlet-body">                      
-                            <!-- Product -->
-                            <div class="form-horizontal">
-                                <div class="row">
-                                    <div class="form-body">
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3">Status</label>
-                                            <div class="col-md-3">
-                                                <label class="control-label col-md-3" style="text-align: left !important;" id="prod_status_code" name="prod_status_code">ACTIVE</label>
-                                                <input type="hidden" class="form-control required" name="prod_status_code1" id="prod_status_code1" readonly>
-                                            </div>
-                                        </div>
 
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3">Effective From</label>
-                                            <div class="col-md-3">
-                                                <input type="text" class="form-control datepicker1" name="current_effective_dtm" id="current_effective_dtm">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3">Current Status</label>
-                                            <div class="col-md-3">
-                                                <label class="control-label col-md-3" style="text-align: left !important;" id="current_status" name="current_status"></label>
-                                                <input type="hidden" class="form-control required" name="current_status1" id="current_status1" readonly>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3">Reason</label>
-                                            <div class="col-md-6">
-                                                <textarea class="form-control" name="current__reason_txt" id="current__reason_txt"></textarea> 
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-actions">
-                                        <div class="row">
-                                            <div class="col-md-offset-3 col-md-9">
-                                                <button type="submit" class="btn green button-submit"> Submit
-                                                    <i class="fa fa-check"></i>
-                                                </button>
-                                                <button class="btn btn-danger radius-4" id="cancel" >
-                                                    <i class="fa fa-times"></i>
-                                                    Cancel
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4">Effective From</label>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control datepicker1" name="current_effective_dtm" id="current_effective_dtm">
+                                 <input type="hidden" class="form-control" name="current_effective_dtm2" id="current_effective_dtm2">
                             </div>
-                            <!-- Product -->
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-4">Current Status</label>
+                            <div class="col-md-6">
+                                <label class="control-label col-md-6" style="text-align: left !important;" id="current_status" name="current_status"></label>
+                                <input type="hidden" class="form-control required" name="current_status1" id="current_status1" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-4">Reason</label>
+                            <div class="col-md-4">
+                                <textarea class="form-control" name="current__reason_txt" id="current__reason_txt"></textarea> 
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="form-actions">
+                    <div class="row">
+                        <div class="col-md-offset-4 col-md-6">
+                            <button type="submit" class="btn green button-submit"> Submit
+                                <i class="fa fa-check"></i>
+                            </button>
+                            <button type="button" class="btn btn-default" id="btn-cancel"> Cancel
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                </form>
+                <!-- Product -->
             </div>
         </div>
     </div>
 </div>
+       
+</div>
 
 <script>
-    $('.datepicker1').datetimepicker({
-        format: 'DD/MM/YYYY hh:mm:ss',
-        // defaultDate: new Date()
-    });
-
-    $('#tab-0').on('click', function(event){
-        event.stopPropagation();
+    $('#btn-cancel').on('click', function(){
         loadContentWithParams("product.list_product", {});
     });
+
+    // $('#tab-0').on('click', function(event){
+    //     event.stopPropagation();
+    //     loadContentWithParams("product.list_product", {});
+    // });
 
     $.ajax({
         url: '<?php echo WS_JQGRID."product.detailproduct_controller/read_reactivate_product"; ?>',
@@ -133,11 +115,18 @@
         success: function (data) {
             if(data.success){
                 var dt = data.rows[0];
+                $('#prod_status_code').text("ACTIVE");
                 $('#prod_status_code1').val(dt.prod_status_code);
                 $('#current_effective_dtm').val(dt.current_effective_dtm);
+                $('#current_effective_dtm2').val(dt.current_effective_dtm);
                 $('#current_status').text(dt.current_status);
                 $('#current_status1').text(dt.current_status);
                 $('#current__reason_txt').val(dt.current__reason_txt);
+                
+                $('.datepicker1').datetimepicker({
+                    format: 'YYYY-MM-DD HH:mm:ss',
+                    minDate: new Date(dt.current_effective_dtm)
+                });
             }
             // console.log(dt.product_name);
         },
@@ -146,8 +135,50 @@
         }
     });
 
-    $('#cancel').on('click', function(event){
-        event.stopPropagation();
-        loadContentWithParams("product.list_product", {});
-    });
+    $('#submit_form').on('submit', (function (e) {
+            if(!$("#submit_form").valid()) {
+                return false;
+            }
+
+            if($('#prod_status_code1').val != 'OK'){
+                swal('', 'Current Status is Active', 'error');
+                return false;
+            }
+            // Stop form from submitting normally
+            e.preventDefault();
+
+
+
+            var postData = new FormData(this),
+                url = "<?php echo site_url('product/reactivate_product');?>";
+            // Send the data using post
+            $.ajax({
+                url: url,
+                type: "POST",
+                dataType: "json",
+                contentType: false,
+                cache: false,
+                processData:false,
+                data: postData,
+                success: function (data) {
+                    if(data.status == "COMPLETED"){                        
+
+                        
+                        swal('',data.status);
+
+                        setTimeout(function(){
+                             loadContentWithParams('product.list_product',{});
+                        }, 3000);
+
+                    
+                    }else{
+                        swal('',data.status);
+                    }
+
+                },
+                error: function (xhr, status, error) {
+                    swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
+                }
+            });
+        }));
 </script>

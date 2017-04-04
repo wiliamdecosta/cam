@@ -595,6 +595,11 @@ class Account extends CI_Controller
 
         ociexecute($stmt);
 
+        $dt = array('status' => $o_orderStatus);
+
+        echo json_encode($dt);
+        exit;
+
     }
 
 }

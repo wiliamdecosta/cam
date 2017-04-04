@@ -96,8 +96,9 @@
         var grid = $('#grid-table-account');
         var rowid = grid.jqGrid ('getGridParam', 'selrow');
         var custRef = grid.jqGrid ('getCell', rowid, 'customer_ref');
-        var accnum = grid.jqGrid ('getCell', rowid, 'account_num');
         var prodSeq = grid.jqGrid ('getCell', rowid, 'product_seq');
+        var accnum = grid.jqGrid ('getCell', rowid, 'account_num');
+        var prodLbl = grid.jqGrid ('getCell', rowid, 'product_label');
 
         if(rowid == null) {
             swal('Informasi','Silahkan pilih salah satu product','info');
@@ -106,8 +107,9 @@
 
         loadContentWithParams("product.reactivate_product", {
             customer_ref: custRef,
+            product_seq : prodSeq,
             account_num : accnum,
-            product_seq : prodSeq
+            product_label : prodLbl
         });
 
     });
