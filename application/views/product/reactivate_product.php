@@ -24,7 +24,7 @@
 <div class="space-4"></div>
 <div class="row">
     <div class="col-md-12">
-        <div class="portlet red box menu-panel">
+        <div class="portlet blue box menu-panel">
             <div class="portlet-title">
                 <div class="caption">Reactivate Product</div>
                 <div class="tools">
@@ -79,7 +79,7 @@
                             <button type="submit" class="btn green button-submit"> Submit
                                 <i class="fa fa-check"></i>
                             </button>
-                            <button type="button" class="btn btn-default" id="btn-cancel"> Cancel
+                            <button type="button" class="btn btn-danger" id="btn-cancel"> Cancel
                                 <i class="fa fa-times"></i>
                             </button>
                         </div>
