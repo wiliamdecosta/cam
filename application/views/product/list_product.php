@@ -31,6 +31,7 @@
             <div class="form-body">
             <button class="btn btn-success" id="detail-prod" disabled=""> <i class="fa fa-newspaper-o"></i>Detail Product</button>
             <button class="btn btn-warning" id="modify-prod" disabled=""> <i class="fa fa-pencil-square-o"></i>Modify Product</button>
+            <button class="btn btn-primary" id="suspend-prod" disabled=""> <i class="fa fa-tasks"></i>Suspend</button>
 
             <div class="row">
                                 <div class="col-md-12 green">
@@ -83,6 +84,28 @@
             account_num : accnum,
             product_id : prodid,
             parent_product_id : parentprodid,
+            product_seq : prodSeq
+        });
+
+    });
+
+    $('#suspend-prod').on('click', function(event){
+        event.stopPropagation();
+        var grid = $('#grid-table-account');
+        var rowid = grid.jqGrid ('getGridParam', 'selrow');
+        var custRef = grid.jqGrid ('getCell', rowid, 'customer_ref');
+        var accnum = grid.jqGrid ('getCell', rowid, 'account_num');
+        var prodSeq = grid.jqGrid ('getCell', rowid, 'product_seq');
+        
+
+        if(rowid == null) {
+            swal('Informasi','Silahkan pilih salah satu product','info');
+            return false;
+        }
+
+        loadContentWithParams("product.suspend_product", {
+            customer_ref: custRef,
+            account_num : accnum,
             product_seq : prodSeq
         });
 
@@ -262,6 +285,7 @@
                 
                 $('#detail-prod').prop( "disabled", false );
                 $('#modify-prod').prop( "disabled", false );
+                $('#suspend-prod').prop( "disabled", false );
 
             },
             sortorder: '',
