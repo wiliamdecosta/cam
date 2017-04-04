@@ -121,6 +121,7 @@
         var custRef = grid.jqGrid ('getCell', rowid, 'customer_ref');
         var accnum = grid.jqGrid ('getCell', rowid, 'account_num');
         var prodSeq = grid.jqGrid ('getCell', rowid, 'product_seq');
+        var prodLbl = grid.jqGrid ('getCell', rowid, 'product_label');
 
         if(rowid == null) {
             swal('Informasi','Silahkan pilih salah satu product','info');
