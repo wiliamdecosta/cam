@@ -328,6 +328,7 @@
                 $('#modify-prod').prop( "disabled", false );
                 $('#reactivate-prod').prop( "disabled", false );
                 $('#suspend-prod').prop( "disabled", false );
+                $('#terminate-prod').prop( "disabled", false );
 
             },
             sortorder: '',
