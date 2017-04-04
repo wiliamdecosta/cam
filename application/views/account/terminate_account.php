@@ -36,48 +36,59 @@
                             </div>
                         </div>
                         <div class="portlet-body">                      
-                            <!-- Product -->
-                            <div class="form-horizontal">
-                                <div class="row">
+                            <form class="form-horizontal" action="#" id="submit_form" method="POST">
+                                <div class="form-horizontal">
+                                    <div class="row">
+                                        <div class="form-body">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Terminate Date <span class="required">  * </span></label>
+                                                <div class="col-md-2">
+                                                    <input type="text" class="form-control datepicker1 required" name="terminate_date" id="terminate_date">
 
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">Terminate Date <span class="required">  * </span></label>
-                                        <div class="col-md-2">
-                                            <input type="text" class="form-control datepicker1 required" name="terminate_date" id="terminate_date">
+                                                    <input type="hidden" class="form-control" name="cust_order_number" id="cust_order_number">
 
-                                            <input type="hidden" class="form-control" name="cust_order_number" id="cust_order_number">
-                                        </div>
-                                    </div>
+                                                    <input type="hidden"
+                                                               name="<?php echo $this->security->get_csrf_token_name(); ?>"
+                                                               value="<?php echo
+                                                               $this->security->get_csrf_hash(); ?>" >
+                                                </div>
+                                            </div>
 
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">Terminate Reason <span class="required">  * </span>
-                                        </label>
-                                        <div class="col-md-4">
-                                            <div class="input-group">
-                                                <input type="hidden" class="form-control required" name="terminate_reason_id" id="terminate_reason_id" readonly>
-                                                <input type="text" class="form-control required" name="terminate_reason_code" id="terminate_reason_code" readonly>
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-success" type="button" id="btn-lov-reason">
-                                                    <i class="fa fa-search"></i>
-                                                </span>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Terminate Reason <span class="required">  * </span>
+                                                </label>
+                                                <div class="col-md-4">
+                                                    <div class="input-group">
+                                                        <input type="hidden" class="form-control required" name="terminate_reason_id" id="terminate_reason_id" readonly>
+                                                        <input type="text" class="form-control required" name="terminate_reason_code" id="terminate_reason_code" readonly>
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-success" type="button" id="btn-lov-reason">
+                                                            <i class="fa fa-search"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
+
+                                        <div class="form-actions">
+                                            <div class="row">
+                                                <div class="col-md-offset-3 col-md-9">
+                                                    <button type="submit" class="btn green btn-sm radius-4 button-submit" id="sub_form">
+                                                    <i class="fa fa-check"></i>
+                                                    Submit    
+                                                    </button>
+                                                    <button class="btn btn-danger btn-sm radius-4" id="cancel" >
+                                                        <i class="fa fa-times"></i>
+                                                        Cancel
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
+
                                 </div>
-                            </div>
-                            <div class="form-actions">
-                                <div class="row">
-                                    <div class="col-md-offset-3 col-md-9">
-                                        <button type="submit" class="btn green btn-sm radius-4 button-submit" id="sub_form"> Submit
-                                            <i class="fa fa-check"></i>
-                                        </button>
-                                        <button class="btn btn-danger btn-sm radius-4" id="cancel" >
-                                            <i class="fa fa-times"></i>
-                                            Cancel
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+                            </form>
                             <!-- Product -->
                         </div>
                     </div>

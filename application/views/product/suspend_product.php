@@ -53,86 +53,88 @@
                             </div>
                         </div>
                         <div class="portlet-body">                      
-
-                            <div class="form-horizontal">
-                                <div class="row">
-                                    <div class="form-body">
-                                
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3">Status
-                                                <span class="required">  * </span>
-                                            </label>
-                                            <div class="col-md-2">
-                                                <input type="hidden" class="form-control required" name="status_code" id="status_code"  value="SU">
-                                                <input type="hidden" class="form-control " name="cust_order_number" id="cust_order_number"  >
-                                                <label  class="control-label" name="status" id="status" >Suspended </label>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3">Effective From
-                                                <span class="required">  * </span> 
-                                            </label>
-                                            <div class="col-md-3">
-                                                <input type="text" class="form-control datepicker1 required" name="eff_from" id="eff_from">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3">Current Status
-                                            </label>
-                                            <div class="col-md-2">
-                                                <label  class="control-label" name="curr_status" id="curr_status" > </label>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3">Effective Periode of Status
-                                            </label>
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <div class="radio">
-                                              <label class="control-label col-md-4 alfa"><input type="radio" name="eff_period_of_status">Indfinite</label>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <div class="radio">
-                                              <label class="control-label col-md-4"><input type="radio" name="eff_period_of_status">Next Status Start</label>
-                                            </div>
-
-                                            <div class="col-md-3">
-                                                <input type="text" class="form-control datepicker2" name="eff_period_of_status_tgl" id="eff_period_of_status_tgl" >
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3">Reason
-                                            </label>
-                                            <div class="col-md-5">
-                                                <textarea rows="4" cols="50" class="form-control" name="reason" id="reason" > </textarea>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <form class="form-horizontal" action="#" id="submit_form" method="POST">
+                                <div class="form-horizontal">
+                                    <div class="row">
+                                        <div class="form-body">
                                     
-                                    <div class="form-actions">
-                                        <div class="row">
-                                            <div class="col-md-offset-3 col-md-9">                                    
-                                                <button type="submit" class="btn green btn-sm radius-4 button-submit" id="sub_form"> Submit
-                                                    <i class="fa fa-check"></i>
-                                                </button>
-                                                <button class="btn btn-danger radius-4" id="cancel" >
-                                                    <i class="fa fa-times"></i>
-                                                    Cancel
-                                                </button>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Status
+                                                    <span class="required">  * </span>
+                                                </label>
+                                                <div class="col-md-2">
+                                                    <input type="hidden" class="form-control required" name="status_code" id="status_code"  value="SU">
+                                                    <input type="hidden" class="form-control " name="cust_order_number" id="cust_order_number"  >
+                                                    <label  class="control-label" name="status" id="status" >Suspended </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Effective From
+                                                    <span class="required">  * </span> 
+                                                </label>
+                                                <div class="col-md-3">
+                                                    <input type="text" class="form-control datepicker1 required" name="eff_from" id="eff_from">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Current Status
+                                                </label>
+                                                <div class="col-md-2">
+                                                    <label  class="control-label" name="curr_status" id="curr_status" > </label>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Effective Periode of Status
+                                                </label>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <div class="radio">
+                                                  <label class="control-label col-md-4 alfa"><input type="radio" name="eff_period_of_status">Indfinite</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="radio">
+                                                  <label class="control-label col-md-4"><input type="radio" name="eff_period_of_status">Next Status Start</label>
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <input type="text" class="form-control datepicker2" name="eff_period_of_status_tgl" id="eff_period_of_status_tgl" >
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Reason
+                                                </label>
+                                                <div class="col-md-5">
+                                                    <textarea rows="4" cols="50" class="form-control" name="reason" id="reason" > </textarea>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                        
+                                        <div class="form-actions">
+                                            <div class="row">
+                                                <div class="col-md-offset-3 col-md-9">                                    
+                                                    <button type="submit" class="btn green btn-sm radius-4 button-submit" id="sub_form">
+                                                        <i class="fa fa-check"></i>
+                                                    Submit
+                                                        
+                                                    </button>
+                                                    <button class="btn btn-danger btn-sm radius-4" id="cancel" >
+                                                        <i class="fa fa-times"></i>
+                                                        Cancel
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
 
+                                    </div>
                                 </div>
-                            </div>
-                            <!-- Product -->
+                            </form>
 
                         </div>
                     </div>
