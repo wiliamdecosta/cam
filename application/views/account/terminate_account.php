@@ -79,7 +79,7 @@
                                                     <i class="fa fa-check"></i>
                                                     Submit    
                                                     </button>
-                                                    <button class="btn btn-danger radius-4" id="cancel" >
+                                                    <button type="button" class="btn btn-danger radius-4" id="cancel" >
                                                         <i class="fa fa-times"></i>
                                                         Cancel
                                                     </button>
