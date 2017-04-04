@@ -202,7 +202,7 @@ class Account extends Abstract_model {
                       s22 as last_name,
                       s23 as go_live_date,
                       s24 as account_status
-               from table(pack_list_cust_acc_prod_2.account_modify_billing ('".$this->session->userdata('user_name')."','".$account_num."'))";
+               from table(pack_list_cust_acc_prod.account_modify_billing ('".$this->session->userdata('user_name')."','".$account_num."'))";
         $query = $this->db->query($sql);
 
         return $query->result_array();
@@ -219,7 +219,7 @@ class Account extends Abstract_model {
                       n03 as bill_style_id,
                       n04 as credit_class_id,
                       n05 as payment_method_id
-               from table(pack_list_cust_acc_prod_2.account_modify_billing_nexttab ('".$this->session->userdata('user_name')."','".$account_num."'))";
+               from table(pack_list_cust_acc_prod.account_modify_billing_nexttab ('".$this->session->userdata('user_name')."','".$account_num."'))";
         $query = $this->db->query($sql);
 
         return $query->result_array();

@@ -40,7 +40,7 @@
                             <label class="control-label col-md-4">Status</label>
                             <div class="col-md-6">
                                 <label class="control-label col-md-6" style="text-align: left !important;" id="prod_status_code" name="prod_status_code"></label>
-                                <input type="hidden" class="form-control required" name="prod_status_code1" id="prod_status_code1" readonly>
+                                <input type="hidden" class="form-control required" name="prod_status_code1" id="prod_status_code1">
                                 <input type="hidden" class="form-control required" name="customer_ref" id="customer_ref" value="<?php echo $this->input->post('customer_ref'); ?>">
                                 <input type="hidden" class="form-control required" name="product_seq" id="product_seq" value="<?php echo $this->input->post('product_seq'); ?>">
                                 <input type="hidden" class="form-control required" name="account_num" id="account_num" value="<?php echo $this->input->post('account_num'); ?>">
@@ -76,11 +76,11 @@
                 <div class="form-actions">
                     <div class="row">
                         <div class="col-md-offset-4 col-md-6">
-                            <button type="submit" class="btn green button-submit"> Submit
-                                <i class="fa fa-check"></i>
+                            <button type="submit" class="btn green button-submit"> 
+                                <i class="fa fa-check"></i> Submit
                             </button>
-                            <button type="button" class="btn btn-danger" id="btn-cancel"> Cancel
-                                <i class="fa fa-times"></i>
+                            <button type="button" class="btn btn-danger" id="btn-cancel"> 
+                                <i class="fa fa-times"></i> Cancel
                             </button>
                         </div>
                     </div>
@@ -136,49 +136,49 @@
     });
 
     $('#submit_form').on('submit', (function (e) {
-            if(!$("#submit_form").valid()) {
-                return false;
-            }
+        if(!$("#submit_form").valid()) {
+            return false;
+        }
 
-            if($('#prod_status_code1').val != 'OK'){
-                swal('', 'Current Status is Active', 'error');
-                return false;
-            }
-            // Stop form from submitting normally
-            e.preventDefault();
+        if($('#prod_status_code1').val != 'OK'){
+            swal('', 'Current Status is Active', 'error');
+            return false;
+        }
+        // Stop form from submitting normally
+        e.preventDefault();
 
 
 
-            var postData = new FormData(this),
-                url = "<?php echo site_url('product/reactivate_product');?>";
-            // Send the data using post
-            $.ajax({
-                url: url,
-                type: "POST",
-                dataType: "json",
-                contentType: false,
-                cache: false,
-                processData:false,
-                data: postData,
-                success: function (data) {
-                    if(data.status == "COMPLETED"){                        
-
-                        
-                        swal('',data.status);
-
-                        setTimeout(function(){
-                             loadContentWithParams('product.list_product',{});
-                        }, 3000);
+        var postData = new FormData(this),
+            url = "<?php echo site_url('product/reactivate_product');?>";
+        // Send the data using post
+        $.ajax({
+            url: url,
+            type: "POST",
+            dataType: "json",
+            contentType: false,
+            cache: false,
+            processData:false,
+            data: postData,
+            success: function (data) {
+                if(data.status == "COMPLETED"){                        
 
                     
-                    }else{
-                        swal('',data.status);
-                    }
+                    swal('',data.status);
 
-                },
-                error: function (xhr, status, error) {
-                    swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
+                    setTimeout(function(){
+                         loadContentWithParams('product.list_product',{});
+                    }, 3000);
+
+                
+                }else{
+                    swal('',data.status);
                 }
-            });
-        }));
+
+            },
+            error: function (xhr, status, error) {
+                swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
+            }
+        });
+    }));
 </script>
