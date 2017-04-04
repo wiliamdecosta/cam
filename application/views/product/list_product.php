@@ -32,7 +32,8 @@
             <button class="btn btn-success" id="detail-prod" disabled=""> <i class="fa fa-newspaper-o"></i>Detail Product</button>
             <button class="btn btn-warning" id="modify-prod" disabled=""> <i class="fa fa-pencil-square-o"></i>Modify Product</button>
             <button class="btn btn-primary" id="suspend-prod" disabled=""> <i class="fa fa-tasks"></i>Suspend Product</button>
-            <button class="btn btn-default" id="reactivate-prod" disabled=""> <i class="fa fa-pencil-square-o"></i>Reactivate Product</button>
+            <button class="btn btn-default" id="reactivate-prod" disabled=""> <i class="fa fa-pencil-square-o"></i>Reactivate</button>
+            <button class="btn btn-default" id="terminate-prod" disabled=""> <i class="fa fa-toggle-off"></i>Terminate</button>
             <button class="btn btn-default" id="terminate-prod" disabled=""> <i class="fa fa-pencil-square-o"></i>Terminate Product</button>
 
             <div class="row">
@@ -104,6 +105,25 @@
         }
 
         loadContentWithParams("product.reactivate_product", {
+            customer_ref: custRef,
+            product_seq : prodSeq
+        });
+
+    });
+
+    $('#terminate-prod').on('click', function(event){
+        event.stopPropagation();
+        var grid = $('#grid-table-account');
+        var rowid = grid.jqGrid ('getGridParam', 'selrow');
+        var custRef = grid.jqGrid ('getCell', rowid, 'customer_ref');
+        var prodSeq = grid.jqGrid ('getCell', rowid, 'product_seq');
+
+        if(rowid == null) {
+            swal('Informasi','Silahkan pilih salah satu product','info');
+            return false;
+        }
+
+        loadContentWithParams("product.terminate_product", {
             customer_ref: custRef,
             product_seq : prodSeq
         });

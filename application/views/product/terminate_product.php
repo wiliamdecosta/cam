@@ -16,7 +16,7 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Reactivate Product</span>
+            <span>Terminate Product</span>
         </li>
     </ul>
 </div>
@@ -35,7 +35,7 @@
                 <li class="active">
                     <a href="javascript:;" data-toggle="tab" aria-expanded="true" id="tab-1">
                         <i class="blue"></i>
-                        <strong>Reactivate Product </strong>
+                        <strong>Terminate Product </strong>
                     </a>
                 </li>
             </ul>
@@ -46,7 +46,7 @@
                 <div class="col-md-6">
                     <div class="portlet red box menu-panel">
                         <div class="portlet-title">
-                            <div class="caption">Reactivate Product</div>
+                            <div class="caption">Terminate Product</div>
                             <div class="tools">
                                 <a class="collapse" href="javascript:;" data-original-title="" title=""> </a>
                             </div>
@@ -58,7 +58,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-5">Status</label>
                                         <div class="col-md-6">
-                                            <label class="control-label col-md-6" style="text-align: left !important;" id="prod_status_code" name="prod_status_code">ACTIVE</label>
+                                            <label class="control-label col-md-6" style="text-align: left !important;" id="prod_status_code" name="prod_status_code">Terminated</label>
                                             <input type="hidden" class="form-control required" name="prod_status_code1" id="prod_status_code1" readonly>
                                         </div>
                                     </div>
@@ -106,7 +106,7 @@
 
 <script>
     $('.datepicker1').datetimepicker({
-        format: 'DD/MM/YYYY hh:mm:ss',
+        format: 'YYYY/MM/DD HH:mm:ss',
         // defaultDate: new Date()
     });
 
