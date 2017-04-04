@@ -34,7 +34,6 @@
             <button class="btn btn-primary" id="suspend-prod" disabled=""> <i class="fa fa-tasks"></i>Suspend Product</button>
             <button class="btn btn-default" id="reactivate-prod" disabled=""> <i class="fa fa-pencil-square-o"></i>Reactivate</button>
             <button class="btn btn-default" id="terminate-prod" disabled=""> <i class="fa fa-toggle-off"></i>Terminate</button>
-            <button class="btn btn-default" id="terminate-prod" disabled=""> <i class="fa fa-pencil-square-o"></i>Terminate Product</button>
 
             <div class="row">
                                 <div class="col-md-12 green">
@@ -152,25 +151,6 @@
 
     });
 
-    $('#terminate-prod').on('click', function(event){
-        event.stopPropagation();
-        var grid = $('#grid-table-account');
-        var rowid = grid.jqGrid ('getGridParam', 'selrow');
-        var custRef = grid.jqGrid ('getCell', rowid, 'customer_ref');
-        var accnum = grid.jqGrid ('getCell', rowid, 'account_num');
-        
-
-        if(rowid == null) {
-            swal('Informasi','Silahkan pilih salah satu product','info');
-            return false;
-        }
-
-        loadContentWithParams("product.terminate_product", {
-            customer_ref: custRef,
-            account_num : accnum
-        });
-
-    });
 
     jQuery(function ($) {
         var grid_selector = "#grid-table-account";
@@ -348,7 +328,6 @@
                 $('#modify-prod').prop( "disabled", false );
                 $('#reactivate-prod').prop( "disabled", false );
                 $('#suspend-prod').prop( "disabled", false );
-                $('#terminate-prod').prop( "disabled", false );
 
             },
             sortorder: '',

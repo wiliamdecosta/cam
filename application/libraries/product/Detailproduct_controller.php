@@ -424,5 +424,7 @@ class Detailproduct_controller {
         exit;
     }
 
+    
+
 
 }

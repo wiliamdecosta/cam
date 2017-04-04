@@ -31,6 +31,7 @@
             <div class="form-body">
             <button class="btn btn-success" id="detail-acc" disabled=""> <i class="fa fa-newspaper-o"></i>Detail Account</button>
             <button class="btn btn-warning" id="modify-acc" disabled=""> <i class="fa fa-pencil-square-o"></i>Modify Account</button>
+            <button class="btn btn-default" id="terminate-acc" disabled=""> <i class="fa fa-pencil-square-o"></i>Terminate Account</button>
 
             <div class="row">
                                 <div class="col-md-12 green">
@@ -79,6 +80,27 @@
             account_num : accnum,
             customer_ref : cusref,
             account_name : accname
+        });
+
+    });
+
+
+    $('#terminate-acc').on('click', function(event){
+        event.stopPropagation();
+        var grid = $('#grid-table-account');
+        var rowid = grid.jqGrid ('getGridParam', 'selrow');
+        var custRef = grid.jqGrid ('getCell', rowid, 'customer_ref');
+        var accnum = grid.jqGrid ('getCell', rowid, 'account_num');
+        
+
+        if(rowid == null) {
+            swal('Informasi','Silahkan pilih salah satu account','info');
+            return false;
+        }
+
+        loadContentWithParams("account.terminate_account", {
+            customer_ref: custRef,
+            account_num : accnum
         });
 
     });
@@ -166,6 +188,7 @@
                 /*do something when selected*/
                 $('#detail-acc').prop( "disabled", false );
                 $('#modify-acc').prop( "disabled", false );
+                $('#terminate-acc').prop( "disabled", false );
 
             },
             sortorder: '',

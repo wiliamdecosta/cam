@@ -64,6 +64,7 @@
                                             </label>
                                             <div class="col-md-2">
                                                 <input type="hidden" class="form-control required" name="status_code" id="status_code"  value="SU">
+                                                <input type="hidden" class="form-control " name="cust_order_number" id="cust_order_number"  >
                                                 <label  class="control-label" name="status" id="status" >Suspended </label>
                                             </div>
                                         </div>
