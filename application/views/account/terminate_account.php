@@ -56,6 +56,10 @@
                                                     <label class="control-label col-md-6" style="text-align: left !important;" id="acc_status_code1" name="acc_status_code1"></label>
 
                                                     <input type="hidden" value="<?php echo $this->input->post('account_status'); ?>" class="form-control" name="acc_status_code" id="acc_status_code">
+
+                                                    <input type="hidden" value="<?php echo $this->input->post('customer_ref'); ?>" class="form-control" name="customer_ref" id="customer_ref">
+
+                                                    <input type="hidden" value="<?php echo $this->input->post('account_num'); ?>" class="form-control" name="account_num" id="account_num">
                                                     
                                                 </div>
                                             </div>

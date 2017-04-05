@@ -669,8 +669,9 @@ class Account extends CI_Controller
     }
 
     function terminate_account(){
-        $accStatus = $this->input->post('acc_status_code');
-        $current_effective_dtm = str_replace('-','',$this->input->post('terminate_date'));
+        $terminate_reason_id = $this->input->post('terminate_reason_id');
+        $terminate_reason_status = $this->input->post('terminate_reason_code');
+        $current_effective_dtm = str_replace('-','',$this->input->post('terminate_date')).' 00:00:00';
 
         $i_Order_Type = 'ACCDO';
         $i_Order_No = $this->gen_con();
@@ -697,14 +698,14 @@ class Account extends CI_Controller
                         <accountStatus>
                           <customerRef>".$i_Customer_Ref."</customerRef>
                           <accountNum>".$i_Account_Num."</accountNum>
-                          <accStatus>".$accStatus."</accStatus>
+                          <accStatus>TX</accStatus>
                           <custOrderNumber>".$i_Order_No."</custOrderNumber>
                           <startDate>".$current_effective_dtm."</startDate>
                           <endDate></endDate>
-                          <statusReason>Termination</statusReason>
-                          <statusReasonId>1</statusReasonId>
+                          <statusReason>".$terminate_reason_status."</statusReason>
+                          <statusReasonId>".$terminate_reason_id."</statusReasonId>
                         </accountStatus>";
-         die($i_orderDoc); exit;
+         //die($i_orderHeader); exit;
 
         $sql = " BEGIN "
                 . " TLKCAMWEBINTERFACE.CreateOrderACCDO ("
