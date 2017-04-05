@@ -118,10 +118,12 @@
                                                     <div class="input-group">
                                                         <input type="hidden" class="form-control required" name="wizard1_account_num" id="wizard1_account_num" readonly>
                                                         <input type="text" class="form-control required" name="wizard1_account_name" id="wizard1_account_name"  readonly>
+                                                        <input type="hidden" class="form-control" name="wizard1_default_cps_id" id="wizard1_default_cps_id" readonly>
                                                         <span class="input-group-btn">
                                                             <button class="btn btn-success" type="button" id="btn-lov-account">
                                                             <i class="fa fa-search"></i>
                                                         </span>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -667,6 +669,7 @@ $('#wizard1_customer_ref').on('change', function() {
     $('#wizard1_account_name').val('');
     $('#wizard1_parent_product_id').val('');
     $('#wizard1_parent_product_name').val('');
+    $('#wizard1_default_cps_id').val('');
     $('#in_Product_Label').val('');
 });
 
@@ -692,7 +695,7 @@ $("#btn-lov-account").on('click', function() {
         swal('Info','Customer harus diisi terlebih dahulu','info');
         return;
     }
-    modal_lov_account_show('wizard1_account_num','wizard1_account_name',customer_ref);
+    modal_lov_account_show('wizard1_account_num','wizard1_account_name',customer_ref,'wizard1_default_cps_id');
 });
 
 $("#btn-lov-price-plan").on('click', function() {
