@@ -668,4 +668,77 @@ class Account extends CI_Controller
 
     }
 
+    function terminate_account(){
+        $accStatus = $this->input->post('acc_status_code');
+        $current_effective_dtm = str_replace('-','',$this->input->post('terminate_date'));
+
+        $i_Order_Type = 'ACCDO';
+        $i_Order_No = $this->gen_con();
+        $i_Customer_Ref = $this->input->post('customer_ref');
+        $i_Account_Num = $this->input->post('account_num');
+        $i_UserName = getUserName();
+
+        $i_orderHeader = "<?xml version='1.0'?>
+                            <orderHeader>
+                              <orderType>".$i_Order_Type."</orderType>
+                              <orderSubType></orderSubType>
+                              <orderCode>ACCDO</orderCode>
+                              <orderId>".$i_Order_No."</orderId>
+                              <previousOrderId></previousOrderId>
+                              <orderDate>".date('Ymd')."</orderDate>
+                              <soldToParty>".$i_Customer_Ref."</soldToParty>
+                              <org></org>
+                              <bundling>F</bundling>
+                              <bundlingRef></bundlingRef>
+                              <DC>DBS</DC>
+                            </orderHeader>";
+
+        $i_orderDoc = "<?xml version='1.0'?>
+                        <accountStatus>
+                          <customerRef>".$i_Customer_Ref."</customerRef>
+                          <accountNum>".$i_Account_Num."</accountNum>
+                          <accStatus>".$accStatus."</accStatus>
+                          <custOrderNumber>".$i_Order_No."</custOrderNumber>
+                          <startDate>".$current_effective_dtm."</startDate>
+                          <endDate></endDate>
+                          <statusReason>Termination</statusReason>
+                          <statusReasonId>1</statusReasonId>
+                        </accountStatus>";
+         die($i_orderDoc); exit;
+
+        $sql = " BEGIN "
+                . " TLKCAMWEBINTERFACE.CreateOrderACCDO ("
+                . " :i_Order_Type, "
+                . " :i_Order_No, "
+                . " :i_Customer_Ref, "
+                . " :i_Account_Num, "
+                . " :i_UserName, "
+                . " :i_orderHeader, "
+                . " :i_orderDoc, "
+                . " :o_orderStatus "
+                . "); END;";
+
+        $stmt = oci_parse($this->db->conn_id, $sql);
+
+        //  Bind the input parameter
+        oci_bind_by_name($stmt, ':i_Order_Type', $i_Order_Type);
+        oci_bind_by_name($stmt, ':i_Order_No', $i_Order_No);
+        oci_bind_by_name($stmt, ':i_Customer_Ref', $i_Customer_Ref);
+        oci_bind_by_name($stmt, ':i_Account_Num', $i_Account_Num);
+        oci_bind_by_name($stmt, ':i_UserName', $i_UserName);
+        oci_bind_by_name($stmt, ':i_orderHeader', $i_orderHeader);
+        oci_bind_by_name($stmt, ':i_orderDoc', $i_orderDoc);
+
+        // Bind the output parameter
+        oci_bind_by_name($stmt, ':o_orderStatus', $o_orderStatus, 2000000);
+
+        ociexecute($stmt);
+
+        $dt = array('status' => $o_orderStatus);
+
+        echo json_encode($dt);
+        exit;
+
+    }
+
 }

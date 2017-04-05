@@ -145,6 +145,7 @@
         var rowid = grid.jqGrid ('getGridParam', 'selrow');
         var custRef = grid.jqGrid ('getCell', rowid, 'customer_ref');
         var accnum = grid.jqGrid ('getCell', rowid, 'account_num');
+        var accstatus = grid.jqGrid ('getCell', rowid, 'account_status');
         
 
         if(rowid == null) {
@@ -154,7 +155,8 @@
 
         loadContentWithParams("account.terminate_account", {
             customer_ref: custRef,
-            account_num : accnum
+            account_num : accnum,
+            account_status : accstatus
         });
 
     });

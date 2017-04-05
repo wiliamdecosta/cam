@@ -52,7 +52,11 @@
                                                                name="<?php echo $this->security->get_csrf_token_name(); ?>"
                                                                value="<?php echo
                                                                $this->security->get_csrf_hash(); ?>" >
-                                                    <label class="control-label col-md-6" style="text-align: left !important;" id="prod_status_code" name="prod_status_code"></label>
+
+                                                    <label class="control-label col-md-6" style="text-align: left !important;" id="acc_status_code1" name="acc_status_code1"></label>
+
+                                                    <input type="hidden" value="<?php echo $this->input->post('account_status'); ?>" class="form-control" name="acc_status_code" id="acc_status_code">
+                                                    
                                                 </div>
                                             </div>
 
@@ -101,35 +105,75 @@
 </div>
 <?php $this->load->view('lov/lov_terminate_reason.php'); ?>
 <script>
-    $.ajax({
-        url: "<?php echo base_url().'home/get_date/'; ?>" ,
-        type: "POST",
-        dataType: "json",
-        data: {},
-        success: function (data) {
-            $('.datepicker1').val(data.dates);
-        },
-        error: function (xhr, status, error) {
-            swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
-        }
+    $('.datepicker1').datetimepicker({
+        format: 'YYYY-MM-DD',
+        minDate: new Date()
+        // defaultDate: new Date()
     });
 
 
+    //$('#acc_status_code').val('tes');
+    
 
     $("#btn-lov-reason").on('click', function() {
         //alert('tes');
         modal_lov_terminate_reason_show('terminate_reason_id','terminate_reason_code');
     });
 
-    $('.datepicker1').datetimepicker({
-        format: 'DD/MM/YYYY',
-        // defaultDate: new Date()
-    });
+
 
     $('#cancel').on('click', function(event){
         event.stopPropagation();
         loadContentWithParams("account.list_account", {});
     });
+
+
+    $('#submit_form').on('submit', (function (e) {
+        if(!$("#submit_form").valid()) {
+            return false;
+        }
+
+       if($('#acc_status_code').val() != 'OK'){
+            swal('', 'Current Status is Active ', 'error');
+            return false;
+        }
+        // Stop form from submitting normally
+        e.preventDefault();
+
+
+
+        var postData = new FormData(this),
+            url = "<?php echo site_url('account/terminate_account');?>";
+        // Send the data using post
+        $.ajax({
+            url: url,
+            type: "POST",
+            dataType: "json",
+            contentType: false,
+            cache: false,
+            processData:false,
+            data: postData,
+            success: function (data) {
+                if(data.status == "COMPLETED"){                        
+
+                    
+                    swal('',data.status);
+
+                    setTimeout(function(){
+                         loadContentWithParams('account.list_account',{});
+                    }, 3000);
+
+                
+                }else{
+                    swal('',data.status);
+                }
+
+            },
+            error: function (xhr, status, error) {
+                swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
+            }
+        });
+    }));
 
 
     
