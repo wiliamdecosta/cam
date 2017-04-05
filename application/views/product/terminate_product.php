@@ -44,7 +44,7 @@
         <div class="tab-content no-border">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="portlet red box menu-panel">
+                    <div class="portlet blue box menu-panel">
                         <div class="portlet-title">
                             <div class="caption">Terminate Product</div>
                             <div class="tools">
@@ -97,7 +97,7 @@
                                                 <button type="submit" class="btn green button-submit"> Submit
                                                     <i class="fa fa-check"></i>
                                                 </button>
-                                                <button class="btn btn-danger radius-4" id="cancel" >
+                                                <button type="button" class="btn btn-danger radius-4" id="cancel" >
                                                     <i class="fa fa-times"></i>
                                                     Cancel
                                                 </button>
@@ -117,10 +117,10 @@
 </div>
 
 <script>
-    $('.datepicker1').datetimepicker({
+    /*$('.datepicker1').datetimepicker({
         format: 'YYYY/MM/DD HH:mm:ss',
         // defaultDate: new Date()
-    });
+    });*/
 
     $('#cancel').on('click', function(event){
         loadContentWithParams("product.list_product", {});
@@ -142,6 +142,11 @@
                 $('#current_status').text(dt.current_status);
                 $('#current_status1').text(dt.current_status);
                 $('#current__reason_txt').val(dt.current__reason_txt);
+
+                $('.datepicker1').datetimepicker({
+                    format: 'YYYY-MM-DD HH:mm:ss',
+                    minDate: new Date(dt.current_effective_dtm)
+                });
             }
             // console.log(dt.product_name);
         },
@@ -149,4 +154,51 @@
             swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
         }
     });
+
+    $('#submit_form').on('submit', (function (e) {
+        if(!$("#submit_form").valid()) {
+            return false;
+        }
+
+        if($('#prod_status_code1').val() != 'OK'){
+            swal('', 'Current Status is Active ', 'error');
+            return false;
+        }
+        // Stop form from submitting normally
+        e.preventDefault();
+
+
+
+        var postData = new FormData(this),
+            url = "<?php echo site_url('product/terminate_product');?>";
+        // Send the data using post
+        $.ajax({
+            url: url,
+            type: "POST",
+            dataType: "json",
+            contentType: false,
+            cache: false,
+            processData:false,
+            data: postData,
+            success: function (data) {
+                if(data.status == "COMPLETED"){                        
+
+                    
+                    swal('',data.status);
+
+                    setTimeout(function(){
+                         loadContentWithParams('product.list_product',{});
+                    }, 3000);
+
+                
+                }else{
+                    swal('',data.status);
+                }
+
+            },
+            error: function (xhr, status, error) {
+                swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
+            }
+        });
+    }));
 </script>
