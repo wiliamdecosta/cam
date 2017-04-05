@@ -293,8 +293,10 @@ class Account extends CI_Controller
                 <marketSegment/>
                 <billPeriod>".$inBillPeriode."</billPeriod>
                 <billPeriodUnit>".$inSLBillPeriode."</billPeriodUnit>
+                <accountingMethod>".$inAccountingMethod."</accountingMethod>
                 <paymentMethod>".$inPaymentMethod."</paymentMethod>
                 <currency>".$inAccountCurrency."</currency>
+                <cpsId>".$inContractedPointOfSupply."</cpsId>
                 <taxInclusive>".$inTaxStatus."</taxInclusive>
                 <accountStatus>".$this->input->post('accStatus')."</accountStatus>
                 <goLiveDtm>".$this->makeDate($inAccountToGoLive)."</goLiveDtm>

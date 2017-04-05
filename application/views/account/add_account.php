@@ -241,15 +241,7 @@
                                                 <label class="control-label col-md-4">Contracted Point of Supply
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <?php echo buatcombo('inContractedPointOfSupply',
-                                                        'inContractedPointOfSupply',
-                                                        'gparams',
-                                                        'name',
-                                                        'rfid',
-                                                        array('rfen' => 'CPS'),
-                                                        'N',
-                                                        ''
-                                                    ); ?>
+                                                   <div id="comboAcc"></div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -513,7 +505,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <hr>
+                                    <!-- <hr>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
@@ -590,7 +582,7 @@
                                             </div>
 
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div class="tab-pane" id="tab4">
                                     <div class="row">
@@ -700,6 +692,18 @@
 <?php $this->load->view('lov/lov_country.php'); ?>
 
 <script type="text/javascript">
+    $.ajax({
+            url: "<?php echo base_url().'home/load_combo_acc2/'; ?>" ,
+            type: "POST",            
+            data: {},
+            success: function (data) {
+                $( "#comboAcc" ).html( data );
+            },
+            error: function (xhr, status, error) {
+                swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
+            }
+        });
+
     $(document).ready(function () {
 
         $('#accStatus').change(function(){
@@ -757,6 +761,18 @@
             autoclose: true
         });
 
+        $.ajax({
+            url: "<?php echo base_url().'home/get_date2/'; ?>" ,
+            type: "POST",
+            dataType: "json",
+            data: {},
+            success: function (data) {
+                $('.datepicker').val(data.dates);
+            },
+            error: function (xhr, status, error) {
+                swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
+            }
+        });        
 
         var FormWizard = function () {
             return {

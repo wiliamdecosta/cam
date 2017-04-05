@@ -52,6 +52,24 @@ class Home extends CI_Controller
         exit;
     }
 
+    function load_combo_acc2 (){
+        $sql = "select cps_id,
+                       cps_name
+                from PVCONTRACTEDPOINTOFSUPPLY2
+                ";
+        $query = $this->db->query($sql);
+        $items = $query->result_array();
+        $html = "";
+        $html.="<select name='inContractedPointOfSupply' id='inContractedPointOfSupply' class='form-control required'>";
+        foreach ($items as $data) {
+          $html .=" <option value='" . $data['cps_id'] . "'>" . $data['cps_name'] . "</option>";
+        }
+        $html .= "</select>";
+
+        echo $html;
+        exit;
+    }
+
     function load_content($id) {
         try {
             $file_exist = true;
@@ -375,6 +393,15 @@ class Home extends CI_Controller
 
     function get_date(){
         $sql = "select to_char(pack_lov.get_system_date, 'DD/MM/YYYY') dates from dual";
+        $query = $this->db->query($sql);
+        $items = $query->row(0);
+
+        echo json_encode($items);
+        exit;
+    }
+
+    function get_date2(){
+        $sql = "select to_char(pack_lov.get_system_date, 'MM/DD/YYYY') dates from dual";
         $query = $this->db->query($sql);
         $items = $query->row(0);
 
