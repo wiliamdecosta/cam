@@ -308,4 +308,70 @@ class Customer_cont extends CI_Controller
         echo json_encode($dt);
         exit;
     }
+
+    function delete_customer() {
+
+        $i_orderNo = $this->gen_con();
+        $i_customer_Ref = $this->input->post('customer_ref');
+        $hierarchy = $this->input->post('hierarchy');
+        $i_UserName = getUserName();
+        $i_Order_Type = 'CUSTDEL';
+
+        $i_orderHeader = "<?xml version='1.0'?>
+                            <orderHeader>
+                              <orderType>".$i_Order_Type."</orderType>
+                              <orderSubType></orderSubType>
+                              <orderCode>". $i_Order_Type."</orderCode>
+                              <orderId>".$i_orderNo."</orderId>
+                              <previousOrderId/>
+                              <orderDate>".date('Ymd')."</orderDate>
+                              <soldToParty>".$i_customer_Ref."</soldToParty>
+                              <org></org>
+                              <bundling>F</bundling>
+                              <bundlingRef></bundlingRef>
+                              <DC>DBS</DC>
+                            </orderHeader>";
+
+        $i_orderDoc = "<?xml version='1.0'?>
+                        <customerStatus>
+                          <customerRef>".$i_customer_Ref."</customerRef>
+                          <custStatus>DEL</custStatus>
+                          <custOrderNumber>".$i_orderNo."</custOrderNumber>
+                          <startDate>".date('Ymd h:i:s')."</startDate>
+                          <hierarchy>". $hierarchy."</hierarchy>
+                          <endDate/>
+                        </customerStatus>
+                        ";
+        die($i_orderDoc);
+        $sql = " BEGIN "
+                . " TLKCAMWEBINTERFACE.CreateOrderCUSTDEL ("
+                . " :i_Order_Type, "
+                . " :i_Order_No, "
+                . " :i_Customer_Ref, "
+                . " :i_UserName, "
+                . " :i_orderHeader, "
+                . " :i_orderDoc, "
+                . " :o_orderStatus "
+                . "); END;";
+
+        $stmt = oci_parse($this->db->conn_id, $sql);
+
+        //  Bind the input parameter
+        oci_bind_by_name($stmt, ':i_Order_Type', $i_Order_Type);
+        oci_bind_by_name($stmt, ':i_Order_No', $i_orderNo);
+        oci_bind_by_name($stmt, ':i_Customer_Ref', $i_customer_Ref);
+        oci_bind_by_name($stmt, ':i_UserName', $i_UserName);
+        oci_bind_by_name($stmt, ':i_orderHeader', $i_orderHeader);
+        oci_bind_by_name($stmt, ':i_orderDoc', $i_orderDoc);
+
+        // Bind the output parameter
+        oci_bind_by_name($stmt, ':o_orderStatus', $o_orderStatus, 2000000);
+
+        ociexecute($stmt);
+
+        $dt = array('status' => $o_orderStatus);
+
+        echo json_encode($dt);
+        exit;
+    }
 }

@@ -66,7 +66,7 @@
                                     </div>
                                 </div>
                                 
-                                <div class="form-group">
+                               <!--  <div class="form-group">
                                     <label class="control-label col-md-4">
                                         Effective Periode of Status
                                     </label>
@@ -75,7 +75,7 @@
                                           <label class="radio-inline"><input type="radio" value="2" id="radio2" name="eff_period_of_status">Next Status Start</label>
                                           <input type="text" class="form-control datepicker1" name="eff_period_of_status_tgl" id="eff_period_of_status_tgl">
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div class="form-group">
                                     <label class="control-label col-md-4">Reason
@@ -121,14 +121,14 @@
 
 <script>
 
-    $('#radio2').on('change', function(){
-        $('#eff_period_of_status_tgl').attr('readonly', false);
-    });
+    // $('#radio2').on('change', function(){
+    //     $('#eff_period_of_status_tgl').attr('readonly', false);
+    // });
 
-    $('#radio1').on('change', function(){
-        $('#eff_period_of_status_tgl').attr('readonly', true);
-        $('#eff_period_of_status_tgl').val('');
-    });
+    // $('#radio1').on('change', function(){
+    //     $('#eff_period_of_status_tgl').attr('readonly', true);
+    //     $('#eff_period_of_status_tgl').val('');
+    // });
 
 
     $.ajax({
@@ -148,10 +148,10 @@
                 $('#curr_status').text(dt.current_status);
                 $('#prod_status_code1').val(dt.prod_status_code);
                 $('#reason').val(dt.current__reason_txt);
-                $('#radio1').attr('checked', true);
-                $('#radio2').attr('checked', false);
-                 $('#eff_period_of_status_tgl').attr('readonly', true);
-                 $('#eff_period_of_status_tgl').val('');
+                // $('#radio1').attr('checked', true);
+                // $('#radio2').attr('checked', false);
+                 // $('#eff_period_of_status_tgl').attr('readonly', true);
+                 // $('#eff_period_of_status_tgl').val('');
 
                 $('.datepicker1').datetimepicker({
                     format: 'YYYY-MM-DD HH:mm:ss',

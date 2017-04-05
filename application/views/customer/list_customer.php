@@ -30,7 +30,8 @@
             <!-- CONTENT PORTLET -->
             <div class="form-body">
             <button class="btn btn-success" id="detail-customer" disabled=""> <i class="fa fa-newspaper-o"></i>Detail Customer</button>
-            <button class="btn btn-warning" id="modify-customer" disabled=""> <i class="fa fa-pencil-square-o"></i>Modify Customer</button>
+             <button class="btn btn-warning" id="modify-customer" disabled=""> <i class="fa fa-pencil-square-o"></i>Modify Customer</button>
+            <button class="btn btn-danger" id="delete-customer" disabled=""> <i class="fa fa-times"></i>Delete Customer</button>
 
             <div class="row">
                                 <div class="col-md-12 green">
@@ -43,8 +44,18 @@
         </div>
     </div>
 </div>
-
+<?php $this->load->view('lov/lov_confirm_cust.php'); ?>
 <script>
+    $('#delete-customer').on('click', function(event){
+        event.stopPropagation();
+        var grid = $('#grid-table-account');
+        var rowid = grid.jqGrid ('getGridParam', 'selrow');
+        var custRef = grid.jqGrid ('getCell', rowid, 'customer_ref');
+        var parent = grid.jqGrid ('getCell', rowid, 'parent_customer_ref');
+
+        modal_lov_cust_show(custRef, parent);
+    });
+
     $('#detail-customer').on('click', function(event){
         event.stopPropagation();
         var grid = $('#grid-table-account');
@@ -174,6 +185,7 @@
             onSelectRow: function (rowid) {
                 /*do something when selected*/
                 $('#detail-customer').prop( "disabled", false );
+                $('#delete-customer').prop( "disabled", false );
                 $('#modify-customer').prop( "disabled", false );
             },
             sortorder: '',
