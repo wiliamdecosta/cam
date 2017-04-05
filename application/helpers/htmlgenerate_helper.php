@@ -149,6 +149,65 @@ if (!function_exists('generatehtml')) {
     }
 
 
+    function buatcombo3($nama, $id, $table, $field, $pk, $kondisi,$required, $emptyText, $default_select)
+    {
+        $CI =& get_instance();
+        $CI->load->model('M_helper');
+
+        if ($kondisi == null) {
+            $data = $CI->M_helper->getCombo2($table, $field, $pk)->result();
+        } else {
+            $data = $CI->M_helper->getComboByID2($table, $field, $pk, $kondisi)->result();
+
+        }
+
+        if($required == "Y"){
+            echo "<select name='" . $nama . "' id='" . $id . "'  class='form-control required' required>";
+        }else{
+            echo "<select name='" . $nama . "' id='" . $id . "'  class='form-control'>";
+        }
+
+        echo '<option value="">'.$emptyText.'</option>';
+
+        foreach ($data as $r) {
+            if($r->$pk == $default_select)
+                echo " <option value=" . $r->$pk . " selected>" . strtoupper($r->$field) . "</option>";
+            else
+                echo " <option value=" . $r->$pk . ">" . strtoupper($r->$field) . "</option>";
+        }
+        echo "</select>";
+    }
+
+    function buatcombo4($nama, $id, $table, $field, $pk, $kondisi,$required, $emptyText, $default_select)
+    {
+        $CI =& get_instance();
+        $CI->load->model('M_helper');
+
+        if ($kondisi == null) {
+            $data = $CI->M_helper->getCombo($table, $field, $pk)->result();
+        } else {
+            $data = $CI->M_helper->getComboByID($table, $field, $pk, $kondisi)->result();
+
+        }
+
+        if($required == "Y"){
+            echo "<select name='" . $nama . "' id='" . $id . "'  class='form-control required' required>";
+        }else{
+            echo "<select name='" . $nama . "' id='" . $id . "'  class='form-control'>";
+        }
+
+        echo "<option value=''> " . $emptyText . " </option> ";
+
+        foreach ($data as $r) {
+            if($r->$pk == $default_select)
+                echo " <option value=" . $r->$pk . " selected>" . strtoupper($r->$field) . "</option>";
+            else
+                echo " <option value=" . $r->$pk . ">" . strtoupper($r->$field) . "</option>";
+        }
+        echo "</select>";
+    }
+
+
     function buatcombo_new($nama, $id, $table, $field, $pk, $kondisi, $default_select,$order_by,$order_type)
     {
         $CI =& get_instance();
@@ -271,7 +330,7 @@ if (!function_exists('generatehtml')) {
                 if($data['val_type'] == 'TEXT_BOX') {
                     $html .= "<div class='col-md-7'>";
                     $html .= "<input type='hidden' class='form-control' name='attributesType[]' value='C'>";
-                    $html .= "<input type='hidden' class='form-control' name='attributesId[]' value='".$data['attribute_bill_name']."'>";                 
+                    $html .= "<input type='hidden' class='form-control' name='attributesId[]' value='".$data['attribute_bill_name']."'>";
                     $html .= "<input type='text' class='form-control".$req."' name='attributes[]'>";
                 }else if($data['val_type'] == 'UPLOAD_FILE') {
                     $html .= "<div class='col-md-7'>";
@@ -354,12 +413,12 @@ if (!function_exists('generatehtml')) {
         $CI =& get_instance();
         $CI->load->model('M_helper');
 
-        $q = $CI->db->query("SELECT TABLE_NAME, 
+        $q = $CI->db->query("SELECT TABLE_NAME,
                                     COLUMN_NAME, NULLABLE, DATA_TYPE, column_id
-                                FROM dba_tab_columns 
-                                    WHERE TABLE_NAME = upper('".$table."') 
+                                FROM dba_tab_columns
+                                    WHERE TABLE_NAME = upper('".$table."')
                                     AND COLUMN_NAME <> 'ACCOUNT_NUM'
-                                    order by column_id asc 
+                                    order by column_id asc
                             ")->result();
         return $q;
 
@@ -371,7 +430,7 @@ if (!function_exists('generatehtml')) {
         $ret ='';
         foreach ($data as $key => $value) {
 
-            // temporary set required for all, change it from table accountattributes 
+            // temporary set required for all, change it from table accountattributes
             $required = $value->nullable == 'Y' ? 'required' : '';
 
             $dataType = $value->data_type == 'NUMBER' ? 'number' : 'text';
@@ -380,20 +439,20 @@ if (!function_exists('generatehtml')) {
                 //$oKU = "onkeypress='return isAlphaNumeric(event);'";
             }
             // change this condition to parameter ASAP
-            if($value->column_name == 'IS_MONTHLY_INVOICE'){ 
+            if($value->column_name == 'IS_MONTHLY_INVOICE'){
                 $ret .= "<div class='form-group'>
                             <label class='control-label col-md-4 '>".ucwords(strtolower(str_replace('_',' ',$value->column_name)))."
                             </label>
                             <div class='col-md-8'>
                             <select class='form-control uppercase ".$required."' ".$required." name='".$value->column_name."' id='".$value->column_name."'>
-                                                            
+
                                                             <option value='N'>No</option>
                                                             <option value='Y'>Yes</option>
                                                         </select>
                             </div>
                             </div>";
             }else{
-                
+
                 $ret .=  "<div class='form-group'>
                         <label class='control-label col-md-4'>".ucwords(strtolower(str_replace('_',' ',$value->column_name)))."
                         </label>
@@ -401,7 +460,7 @@ if (!function_exists('generatehtml')) {
                             <input type='".$dataType."' class='a form-control uppercase ".$required."' name='".$value->column_name."' id='".$value->column_name."' ".$required." ".$oKU." >
                         </div>
                     </div> ";
-           
+
             }
 
         }
@@ -410,13 +469,13 @@ if (!function_exists('generatehtml')) {
     }
 
     function getSysdate(){
-        
+
         $CI =& get_instance();
         $CI->load->model('M_helper');
-        
+
         $q = $CI->db->query("select to_char( pack_lov.get_system_date, 'yyyy-mm-dd hh24:mi:ss')  dat from dual
                             ")->result();
-        
+
         foreach ($q as $key => $value) {
             return $value->dat;
         }
@@ -526,7 +585,7 @@ if (!function_exists('generatehtml')) {
                 if($data['val_type'] == 'TEXT_BOX') {
                     $html .= "<div class='col-md-7'>";
                     $html .= "<input type='hidden' class='form-control' name='attributesType[]' value='C'>";
-                    $html .= "<input type='hidden' class='form-control' name='attributesId[]' value='".$data['attribute_bill_name']."'>";                 
+                    $html .= "<input type='hidden' class='form-control' name='attributesId[]' value='".$data['attribute_bill_name']."'>";
                     $html .= "<input type='text' class='form-control".$req."' name='attributes[]' value='".$data['attr_value']."'>";
                 }else if($data['val_type'] == 'UPLOAD_FILE') {
                     $html .= "<div class='col-md-7'>";

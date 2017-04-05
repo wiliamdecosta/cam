@@ -30,6 +30,7 @@
             <!-- CONTENT PORTLET -->
             <div class="form-body">
             <button class="btn btn-success" id="detail-customer" disabled=""> <i class="fa fa-newspaper-o"></i>Detail Customer</button>
+            <button class="btn btn-warning" id="modify-customer" disabled=""> <i class="fa fa-pencil-square-o"></i>Modify Customer</button>
 
             <div class="row">
                                 <div class="col-md-12 green">
@@ -60,6 +61,24 @@
         });
 
     });
+
+
+    $('#modify-customer').on('click', function(event){
+        event.stopPropagation();
+        var grid = $('#grid-table-account');
+        var rowid = grid.jqGrid ('getGridParam', 'selrow');
+        var custRef = grid.jqGrid ('getCell', rowid, 'customer_ref');
+
+        if(rowid == null) {
+            swal('Informasi','Silahkan pilih salah satu customer','info');
+            return false;
+        }
+
+        loadContentWithParams("customer.modify_customer", {
+            customer_ref: custRef
+        });
+    });
+
 
     jQuery(function ($) {
         var grid_selector = "#grid-table-account";
@@ -155,6 +174,7 @@
             onSelectRow: function (rowid) {
                 /*do something when selected*/
                 $('#detail-customer').prop( "disabled", false );
+                $('#modify-customer').prop( "disabled", false );
             },
             sortorder: '',
             pager: '#grid-pager-account',

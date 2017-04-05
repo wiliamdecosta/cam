@@ -9,7 +9,7 @@ class Account extends CI_Controller
         $this->load->model('M_helper');
     }
 
-    function index() { 
+    function index() {
         check_login();
     }
 
@@ -255,7 +255,7 @@ class Account extends CI_Controller
         foreach ($attr as $key => $value) {
 
           //  $accAttr[$value->column_id] = $this->input->post($value->column_name);
-            
+
             $accAttr .= "<accAttribute>
                             <attrName>".$value->column_name."</attrName>
                             <attrIndex>".$value->column_id."</attrIndex>
@@ -267,7 +267,7 @@ class Account extends CI_Controller
         }
 
         $account_attr = (string)$this->getAttrValue($accAttr);
-        
+
         $xmlHeader = "<?xml version=".'"1.0"'."?>
                         <orderHeader>
                           <orderType>B2P</orderType>
@@ -282,8 +282,8 @@ class Account extends CI_Controller
                           <bundling>F</bundling>
                           <bundlingRef/>
                           <DC>DIVES</DC>
-                        </orderHeader> 
-                        ";   
+                        </orderHeader>
+                        ";
 
         $xmlDetail = "<?xml version=".'"1.0"'."?>
                <accountDoc>
@@ -319,8 +319,8 @@ class Account extends CI_Controller
                 </accAttributes>
               </accountDoc>
               ";
-   
-       
+
+
         $i_Order_Type = 'B2P';
         $i_Order_No = $AccountNumber;
         $i_Customer_Ref = $inNipnas;
@@ -341,7 +341,7 @@ class Account extends CI_Controller
                     . " :o_orderStatus "
                     . "); END;";
 
-      
+
             $stmt = oci_parse($this->db->conn_id, $sql);
 
             //  Bind the input parameter
@@ -438,7 +438,7 @@ class Account extends CI_Controller
         $out = $this->M_helper->exec_cursor($pck_name2, $pIN2, $conn_db2);*/
 
     }
-    
+
     private function getAttrValue($arr){
         $vAttributes = '';
         for($i = 2; $i <= count($arr); $i++){
@@ -470,14 +470,14 @@ class Account extends CI_Controller
         $query = $this->db->query($sql);
         $items = $query->row(0);
 
-        return $items->jml; 
+        return $items->jml;
     }
 
     function modifyAccount(){
         // account attr
         $attr = getColomTable($table = 'accountattributes', $conn = 'default');
         $accAttr = '';
-        foreach ($attr as $key => $value) {            
+        foreach ($attr as $key => $value) {
             $accAttr .= "<accAttribute>
                             <attrName>".$value->column_name."</attrName>
                             <attrIndex>".$value->column_id."</attrIndex>

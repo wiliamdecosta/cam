@@ -111,10 +111,13 @@ class Customer extends Abstract_model {
           s02 as customer_name,
           s03 as parent_customer_ref,
           s04 as parent_customer_name,
+          n03 as customer_type_id,
           s05 as customer_type_name,
           s06 as provider_name,
           s07 as password,
+          n05 as invoicing_co_id,
           s08 as invoicing_co_name,
+          n04 as market_segment_id,
           s09 as market_segment_name,
           s10 as tax_exempt_ref,
           s11 as vat_registration,
@@ -143,6 +146,43 @@ class Customer extends Abstract_model {
         return $query->row_array();
     }
 
+
+    public function getContactAddressDetails($customer_ref = '') {
+        $sql = "select s21 as customer_name,
+                        s01 as first_name,
+                        s02 as last_name,
+                        s03 as initials,
+                        s04 as evening_contact_tel,
+                        s05 as mobile_contact_tel,
+                        s06 as fax_contact_tel,
+                        s07 as customer_ref,
+                        n01 as contact_type_id,
+                        s08 as contact_type_name,
+                        s09 as email_address,
+                        s10 as daytime_contact_tel,
+                        s11 as street_name,
+                        s12 as block_name,
+                        s13 as city_name,
+                        s14 as district_name,
+                        s15 as province,
+                        s16 as country_name,
+                        n02 as country_id,
+                        s17 as zipcode,
+                        s18 as title,
+                        s22 as salutation_name
+                     from table(pack_list_cust_acc_prod.customer_details_contact_addr('".$this->session->userdata('user_name')."','".$customer_ref."'))";
+        $query = $this->db->query($sql);
+        return $query->row_array();
+    }
+
+    public function getCustomerDetailAttribute($customer_ref = '') {
+        $sql = "select   s01 as sap_code_bill,
+                s02 as sap_code_unbill,
+                s03 as sold2party
+              from table(pack_list_cust_acc_prod.customer_details_attribute('".$this->session->userdata('user_name')."','".$customer_ref."'))";
+        $query = $this->db->query($sql);
+        return $query->row_array();
+    }
 
 }
 

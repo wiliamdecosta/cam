@@ -202,4 +202,110 @@ class Customer_cont extends CI_Controller
         return $vAttributes;
     }
 
+
+    function gen_con(){
+        $sql = "select pack_lov.f_get_order_num ('".getUserName()."') as jml from dual";
+        $query = $this->db->query($sql);
+        $items = $query->row(0);
+
+        return $items->jml;
+    }
+
+    function updateCustomer() {
+
+        $i_orderNo = $this->gen_con();
+        $i_customer_Ref = $this->input->post('custref01');
+        $i_UserName = getUserName();
+
+        $i_Order_Type = 'ZSPDBS';
+        $i_orderHeader = "<?xml version='1.0'?>
+                            <orderHeader>
+                              <orderType>".$i_Order_Type."</orderType>
+                              <orderSubType>1110</orderSubType>
+                              <orderCode>S2P</orderCode>
+                              <orderId>".$i_orderNo."</orderId>
+                              <previousOrderId/>
+                              <orderDate>".date('Ymd h:i:s')."</orderDate>
+                              <soldToParty>".$i_customer_Ref."</soldToParty>
+                              <org/>
+                              <nipnas></nipnas>
+                              <bundling>F</bundling>
+                              <bundlingRef/>
+                              <DC>DBS</DC>
+                            </orderHeader>";
+
+
+        $i_orderDoc = "<?xml version='1.0'?>
+                        <customerDoc>
+                          <customerRef>".$i_customer_Ref."</customerRef>
+                          <customerType>".$this->input->post('in_CustomerType')."</customerType>
+                          <marketSegment>".$this->input->post('in_MarketSegment')."</marketSegment>
+                          <invoicingCompany>".$this->input->post('in_inv_co_id')."</invoicingCompany>
+                          <customerStartDat>".date('Ymd h:i:s')."</customerStartDat>
+                          <customerContact>
+                            <firstName>".$this->input->post('in_FirstName')."</firstName>
+                            <lastName>".$this->input->post('in_LastName')."</lastName>
+                            <salutationName>".$this->input->post('in_SalutationName')."</salutationName>
+                            <phone>".$this->input->post('in_Phone')."</phone>
+                            <contactAddress>
+                              <addr1>".$this->input->post('in_StreetName')."</addr1>
+                              <addr2>".$this->input->post('in_BlockName')."</addr2>
+                              <addr3>".$this->input->post('in_DistrictName')."</addr3>
+                              <addr4>".$this->input->post('in_City')."</addr4>
+                              <addr5>".$this->input->post('in_Province')."</addr5>
+                              <postCode>".$this->input->post('in_ZipCode')."</postCode>
+                              <country>".$this->input->post('wizard5_country_code')."</country>
+                            </contactAddress>
+                          </customerContact>
+                          <custAttributes>
+                            <custAttribute>
+                              <attrName>SAP_CODE_BILL</attrName>
+                              <attrType>C</attrType>
+                              <attrValue>".$this->input->post('sapCodeBill')."</attrValue>
+                            </custAttribute>
+                            <custAttribute>
+                              <attrName>SAP_CODE_UNBILL</attrName>
+                              <attrType>C</attrType>
+                              <attrValue>".$this->input->post('sapCodeUnBill')."</attrValue>
+                            </custAttribute>
+                            <custAttribute>
+                              <attrName>SOLD2PARTY</attrName>
+                              <attrType>C</attrType>
+                              <attrValue>".$this->input->post('sold2party')."</attrValue>
+                            </custAttribute>
+                          </custAttributes>
+                        </customerDoc>
+                        ";
+
+        $sql = " BEGIN "
+                . " TLKCAMWEBINTERFACE.ModifySold2Party ("
+                . " :i_Order_Type, "
+                . " :i_Order_No, "
+                . " :i_Customer_Ref, "
+                . " :i_UserName, "
+                . " :i_orderHeader, "
+                . " :i_orderDoc, "
+                . " :o_orderStatus "
+                . "); END;";
+
+        $stmt = oci_parse($this->db->conn_id, $sql);
+
+        //  Bind the input parameter
+        oci_bind_by_name($stmt, ':i_Order_Type', $i_Order_Type);
+        oci_bind_by_name($stmt, ':i_Order_No', $i_orderNo);
+        oci_bind_by_name($stmt, ':i_Customer_Ref', $i_customer_Ref);
+        oci_bind_by_name($stmt, ':i_UserName', $i_UserName);
+        oci_bind_by_name($stmt, ':i_orderHeader', $i_orderHeader);
+        oci_bind_by_name($stmt, ':i_orderDoc', $i_orderDoc);
+
+        // Bind the output parameter
+        oci_bind_by_name($stmt, ':o_orderStatus', $o_orderStatus, 2000000);
+
+        ociexecute($stmt);
+
+        $dt = array('status' => $o_orderStatus);
+
+        echo json_encode($dt);
+        exit;
+    }
 }

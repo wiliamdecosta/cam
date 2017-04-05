@@ -20,21 +20,76 @@ class Customer_controller {
                         $default = '' );
         exit;
     }
+
     function getComboMS(){
         $user = getUserName();
-        
-        $invoicing_co_id = getVarClean('invoicing_co_id','str', '0');
 
-        echo  buatcombo2($nama = 'in_MarketSegment',
-                        $id= 'in_MarketSegment',
-                        $table= "(select  n01 as market_segment_id ,
-                                      s01 as market_segment_name
-                                   from table(pack_lov.get_marketsegment_list('".$user."', '".$invoicing_co_id."', '')))",
-                        $field= 'market_segment_name',
-                        $pk = 'market_segment_id',
-                        $kondisi = array(),
-                        $required ='Y',
-                        $default = '- Pilih Market Segment -' );
+        $invoicing_co_id = getVarClean('invoicing_co_id','str', '0');
+        $market_segment_id = getVarClean('market_segment_id','int',0);
+
+        if(empty($market_segment_id)) {
+
+
+            echo  buatcombo2($nama = 'in_MarketSegment',
+                            $id= 'in_MarketSegment',
+                            $table= "(select  n01 as market_segment_id ,
+                                          s01 as market_segment_name
+                                       from table(pack_lov.get_marketsegment_list('".$user."', '".$invoicing_co_id."', '')))",
+                            $field= 'market_segment_name',
+                            $pk = 'market_segment_id',
+                            $kondisi = array(),
+                            $required ='Y',
+                            $default = '- Pilih Market Segment -' );
+        }else {
+            echo  buatcombo3($nama = 'in_MarketSegment',
+                            $id= 'in_MarketSegment',
+                            $table= "(select  n01 as market_segment_id ,
+                                          s01 as market_segment_name
+                                       from table(pack_lov.get_marketsegment_list('".$user."', '".$invoicing_co_id."', '')))",
+                            $field= 'market_segment_name',
+                            $pk = 'market_segment_id',
+                            $kondisi = array(),
+                            $required ='Y',
+                            $emptyText = '- Pilih Market Segment -',
+                            $default = $market_segment_id );
+        }
+        exit;
+    }
+
+    function getComboCustomerType() {
+        $user = getUserName();
+        $customer_type_id = getVarClean('customer_type_id','str','');
+
+        echo  buatcombo3($nama = 'in_CustomerType',
+                            $id= 'in_CustomerType',
+                            $table= "(select  n01 as customer_type_id ,
+                                      s01 as customer_type_name,
+                                      s21 as customer_type_desc
+                                   from table(pack_lov.get_customertype_list('user_name', '')))",
+                            $field= 'customer_type_name',
+                            $pk = 'customer_type_id',
+                            $kondisi = array(),
+                            $required ='Y',
+                            $emptyText = '- Pilih Customer Type -',
+                            $default = $customer_type_id );
+
+        exit;
+    }
+
+    function getComboContactType() {
+        $user = getUserName();
+        $contact_type_id = getVarClean('contact_type_id','str','');
+
+        echo  buatcombo4($nama = 'in_ContactType',
+                            $id= 'in_ContactType',
+                            $table= "gparams",
+                            $field= 'name',
+                            $pk = 'rfid',
+                            $kondisi = array('rfen' => 'CONTACTTYPE'),
+                            $required ='Y',
+                            $emptyText = '- Pilih Contact Type -',
+                            $default = $contact_type_id );
+
         exit;
     }
 
