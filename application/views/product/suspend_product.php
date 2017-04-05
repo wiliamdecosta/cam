@@ -176,7 +176,7 @@
         }
 
         if($('#prod_status_code1').val() != 'OK'){
-            swal('', 'Current Status is Active', 'error');
+            swal('', 'Current Status is Not Active', 'error');
             return false;
         }
         // Stop form from submitting normally

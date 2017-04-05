@@ -140,7 +140,7 @@
             return false;
         }
 
-        if($('#prod_status_code1').val() != 'OK'){
+        if($('#prod_status_code1').val() == 'OK'){
             swal('', 'Current Status is Active', 'error');
             return false;
         }
