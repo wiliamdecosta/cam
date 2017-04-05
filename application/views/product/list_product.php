@@ -96,8 +96,8 @@
                             swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
                         }
                     });
-                } //end confirm
-            });
+            } //end confirm
+        });
     });
 
     $('#detail-prod').on('click', function(event){

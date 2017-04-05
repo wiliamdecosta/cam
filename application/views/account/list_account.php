@@ -32,6 +32,7 @@
             <button class="btn btn-success" id="detail-acc" disabled=""> <i class="fa fa-newspaper-o"></i>Detail Account</button>
             <button class="btn btn-warning" id="modify-acc" disabled=""> <i class="fa fa-pencil-square-o"></i>Modify Account</button>
             <button class="btn btn-primary" id="terminate-acc" disabled=""> <i class="fa fa-tasks"></i>Terminate Account</button>
+            <button class="btn btn-danger" id="delete-acc" disabled=""> <i class="fa fa-times"></i>Delete Account</button>
 
             <div class="row">
                                 <div class="col-md-12 green">
@@ -45,6 +46,59 @@
     </div>
 </div>
 <script>
+    $('#delete-acc').on('click', function(event){
+        event.stopPropagation();
+        var grid = $('#grid-table-account');
+        var rowid = grid.jqGrid ('getGridParam', 'selrow');
+        var custRef = grid.jqGrid ('getCell', rowid, 'customer_ref');
+        // var prodSeq = grid.jqGrid ('getCell', rowid, 'product_seq');
+        var accnum = grid.jqGrid ('getCell', rowid, 'account_num');
+        var accname = grid.jqGrid ('getCell', rowid, 'account_name');
+
+        swal({
+              title: "Are you sure?",
+              text: "You want to delete this account "+accnum+" - "+accname+"?",
+              type: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#DD6B55",
+              confirmButtonText: "Yes, delete it!",
+              cancelButtonText: "No, cancel!",
+              closeOnConfirm: true,
+              closeOnCancel: true
+            },
+            function(isConfirm){
+                if (isConfirm) {
+                    
+                     $.ajax({
+                        url: "<?php echo site_url('account/delete_account');?>",
+                        type: "POST",
+                        dataType: "json",
+                        data: {
+                            customer_ref: custRef,
+                            account_num : accnum
+                        },
+                        success: function (data) {
+                            if(data.status == "COMPLETED"){    
+                                swal('',data.status);
+
+                                setTimeout(function(){
+                                     loadContentWithParams('account.list_account',{});
+                                }, 3000);
+
+                            
+                            }else{
+                                swal('',data.status);
+                            }
+
+                        },
+                        error: function (xhr, status, error) {
+                            swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
+                        }
+                    });
+            } //end confirm
+        });
+    });   
+    
     $('#detail-acc').on('click', function(event){
         event.stopPropagation();
         var grid = $('#grid-table-account');
@@ -189,6 +243,7 @@
                 $('#detail-acc').prop( "disabled", false );
                 $('#modify-acc').prop( "disabled", false );
                 $('#terminate-acc').prop( "disabled", false );
+                $('#delete-acc').prop( "disabled", false );
 
             },
             sortorder: '',
