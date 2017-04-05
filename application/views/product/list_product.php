@@ -33,7 +33,8 @@
             <button class="btn btn-warning" id="modify-prod" disabled=""> <i class="fa fa-pencil-square-o"></i>Modify Product</button>
             <button class="btn btn-primary" id="suspend-prod" disabled=""> <i class="fa fa-tasks"></i>Suspend</button>
             <button class="btn btn-default" id="reactivate-prod" disabled=""> <i class="fa fa-toggle-on"></i>Reactivate</button>
-            <button class="btn btn-default" id="terminate-prod" disabled=""> <i class="fa fa-toggle-off"></i>Terminate</button>
+            <button class="btn btn-info" id="terminate-prod" disabled=""> <i class="fa fa-toggle-off"></i>Terminate</button>
+            <button class="btn btn-danger" id="delete-prod" disabled=""> <i class="fa fa-times"></i>Delete</button>
 
             <div class="row">
                                 <div class="col-md-12 green">
@@ -47,6 +48,58 @@
     </div>
 </div>
 <script>
+    $('#delete-prod').on('click', function(event){
+        event.stopPropagation();
+        swal({
+              title: "Are you sure?",
+              text: "You want to delete this product?",
+              type: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#DD6B55",
+              confirmButtonText: "Yes, delete it!",
+              cancelButtonText: "No, cancel!",
+              closeOnConfirm: true,
+              closeOnCancel: true
+            },
+            function(isConfirm){
+                if (isConfirm) {
+                    var grid = $('#grid-table-account');
+                    var rowid = grid.jqGrid ('getGridParam', 'selrow');
+                    var custRef = grid.jqGrid ('getCell', rowid, 'customer_ref');
+                    var prodSeq = grid.jqGrid ('getCell', rowid, 'product_seq');
+                    var accnum = grid.jqGrid ('getCell', rowid, 'account_num');
+
+                     $.ajax({
+                        url: "<?php echo site_url('product/delete_product');?>",
+                        type: "POST",
+                        dataType: "json",
+                        data: {
+                            product_seq : prodSeq,
+                            customer_ref: custRef,
+                            account_num : accnum
+                        },
+                        success: function (data) {
+                            if(data.status == "COMPLETED"){    
+                                swal('',data.status);
+
+                                setTimeout(function(){
+                                     loadContentWithParams('product.list_product',{});
+                                }, 3000);
+
+                            
+                            }else{
+                                swal('',data.status);
+                            }
+
+                        },
+                        error: function (xhr, status, error) {
+                            swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
+                        }
+                    });
+                } //end confirm
+            });
+    });
+
     $('#detail-prod').on('click', function(event){
         event.stopPropagation();
         var grid = $('#grid-table-account');
@@ -336,6 +389,7 @@
                 $('#reactivate-prod').prop( "disabled", false );
                 $('#suspend-prod').prop( "disabled", false );
                 $('#terminate-prod').prop( "disabled", false );
+                $('#delete-prod').prop( "disabled", false );
 
             },
             sortorder: '',
