@@ -250,8 +250,8 @@ class Customer_cont extends CI_Controller
                             <contactAddress>
                               <addr1>".$this->input->post('in_StreetName')."</addr1>
                               <addr2>".$this->input->post('in_BlockName')."</addr2>
-                              <addr3>".$this->input->post('in_DistrictName')."</addr3>
-                              <addr4>".$this->input->post('in_City')."</addr4>
+                              <addr3>".$this->input->post('in_City')."</addr3>
+                              <addr4>".$this->input->post('in_DistrictName')."</addr4>
                               <addr5>".$this->input->post('in_Province')."</addr5>
                               <postCode>".$this->input->post('in_ZipCode')."</postCode>
                               <country>".$this->input->post('wizard5_country_code')."</country>
