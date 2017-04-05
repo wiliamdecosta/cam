@@ -50,9 +50,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-4">Effective From</label>
+                            <label class="control-label col-md-4">Effective From <span class="required">  * </span> </label>
                             <div class="col-md-3">
-                                <input type="text" class="form-control datepicker1" name="current_effective_dtm" id="current_effective_dtm">
+                                <input type="text" class="form-control datepicker1 required" name="current_effective_dtm" id="current_effective_dtm">
                                  <input type="hidden" class="form-control" name="current_effective_dtm2" id="current_effective_dtm2">
                             </div>
                         </div>

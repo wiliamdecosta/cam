@@ -27,6 +27,7 @@
                      <th data-column-id="account_name">Nama Akun</th>
                      <th data-column-id="billing_status" data-visible="false">Billing Status</th>
                      <th data-column-id="currency_code" data-visible="false">Currency Code</th>
+                     <th data-column-id="default_cps_id" data-visible="false">CPS ID</th>
                   </tr>
                 </thead> 
                 </table>

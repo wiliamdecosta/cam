@@ -1082,7 +1082,7 @@ $('#susp_recur_mod_type_id').on('change', function() {
     });
 
 
-    $('#wizard1_account_num').on('change', function() {
+    $('#wizard1_account_num').on('change', function() {        
         var id = $('#wizard1_account_num').val();
 
         $.ajax({
@@ -1116,6 +1116,9 @@ $('#susp_recur_mod_type_id').on('change', function() {
                 data: {},
                 success: function (data) {
                     $( "#comboAcc" ).html( data );
+                    setTimeout(function(){
+                                    $('#in_cps').val($('#wizard1_default_cps_id').val());
+                                }, 500);
                 },
                 error: function (xhr, status, error) {
                     swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
