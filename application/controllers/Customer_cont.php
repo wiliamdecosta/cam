@@ -342,7 +342,7 @@ class Customer_cont extends CI_Controller
                           <endDate/>
                         </customerStatus>
                         ";
-        die($i_orderDoc);
+        // die($i_orderDoc);
         $sql = " BEGIN "
                 . " TLKCAMWEBINTERFACE.CreateOrderCUSTDEL ("
                 . " :i_Order_Type, "
