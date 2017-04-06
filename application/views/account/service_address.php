@@ -111,7 +111,7 @@
                                         <label class="control-label col-md-2">Zip Code
                                         </label>
                                         <div class="col-md-4">
-                                            <input type="text" class="form-control numberformat" name="zipcode" id="zipcode" readonly>
+                                            <input type="text" class="form-control" name="zipcode" id="zipcode" readonly>
                                         </div>
                                     </div>
 
@@ -261,11 +261,12 @@
         success: function (data) {
             if(data.success){
                 var dt = data.rows[0];
-                $('#country_name').val(dt.country_name);
+                $('#country_name').val(dt.country_2);
                 $('#address_1').val(dt.address_1);
                 $('#address_2').val(dt.address_2);
                 $('#address_3').val(dt.address_3);
-                $('#country_2').val(dt.country_2);
+                // $('#country_2').val(dt.country_2);
+                $('#zipcode').val(dt.zipcode);
             }
             // console.log(dt.product_name);
         },

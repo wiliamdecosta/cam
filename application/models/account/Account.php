@@ -119,25 +119,28 @@ class Account extends Abstract_model {
 
 
     public function getBilling($account_num){
-        $sql = "select  s01 as bill_period,
-                        s02 as bill_period_units,
-                        s03 as accounting_method,
-                        s04 as bills_per_statement,
-                        s05 as payment_method_name,
-                        s06 as bill_style_name,
-                        s07 as bill_handling_code,
-                        s08 as credit_class_name,
-                        s09 as payment_term_desc,
-                        s10 as credit_limit_mny,
+        $sql = "select  s01 as customer_ref,
+                        s02 as account_num ,
+                        s03 as account_name ,  
+                        n01 as bill_period,
+                        s04 as bill_period_units,
+                        s05 as accounting_method,
+                        n02 as bills_per_statement,
+                        s06 as payment_method_name,
+                        s07 as bill_style_name,
+                        s08 as bill_handling_code,
+                        s09 as credit_class_name,
+                        s10 as payment_term_desc,
+                        n03 as credit_limit_mny,
                         s11 as package_disc_account_num,
-                        s12 as event_disc_account_num, 
-                        s13 as address_name,
-                        s14 as ls_address,
-                        s15 as email_address,
-                        s16 as daytime_contact_tel,
-                        s17 as evening_contact_tel,
-                        s18 as mobile_contact_tel,
-                        s19 as fax_contact_tel
+                        s12 as event_disc_account_num,
+                        s13 as ls_address,
+                        s14 as email_address,
+                        s15 as daytime_contact_tel,
+                        s16 as evening_contact_tel, 
+                        s17 as mobile_contact_tel,
+                        s18 as fax_contact_tel,
+                        s19 as address_name
                      from table(pack_list_cust_acc_prod. account_details_billing ('".$this->session->userdata('user_name')."','".$account_num."'))";
         $query = $this->db->query($sql);
 
@@ -145,12 +148,13 @@ class Account extends Abstract_model {
     }
 
     public function getServiceAddress($account_num){
-        $sql = "select  s01 as country_name,
-                        s02 as address_1,
-                        s03 as address_2,          
-                        s04 as zipcode,
-                        s05 as address_3,
-                        s06 as country_2
+        $sql = "select  s01 as address_1,
+                        s02 as address_2,
+                        s03 as address_3,
+                        s04 as address4,
+                        s05 as address5,
+                        s06 as country_2,
+                        s07 as zipcode
                      from table(pack_list_cust_acc_prod.account_details_srvaddress ('".$this->session->userdata('user_name')."','".$account_num."'))";
         $query = $this->db->query($sql);
 
@@ -164,8 +168,8 @@ class Account extends Abstract_model {
                         s04 as next_bill_dtm,
                         s05 as prepay_boo, 
                         s06 as delete_events_on_billing_boo,
-                        s07 as holiday_profile_id,
-                        s08 as events_per_day
+                        n01 as holiday_profile_id,
+                        n02 as events_per_day
                      from table(pack_list_cust_acc_prod.account_details_finance ('".$this->session->userdata('user_name')."','".$account_num."'))";
         $query = $this->db->query($sql);
 
