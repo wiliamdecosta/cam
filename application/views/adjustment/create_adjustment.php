@@ -94,8 +94,8 @@
                                     </label>
                                     <div class="col-md-3">        
                                         <select class="form-control required" name="balance_type">
-                                            <option value="1">Penambah Bill</option>
-                                            <option value="-1">Pengurang Bill</option>
+                                            <option value="-1">Penambah Bill</option>
+                                            <option value="1">Pengurang Bill</option>
                                         </select>
                                         <span class="help-block"></span>                                   
                                     </div>
