@@ -714,7 +714,7 @@ class Home extends CI_Controller
                                 <adjText>".$description."</adjText>
                                 <cpsId>".$cps_id."</cpsId>
                                 <invoiceInfo>".$product_label."</invoiceInfo>
-                                <notes>".$description."<notes>
+                                <notes>".$description."</notes>
                               </adjustment>
                             </adjustments>";
                             
