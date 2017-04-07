@@ -153,14 +153,14 @@
                                 <div class="tab-pane" id="tab2">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <div class="form-group">
+                                            <!-- <div class="form-group">
                                                 <label class="control-label col-md-6">Customer Order Number
                                                 <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-6">
                                                     <input type="text" readonly class="form-control required" name="in_Customer_Order_Number" id="in_Customer_Order_Number">
                                                 </div>
-                                            </div>
+                                            </div> -->
 
                                             <div class="form-group">
                                                 <label class="control-label col-md-6">Supplier Order Number
@@ -191,7 +191,7 @@
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-6">
-                                                    <input type="text" class="form-control required" name="in_Product_Label" id="in_Product_Label">
+                                                    <input type="text" class="form-control" name="in_Product_Label" id="in_Product_Label" readonly>
                                                 </div>
                                             </div>
 
