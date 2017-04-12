@@ -15,13 +15,19 @@ class Customer_cont extends CI_Controller
 
     public function genCustRef()
     {
-        $pck_name = "CAMWEB.PKG_TIBSCUSTOMER.GENCUSTOMERREF";
-        $pIN = array(
-            'prefix' => $this->input->post('prefix')
-        );
-        $conn_db = "default";
-        $out = $this->M_helper->exec_cursor($pck_name, $pIN, $conn_db);
-        echo json_encode($out);
+        if(!empty($this->input->post('custref01'))){
+            return $this->input->post('custref01');
+        }else{
+            $pck_name = "CAMWEB.PKG_TIBSCUSTOMER.GENCUSTOMERREF";
+            $pIN = array(
+                'prefix' => $this->input->post('prefix')
+            );
+            $conn_db = "default";
+            $out = $this->M_helper->exec_cursor($pck_name, $pIN, $conn_db);
+            //echo json_encode($out);
+            return $out['txt_custRef'][0];
+        }
+        
     }
 
     public function initTransaksi()
@@ -43,8 +49,9 @@ class Customer_cont extends CI_Controller
 
     public function createCustomer()
     {
-        $custReff = $this->input->post('custReff');
-        $customerRef = $this->input->post('customerRef');
+        //$custReff = $this->input->post('custReff');
+        $custReff = $this->genCustRef();
+        $customerRef = $custReff; //$this->input->post('customerRef');
         $parentCusref = $this->input->post('parentCusref');
         $sapCodeBill = strtoupper($this->input->post('sapCodeBill'));
         $sapCodeUnBill = $this->input->post('sapCodeUnBill');
@@ -59,7 +66,8 @@ class Customer_cont extends CI_Controller
         $in_ContactStartDate = $this->input->post('in_ContactStartDate');
         $in_ContactType = (int)$this->input->post('in_ContactType');
         $in_CustomerCategory = $this->input->post('in_CustomerCategory');
-        $in_CustomerType = (int)$this->input->post('in_CustomerType');
+        $in_CustomerType = (int)$this->input->post('in_CustomerType2');
+        $in_inv_co_id = (int)$this->input->post('in_CustomerType');
         $in_DistrictName = $this->input->post('in_DistrictName');
         $in_Email = $this->input->post('in_Email');
         $in_FirstName = $this->input->post('in_FirstName');
@@ -130,7 +138,7 @@ class Customer_cont extends CI_Controller
             'pIn_custSummaryStyleId' => NULL,
             'pIn_custConcatenateBillsBoo' => 'F',
             'pIn_custSummaryBillHandCode' => '',
-            'pIn_custInvoicingCoId' => 2,
+            'pIn_custInvoicingCoId' => $in_inv_co_id,
             'pIn_custMarketSegmentId' => $in_MarketSegment,
             'pIn_custDomainId' => NULL,
             'pIn_custTemplateRefCustBoo' => 'F',
@@ -170,7 +178,9 @@ class Customer_cont extends CI_Controller
 */
             $conn_db2 = "default";
             $pck_name2 = "PKG_TIBSCUSTOMER.createCustomer";
-            $out = $this->M_helper->exec_cursor($pck_name2, $pIN2, $conn_db2);
+            $out = array();
+            $out['custreff'] = $custReff;
+            $out['ret'] = $this->M_helper->exec_cursor($pck_name2, $pIN2, $conn_db2);
        /* if($out['statusCode'][0] == "T"){
             // Exec Create Customer TOSDB
             $conn_db2 = "tosdb";
