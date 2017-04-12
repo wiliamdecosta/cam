@@ -51,7 +51,7 @@ class Product extends CI_Controller
                         <productStatus>
                           <customerRef>".$i_Customer_Ref."</customerRef>
                           <productSeq>".$i_Product_Seq."</productSeq>
-                          <productStatus>".$productStatus."</productStatus>
+                          <productStatus>OK</productStatus>
                           <custOrderNumber>".$i_Order_No."</custOrderNumber>
                           <productLabel>".$product_label."</productLabel>
                           <startDate>".$current_effective_dtm."</startDate>
@@ -205,7 +205,7 @@ class Product extends CI_Controller
                         <productStatus>
                           <customerRef>".$i_Customer_Ref."</customerRef>
                           <productSeq>".$i_Product_Seq."</productSeq>
-                          <productStatus>".$productStatus."</productStatus>
+                          <productStatus>TX</productStatus>
                           <custOrderNumber>".$i_Order_No."</custOrderNumber>
                           <startDate>".$current_effective_dtm."</startDate>
                           <endDate></endDate>
