@@ -166,6 +166,23 @@
                                                            readonly="" placeholder="Customer Name"/>
                                                 </div>
                                             </div>
+                                            
+                                           <div class="form-group">
+                                                <label class="control-label col-md-4">Customer Type
+                                                    <span class="required">  * </span>
+                                                </label>
+                                                <div class="col-md-8" id="comboIC">
+                                                    <?php echo buatcombo('in_CustomerType2',
+                                                        'in_CustomerType2',
+                                                        'gparams',
+                                                        'name',
+                                                        'rfid',
+                                                        array('rfen' => 'CUSTOMERTYPE'),
+                                                        'Y',
+                                                        '- Pilih Customer Type -'
+                                                    ); ?>
+                                                </div>
+                                            </div>
                                             <div class="form-group">
                                                 <label class="control-label col-md-4">Invoicing Company
                                                     <span class="required">  * </span>
@@ -420,6 +437,11 @@
                                                 <label class="control-label col-md-4">SAP Code Bill
                                                 </label>
                                                 <div class="col-md-8">
+<!-- <<<<<<< .mine
+                                                    <input type="text" class="a form-control required" name="sapCodeBill" required>
+||||||| .r233
+                                                    <input type="number" class="a form-control required" name="sapCodeBill" required>
+======= -->
                                                     <input type="text" class="form-control required" name="sapCodeBill" style="text-transform:uppercase" required>
                                                 </div>
                                             </div>
@@ -428,7 +450,7 @@
                                                 <label class="control-label col-md-4">SAP Code Unbill
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="number" class="form-control required" name="sapCodeUnBill" required>
+                                                    <input type="text" class="form-control required" name="sapCodeUnBill" required>
                                                 </div>
                                             </div>
 
@@ -655,7 +677,7 @@ invcoid = $('#in_inv_co_id').val();
                             });*/
                         }
 
-                        if (!custReff) {
+                        /*if (!custReff) {
 
                             $.ajax({
                                 url: "<?php echo site_url('customer_cont/genCustRef'); ?>",
@@ -678,7 +700,7 @@ invcoid = $('#in_inv_co_id').val();
                                 }
                             });
 
-                        }
+                        }*/
 
                     }
                     //App.scrollTo($('.page-title'));
@@ -767,13 +789,15 @@ invcoid = $('#in_inv_co_id').val();
                 dataType: "json",
                 data: postData,
                 success: function (data) {
-                    if(data.statusCode == "T"){
-                        swal('',data.strMessage);
+                    if(data.ret.statusCode == "T"){
+                        swal('',data.ret.strMessage);
                         $('#submit_form')[0].reset();
                         // Redirect
                         loadContentWithParams('customer.create_customer', {});
                     }else{
-                        swal('',data.strMessage);
+                        swal('',data.ret.strMessage);
+                        $('#custReff').val(data.custreff);
+                        $('#custref01').val(data.custreff);
                     }
 
                 },
