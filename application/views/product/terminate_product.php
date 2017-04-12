@@ -42,9 +42,11 @@
                                 <div class="col-md-3">
                                     <label class="control-label col-md-3" style="text-align: left !important;" id="prod_status_code" name="prod_status_code">Terminated</label>
                                     <input type="hidden" class="form-control required" name="prod_status_code1" id="prod_status_code1" readonly>
-                                    <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>"
-                               value="<?php echo
-                               $this->security->get_csrf_hash(); ?>">
+                                    <input type="hidden" class="form-control required" name="customer_ref" id="customer_ref" value="<?php echo $this->input->post('customer_ref'); ?>">
+                                <input type="hidden" class="form-control required" name="product_seq" id="product_seq" value="<?php echo $this->input->post('product_seq'); ?>">
+                                <input type="hidden" class="form-control required" name="account_num" id="account_num" value="<?php echo $this->input->post('account_num'); ?>">
+                                <input type="hidden" class="form-control required" name="product_label" id="product_label" value="<?php echo $this->input->post('product_label'); ?>">
+                                <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
                                 </div>
                             </div>
 
