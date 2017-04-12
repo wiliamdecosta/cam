@@ -153,7 +153,7 @@
                 {label: 'File Name',name: 'file_name',width: 150, align: "left",editable: false, hidden:true },
                 {label: 'Attribute',name: 'attribute_ua_name',width: 150, align: "left",editable: false },
                 {label: 'Value',name: 'attribute_value',width: 200, align: "left",editable: false },
-                {label: 'Attachment Document',name: 'orig_file_name',width: 150, align: "left",editable: false,
+                {label: 'Attachment Document',name: 'orig_file_name',width: 550, align: "left",editable: false,
                     formatter: function(cellvalue, options, rowObject) {
                         // console.log(cellvalue);
                         if(rowObject['orig_file_name']){
@@ -163,7 +163,9 @@
                             return '';
                         }
                     }
-                }
+                },
+                {label: 'Start Date',name: 'start_dat',width: 100, align: "left",editable: false },
+                {label: 'End Date',name: 'end_dat',width: 100, align: "left",editable: false },
             ],
             height: '100%',
             autowidth: true,

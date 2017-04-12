@@ -136,6 +136,9 @@
     });
 </script>
 <script type="text/javascript">
+    $(".priceformat").number( true, 0 , '.',','); /* price number format */
+    $(".priceformat").css("text-align", "right");
+
     jQuery(function($) {
         var grid_selector = "#grid-table";
         var pager_selector = "#grid-pager";
@@ -152,9 +155,9 @@
                 {label: 'Start Date',name: 'start_dat',width: 150, align: "left",editable: false },
                 {label: 'End Date',name: 'end_dat',width: 150, align: "left",editable: false },
                 {label: 'Initiation',name: 'initiation',width: 200, align: "left",editable: false },
-                {label: 'Periodic',name: 'periodic',width: 200, align: "left",editable: false },
-                {label: 'Termination',name: 'termination',width: 200, align: "left",editable: false },
-                {label: 'Suspension',name: 'suspension',width: 200, align: "left",editable: false },
+                {label: 'Periodic',name: 'periodic',width: 200, align: "right",editable: false, formatter:'currency', formatoptions: {thousandsSeparator:','} },
+                {label: 'Termination',name: 'termination',width: 200, align: "right",editable: false, formatter:'currency', formatoptions: {thousandsSeparator:','} },
+                {label: 'Suspension',name: 'suspension',width: 200, align: "right",editable: false, formatter:'currency', formatoptions: {thousandsSeparator:','} },
                 {label: 'Suspension_periodic',name: 'suspension_periodic',width: 200, align: "left",editable: false },
                 {label: 'Reactivation',name: 'reactivation',width: 200, align: "left",editable: false },
                 {label: 'Notes_txt',name: 'notes_txt',width: 200, align: "left",editable: false }            
