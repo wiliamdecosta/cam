@@ -15,6 +15,20 @@ class Customer_cont extends CI_Controller
 
     public function genCustRef()
     {
+
+        $pck_name = "CAMWEB.PKG_TIBSCUSTOMER.GENCUSTOMERREF";
+        $pIN = array(
+            'prefix' => $this->input->post('prefix')
+        );
+        $conn_db = "default";
+        $out = $this->M_helper->exec_cursor($pck_name, $pIN, $conn_db);
+        echo json_encode($out);
+        //return $out['txt_custRef'][0];
+
+    }
+
+    public function genCustRef2()
+    {
         if(!empty($this->input->post('custref01'))){
             return $this->input->post('custref01');
         }else{
@@ -27,7 +41,7 @@ class Customer_cont extends CI_Controller
             //echo json_encode($out);
             return $out['txt_custRef'][0];
         }
-        
+
     }
 
     public function initTransaksi()
@@ -50,7 +64,7 @@ class Customer_cont extends CI_Controller
     public function createCustomer()
     {
         //$custReff = $this->input->post('custReff');
-        $custReff = $this->genCustRef();
+        $custReff = $this->genCustRef2();
         $customerRef = $custReff; //$this->input->post('customerRef');
         $parentCusref = $this->input->post('parentCusref');
         $sapCodeBill = strtoupper($this->input->post('sapCodeBill'));
