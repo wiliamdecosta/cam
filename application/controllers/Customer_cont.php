@@ -29,7 +29,7 @@ class Customer_cont extends CI_Controller
 
     public function genCustRef2()
     {
-        if(!empty($this->input->post('custref01'))){
+        if($this->input->post('custref01') != ""){
             return $this->input->post('custref01');
         }else{
             $pck_name = "CAMWEB.PKG_TIBSCUSTOMER.GENCUSTOMERREF";
