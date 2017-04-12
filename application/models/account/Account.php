@@ -140,7 +140,11 @@ class Account extends Abstract_model {
                         s16 as evening_contact_tel, 
                         s17 as mobile_contact_tel,
                         s18 as fax_contact_tel,
-                        s19 as address_name
+                        s19 as address_name,
+                        s20 as tax_inclusive_boo,
+                        n04 as default_cps_id ,
+                        n05 as accounting_method_id,
+                        s21 as account_status
                      from table(pack_list_cust_acc_prod. account_details_billing ('".$this->session->userdata('user_name')."','".$account_num."'))";
         $query = $this->db->query($sql);
 
@@ -205,7 +209,10 @@ class Account extends Abstract_model {
                       s21 as first_name,
                       s22 as last_name,
                       s23 as go_live_date,
-                      s24 as account_status
+                      s24 as account_status,
+                      n10 as accounting_method_id,
+                      n11 as cps_id ,
+                      s25 as tax_inclusive_boo
                from table(pack_list_cust_acc_prod.account_modify_billing ('".$this->session->userdata('user_name')."','".$account_num."'))";
         $query = $this->db->query($sql);
 

@@ -155,6 +155,10 @@
                                             <input type="hidden" name="accStatus" id="accStatus">
                                             <input type="hidden" name="inAccountToGoLive" id="inAccountToGoLive">
                                             <input type="hidden" name="inAccountCurrency" id="inAccountCurrency">
+                                            <input type="hidden" name="tax_inclusive_boo" id="tax_inclusive_boo">
+                                            <input type="hidden" name="cps_id" id="cps_id">
+                                            <input type="hidden" name="accounting_method_id" id="accounting_method_id">
+                                            <input type="hidden" name="account_status" id="account_status">
 
                                         </div>
                                         <div class="col-md-6">
@@ -380,33 +384,37 @@
                 var dt = data.rows[0];
                 $('#inAccountCurrency').val(dt.currency_code);                
                 $('#inAccountToGoLive ').val(dt.go_live_date );
-                $('#accStatus ').val(dt.account_status );
-                $('#inTaxStatus ').val(dt.tax_status );
-                $('#inNextBillDate ').val(dt.next_bill_dtm );
-                $('#AccountNumber ').val(dt.account_num );
-                $('#customer_ref ').val(dt.customer_ref );
-                $('#inFirstName ').val(dt.first_name );
-                $('#inLastName ').val(dt.last_name );
-                $('#inCompanyName ').val(dt.company_name );
-                $('#inEmail ').val(dt.email );
-                $('#inMobileNumber ').val(dt.mobile_contact_tel );
-                $('#inContactType ').val(dt.acontact_id );
-                $('#wizard5_country_id ').val(dt.country_id );
-                $('#wizard5_country_code ').val(dt.country_name );
-                $('#inStreetName ').val(dt.address1 );
-                $('#inBlockName ').val(dt.address2 );
-                $('#inDistrictName ').val(dt.address4 );
-                $('#inCity ').val(dt.address3 );
-                $('#inProvinsi ').val(dt.address5 );
-                $('#inZipCode ').val(dt.zipcode );
+                $('#accStatus').val(dt.account_status );
+                $('#inTaxStatus').val(dt.tax_status );
+                $('#inNextBillDate').val(dt.next_bill_dtm );
+                $('#AccountNumber').val(dt.account_num );
+                $('#customer_ref').val(dt.customer_ref );
+                $('#inFirstName').val(dt.first_name );
+                $('#inLastName').val(dt.last_name );
+                $('#inCompanyName').val(dt.company_name );
+                $('#inEmail').val(dt.email );
+                $('#inMobileNumber').val(dt.mobile_contact_tel );
+                $('#inContactType').val(dt.acontact_id );
+                $('#wizard5_country_id').val(dt.country_id );
+                $('#wizard5_country_code').val(dt.country_name );
+                $('#inStreetName').val(dt.address1 );
+                $('#inBlockName').val(dt.address2 );
+                $('#inDistrictName').val(dt.address4 );
+                $('#inCity').val(dt.address3 );
+                $('#inProvinsi').val(dt.address5 );
+                $('#inZipCode').val(dt.zipcode );
+
+                $('#tax_inclusive_boo').val(dt.tax_inclusive_boo);                
+                $('#cps_id ').val(dt.cps_id);
+                $('#accounting_method_id').val(dt.accounting_method_id);
+                $('#account_status').val(dt.account_status);
             }
         },
         error: function (xhr, status, error) {
             swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
         }
     });
-
-
+   
     //load tab 2 dan 3
     $.ajax({
         url: '<?php echo WS_JQGRID."account.detailaccount_controller/read_modify_billinfo"; ?>',

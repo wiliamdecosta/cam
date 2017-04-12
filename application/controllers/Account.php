@@ -512,6 +512,11 @@ class Account extends CI_Controller
         $inZipCode = $this->input->post('inZipCode');
         $country = $this->input->post('wizard5_country_code');
 
+        $tax_inclusive_boo = $this->input->post('tax_inclusive_boo');
+        $cps_id = $this->input->post('cps_id');
+        $accounting_method_id = $this->input->post('accounting_method_id');
+        $account_status = $this->input->post('account_status');
+
         $i_Order_Type = 'MOACC';
         $i_Order_No = $this->gen_con();
         $i_Customer_Ref = $this->input->post('customer_ref');
@@ -541,8 +546,12 @@ class Account extends CI_Controller
                           <marketSegment></marketSegment>
                           <billPeriod>".$bill_period."</billPeriod>
                           <billPeriodUnit>".$period_unit."</billPeriodUnit>
+                          <accountingMethod>".$accounting_method_id."</accountingMethod> 
                           <paymentMethod>".$pay_method."</paymentMethod>
                           <currency>".$inAccountCurrency."</currency>
+                          <cpsId>".$cps_id."</cpsId>
+                          <taxInclusive>".$tax_inclusive_boo."</taxInclusive>
+                          <accountStatus>".$account_status."</accountStatus>
                           <taxInclusive>".$inTaxStatus."</taxInclusive>
                           <accountStatus>".$accStatus."</accountStatus>
                           <goLiveDtm>".$inAccountToGoLive."</goLiveDtm>
@@ -567,7 +576,7 @@ class Account extends CI_Controller
                             ".$accAttr."
                           </accAttributes>
                         </accountDoc>";
-        // die($i_orderDoc); exit;
+        //die($i_orderDoc); exit;
 
         $sql = " BEGIN "
                 . " TLKCAMWEBINTERFACE.ModifyBill2Party ("
