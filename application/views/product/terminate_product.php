@@ -74,8 +74,8 @@
                         <div class="form-actions">
                             <div class="row">
                                 <div class="col-md-offset-3 col-md-9">
-                                    <button type="submit" class="btn green button-submit"> Submit
-                                        <i class="fa fa-check"></i>
+                                    <button type="submit" class="btn green button-submit"> <i class="fa fa-check"></i> Submit
+                                        
                                     </button>
                                     <button type="button" class="btn btn-danger radius-4" id="cancel" >
                                         <i class="fa fa-times"></i>
@@ -104,7 +104,7 @@
     });
 
     $.ajax({
-        url: '<?php echo WS_JQGRID."product.detailproduct_controller/read_reactivate_product"; ?>',
+        url: '<?php echo WS_JQGRID."product.detailproduct_controller/read_reactivate_product_curr"; ?>',
         type: "POST",
         dataType: "json",
         data: {

@@ -105,7 +105,7 @@
     // });
 
     $.ajax({
-        url: '<?php echo WS_JQGRID."product.detailproduct_controller/read_reactivate_product"; ?>',
+        url: '<?php echo WS_JQGRID."product.detailproduct_controller/read_reactivate_product_curr"; ?>',
         type: "POST",
         dataType: "json",
         data: {

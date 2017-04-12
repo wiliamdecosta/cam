@@ -147,6 +147,17 @@ class Product extends Abstract_model {
         return $query->result_array();
     }
 
+    public function getReactivateProductCurr($customer_ref, $product_seq){
+        $sql = "select  s01 as current_effective_dtm, 
+                        s02 as current_status , 
+                        s03 as current__reason_txt ,
+                        s04 as prod_status_code
+                     from table(pack_list_cust_acc_prod.product_det_current_status('".$this->session->userdata('user_name')."','".$customer_ref."', ".$product_seq."))";
+        $query = $this->db->query($sql);
+
+        return $query->result_array();
+    }
+
 
     public function getFinance($customer_ref, $product_seq){
         $sql = "select    s01 as account_num,
