@@ -333,7 +333,7 @@ if (!function_exists('generatehtml')) {
                     $html .= "<input type='hidden' class='form-control' name='attributesId[]' value='".$data['attribute_bill_name']."'>";
                     $html .= "<input type='text' class='form-control".$req."' name='attributes[]'>";
                 }else if($data['val_type'] == 'UPLOAD_FILE') {
-                    $html .= "<div class='col-md-7'>";
+                    $html .= "<div class='col-md-5'>";
                     $html .= "<input type='hidden' class='form-control' name='attributesType[]' value='C'>";
                     $html .= "<input type='hidden' class='form-control' name='attributesId[]' value='".$data['attribute_bill_name']."'>";
                     $html .= "<input type='hidden' class='form-control' name='subAttributesId[]' value='".$data['product_attribute_subid']."'>";
@@ -370,6 +370,12 @@ if (!function_exists('generatehtml')) {
 
 
             $html .= "</div>";
+
+            if($data['val_type'] == 'UPLOAD_FILE') {
+                $html .= "<div class='col-md-2'>";
+                $html .= "<label style='font-size:12px;'>*doc|pdf|png|jpg|jpeg|txt|docx|xlsx|xls (Max. 20 Mb)</label>";
+                $html .= "</div>";
+            }
             $html .= "</div>";
 
             $html .= "<script>";
@@ -588,7 +594,7 @@ if (!function_exists('generatehtml')) {
                     $html .= "<input type='hidden' class='form-control' name='attributesId[]' value='".$data['attribute_bill_name']."'>";
                     $html .= "<input type='text' class='form-control".$req."' name='attributes[]' value='".$data['attr_value']."'>";
                 }else if($data['val_type'] == 'UPLOAD_FILE') {
-                    $html .= "<div class='col-md-7'>";
+                    $html .= "<div class='col-md-5'>";
                     $html .= "<input type='hidden' class='form-control' name='attributesType[]' value='C'>";
                     $html .= "<input type='hidden' class='form-control' name='attributesId[]' value='".$data['attribute_bill_name']."'>";
                     $html .= "<input type='hidden' class='form-control' name='subAttributesId[]' value='".$data['product_attribute_subid']."'>";
@@ -626,6 +632,11 @@ if (!function_exists('generatehtml')) {
 
 
             $html .= "</div>";
+            if($data['val_type'] == 'UPLOAD_FILE') {
+                $html .= "<div class='col-md-2'>";
+                $html .= "<label style='font-size:12px;'>*doc|pdf|png|jpg|jpeg|txt|docx|xlsx|xls (Max. 20 Mb)</label>";
+                $html .= "</div>";
+            }
             $html .= "</div>";
 
             $html .= "<script>";
