@@ -470,10 +470,10 @@
                                  'wizard5_country_code',
                                  'inStreetName',
                                  'inBlockName',
-                                 'inCity',
+                                 'inDistrictName',
                                  'inProvinsi',
                                  'inZipCode',
-                                 'inDistrictName',
+                                 'inCity',
                                  customer_ref);
              
         });
