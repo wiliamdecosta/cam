@@ -103,12 +103,12 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-md-4 control-label">Company Name
+                                                <label class="col-md-4 control-label">Account Name
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-8">
                                                     <input type="text" class="form-control uppercase required"
-                                                           id="inCompanyName" name="inCompanyName">
+                                                           id="account_name" name="account_name" value="<?php echo $this->input->post('account_name');?>">
                                                 </div>
                                             </div>                                            
                                             <div class="form-group">
@@ -149,7 +149,7 @@
 
                                             <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
                                             <input type="hidden" name="customer_ref" id="customer_ref" value="<?php echo $this->input->post('customer_ref');?>">
-                                            <input type="hidden" name="account_name" id="account_name" value="<?php echo $this->input->post('account_name');?>">
+                                            
                                             <input type="hidden" name="inNextBillDate" id="inNextBillDate">
                                             <input type="hidden" name="inTaxStatus" id="inTaxStatus">
                                             <input type="hidden" name="accStatus" id="accStatus">
@@ -391,7 +391,6 @@
                 $('#customer_ref').val(dt.customer_ref );
                 $('#inFirstName').val(dt.first_name );
                 $('#inLastName').val(dt.last_name );
-                $('#inCompanyName').val(dt.company_name );
                 $('#inEmail').val(dt.email );
                 $('#inMobileNumber').val(dt.mobile_contact_tel );
                 $('#inContactType').val(dt.acontact_id );
