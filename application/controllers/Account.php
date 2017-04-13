@@ -305,8 +305,8 @@ class Account extends CI_Controller
                   <firstName>".$inFirstName."</firstName>
                   <lastName>".$inLastName."</lastName>
                   <salutationName>".$inCompanyName."</salutationName>
-                  <phone>".$inMobileNumber."</phone>
                   <email>".$inEmail."</email>
+                  <phone>".$inMobileNumber."</phone>                  
                   <contactAddress>
                     <addr1>".$inStreetName."</addr1>
                     <addr2>".$inBlockName."</addr2>
@@ -563,7 +563,6 @@ class Account extends CI_Controller
                             <salutationName>".$inCompanyName."</salutationName>
                             <email>".$inEmail."</email>
                             <phone>".$inMobileNumber."</phone>
-                            <email>".$inEmail."</email>
                             <contactAddress>
                               <addr1>".$inStreetName."</addr1>
                               <addr2>".$inBlockName."</addr2>
