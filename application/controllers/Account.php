@@ -502,7 +502,7 @@ class Account extends CI_Controller
         $inNextBillDate = $this->input->post('inNextBillDate');
         $inFirstName = $this->input->post('inFirstName');
         $inLastName = $this->input->post('inLastName');
-        $inCompanyName = $this->input->post('inCompanyName');
+        //$inCompanyName = $this->input->post('inCompanyName');
         $inEmail = $this->input->post('inEmail');
         $inMobileNumber = $this->input->post('inMobileNumber');
         $inStreetName = $this->input->post('inStreetName');
@@ -560,7 +560,7 @@ class Account extends CI_Controller
                           <accountContact>
                             <firstName>".$inFirstName."</firstName>
                             <lastName>".$inLastName."</lastName>
-                            <salutationName>".$inCompanyName."</salutationName>
+                            <salutationName>".$account_name."</salutationName>
                             <email>".$inEmail."</email>
                             <phone>".$inMobileNumber."</phone>
                             <contactAddress>
