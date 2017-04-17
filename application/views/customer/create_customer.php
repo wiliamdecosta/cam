@@ -256,7 +256,7 @@
                                                 <label class="control-label col-md-4">Title
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="in_Title"/>
+                                                    <input type="text" class="form-control" name="in_Title" maxlength="40"/>
                                                 </div>
 
                                             </div>
@@ -265,7 +265,7 @@
                                                 <label class="control-label col-md-4">First Name
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="in_FirstName"/>
+                                                    <input type="text" class="form-control" name="in_FirstName" maxlength="40"/>
                                                 </div>
 
                                             </div>
@@ -274,7 +274,7 @@
                                                 <label class="control-label col-md-4">Initials
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="in_Initials"/>
+                                                    <input type="text" class="form-control" name="in_Initials" maxlength="40"/>
                                                 </div>
 
                                             </div>
@@ -283,7 +283,7 @@
                                                 <label class="control-label col-md-4">Last Name
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="in_LastName"/>
+                                                    <input type="text" class="form-control" name="in_LastName" maxlength="40"/>
                                                 </div>
 
                                             </div>
@@ -294,7 +294,7 @@
                                                 </label>
                                                 <div class="col-md-8">
                                                     <input type="text" class="form-control required" name="in_AddressName"
-                                                           required/>
+                                                           required maxlength="255"/>
                                                 </div>
                                             </div>
 
@@ -303,7 +303,7 @@
 
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="in_SalutationName"/>
+                                                    <input type="text" class="form-control" name="in_SalutationName" maxlength="40"/>
                                                 </div>
                                             </div>
 
@@ -331,7 +331,7 @@
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control required" name="in_Email"/>
+                                                    <input type="text" class="form-control required" name="in_Email" maxlength="40"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -343,7 +343,7 @@
                                                 </label>
                                                 <div class="col-md-8">
                                                     <input type="text" class="form-control required" name="in_StreetName"
-                                                           required/>
+                                                           required maxlength="80"/>
                                                 </div>
                                             </div>
 
@@ -351,7 +351,7 @@
                                                 <label class="control-label col-md-4">Block Name
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control required" name="in_BlockName" required/>
+                                                    <input type="text" class="form-control required" name="in_BlockName" required maxlength="80"/>
                                                 </div>
                                             </div>
 
@@ -359,7 +359,7 @@
                                                 <label class="control-label col-md-4">District Name
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control required" name="in_DistrictName" required/>
+                                                    <input type="text" class="form-control required" name="in_DistrictName" required maxlength="80"/>
                                                 </div>
                                             </div>
 
@@ -367,7 +367,7 @@
                                                 <label class="control-label col-md-4">City
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control required" name="in_City" required/>
+                                                    <input type="text" class="form-control required" name="in_City" required maxlength="80"/>
                                                 </div>
                                             </div>
 
@@ -376,7 +376,7 @@
 
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control required" name="in_Province" required/>
+                                                    <input type="text" class="form-control required" name="in_Province" required maxlength="80"/>
                                                 </div>
                                             </div>
 
@@ -386,7 +386,7 @@
                                                 </label>
                                                 <div class="col-md-8">
                                                     <input type="text" class="form-control required" name="in_ZipCode"
-                                                           required/>
+                                                           required maxlength="40"/>
                                                 </div>
                                             </div>
                                             
@@ -411,7 +411,7 @@
                                                 <label class="control-label col-md-4">Mobile Number
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="in_Phone"/>
+                                                    <input type="text" class="form-control" name="in_Phone" maxlength="40"/>
                                                 </div>
                                             </div>
 
@@ -421,7 +421,7 @@
                                                 </label>
                                                 <div class="col-md-8">
                                                     <input class="form-control datepicker " type="text" value=""
-                                                           id="datepicker" name="in_ContactStartDate" >
+                                                           id="datepicker" name="in_ContactStartDate" readonly="">
                                                 </div>
                                             </div>
 
@@ -442,7 +442,7 @@
 ||||||| .r233
                                                     <input type="number" class="a form-control required" name="sapCodeBill" required>
 ======= -->
-                                                    <input type="text" class="form-control required" name="sapCodeBill" style="text-transform:uppercase" required>
+                                                    <input type="text" class="form-control required" name="sapCodeBill" style="text-transform:uppercase" required maxlength="40">
                                                 </div>
                                             </div>
 
@@ -450,7 +450,7 @@
                                                 <label class="control-label col-md-4">SAP Code Unbill
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control required" name="sapCodeUnBill" required>
+                                                    <input type="text" class="form-control required" name="sapCodeUnBill" required maxlength="40">
                                                 </div>
                                             </div>
 
@@ -458,7 +458,7 @@
                                                 <label class="control-label col-md-4">Sold2party
                                                 </label>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control" name="sold2party">
+                                                    <input type="text" class="form-control" name="sold2party" maxlength="40">
                                                 </div>
                                             </div>
 

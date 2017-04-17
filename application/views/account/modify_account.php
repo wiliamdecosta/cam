@@ -90,7 +90,7 @@
                                                 </label>
                                                 <div class="col-md-8">
                                                     <input type="text" class="form-control required uppercase"
-                                                           name="inFirstName" id="inFirstName">
+                                                           name="inFirstName" id="inFirstName" maxlength="40">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -99,7 +99,7 @@
                                                 </label>
                                                 <div class="col-md-8">
                                                     <input type="text" class="form-control required uppercase"
-                                                           name="inLastName" id="inLastName">
+                                                           name="inLastName" id="inLastName" maxlength="40">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -108,7 +108,7 @@
                                                 </label>
                                                 <div class="col-md-8">
                                                     <input type="text" class="form-control uppercase required"
-                                                           id="account_name" name="account_name" value="<?php echo $this->input->post('account_name');?>">
+                                                           id="account_name" name="account_name" value="<?php echo $this->input->post('account_name');?>" maxlength="40">
                                                 </div>
                                             </div>                                            
                                             <div class="form-group">
@@ -118,7 +118,7 @@
                                                 <div class="col-md-8">
                                                     <input type="text" class="form-control required"
                                                            placeholder="Enter Email Address" name="inEmail"
-                                                           id="inEmail">
+                                                           id="inEmail" maxlength="80">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -127,7 +127,7 @@
                                                 </label>
                                                 <div class="col-md-8">
                                                     <input type="text" class="form-control required"
-                                                           name="inMobileNumber" id="inMobileNumber">
+                                                           name="inMobileNumber" id="inMobileNumber" maxlength="40">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -198,7 +198,7 @@
                                                 <div class="col-md-8">
                                                     <input type="text" class="form-control required uppercase"
                                                            placeholder="Enter Street Name" id="inStreetName"
-                                                           name="inStreetName" value=""
+                                                           name="inStreetName" value="" maxlength="80"
                                                            >
                                                 </div>
                                             </div>
@@ -209,7 +209,7 @@
                                                     <input type="text" class="form-control uppercase required"
                                                            placeholder="Enter Block Name" id="inBlockName"
                                                            name="inBlockName" value=""
-                                                            required>
+                                                            required maxlength="80">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -219,7 +219,7 @@
                                                     <input type="text" class="form-control uppercase required"
                                                            placeholder="Enter District Name" id="inDistrictName"
                                                            name="inDistrictName" value=""
-                                                            required>
+                                                            required maxlength="80">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -228,7 +228,7 @@
                                                     <input type="text" class="form-control uppercase required"
                                                            placeholder="Enter City" id="inCity"
                                                            name="inCity"
-                                                           value=""  required>
+                                                           value=""  required maxlength="80">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -238,7 +238,7 @@
                                                     <input type="text" class="form-control uppercase required"
                                                            placeholder="Enter Province" id="inProvinsi"
                                                            name="inProvinsi" value=""
-                                                            required>
+                                                            required maxlength="80">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -247,9 +247,9 @@
                                                 </label>
                                                 <div class="col-md-8">
                                                     <input type="number" class="form-control required"
-                                                           placeholder="Enter ZIP Code" maxlength="5"
+                                                           placeholder="Enter ZIP Code"
                                                            id="inZipCode"
-                                                           name="inZipCode" required>
+                                                           name="inZipCode" required maxlength="40">
                                                 </div>
                                             </div>
                                             <div class="form-group" style="display: none;">

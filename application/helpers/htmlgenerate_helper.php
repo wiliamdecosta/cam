@@ -463,7 +463,7 @@ if (!function_exists('generatehtml')) {
                         <label class='control-label col-md-4'>".ucwords(strtolower(str_replace('_',' ',$value->column_name)))."
                         </label>
                         <div class='col-md-8'>
-                            <input type='".$dataType."' class='a form-control uppercase ".$required."' name='".$value->column_name."' id='".$value->column_name."' ".$required." ".$oKU." >
+                            <input type='".$dataType."' class='a form-control uppercase ".$required."' name='".$value->column_name."' id='".$value->column_name."' ".$required." ".$oKU." maxlength='40'>
                         </div>
                     </div> ";
 
