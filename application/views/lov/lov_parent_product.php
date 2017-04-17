@@ -98,7 +98,8 @@
          $("#"+ $("#modal_lov_parent_product_label_val").val()).change();
     }
 
-    function modal_lov_parent_product_prepare_table(account_num) {        
+    function modal_lov_parent_product_prepare_table(account_num) {  
+        $("#modal_lov_parent_product_grid_selection").bootgrid("destroy");      
         $("#modal_lov_parent_product_grid_selection").bootgrid({
              formatters: {
                 "opt-edit" : function(col, row) {
