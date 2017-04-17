@@ -344,7 +344,7 @@ if (!function_exists('generatehtml')) {
                     $html .= "<div class='input-group'>";
                     $html .= "<input type='hidden' class='form-control' name='attributesType[]' value='C'>";
                     $html .= "<input type='hidden' class='form-control' name='attributesId[]' value='".$data['attribute_bill_name']."'>";
-                    $html .= "<input type='text' class='form-control".$req."' id='".$data['attribute_bill_name']."' name='attributes[]'>";
+                    $html .= "<input type='text' class='form-control".$req."' id='".$data['attribute_bill_name']."' name='attributes[]' readonly>";
                     $html .= '<span class="input-group-btn">
                                  <button class="btn btn-success" type="button" onclick="modal_lov_'.strtolower($data['attribute_bill_name']).'_show(\''.$data['attribute_bill_name'].'\')">
                                      <i class="fa fa-search"></i>
@@ -381,7 +381,8 @@ if (!function_exists('generatehtml')) {
             $html .= "<script>";
             $html .= "$('.datepickerON').datetimepicker({
                             format: 'DD/MM/YYYY'
-                        });";
+                        });
+                        $('.datepickerON').keypress(function(event) {event.preventDefault();});";
             $html .= "</script>";
         }
 
@@ -606,7 +607,7 @@ if (!function_exists('generatehtml')) {
                     $html .= "<div class='input-group'>";
                     $html .= "<input type='hidden' class='form-control' name='attributesType[]' value='C'>";
                     $html .= "<input type='hidden' class='form-control' name='attributesId[]' value='".$data['attribute_bill_name']."'>";
-                    $html .= "<input type='text' class='form-control".$req."' id='".$data['attribute_bill_name']."' name='attributes[]' value='".$data['attr_value']."'>";
+                    $html .= "<input type='text' class='form-control".$req."' id='".$data['attribute_bill_name']."' name='attributes[]' value='".$data['attr_value']."' readonly>";
                     $html .= '<span class="input-group-btn">
                                  <button class="btn btn-success" type="button" onclick="modal_lov_'.strtolower($data['attribute_bill_name']).'_show(\''.$data['attribute_bill_name'].'\')">
                                      <i class="fa fa-search"></i>
@@ -642,7 +643,8 @@ if (!function_exists('generatehtml')) {
             $html .= "<script>";
             $html .= "$('.datepickerON').datetimepicker({
                             format: 'DD/MM/YYYY'
-                        });";
+                        });
+                        $('.datepickerON').keypress(function(event) {event.preventDefault();});";
             $html .= "</script>";
         }
 

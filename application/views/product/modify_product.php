@@ -166,7 +166,7 @@
                                                 <label class="control-label col-md-6">Supplier Order Number
                                                 </label>
                                                 <div class="col-md-6">
-                                                    <input type="text" class="form-control" name="in_Supplier_Order_Number">
+                                                    <input type="text" class="form-control" maxlength="40" name="in_Supplier_Order_Number">
                                                 </div>
                                             </div>
 
@@ -191,7 +191,7 @@
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-6">
-                                                    <input type="text" class="form-control" name="in_Product_Label" id="in_Product_Label" readonly>
+                                                    <input type="text" class="form-control required" maxlength="40" name="in_Product_Label" id="in_Product_Label" readonly>
                                                 </div>
                                             </div>
 
@@ -260,7 +260,7 @@
                                                 <div class="col-md-7">
                                                     <div class="input-group">
                                                         <input type="hidden" class="form-control" name="wizard5_country_id" id="wizard5_country_id" readonly>
-                                                        <input type="text" class="form-control required" name="wizard5_country_code" id="wizard5_country_code" readonly>
+                                                        <input type="text" class="form-control required" maxlength="80" name="wizard5_country_code" id="wizard5_country_code" readonly>
                                                         <span class="input-group-btn">
                                                             <button class="btn btn-success" type="button" id="btn-lov-country">
                                                             <i class="fa fa-search"></i>
@@ -274,7 +274,7 @@
                                                     <span class="required">  * </span>
                                                 </label>
                                                 <div class="col-md-7">
-                                                <input type="text" class="form-control required" name="wizard5_in_Address_line1" id="wizard5_in_Address_line1">
+                                                <input type="text" class="form-control required" maxlength="80" name="wizard5_in_Address_line1" id="wizard5_in_Address_line1">
                                                 </div>
                                             </div>
 
@@ -282,14 +282,14 @@
                                                 <label class="control-label col-md-5">Address Line 2
                                                 </label>
                                                 <div class="col-md-7">
-                                                    <input type="text" class="form-control" name="wizard5_in_Address_line2" id="wizard5_in_Address_line2">
+                                                    <input type="text" class="form-control" maxlength="80" name="wizard5_in_Address_line2" id="wizard5_in_Address_line2">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label col-md-5">Additional address 1
                                                 </label>
                                                 <div class="col-md-7">
-                                                    <input type="text" class="form-control" name="wizard5_in_Additional_address_1" id="wizard5_in_Additional_address_1">
+                                                    <input type="text" class="form-control" maxlength="80" name="wizard5_in_Additional_address_1" id="wizard5_in_Additional_address_1">
                                                 </div>
                                             </div>
 
@@ -297,7 +297,7 @@
                                                 <label class="control-label col-md-5">Additional address 2
                                                 </label>
                                                 <div class="col-md-7">
-                                                    <input type="text" class="form-control" name="wizard5_in_Additional_address_2" id="wizard5_in_Additional_address_2">
+                                                    <input type="text" class="form-control" maxlength="80" name="wizard5_in_Additional_address_2" id="wizard5_in_Additional_address_2">
                                                 </div>
                                             </div>
 
@@ -306,7 +306,7 @@
                                                     <span class="required">  * </span>
                                                 </label>
                                                 <div class="col-md-7">
-                                                    <input type="text" class="form-control required" name="wizard5_in_Zip_Code" id="wizard5_in_Zip_Code" onkeypress="return isNumberKey(event);">
+                                                    <input type="text" class="form-control required" maxlength="40" name="wizard5_in_Zip_Code" id="wizard5_in_Zip_Code" onkeypress="return isNumberKey(event);">
                                                 </div>
                                             </div>
 
@@ -315,7 +315,7 @@
                                                     <span class="required">  * </span>
                                                 </label>
                                                 <div class="col-md-7">
-                                                    <input type="text" class="form-control required" name="wizard5_in_City" id="wizard5_in_City">
+                                                    <input type="text" class="form-control required" maxlength="80" name="wizard5_in_City" id="wizard5_in_City">
                                                 </div>
                                             </div>
 
@@ -357,7 +357,7 @@
                                                 </label>
                                                 <div class="col-md-8">
                                                     <!-- <input type="text" class="form-control" name="in_Notes"> -->
-                                                    <textarea rows="4" cols="50" class="form-control" name="wizard5_in_Notes" id="wizard5_in_Notes"> </textarea>
+                                                    <textarea rows="4" cols="50" class="form-control" maxlength="200" name="wizard5_in_Notes" id="wizard5_in_Notes"> </textarea>
                                                 </div>
                                             </div>
 
@@ -975,14 +975,17 @@ $('#susp_recur_mod_type_id').on('change', function() {
         format: 'DD/MM/YYYY',
         // defaultDate: new Date()
     });
+    $(".datepicker1").keypress(function(event) {event.preventDefault();});
 
     $('.datepicker2').datetimepicker({
         format: 'DD/MM/YYYY'
     });
+    $(".datepicker2").keypress(function(event) {event.preventDefault();});
 
     $('.datepicker').datetimepicker({
         format: 'DD/MM/YYYY'
     });
+    $(".datepicker").keypress(function(event) {event.preventDefault();});
 
     $.ajax({
         url: "<?php echo base_url().'home/load_modify_html/'; ?>",
