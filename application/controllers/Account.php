@@ -332,6 +332,8 @@ class Account extends CI_Controller
         $i_orderHeader = $xmlHeader;
         $i_orderDoc = $xmlDetail;
 
+        $i_orderDoc = str_replace('&','&amp;', $i_orderDoc);
+
         $sql = " BEGIN "
                     . " TLKCAMWEBINTERFACE.CreateBill2Party ("
                     . " :i_Order_Type, "
@@ -576,8 +578,9 @@ class Account extends CI_Controller
                           <accAttributes>
                             ".$accAttr."
                           </accAttributes>
-                        </accountDoc>";
-        //die($i_orderDoc); exit;
+                        </accountDoc>";  
+
+        $i_orderDoc = str_replace('&','&amp;', $i_orderDoc);      
 
         $sql = " BEGIN "
                 . " TLKCAMWEBINTERFACE.ModifyBill2Party ("
@@ -719,6 +722,8 @@ class Account extends CI_Controller
                         </accountStatus>";
          //die($i_orderHeader); exit;
 
+        $i_orderDoc = str_replace('&','&amp;', $i_orderDoc);
+        
         $sql = " BEGIN "
                 . " TLKCAMWEBINTERFACE.CreateOrderACCDO ("
                 . " :i_Order_Type, "

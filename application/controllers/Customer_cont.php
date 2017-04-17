@@ -301,6 +301,8 @@ class Customer_cont extends CI_Controller
                         </customerDoc>
                         ";
 
+        $i_orderDoc = str_replace('&','&amp;', $i_orderDoc);
+
         $sql = " BEGIN "
                 . " TLKCAMWEBINTERFACE.ModifySold2Party ("
                 . " :i_Order_Type, "

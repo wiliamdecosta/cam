@@ -60,6 +60,8 @@ class Product extends CI_Controller
                         </productStatus>";
         // die($i_orderDoc); exit;
 
+        $i_orderDoc = str_replace('&','&amp;', $i_orderDoc);
+
         $sql = " BEGIN "
                 . " TLKCAMWEBINTERFACE.CreateOrderRO ("
                 . " :i_Order_Type, "
@@ -134,7 +136,7 @@ class Product extends CI_Controller
                         </productStatus>";
 
         //die($i_orderDoc); exit;
-
+        $i_orderDoc = str_replace('&','&amp;', $i_orderDoc);
 
         $sql = " BEGIN "
                 . " TLKCAMWEBINTERFACE.CreateOrderSO ("
@@ -212,7 +214,8 @@ class Product extends CI_Controller
                           <statusReason>Deaktivasi</statusReason>
                         </productStatus>";
          //die($i_orderDoc); exit;
-
+        $i_orderDoc = str_replace('&','&amp;', $i_orderDoc);
+        
         $sql = " BEGIN "
                 . " TLKCAMWEBINTERFACE.CreateOrderDO ("
                 . " :i_Order_Type, "

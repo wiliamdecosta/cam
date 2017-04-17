@@ -282,6 +282,8 @@ class Home extends CI_Controller
                               </product>
                             </products>";
 
+            $i_orderDoc = str_replace('&','&amp;', $i_orderDoc);
+
             $sql = "BEGIN "
                     . " TLKCAMWEBINTERFACE.CreateOrderAO ("
                     . " :i_Order_Type, "
@@ -562,7 +564,8 @@ class Home extends CI_Controller
                               </product>
                             </products>";
 
-          
+            $i_orderDoc = str_replace('&','&amp;', $i_orderDoc);
+
             $sql = "BEGIN "
                     . " TLKCAMWEBINTERFACE.CreateOrderMO ("
                     . " :i_Order_Type, "
@@ -717,7 +720,9 @@ class Home extends CI_Controller
                                 <notes>".$description."</notes>
                               </adjustment>
                             </adjustments>";
-                            
+
+        $i_orderDoc = str_replace('&','&amp;', $i_orderDoc);
+        
         $sql = "BEGIN "
                     . " TLKCAMWEBINTERFACE. CreateAdjustment ("
                     . " :i_Order_Type, "
