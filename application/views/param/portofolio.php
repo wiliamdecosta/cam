@@ -68,8 +68,11 @@ $("#tab-2").on("click", function(event) {
 });
 
 $("#tab-3").on("click", function(event) {
+	
+	swal('Informasi','Silahkan pilih portofolio map','info');
+	return false;
 
-    event.stopPropagation();
+   /* event.stopPropagation();
     var grid = $('#grid-table');
     p_product_portofol_map_id = grid.jqGrid ('getGridParam', 'selrow');
     product_family_id = grid.jqGrid ('getCell', p_product_portofol_map_id, 'product_family_id');
@@ -82,7 +85,7 @@ $("#tab-3").on("click", function(event) {
     loadContentWithParams("param.portofolio_product", {
         p_product_portofol_map_id: p_product_portofol_map_id,
         product_family_id : product_family_id
-    });
+    });*/
 });
 </script>
 
