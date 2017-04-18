@@ -73,6 +73,7 @@
     function modal_lov_product_prepare_table(parent_product_id) {
         var grid_selector = "#grid-table";
         var pager_selector = "#grid-pager";
+
         jQuery("#grid-table").jqGrid({
             url: '<?php echo WS_JQGRID."param.portofolio_controller/crud"; ?>',
             datatype: "json",
@@ -99,7 +100,7 @@
                 /*do something when selected*/
 
             },
-            sortorder:'',
+            sortorder:'portofolio_code',
             jsonReader: {
                 root: 'rows',
                 id: 'id',

@@ -360,7 +360,7 @@ class Portofolio_controller {
 
         $page = getVarClean('page','int',1);
         $limit = getVarClean('rows','int',5);
-        $sidx = getVarClean('sidx','str','');
+        $sidx = getVarClean('sidx','str','c.PORTOFOLIO_CODE, B.PRODUCT_FAMILY_NAME, a.product_name');
         $sord = getVarClean('sord','str','asc');
 
         $data = array('rows' => array(), 'page' => 1, 'records' => 0, 'total' => 1, 'success' => false, 'message' => '');
