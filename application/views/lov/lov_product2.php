@@ -215,6 +215,13 @@
                 id: 'id',
                 repeatitems: false
             },
+            onSelectRow: function (rowid) {
+                /*do something when selected*/
+                var celValue = $('#'+childGridID).jqGrid('getCell', rowid, 'product_id');
+                var celCode = $('#'+childGridID).jqGrid('getCell', rowid, 'product_name');
+
+                modal_lov_product_set_value(celValue,celValue+'-'+celCode);
+            },
             loadComplete: function (response) {
                 if(response.success == false) {
                     showBootDialog(true, BootstrapDialog.TYPE_WARNING, 'Attention', response.message);
