@@ -297,8 +297,8 @@ class Product_portofolio_controller {
             $ci->load->model('param/product_family');
             $table = $ci->product_family;
 
-            $p_portofolio_id = getVarClean('p_portofolio_id','int',0);
             $product_family_id = getVarClean('product_family_id','int',0);
+            //$product_family_id = getVarClean('product_family_id','int',0);
 
             if(empty($product_family_id))
                 $table->setCriteria('n01 NOT IN (SELECT product_family_id FROM p_product_portofolio_map WHERE p_portofolio_id = '.$p_portofolio_id.')');

@@ -87,7 +87,7 @@ $("#tab-2").on("click", function(event) {
                 {label: 'ID', name: 'product_id', key: true, width: 20, sorttype: 'number', editable: true, hidden: true},
                 {label: 'Product Name',name: 'product_name',width: 150, align: "left",editable: false},
                 {label: 'Product Description',name: 'product_desc',width: 200, align: "left",editable: false},
-				{label: 'Product family id',name: 'product_family_id',width: 200, align: "left",editable: false}
+				{label: 'Product family id',name: 'product_family_id',width: 200, align: "left",editable: false, hidden: true}
             ],
             height: '100%',
             autowidth: true,
