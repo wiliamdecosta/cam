@@ -13,6 +13,7 @@ class Product_portofolio_controller {
         $limit = getVarClean('rows','int',5);
         $sidx = getVarClean('sidx','str','product_family_id');
         $sord = getVarClean('sord','str','desc');
+		$product_family_id = getVarClean('product_family_id', 'str', '');
 
         $data = array('rows' => array(), 'page' => 1, 'records' => 0, 'total' => 1, 'success' => false, 'message' => '');
 
@@ -38,7 +39,7 @@ class Product_portofolio_controller {
             );
 
             // Filter Table
-            $req_param['where'] = array();
+            $req_param['where'] = array('product_family_id='.$product_family_id);
 
             $table->setJQGridParam($req_param);
             $count = $table->countAll();

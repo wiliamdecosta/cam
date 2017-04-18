@@ -59,7 +59,7 @@ $("#tab-2").on("click", function(event) {
     event.stopPropagation();
     var grid = $('#grid-table');
     p_portofolio_id = grid.jqGrid ('getGridParam', 'selrow');
-    portofolio_code = grid.jqGrid ('getCell', p_portofolio_id, 'portofolio_code');
+    //portofolio_code = grid.jqGrid ('getCell', p_portofolio_id, 'portofolio_code');
 
     /*if(p_portofolio_id == null) {
         swal('Informasi','Silahkan pilih salah satu portofolio','info');
@@ -68,7 +68,7 @@ $("#tab-2").on("click", function(event) {
 
     loadContentWithParams("param.product_portofolio_map", {
         p_portofolio_id: p_portofolio_id,
-        portofolio_code : portofolio_code
+       // portofolio_code : portofolio_code
     });
 });
 </script>
@@ -81,6 +81,8 @@ $("#tab-2").on("click", function(event) {
 
         jQuery("#grid-table").jqGrid({
             url: '<?php echo WS_JQGRID."param.product_portofolio_controller/read"; ?>',
+			postData: { p_portofolio_id : '<?php echo $this->input->post('p_portofolio_id'); ?>'},
+			 postData: { product_family_id : '<?php echo $this->input->post('product_family_id'); ?>'},
             datatype: "json",
             mtype: "POST",
             colModel: [

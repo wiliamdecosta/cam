@@ -9,6 +9,7 @@ class Portofolio_product extends Abstract_model {
     public $table           = "";
     public $pkey            = "";
     public $alias           = "prd";
+	//public $where 			= getVarClean('product_family_id','int',0);
 
     public $fields          = array();
                                /* 'product_id'      				 => array('pkey' => true, 'type' => 'int', 'nullable' => true, 'unique' => true, 'display' => 'ID Product'),
@@ -31,12 +32,13 @@ class Portofolio_product extends Abstract_model {
                             );*/
 
     public $selectClause    = "prd.*";
-    public $fromClause      = "product prd";
+    public $fromClause      = "product prd ";
 
     public $refs            = array();
 
     function __construct() {
         parent::__construct();
+	//	 $this->fromClause = sprintf($this->fromClause, "'".$product_family_id."'");
     }
 
     function validate() {
