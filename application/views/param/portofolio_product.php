@@ -6,7 +6,7 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <span>Portofolio</span>
+            <span>Product Portofolio</span>
         </li>
     </ul>
 </div>
@@ -16,7 +16,7 @@
     <div class="col-md-12">
         <div class="tabbable">
             <ul class="nav nav-tabs">
-                <li class="active">
+                <li class="">
                     <a href="javascript:;" data-toggle="tab" aria-expanded="true" id="tab-1">
                         <i class="blue"></i>
                         <strong> Portofolio </strong>
@@ -28,10 +28,10 @@
                         <strong> Product Portofolio Map </strong>
                     </a>
                 </li>
-				 <li class="">
+				<li class="active">
                     <a href="javascript:;" data-toggle="tab" aria-expanded="true" id="tab-3">
                         <i class="blue"></i>
-                        <strong> Product Portofolio </strong>
+                        <strong> Portofolio </strong>
                     </a>
                 </li>
             </ul>
@@ -49,6 +49,11 @@
 </div>
 
 <script>
+$("#tab-1").on("click", function(event) {
+    event.stopPropagation();
+    loadContentWithParams("param.portofolio", {});
+});
+
 $("#tab-2").on("click", function(event) {
 
     event.stopPropagation();
@@ -56,32 +61,14 @@ $("#tab-2").on("click", function(event) {
     p_portofolio_id = grid.jqGrid ('getGridParam', 'selrow');
     portofolio_code = grid.jqGrid ('getCell', p_portofolio_id, 'portofolio_code');
 
-    if(p_portofolio_id == null) {
-        swal('Informasi','Silahkan pilih salah satu product portofolio','info');
+    /*if(p_portofolio_id == null) {
+        swal('Informasi','Silahkan pilih salah satu portofolio','info');
         return false;
-    }
+    }*/
 
     loadContentWithParams("param.product_portofolio_map", {
         p_portofolio_id: p_portofolio_id,
         portofolio_code : portofolio_code
-    });
-});
-
-$("#tab-3").on("click", function(event) {
-
-    event.stopPropagation();
-    var grid = $('#grid-table');
-    p_product_portofol_map_id = grid.jqGrid ('getGridParam', 'selrow');
-    product_family_id = grid.jqGrid ('getCell', p_product_portofol_map_id, 'product_family_id');
-
-    if(p_product_portofol_map_id == null) {
-        swal('Informasi','Silahkan pilih portofolio map','info');
-        return false;
-    }
-
-    loadContentWithParams("param.portofolio_product", {
-        p_product_portofol_map_id: p_product_portofol_map_id,
-        product_family_id : product_family_id
     });
 });
 </script>
@@ -93,26 +80,14 @@ $("#tab-3").on("click", function(event) {
         var pager_selector = "#grid-pager";
 
         jQuery("#grid-table").jqGrid({
-            url: '<?php echo WS_JQGRID."param.portofolio_controller/crud"; ?>',
+            url: '<?php echo WS_JQGRID."param.product_portofolio_controller/read"; ?>',
             datatype: "json",
             mtype: "POST",
             colModel: [
-                {label: 'ID', name: 'p_portofolio_id', key: true, width: 5, sorttype: 'number', editable: true, hidden: true},
-                {label: 'Portofolio Code',name: 'portofolio_code',width: 150, align: "left",editable: true,
-                    editoptions: {
-                        size: 30,
-                        maxlength:32
-                    },
-                    editrules: {required: true}
-                },
-                {label: 'Description',name: 'description',width: 200, align: "left",editable: true,
-                    edittype:'textarea',
-                    editoptions: {
-                        rows: 2,
-                        cols:50,
-                        maxlength: 64
-                    }
-                }
+                {label: 'ID', name: 'product_id', key: true, width: 20, sorttype: 'number', editable: true, hidden: true},
+                {label: 'Product Name',name: 'product_name',width: 150, align: "left",editable: false},
+                {label: 'Product Description',name: 'product_desc',width: 200, align: "left",editable: false},
+				{label: 'Product family id',name: 'product_family_id',width: 200, align: "left",editable: false}
             ],
             height: '100%',
             autowidth: true,
@@ -142,7 +117,7 @@ $("#tab-3").on("click", function(event) {
 
             },
             //memanggil controller jqgrid yang ada di controller crud
-            editurl: '<?php echo WS_JQGRID."param.portofolio_controller/crud"; ?>',
+           // editurl: '<?php echo WS_JQGRID."param.Product_portofolio_controller/crud"; ?>',
             caption: "Portofolio"
 
         });

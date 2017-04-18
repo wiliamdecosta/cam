@@ -28,6 +28,12 @@
                         <strong> Product Portofolio Map </strong>
                     </a>
                 </li>
+				<li class="">
+                    <a href="javascript:;" data-toggle="tab" aria-expanded="true" id="tab-3">
+                        <i class="blue"></i>
+                        <strong> Product Portofolio </strong>
+                    </a>
+                </li>
             </ul>
         </div>
 
@@ -46,6 +52,29 @@
 $("#tab-1").on("click", function(event) {
     event.stopPropagation();
     loadContentWithParams("param.portofolio", {});
+});
+
+/*$("#tab-3").on("click", function(event) {
+    event.stopPropagation();
+    loadContentWithParams("param.portofolio_product", {});
+});*/
+
+$("#tab-3").on("click", function(event) {
+
+    event.stopPropagation();
+    var grid = $('#grid-table');
+    p_product_portofol_map_id = grid.jqGrid ('getGridParam', 'selrow');
+    product_family_id = grid.jqGrid ('getCell', p_product_portofol_map_id, 'product_family_id');
+
+    if(p_product_portofol_map_id == null) {
+        swal('Informasi','Silahkan pilih salah satu portofolio','info');
+        return false;
+    }
+
+    loadContentWithParams("param.portofolio_product", {
+        p_product_portofol_map_id: p_product_portofol_map_id,
+        product_family_id : product_family_id
+    });
 });
 </script>
 
