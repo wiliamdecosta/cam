@@ -633,7 +633,7 @@
 <?php $this->load->view('lov/lov_customer.php'); ?>
 <?php $this->load->view('lov/lov_account.php'); ?>
 <?php $this->load->view('lov/lov_price_plan.php'); ?>
-<?php $this->load->view('lov/lov_product.php'); ?>
+<?php $this->load->view('lov/lov_product2.php'); ?>
 <?php $this->load->view('lov/lov_addr.php'); ?>
 <?php $this->load->view('lov/lov_parent_product.php'); ?>
 <?php $this->load->view('lov/lov_country.php'); ?>
@@ -1058,9 +1058,9 @@ $('#susp_recur_mod_type_id').on('change', function() {
                 processData:false,
                 data: postData,
                 success: function (data) {
-                    if(data.status == "COMPLETED"){                        
+                    if(data.status == "COMPLETED"){
 
-                        
+
                         swal({title: data.status, text: data.msg, html: true, type: "info"});
 
                         setTimeout(function(){
@@ -1082,7 +1082,7 @@ $('#susp_recur_mod_type_id').on('change', function() {
     });
 
 
-    $('#wizard1_account_num').on('change', function() {        
+    $('#wizard1_account_num').on('change', function() {
         var id = $('#wizard1_account_num').val();
 
         $.ajax({
