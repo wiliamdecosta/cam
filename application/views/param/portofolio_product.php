@@ -58,17 +58,10 @@ $("#tab-2").on("click", function(event) {
 
     event.stopPropagation();
     var grid = $('#grid-table');
-    p_portofolio_id = <?php echo $this->input->post('p_portofolio_id'); ?>;
-   // portofolio_code = grid.jqGrid ('getCell', p_portofolio_id, 'portofolio_code');
-
-    /*if(p_portofolio_id == null) {
-        swal('Informasi','Silahkan pilih salah satu portofolio','info');
-        return false;
-    }*/
-
+    p_portofolio_id = <?php echo $this->input->post('p_portofolio_id'); ?>
+   
     loadContentWithParams("param.product_portofolio_map", {
-       p_portofolio_id: p_portofolio_id,
-       //portofolio_code : portofolio_code
+        p_portofolio_id: p_portofolio_id
     });
 });
 </script>
@@ -81,7 +74,7 @@ $("#tab-2").on("click", function(event) {
 
         jQuery("#grid-table").jqGrid({
             url: '<?php echo WS_JQGRID."param.product_portofolio_controller/read"; ?>',
-			postData: { p_portofolio_id : '<?php echo $this->input->post('p_portofolio_id'); ?>'},
+			//postData: { p_portofolio_id : '<?php echo $this->input->post('p_portofolio_id'); ?>'},
 			 postData: { product_family_id : '<?php echo $this->input->post('product_family_id'); ?>'},
             datatype: "json",
             mtype: "POST",
@@ -126,11 +119,11 @@ $("#tab-2").on("click", function(event) {
 
         jQuery('#grid-table').jqGrid('navGrid', '#grid-pager',
             {   //navbar options
-                edit: true,
+                edit: false,
                 editicon: 'fa fa-pencil blue bigger-120',
-                add: true,
+                add: false,
                 addicon: 'fa fa-plus-circle purple bigger-120',
-                del: true,
+                del: false,
                 delicon: 'fa fa-trash-o red bigger-120',
                 search: true,
                 searchicon: 'fa fa-search orange bigger-120',

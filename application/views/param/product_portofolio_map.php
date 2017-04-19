@@ -54,11 +54,6 @@ $("#tab-1").on("click", function(event) {
     loadContentWithParams("param.portofolio", {});
 });
 
-/*$("#tab-3").on("click", function(event) {
-    event.stopPropagation();
-    loadContentWithParams("param.portofolio_product", {});
-});*/
-
 $("#tab-3").on("click", function(event) {
 
     event.stopPropagation();
@@ -67,12 +62,12 @@ $("#tab-3").on("click", function(event) {
     product_family_id = grid.jqGrid ('getCell', p_portofolio_id, 'product_family_id');
 
     if(p_portofolio_id == null) {
-        swal('Informasi','Silahkan pilih salah satu portofolio','info');
+        swal('Informasi','Silahkan pilih salah satu portofolio map','info');
         return false;
     }
 
     loadContentWithParams("param.portofolio_product", {
-        p_portofolio_id: p_portofolio_id,
+        p_portofolio_id: <?php echo $this->input->post('p_portofolio_id'); ?>,
         product_family_id : product_family_id
     });
 });
