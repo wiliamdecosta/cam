@@ -220,7 +220,7 @@
                 var celValue = $('#'+childGridID).jqGrid('getCell', rowid, 'product_id');
                 var celCode = $('#'+childGridID).jqGrid('getCell', rowid, 'product_name');
 
-                modal_lov_product_set_value(celValue,celValue+'-'+celCode);
+                //modal_lov_product_set_value(celValue,celValue+'-'+celCode);
             },
             loadComplete: function (response) {
                 if(response.success == false) {
