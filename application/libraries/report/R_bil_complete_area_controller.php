@@ -5,7 +5,7 @@
 * @version 07/05/2015 12:18:00
 */
 class R_bil_complete_area_controller {
- 
+
     function read() {
 
         $page = getVarClean('page','int',1);
@@ -144,6 +144,81 @@ class R_bil_complete_area_controller {
         }
 
 
+    }
+
+    function tableBilComplete() {
+        $periode = getVarClean('periode','str','');
+
+        $ci = & get_instance();
+        $ci->load->model('report/r_bil_complete_area');
+
+        $table = new R_bil_complete_area($periode);
+
+        $items = $table->getAll(0,-1,'area, fm, bm','asc');
+        $data = array();
+        $data2 = array();
+        $data3 = array();
+        foreach($items as $item) {
+            $data[$item['area']][$item['fm']][$item['bm']] = $item['jml_bc'];
+            $data2[$item['area']][$item['fm']] = 0;
+            $data3[$item['area']][$item['bm']] = 0;
+
+        }
+
+        $total_all = 0;
+        foreach($data as $area => $items_fm) {
+            echo '<tr>';
+            echo '<td rowspan="'.( count($data3[$area]) + count($data2[$area]) ).'">'.$area.'</td>';
+
+            $fm_first_loop = true;
+            $total_area = 0;
+            foreach($items_fm as $fm => $items_bm) {
+                if($fm_first_loop) {
+                    echo '<td rowspan='.count($items_bm).'>'.$fm.'</td>';
+                    $fm_first_loop = false;
+                }else {
+                    echo '<tr>';
+                    echo '<td rowspan='.count($items_bm).'>'.$fm.'</td>';
+                }
+
+                $bm_first_loop = true;
+                $total_fm = 0;
+                foreach($items_bm as $bm => $val) {
+                    if($bm_first_loop) {
+                        echo '<td>'.$bm.'</td>';
+                        echo '<td align="right">'.$val.'</td>';
+                        echo '</tr>';
+                        $bm_first_loop = false;
+                    }else {
+                        echo '</tr>';
+                        echo '<td>'.$bm.'</td>';
+                        echo '<td align="right">'.$val.'</td>';
+                        echo '</tr>';
+                    }
+                    $total_fm += $val;
+                }
+
+                echo '<tr>';
+                echo '<td colspan="2" class="info"> <strong>Total '.$fm.'</strong></td>';
+                echo '<td align="right" class="info"><strong> '.$total_fm.' </strong></td>';
+                echo '</tr>';
+
+                $total_area += $total_fm;
+            }
+
+            echo '<tr>';
+            echo '<td colspan="3" class="success"> <strong>Total '.$area.'</strong></td>';
+            echo '<td align="right" class="success"><strong> '.$total_area.' </strong></td>';
+            echo '</tr>';
+            $total_all += $total_area;
+        }
+
+        echo '<tr>';
+        echo '<td colspan="3" class="danger"> <strong>GRAND TOTAL</strong></td>';
+        echo '<td align="right" class="danger"><strong> '.$total_all.' </strong></td>';
+        echo '</tr>';
+
+        exit;
     }
 }
 

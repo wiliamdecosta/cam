@@ -29,7 +29,7 @@ class R_bil_complete_area extends Abstract_model {
         parent::__construct();
         //$this->db = $this->load->database('tosdb', TRUE);
         //$this->db->_escape_char = ' ';
-        $this->fromClause = sprintf($this->fromClause, "'".$this->session->userdata('user_name')."'", "'".$periode."'"); 
+        $this->fromClause = sprintf($this->fromClause, "'".$this->session->userdata('user_name')."'", "'".$periode."'");
 
         $this->db_crm = $this->load->database('corecrm', TRUE);
         $this->db_crm->_escape_char = ' ';
