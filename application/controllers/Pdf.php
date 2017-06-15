@@ -85,20 +85,20 @@ class Pdf extends CI_Controller
         $pdf->SetLineWidth(0.1);
         $position = 5;
         $positionTxt = $position + 2;
-        $pdf->Rect($x+$position, $y, 100, 20);
+        $pdf->Rect($x+$position, $y, 100, 26);
 
         $pdf->SetFont('Arial', 'B', 8);
         $customer_name = @$data[0]['account_name'];
         $pdf->setKata2($customer_name,35,$x+$positionTxt,50,10,4);
         $pdf->SetFont('Arial', '', 8);
-        $pdf->setKata2(@$data[0]['address'],80,$x+$positionTxt,50,10,4);
+        $pdf->setKata2(@$data[0]['address'],65,$x+$positionTxt,50,10,4);
         $pdf->SetFont('Arial', 'B', 8);
         $pdf->setKata2('UP : '.$up,35,$x+$positionTxt,50,10,4);
 
         $pdf->SetX($x);
         $pdf->setY($y+5);
 
-        $pdf->Ln(15);
+        $pdf->Ln(20);
 
         // buat nampilin bulan tagih
         $pdf->SetFont('Arial', '', 9);
@@ -224,7 +224,7 @@ class Pdf extends CI_Controller
         $pdf->Ln(10);
 
         $pdf->SetFont('Arial', '', 9);
-        $pdf->Cell(30, 10, "Jakarta, 27 September 2016");
+        $pdf->Cell(30, 10, "Jakarta, ".$tgl);
         $pdf->Ln(10);
 
         $pdf->Cell(30, 10, "Kepada Yth,");
@@ -425,7 +425,7 @@ class Pdf extends CI_Controller
         $pdf->Cell(5, 12.5, $curr_type, 'TBL');  
         $pdf->Cell(40, 12.5, $total.'  ', 'TBR', 0, 'R');
         $pdf->SetFont('Arial', '', 9);
-        $pdf->Cell(80, 12.5,'Jakarta ,'.$tgl, 'T', 0, 'C');
+        $pdf->Cell(80, 12.5,'Jakarta ,'.$tgl, '', 0, 'C');
         $pdf->Ln(3);
         $pdf->SetFont('Arial', 'BI', 9);
         $pdf->Cell(115, 10, " Jumlah");
