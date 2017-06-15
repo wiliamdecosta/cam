@@ -89,7 +89,7 @@ class Pdf extends CI_Controller
 
         $pdf->SetFont('Arial', 'B', 8);
         $customer_name = @$data[0]['account_name'];
-        $pdf->setKata2($customer_name,35,$x+$positionTxt,50,10,4);
+        $pdf->setKata2($customer_name,50,$x+$positionTxt,65,10,4);
         $pdf->SetFont('Arial', '', 8);
         $pdf->setKata2(@$data[0]['address'],65,$x+$positionTxt,50,10,4);
         $pdf->SetFont('Arial', 'B', 8);
