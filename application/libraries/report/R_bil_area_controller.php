@@ -142,6 +142,107 @@ class R_bil_area_controller {
 
 
     }
+    function tableBilComplete() {
+        $periode = getVarClean('periode','str','');
+
+        $ci = & get_instance();
+        $ci->load->model('report/r_bil_area');
+
+        $table = new R_bil_area($periode);
+
+        $items = $table->getAll(0,-1,'area, fm, profit_center','asc');
+        $data = array();
+        $data2 = array();
+        $data3 = array();
+        foreach($items as $item) {
+            $data[$item['area']][$item['fm']][$item['profit_center']][0] = $item['jml_bulan_n'];
+            $data[$item['area']][$item['fm']][$item['profit_center']][1] = $item['jml_bulan_n_1'];
+            $data[$item['area']][$item['fm']][$item['profit_center']][2] = $item['jml_growth'];
+            $data2[$item['area']][$item['fm']] = 0;
+            $data3[$item['area']][$item['profit_center']] = 0;
+        }
+        /*echo "<pre>";
+        print_r($data);
+
+        exit;*/
+
+        $total_all_n = 0;
+        $total_all_n_1 = 0;
+        $total_all_growth = 0;
+        foreach($data as $area => $items_fm) {
+            echo '<tr>';
+            echo '<td rowspan="'.( count($data3[$area]) + count($data2[$area]) ).'">'.$area.'</td>';
+
+            $fm_first_loop = true;
+            $total_area_n = 0;
+            $total_area_n_1 = 0;
+            $total_area_growth = 0;
+            foreach($items_fm as $fm => $items_bm) {
+                if($fm_first_loop) {
+                    echo '<td rowspan='.count($items_bm).'>'.$fm.'</td>';
+                    $fm_first_loop = false;
+                }else {
+                    echo '<tr>';
+                    echo '<td rowspan='.count($items_bm).'>'.$fm.'</td>';
+                }
+
+                $bm_first_loop = true;
+                $total_fm_n = 0;
+                $total_fm_n_1 = 0;
+                $total_fm_growth = 0;
+                foreach($items_bm as $bm => $val) {
+                    if($bm_first_loop) {
+                        echo '<td>'.$bm.'</td>';
+                        echo '<td align="right">'.$val[0].'</td>';
+                        echo '<td align="right">'.$val[1].'</td>';
+                        echo '<td align="right">'.$val[2].'</td>';
+                        echo '</tr>';
+                        $bm_first_loop = false;
+                    }else {
+                        echo '</tr>';
+                        echo '<td>'.$bm.'</td>';
+                        echo '<td align="right">'.$val[0].'</td>';
+                        echo '<td align="right">'.$val[1].'</td>';
+                        echo '<td align="right">'.$val[2].'</td>';
+                        echo '</tr>';
+                    }
+                    $total_fm_n += $val[0];
+                    $total_fm_n_1 += $val[1];
+                    $total_fm_growth += $val[2];
+                }
+
+                echo '<tr>';
+                echo '<td colspan="2" class="info"> <strong>Total '.$fm.'</strong></td>';
+                echo '<td align="right" class="info"><strong> '.$total_fm_n.' </strong></td>';
+                echo '<td align="right" class="info"><strong> '.$total_fm_n_1.' </strong></td>';
+                echo '<td align="right" class="info"><strong> '.$total_fm_growth.' </strong></td>';
+                echo '</tr>';
+
+                $total_area_n += $total_fm_n;
+                $total_area_n_1 += $total_fm_n_1;
+                $total_area_growth += $total_fm_growth;
+            }
+
+            echo '<tr>';
+            echo '<td colspan="3" class="success"> <strong>Total '.$area.'</strong></td>';
+            echo '<td align="right" class="success"><strong> '.$total_area_n.' </strong></td>';
+            echo '<td align="right" class="success"><strong> '.$total_area_n_1.' </strong></td>';
+            echo '<td align="right" class="success"><strong> '.$total_area_growth.' </strong></td>';
+            echo '</tr>';
+            $total_all_n += $total_area_n;
+            $total_all_n_1 += $total_area_n_1;
+            $total_all_growth += $total_area_growth;
+        }
+
+        echo '<tr>';
+        echo '<td colspan="3" class="danger"> <strong>GRAND TOTAL</strong></td>';
+        echo '<td align="right" class="danger"><strong> '.$total_all_n.' </strong></td>';
+        echo '<td align="right" class="danger"><strong> '.$total_all_n_1.' </strong></td>';
+        echo '<td align="right" class="danger"><strong> '.$total_all_growth.' </strong></td>';
+        echo '</tr>';
+
+        exit;
+    }
 }
 
 /* End of file Groups_controller.php */
