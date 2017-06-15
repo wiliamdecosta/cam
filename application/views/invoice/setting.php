@@ -475,7 +475,7 @@ $("#file_upload").change(function(){
                 editicon: 'fa fa-pencil blue bigger-120',
                 add: false,
                 addicon: 'fa fa-plus-circle purple bigger-120',
-                del: true,
+                del: false,
                 delicon: 'fa fa-trash-o red bigger-120',
                 search: true,
                 searchicon: 'fa fa-search orange bigger-120',
@@ -604,7 +604,7 @@ $("#file_upload").change(function(){
                 onClickButton: toExcelAccount,
                 id: "addParamInv2"
             })*/
-            .navButtonAdd('#grid-pager-billing', {
+            /*.navButtonAdd('#grid-pager-billing', {
                 caption: "",
                 buttonicon: "fa fa-plus green bigger-120",
                 position: "first",
@@ -612,7 +612,7 @@ $("#file_upload").change(function(){
                 cursor: "pointer",
                 onClickButton: addDataInv,
                 id: "addParamInv"
-            });
+            });*/
             
 
 
