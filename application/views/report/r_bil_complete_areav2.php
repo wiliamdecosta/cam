@@ -49,10 +49,10 @@
                     <table id="table-billing-complete-area" class="table table-bordered">
                         <thead>
                         <tr>
-                            <th>Area</th>
-                            <th>FM</th>
-                            <th>BM</th>
-                            <th>Jumlah BC</th>
+                            <th class="red">Area</th>
+                            <th class="red">FM</th>
+                            <th class="red">BM</th>
+                            <th class="red">Jumlah BC</th>
                         </tr>
                         </thead>
                         <tbody id="tbody-bca">

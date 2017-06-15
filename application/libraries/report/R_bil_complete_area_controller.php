@@ -162,7 +162,6 @@ class R_bil_complete_area_controller {
             $data[$item['area']][$item['fm']][$item['bm']] = $item['jml_bc'];
             $data2[$item['area']][$item['fm']] = 0;
             $data3[$item['area']][$item['bm']] = 0;
-
         }
 
         $total_all = 0;
