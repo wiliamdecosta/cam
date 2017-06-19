@@ -134,7 +134,73 @@ class R_bc_per_portofolio_product_controller {
             exit;
         }
 
+    }
 
+    function tableBcPerPortofolioProduct() {
+        $periode = getVarClean('periode','str','');
+
+        $ci = & get_instance();
+        $ci->load->model('report/r_bc_per_portofolio_product');
+
+        $table = new r_bc_per_portofolio_product($periode);
+
+        $items = $table->getAll(0,-1,'area, portofolio','asc');
+        $data = array();
+        $data2 = array();
+        $data3 = array();
+        foreach($items as $item) {
+            $data[$item['area']][$item['portofolio']] = $item['jml_bc'];
+            $data2[$item['area']][$item['portofolio']] = 0;
+        }
+
+        $total_all = 0;
+        foreach($data as $area => $items_portofolio) {
+            echo '<tr>';
+            echo '<td rowspan="'.(  count($data2[$area]) * 2).'">'.$area.'</td>';
+
+            $portofolio_first_loop = true;
+            $total_area = 0;
+            foreach($items_portofolio as $portofolio => $val) {
+                if($portofolio_first_loop) {
+                    echo '<td>'.$portofolio.'</td>';
+                    echo '<td align="right">'.$val.'</td>';
+                    echo '</tr>';
+                    $portofolio_first_loop = false;
+                }else {
+                    echo '<tr>';
+                    echo '<td>'.$portofolio.'</td>';
+                    echo '<td align="right">'.$val.'</td>';
+                    echo '</tr>';
+                }
+
+                $bm_first_loop = true;
+                $total_portofolio = 0;
+                $total_portofolio += $val;
+
+                echo '<tr>';
+                echo '<td colspan="1" class="info"> <strong>Total '.$portofolio.'</strong></td>';
+                echo '<td align="right" class="info"><strong> '.$total_portofolio.' </strong></td>';
+                echo '</tr>';
+
+                $total_area += $val;
+               
+            }
+
+            echo '<tr>';
+            echo '<td colspan="2" class="success"> <strong>Total '.$area.'</strong></td>';
+            echo '<td align="right" class="success"><strong> '.$total_area.' </strong></td>';
+            echo '</tr>';
+            $total_all += $total_area;
+
+           //  exit;
+        }
+
+        echo '<tr>';
+        echo '<td colspan="2" class="danger"> <strong>GRAND TOTAL</strong></td>';
+        echo '<td align="right" class="danger"><strong> '.$total_all.' </strong></td>';
+        echo '</tr>';
+
+        exit;
     }
 }
 
