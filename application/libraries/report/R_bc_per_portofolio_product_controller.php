@@ -156,7 +156,7 @@ class R_bc_per_portofolio_product_controller {
         $total_all = 0;
         foreach($data as $area => $items_portofolio) {
             echo '<tr>';
-            echo '<td rowspan="'.(  count($data2[$area]) * 2).'">'.$area.'</td>';
+            echo '<td rowspan="'.(  count($data2[$area]) ).'">'.$area.'</td>';
 
             $portofolio_first_loop = true;
             $total_area = 0;
@@ -172,15 +172,13 @@ class R_bc_per_portofolio_product_controller {
                     echo '<td align="right">'.$val.'</td>';
                     echo '</tr>';
                 }
-
-                $bm_first_loop = true;
-                $total_portofolio = 0;
+                /*$total_portofolio = 0;
                 $total_portofolio += $val;
 
                 echo '<tr>';
                 echo '<td colspan="1" class="info"> <strong>Total '.$portofolio.'</strong></td>';
                 echo '<td align="right" class="info"><strong> '.$total_portofolio.' </strong></td>';
-                echo '</tr>';
+                echo '</tr>'; */
 
                 $total_area += $val;
                

@@ -137,8 +137,92 @@ class R_billing_per_portofolio_product_controller {
             echo $e->getMessage();
             exit;
         }
+    }
 
+    function tableBillPerPortofolioProduct() {
+        $periode = getVarClean('periode','str','');
 
+        $ci = & get_instance();
+        $ci->load->model('report/r_billing_per_portofolio_product');
+
+        $table = new r_billing_per_portofolio_product($periode);
+
+        $items = $table->getAll(0,-1,'area, portofolio','asc');
+        $data = array();
+        $data2 = array();
+        $data3 = array();
+        $data4 = array();
+        foreach($items as $item) {
+            $data[$item['area']][$item['portofolio']][0] = $item['jml_bulan_n'];
+            $data[$item['area']][$item['portofolio']][1] = $item['jml_bulan_n_1'];
+            $data[$item['area']][$item['portofolio']][2] = $item['jml_growth'];
+            $data2[$item['area']][$item['portofolio']] = 0;
+        }
+
+        
+
+        $total_all1 = 0;
+        $total_all2 = 0;
+        $total_all3 = 0;
+        foreach($data as $area => $items_portofolio) {
+            echo '<tr>';
+            echo '<td rowspan="'.(  count($data2[$area]) ).'">'.$area.'</td>';
+
+            $portofolio_first_loop = true;
+            $total_area1 = 0;
+            $total_area2 = 0;
+            $total_area3 = 0;
+            foreach($items_portofolio as $portofolio => $val) {
+                if($portofolio_first_loop) {
+                    echo '<td>'.$portofolio.'</td>';
+                    echo '<td align="right">'.$val[0].'</td>';
+                    echo '<td align="right">'.$val[2].'</td>';
+                    echo '<td align="right">'.$val[2].'</td>';
+                    echo '</tr>';
+                    $portofolio_first_loop = false;
+                }else {
+                    echo '<tr>';
+                    echo '<td>'.$portofolio.'</td>';
+                    echo '<td align="right">'.$val[0].'</td>';
+                    echo '<td align="right">'.$val[1].'</td>';
+                    echo '<td align="right">'.$val[2].'</td>';
+                    echo '</tr>';
+                }
+                /*$total_portofolio = 0;
+                $total_portofolio += $val;
+
+                echo '<tr>';
+                echo '<td colspan="1" class="info"> <strong>Total '.$portofolio.'</strong></td>';
+                echo '<td align="right" class="info"><strong> '.$total_portofolio.' </strong></td>';
+                echo '</tr>'; */
+
+                $total_area1 += $val[0];
+                $total_area2 += $val[1];
+                $total_area3 += $val[2];
+               
+            }
+
+            echo '<tr>';
+            echo '<td colspan="2" class="success"> <strong>Total '.$area.'</strong></td>';
+            echo '<td align="right" class="success"><strong> '.$total_area1.' </strong></td>';
+            echo '<td align="right" class="success"><strong> '.$total_area2.' </strong></td>';
+            echo '<td align="right" class="success"><strong> '.$total_area3.' </strong></td>';
+            echo '</tr>';
+            $total_all1 += $total_area1;
+            $total_all2 += $total_area2;
+            $total_all3 += $total_area3;
+
+           //  exit;
+        }
+
+        echo '<tr>';
+        echo '<td colspan="2" class="danger"> <strong>GRAND TOTAL</strong></td>';
+        echo '<td align="right" class="danger"><strong> '.$total_all1.' </strong></td>';
+        echo '<td align="right" class="danger"><strong> '.$total_all2.' </strong></td>';
+        echo '<td align="right" class="danger"><strong> '.$total_all3.' </strong></td>';
+        echo '</tr>';
+
+        exit;
     }
 }
 
