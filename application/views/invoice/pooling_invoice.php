@@ -199,6 +199,13 @@
                     width: 250,
                     align: 'left'
                 },
+				 {
+                    label: 'Periode',
+                    name: 'bill_prd',
+                    width: 100,
+                    align: 'left',
+                    hidden: false
+                },
                 {
                     label: 'Bill Number',
                     name: 'invoice_num',
