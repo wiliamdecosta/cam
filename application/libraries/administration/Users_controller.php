@@ -314,15 +314,17 @@ class Users_controller {
             if($item == null) throw new Exception('ID tidak ditemukan');
 
             $record = array();
-            if(!empty($password) and $ci->session->userdata('ldap_status') == 'NO') {
+
+            if(!empty($password) and $ci->session->userdata('is_ldap') == 'NO') {
                 if(strlen($password) < 4) throw new Exception('Min.Password 4 Karakter');
                 if($password != $password_confirmation) throw new Exception('Password tidak cocok');
 
-                $record['password'] = md5($password);
+                $record['user_password'] = md5($password);
+                
             }
             $record['user_email'] = $email;
             $record['user_id'] = $id;
-
+            // print_r($record); exit;
             $table->actionType = 'UPDATE';
             $table->db->trans_begin(); //Begin Trans
                 $table->setRecord($record);
