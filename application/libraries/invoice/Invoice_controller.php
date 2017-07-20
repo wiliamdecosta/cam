@@ -674,6 +674,7 @@ class Invoice_controller {
         $bank = getVarClean('bank', 'str', '');
         $account_num = getVarClean('account_num', 'str', '');
         $periode = getVarClean('periode', 'str', '');
+        $invoice_date = getVarClean('inv_date', 'str', '');
 
         $data = array('success' => false, 'message' => '');
 
@@ -684,6 +685,7 @@ class Invoice_controller {
                 $data['up'] = $up;
                 $data['perihal'] = $perihal;
                 $data['bank'] = $bank;
+                $data['invoice_date'] = $invoice_date;
                 
                 $table->UpdDataInv($data);
 

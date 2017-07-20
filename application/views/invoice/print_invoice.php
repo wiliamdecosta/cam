@@ -1,3 +1,6 @@
+<link href="<?php echo base_url(); ?>assets/js/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css"/>
+<script src="<?php echo base_url(); ?>assets/js/moment.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url(); ?>assets/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
 <!-- breadcrumb -->
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -103,6 +106,15 @@
                                                     ); ?>
                                 </div>
                             </div>
+                             <div class="form-group">
+                                <label class="col-md-3 control-label">Invoice Date</label>
+                                <div class="col-md-6">
+                                    <div class="input-icon right">
+                                        <i class="fa fa-"></i>
+                                        <input type="text" name="inv_date" class="form-control datepicker" placeholder=""> </div>
+                                         </div>
+                                </div>
+                           
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Perihal</label>
                                 <div class="col-md-6">
@@ -178,7 +190,10 @@
     }
 
     $(document).ready(function(){
-
+         $('.datepicker').datetimepicker({
+            format: 'DD/MM/YYYY',
+            // defaultDate: new Date()
+        });
       
 
     });

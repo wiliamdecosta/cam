@@ -153,7 +153,9 @@ class Invoice extends Abstract_model {
                        to_date(p3,'DD-Mon-YYYY') tgl,
                        p5 up,
                        p6 perihal,
-                       to_char(to_date(p3,'DD-Mon-YYYY'),'DD') || ' ' || INVOICE.MAKE_BULAN(period)  tgl2,
+                       case when p8 is null then 
+                       to_char(to_date(p3,'DD-Mon-YYYY'),'DD') || ' ' || INVOICE.MAKE_BULAN(period)
+                       else p8 end tgl2,
                        (SELECT VALUE FROM parameter_invoice where param_id = a.p4) signer,
                        (SELECT VALUE FROM parameter_invoice where param_id = a.p7) bank
                        from      account_param_invoice a
@@ -296,7 +298,8 @@ class Invoice extends Abstract_model {
               set p4 = '".$data['signer']."',
                   p5 = '".$data['up']."',
                   p6 = '".$data['perihal']."',
-                  p7 = '".$data['bank']."'
+                  p7 = '".$data['bank']."',
+                  p8 = to_char(to_date('".$data['invoice_date']."','dd/mm/yyyy'), 'dd') || ' ' || INVOICE.MAKE_BULAN(to_char(to_date('".$data['invoice_date']."','dd/mm/yyyy'), 'yyyymm'))
               where account_num = '".$data['account_num']."'
               and period = '".$data['periode']."'
                ";
