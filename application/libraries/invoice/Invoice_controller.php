@@ -454,27 +454,27 @@ class Invoice_controller {
 
         if (isset($items[0])){
             $numItems = count($items);
-            $idPooling = $table->getIdPooling();
+           
             for($i=0; $i < $numItems; $i++){
                 try{
-                 
+                    $idPooling = $table->getIdPooling();
                     $items[$i]['id'] = $idPooling;
                     $items[$i]['userid'] = $table->userSession;
                     
                     //save data 
                     $table->saveDataPooling($items[$i]);
-                    
+                    $table->startPooling($idPooling);
                    
                 }catch(Exception $e){
                     $errors[] = $e->getMessage();
                 }
             }
 
-            try{
+            /*try{
                 $table->startPooling($idPooling);
             }catch(Exception $e){
                 $errors[] = $e->getMessage();
-            }
+            }*/
 
             $numErrors = count($errors);
             if ($numErrors > 0){
@@ -675,6 +675,8 @@ class Invoice_controller {
         $account_num = getVarClean('account_num', 'str', '');
         $periode = getVarClean('periode', 'str', '');
         $invoice_date = getVarClean('inv_date', 'str', '');
+        $contract_no = getVarClean('contract_no', 'str', '');
+        $contract_date = getVarClean('contract_date', 'str', '');
 
         $data = array('success' => false, 'message' => '');
 
@@ -686,6 +688,8 @@ class Invoice_controller {
                 $data['perihal'] = $perihal;
                 $data['bank'] = $bank;
                 $data['invoice_date'] = $invoice_date;
+                $data['contract_no'] = $contract_no;
+                $data['contract_date'] = $contract_date;
                 
                 $table->UpdDataInv($data);
 

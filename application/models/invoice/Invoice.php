@@ -156,6 +156,8 @@ class Invoice extends Abstract_model {
                        case when p8 is null then 
                        to_char(to_date(p3,'DD-Mon-YYYY'),'DD') || ' ' || INVOICE.MAKE_BULAN(period)
                        else p8 end tgl2,
+                       case when p9 is null then 'NO_DATA' else p9 end kontrak_param,
+                       case when p11 is null then 'NO_DATA' else p11 end kontrak_date_param,
                        (SELECT VALUE FROM parameter_invoice where param_id = a.p4) signer,
                        (SELECT VALUE FROM parameter_invoice where param_id = a.p7) bank
                        from      account_param_invoice a
@@ -200,10 +202,11 @@ class Invoice extends Abstract_model {
 
         $d =  $query->result_array();
 
-        $sql = "  select  (select CAMWEB.GET_PRODUCTATTR('".$d[0]['customer_ref']."', '".$d[0]['product_seq']."', 'KONTRAK') from dual ) KONTRAK,
-                    (select to_char(to_date(CAMWEB.GET_PRODUCTATTR('".$d[0]['customer_ref']."', '".$d[0]['product_seq']."', 'KONTRAK_START_DAT'
-                    ),'yyyymmdd'),'dd') || ' ' ||  INVOICE.MAKE_BULAN (to_char(to_date(CAMWEB.GET_PRODUCTATTR('".$d[0]['customer_ref']."', '".$d[0]['product_seq']."', 'KONTRAK_START_DAT'
-                    ),'yyyymmdd'),'yyyymm')) from dual )
+        $sql = "  select  (select 
+                                CAMWEB.GET_PRODUCTATTR('".$d[0]['customer_ref']."', '".$d[0]['product_seq']."', 'KONTRAK') from dual ) KONTRAK,
+                          (select to_char(to_date(CAMWEB.GET_PRODUCTATTR('".$d[0]['customer_ref']."', '".$d[0]['product_seq']."', 'KONTRAK_START_DAT'
+                            ),'yyyymmdd'),'dd') || ' ' ||  INVOICE.MAKE_BULAN (to_char(to_date(CAMWEB.GET_PRODUCTATTR('".$d[0]['customer_ref']."', '".$d[0]['product_seq']."', 'KONTRAK_START_DAT'
+                            ),'yyyymmdd'),'yyyymm')) from dual )
                     KONTRAK_START_DAT
                     from dual
         ";
@@ -252,9 +255,24 @@ class Invoice extends Abstract_model {
 
     }
 
-    function startPooling($id){
+    /*function startPooling($id){
       $sql = "BEGIN "
                 . " INVOICE.RUN_JOB_POOLING ("
+                . " :IN_ID "
+                . "); END;";
+
+      $stmt = oci_parse($this->db->conn_id, $sql);
+
+      //  Bind the input parameter
+      oci_bind_by_name($stmt, ':IN_ID', $id);
+
+      ociexecute($stmt);
+
+    }*/
+
+    function startPooling($id){
+      $sql = "BEGIN "
+                . " INVOICE.POOLING_INVOICE_TMP ("
                 . " :IN_ID "
                 . "); END;";
 
@@ -293,13 +311,21 @@ class Invoice extends Abstract_model {
     }
 
     function UpdDataInv($data){
+      if (isset($data['signer']) || $data['signer'] !== ''){
+         $sql = "update account_param_invoice 
+              set p4 = '".$data['signer']."'
+              where account_num = '".$data['account_num']."'
+              and period = '".$data['periode']."'
+               ";
 
-      $sql = "update account_param_invoice 
-              set p4 = '".$data['signer']."',
-                  p5 = '".$data['up']."',
-                  p6 = '".$data['perihal']."',
-                  p7 = '".$data['bank']."',
-                  p8 = to_char(to_date('".$data['invoice_date']."','dd/mm/yyyy'), 'dd') || ' ' || INVOICE.MAKE_BULAN(to_char(to_date('".$data['invoice_date']."','dd/mm/yyyy'), 'yyyymm'))
+        if($data['account_num'] != ''){
+          $query = $this->db->query($sql);
+        }
+      }
+
+      if (isset($data['up']) || $data['up'] !== ''){
+         $sql = "update account_param_invoice 
+              set p5 = '".$data['up']."'
               where account_num = '".$data['account_num']."'
               and period = '".$data['periode']."'
                ";
@@ -307,6 +333,89 @@ class Invoice extends Abstract_model {
       if($data['account_num'] != ''){
         $query = $this->db->query($sql);
       }
+      }
+
+      if (isset($data['perihal']) || $data['perihal'] !== ''){
+         $sql = "update account_param_invoice 
+              set 
+                  p6 = '".$data['perihal']."'
+              where account_num = '".$data['account_num']."'
+              and period = '".$data['periode']."'
+               ";
+
+        if($data['account_num'] != ''){
+          $query = $this->db->query($sql);
+        }
+      }
+
+      if (isset($data['bank']) || $data['bank'] !== ''){
+         $sql = "update account_param_invoice 
+              set
+                  p7 = '".$data['bank']."'
+              where account_num = '".$data['account_num']."'
+              and period = '".$data['periode']."'
+               ";
+
+        if($data['account_num'] != ''){
+          $query = $this->db->query($sql);
+        }
+      }
+
+      if (isset($data['invoice_date']) || $data['invoice_date'] !== ''){
+         $sql = "update account_param_invoice 
+              set 
+                  p8 = to_char(to_date('".$data['invoice_date']."','dd/mm/yyyy'), 'dd') || ' ' || INVOICE.MAKE_BULAN(to_char(to_date('".$data['invoice_date']."','dd/mm/yyyy'), 'yyyymm'))
+              where account_num = '".$data['account_num']."'
+              and period = '".$data['periode']."'
+               ";
+
+        if($data['account_num'] != ''){
+          $query = $this->db->query($sql);
+        }
+      }
+
+      if (isset($data['contract_no']) || $data['contract_no'] !== ''){
+          $sql = "update account_param_invoice 
+              set
+                  p9 = '".$data['contract_no']."'
+              where account_num = '".$data['account_num']."'
+              and period = '".$data['periode']."'
+               ";
+
+        if($data['account_num'] != ''){
+          $query = $this->db->query($sql);
+        }
+      }
+
+      if (isset($data['contract_date']) || $data['contract_date'] !== ''){
+         $sql = "update account_param_invoice 
+              set p11 =  to_char(to_date('".$data['contract_date']."','dd/mm/yyyy'), 'dd') || ' ' || INVOICE.MAKE_BULAN(to_char(to_date('".$data['contract_date']."','dd/mm/yyyy'), 'yyyymm'))
+              where account_num = '".$data['account_num']."'
+              and period = '".$data['periode']."'
+               ";
+
+        if($data['account_num'] != ''){
+          $query = $this->db->query($sql);
+        }
+      }
+
+
+/*
+      $sql = "update account_param_invoice 
+              set p4 = '".$data['signer']."',
+                  p5 = '".$data['up']."',
+                  p6 = '".$data['perihal']."',
+                  p7 = '".$data['bank']."',
+                  p8 = to_char(to_date('".$data['invoice_date']."','dd/mm/yyyy'), 'dd') || ' ' || INVOICE.MAKE_BULAN(to_char(to_date('".$data['invoice_date']."','dd/mm/yyyy'), 'yyyymm')),
+                  p9 = '".$data['contract_no']."',
+                  p11 =  to_char(to_date('".$data['contract_date']."','dd/mm/yyyy'), 'dd') || ' ' || INVOICE.MAKE_BULAN(to_char(to_date('".$data['contract_date']."','dd/mm/yyyy'), 'yyyymm'))
+              where account_num = '".$data['account_num']."'
+              and period = '".$data['periode']."'
+               ";
+
+      if($data['account_num'] != ''){
+        $query = $this->db->query($sql);
+      }*/
     }
 
     function getInvSummary($data){

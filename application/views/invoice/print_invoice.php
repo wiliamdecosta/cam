@@ -114,7 +114,24 @@
                                         <input type="text" name="inv_date" class="form-control datepicker" placeholder=""> </div>
                                          </div>
                                 </div>
-                           
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Contract No</label>
+                                <div class="col-md-6">
+                                    <div class="input-icon right">
+                                        <i class="fa fa-"></i>
+                                        <input type="text" name="contract_no" class="form-control" placeholder=""> </div>
+                                         </div>
+                                </div>
+
+                                <div class="form-group">
+                                <label class="col-md-3 control-label">Contract Date</label>
+                                <div class="col-md-6">
+                                    <div class="input-icon right">
+                                        <i class="fa fa-"></i>
+                                        <input type="text" name="contract_date" class="form-control datepicker" placeholder=""> </div>
+                                         </div>
+                                </div>
+
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Perihal</label>
                                 <div class="col-md-6">

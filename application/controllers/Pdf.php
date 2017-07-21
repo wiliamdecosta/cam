@@ -33,10 +33,19 @@ class Pdf extends CI_Controller
         $table->setPrintSeq($param);
         $dataCust = $table->getCustInfo2($param);
         $kontrak = $table->getKontrak($param);
+        
+        if($dataCust[0]['kontrak_param'] == 'NO_DATA'){
+                $kontrak_id = @$dataCust[0]['kontrak_param'];
+        }else{
+                $kontrak_id = @$dataCust[0]['kontrak_param'];
+        }
 
-        $kontrak_id = @$kontrak[0]['kontrak'];
-        $kontrak_sd = @$kontrak[0]['kontrak_start_dat'];
-
+        if($dataCust[0]['kontrak_date_param'] == 'NO_DATA'){
+                $kontrak_sd = @$dataCust[0]['kontrak_date_param'];
+        }else{
+                $kontrak_sd = @$dataCust[0]['kontrak_date_param'];
+        }
+       
         $up = @$dataCust[0]['up'];
         $tgl = @$dataCust[0]['tgl2'];
         $real_inv_num = @$dataCust[0]['real_inv_num'];
@@ -229,8 +238,8 @@ class Pdf extends CI_Controller
 
         $pdf->Cell(30, 10, "Kepada Yth,");
         $pdf->Ln(5);
-        $pdf->Cell(30, 10, "SGM SSO");
-        $pdf->Ln(5);
+       /* $pdf->Cell(30, 10, "SGM SSO");
+        $pdf->Ln(5);*/
         $pdf->Cell(30, 10, $customer_name);
         $pdf->Ln(5);
         $pdf->Cell(30, 10, $address);
@@ -435,10 +444,10 @@ class Pdf extends CI_Controller
         // ------------------- TTD ---------------//
         $pos = 145;
         //$signature = 'signer/MAT+TTD.jpg';
-        $signature = $signer[2];
+       /* $signature = $signer[2];
         $signature = $this->pathInvoice.$signature;
-        $pdf->Image($signature, $pos, null, 40, 30);
-
+        $pdf->Image($signature, $pos, null, 40, 30);*/
+        $pdf->Ln(20);
         //$kata = 'M. WISNU ADJI';
         $kata = $signer[0];
         $pdf->setKata2($kata,90,$pos,50,5,5,0,'C');
