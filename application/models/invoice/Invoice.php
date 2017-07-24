@@ -36,10 +36,13 @@ class Invoice extends Abstract_model {
                                 a.EXEC_DATE,
                                 a.INVOICE_DUE_DATE,
                                 b.account_name,
+                                d.address_name,
                                 nvl((select p10 from account_param_invoice where p1 = a.invoice_num),0) print_seq
                                 ";
     public $fromClause      = "  CC_INVOICE_INFO a
                                  JOIN account b ON a.account_num = b.account_num
+                                  join customer c on a.customer_ref = c.customer_ref 
+                                 join contact d on c.customer_ref = d.customer_ref and c.customer_contact_seq = d.contact_seq
                                  ";
 
 
@@ -107,7 +110,8 @@ class Invoice extends Abstract_model {
                                 a.INVOICE_DUE_DATE,
                                 b.account_name,
                                 b.ADDRESS,
-                                b.npwp
+                                b.npwp, 
+                                d.address_name customer_name
                 from CC_INVOICE_INFO a
                 join  ( select s01 as customer_ref,
                                           s02 as ACCOUNT_NUM ,
@@ -135,6 +139,8 @@ class Invoice extends Abstract_model {
                                     from table(camweb.pack_list_cust_acc_prod.account_list('".$this->session->userdata('user_name')."' , null,''))) b on 
                                     a.account_num = b.account_num
                                     and a.customer_ref = b.customer_ref
+                                     join customer c on a.customer_ref = c.customer_ref 
+                                 join contact d on c.customer_ref = d.customer_ref and c.customer_contact_seq = d.contact_seq
                 where a.account_num = '".$data['account_num']."' 
                   and a.bill_prd = '".$data['periode']."'";
         $query = $this->db->query($sql);
@@ -168,6 +174,31 @@ class Invoice extends Abstract_model {
         return $query->result_array();
         //return  $data['account_num'];
 
+    }
+
+    function getDataParam($invoice_num){
+
+         $sql = "
+              SELECT account_num,
+                       period,
+                       p1 invocie_num,
+                       p2 real_inv_num,
+                       p3 tgl,
+                       p5 up,
+                       p6 perihal,
+                       p8 tgl2,
+                       p9  kontrak_param,
+                       p11 kontrak_date_param,
+                       (SELECT VALUE FROM parameter_invoice where param_id = a.p4) signer,
+                       (SELECT VALUE FROM parameter_invoice where param_id = a.p7) bank
+                       from      account_param_invoice a
+                      where p1 = '".$data['invoice_num']."'
+        ";
+
+        $query = $this->db->query($sql);
+        $row = $query->result_array();
+
+        return $row;
     }
 
     function getKontrak($data){

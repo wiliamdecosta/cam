@@ -199,6 +199,8 @@
 
 
 });
+
+
     function openEdit(account_num, periode, account_name){
         $('#modalEditSigner').modal({backdrop: 'static'});
         $('#MDesc').html('Account : <b>'+ account_num +' - '+periode+ ' | '+ account_name+ '</b>');
@@ -251,7 +253,14 @@
                     align: 'left',
                     hidden: false
                 },
-                 {
+                {
+                    label: 'Cusomer Name',
+                    name: 'address_name',
+                    hidden: false,
+                    width: 300,
+                    align: 'left'
+                },
+                {
                     label: 'Account Number',
                     name: 'account_num',
                     width: 150,

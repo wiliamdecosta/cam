@@ -704,8 +704,35 @@ class Invoice_controller {
         exit;
     }
 
+    
+    function getDataParam(){
+        $ci = & get_instance();
+        $ci->load->model('invoice/invoice');
+        $table = $ci->sin;
 
+        //$id = $table->getNextId();
+        $inv_num = getVarClean('invoice_num', 'str', '');
 
+        $userinfo = $ci->ion_auth->user()->row();
+        $data = array('success' => false, 'message' => '');
+
+        try{
+            
+            $item = $table->getDataParam($inv_num);
+                
+            $data['item'] = $item;
+            $data['message'] = 'OK';
+            $data['success'] = true;
+
+        }catch (Exception $e) {
+            $data['success'] = false;
+            $data['message'] = $e->getMessage();
+        }
+
+        echo json_encode($data);
+        exit;
+
+    }
 }
 
 /* End of file Groups_controller.php */

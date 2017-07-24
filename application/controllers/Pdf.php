@@ -97,7 +97,7 @@ class Pdf extends CI_Controller
         $pdf->Rect($x+$position, $y, 100, 26);
 
         $pdf->SetFont('Arial', 'B', 8);
-        $customer_name = @$data[0]['account_name'];
+        $customer_name = @$data[0]['customer_name'];
         $pdf->setKata2($customer_name,50,$x+$positionTxt,65,10,4);
         $pdf->SetFont('Arial', '', 8);
         $pdf->setKata2(@$data[0]['address'],65,$x+$positionTxt,50,10,4);
@@ -132,7 +132,7 @@ class Pdf extends CI_Controller
         $curr_type = 'Rp.';
         $invoice_num = $real_inv_num;        
         //$invoice_num = @$data[0]['invoice_num'];        
-        $customer_name = @$data[0]['account_name'];        
+        $customer_name = @$data[0]['customer_name'];        
         $address = @$data[0]['address'];        
         $jumlah = number_format(@$data[0]['invoice_mny'],2, '.', ',');
         $ppn = number_format(@$data[0]['invoice_tax'],2, '.', ',');
@@ -456,7 +456,7 @@ class Pdf extends CI_Controller
         $kata = $signer[1];
         $pdf->setKata2($kata,90,$pos,50,5,5,0,'C');
         // ------------------- TTD ---------------//
-
+        $pdf->Ln(10);
         $pdf->SetFont('Arial', 'I', 9);
         $kata = ' Payment by Cheque / Bilyet Giro is considered legal after being honored';
         $pdf->setKata2($kata,100,10,50,12.5,4);
