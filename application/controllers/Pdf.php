@@ -238,8 +238,8 @@ class Pdf extends CI_Controller
 
         $pdf->Cell(30, 10, "Kepada Yth,");
         $pdf->Ln(5);
-       /* $pdf->Cell(30, 10, "SGM SSO");
-        $pdf->Ln(5);*/
+        $pdf->Cell(30, 10, @$data[0]['account_name']);
+        $pdf->Ln(5);
         $pdf->Cell(30, 10, $customer_name);
         $pdf->Ln(5);
         $pdf->Cell(30, 10, $address);
