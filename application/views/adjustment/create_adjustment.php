@@ -119,6 +119,28 @@
                                     <label class="control-label col-md-1">DD/MM/YYYY</label>
                                 </div>
 
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Invoice ? </span>
+                                    </label>
+                                    <div class="col-md-6">                                           
+                                       <input id="checkbox-inv" type="checkbox" class="form-control" value="" style="width: auto; box-shadow: none; !important">
+                                    </div>
+                                </div>
+
+                                <div class="form-group" id="group-inv" style="display: none;">
+                                    <label class="control-label col-md-4"></label>
+                                    <div class="col-md-4">
+                                        <div class="input-group">  
+                                            <input type="hidden" class="form-control required" name="invoice_no" id="invoice_no" readonly>                                          
+                                            <input type="text" class="form-control required" name="invoice_name" id="invoice_name" readonly>
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-success" type="button" id="btn-lov-invoice">
+                                                <i class="fa fa-search"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
                                  <div class="form-group">
                                     <label class="control-label col-md-4">Description 
                                     </label>
@@ -146,6 +168,11 @@
 
 <script>
 
+$('#checkbox-inv').on('change', function(){
+    // alert('test');
+    $('#group-inv').slideToggle( "slow" );
+});
+
 function isNumberKey(evt){
     var charCode = (evt.which) ? evt.which : event.keyCode
     if (charCode > 31 && (charCode < 48 || charCode > 57))
@@ -164,10 +191,14 @@ $('.datepicker').datetimepicker({
     defaultDate: new Date()
 });
 
+$(".datepicker").keypress(function(event) {event.preventDefault();});
+
 $('.datepickerRO').datetimepicker({
     format: 'DD/MM/YYYY',
     defaultDate: new Date()
 });
+
+$(".datepickerRO").keypress(function(event) {event.preventDefault();});
 
 $("#btn-lov-adjusment-type").on('click',function(){
     modal_lov_adjustment_type_show('adjestment_type_id','adjestment_type');
