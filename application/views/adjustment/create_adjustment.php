@@ -123,16 +123,15 @@
                                     <label class="control-label col-md-4">Invoice ? </span>
                                     </label>
                                     <div class="col-md-6">                                           
-                                       <input id="checkbox-inv" type="checkbox" class="form-control" value="" style="width: auto; box-shadow: none; !important">
+                                       <input id="checkbox-inv" type="checkbox" class="form-control" value="NO" style="width: auto; box-shadow: none; !important">
                                     </div>
                                 </div>
 
                                 <div class="form-group" id="group-inv" style="display: none;">
                                     <label class="control-label col-md-4"></label>
                                     <div class="col-md-4">
-                                        <div class="input-group">  
-                                            <input type="hidden" class="form-control required" name="invoice_no" id="invoice_no" readonly>                                          
-                                            <input type="text" class="form-control required" name="invoice_name" id="invoice_name" readonly>
+                                        <div class="input-group">                                            
+                                            <input type="text" class="form-control required" name="invoice_num" id="invoice_num" readonly>
                                             <span class="input-group-btn">
                                                 <button class="btn btn-success" type="button" id="btn-lov-invoice">
                                                 <i class="fa fa-search"></i></button>
@@ -165,11 +164,17 @@
 
 <?php $this->load->view('lov/lov_adjustment_type.php'); ?>
 <?php $this->load->view('lov/lov_product_adjustment.php'); ?>
+<?php $this->load->view('lov/lov_invoice.php'); ?>
 
 <script>
+$('#checkbox-inv').click(function() {
+    if($(this).is(':checked')){
+        $('#invoice_num').val('');
+    }
+});
 
 $('#checkbox-inv').on('change', function(){
-    // alert('test');
+
     $('#group-inv').slideToggle( "slow" );
 });
 
@@ -205,6 +210,9 @@ $("#btn-lov-adjusment-type").on('click',function(){
 });
 $("#btn-lov-product").on('click',function(){
     modal_lov_product_adjustment_show('product_id','product_name','account','account_name','product_label','customer_ref','product_seq','cps_id');
+});
+$("#btn-lov-invoice").on('click',function(){
+    modal_lov_invoice_show('invoice_num');
 });
 
 $('#submit_form').on('submit', (function (e) {
