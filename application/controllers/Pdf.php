@@ -309,7 +309,7 @@ class Pdf extends CI_Controller
 
         $pdf->Ln(10);
         $pdf->SetFont('Arial', '', 9);
-        $kata = 'Untuk pembayaran tagihan tersebut diatas dapat di transfer ke rekening '.$bank[0].' di Mandiri Wisma Alia ACC:'.$bank[2].', bukti transfer dan bukti potong pph pasal 23 agar dikirim kepada kami pada kesempatan pertama.';
+        $kata = 'Untuk pembayaran tagihan tersebut diatas dapat di transfer ke rekening '.$bank[0].' di Mandiri Wisma Alia ACC:'.$bank[2].', bukti transfer dan bukti potong pph agar dikirim kepada kami pada kesempatan pertama.';
         $pdf->setKata2($kata,120,10,50,10,5);
         $pdf->Ln(10);
         $kata = 'Demikian disampaikan atas perhatian dan kerjasamanya kami ucapkan terima kasih';
