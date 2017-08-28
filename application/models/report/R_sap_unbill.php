@@ -104,56 +104,24 @@ class R_sap_unbill extends Abstract_model {
     }
 
     function edit_generate($file_name,$journal_no,$line_item,$customer_gl,$cust_gl_type){
+
         $ci =& get_instance();
         $userdata = $ci->session->userdata;
-
-        $this->db->set('file_created_date',"to_date('".date('Y-m-d')."','yyyy-mm-dd')",false);
-        $this->db->set('user_create_file',$userdata['user_name'],false);
-        $this->db->set('file_name',$file_name,false);
-
-        $this->db->where('journal_no', $journal_no);
-        $this->db->where('line_item', $line_item);
-        $this->db->where('customer_gl', $customer_gl);
-        $this->db->where('cust_gl_type', $cust_gl_type);
-        $this->db->update('invoice.t_interface_sap_unbill' );
-
-        return true;
-        /*$this->db_inv = $this->load->database('invoice', TRUE);
-        $this->db_inv->_escape_char = ' ';
-        $this->db_inv->trans_begin();
-        $data = array();
-
-        $expDate=explode("-","2017-08-28");
-        $date = $expDate[2]."-".$expDate[1]."-".$expDate[0];
-
-        $data = array(
-                        'file_name' => $file_name,
-                        'user_create_file' => $userdata['user_name']//,
-                        //'file_created_date' => $date
-            );
+        $date = "to_date('".date('Y-m-d')."','yyyy-mm-dd')";
+        $uname = $userdata['user_name'];
         
-        //print_r($data); exit;
 
+         $sql = "UPDATE invoice.t_interface_sap_unbill SET
+                file_created_date = ".$date." ,
+                user_create_file = '".$uname."' ,
+                file_name = '".$file_name."'
+                WHERE journal_no = '".$journal_no."'
+                AND line_item = ".$line_item."
+                AND customer_gl = '".$customer_gl."'
+                AND cust_gl_type = '".$cust_gl_type."' ";
 
-        $this->db_inv->where('journal_no', $journal_no);
-        $this->db_inv->where('line_item', $line_item);
-        $this->db_inv->where('customer_gl', $customer_gl);
-        $this->db_inv->where('cust_gl_type', $cust_gl_type);
-
-        $this->db_inv->update('t_interface_sap_unbill', $data);
-        $this->db_inv->set($data);
-        $this->db_inv->where('journal_no', $journal_no);
-        $this->db_inv->where('line_item', $line_item);
-        $this->db_inv->where('customer_gl', $customer_gl);
-        $this->db_inv->where('cust_gl_type', $cust_gl_type);
-        
-        // 
-        $this->db_inv->update('t_interface_sap_unbill' );
-        $this->db_inv->trans_commit();
-        echo $this->db_inv->trans_status();
-        echo $this->db_inv->affected_rows();
-        exit;*/
-        //return 
+        $this->db->query($sql);
+     
     }
 
 }
