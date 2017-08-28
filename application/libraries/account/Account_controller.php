@@ -600,7 +600,7 @@ class Account_controller
             $ci = & get_instance();
             $ci->load->model('lov/business_share');
             //$table = $ci->product;
-            $table = new business_share(); //kalau ada param
+            $table = $ci->business_share; //kalau ada param
 
             //Set default criteria. You can override this if you want
             foreach ($table->fields as $key => $field){
