@@ -508,7 +508,7 @@ if (!function_exists('generatehtml')) {
                 $ret .=  "<div class='form-group'>
                             <label class='control-label col-md-4'>".ucwords(strtolower(str_replace('_',' ',$value->column_name)))."
                             </label>
-                            <div class='col-md-7'>
+                            <div class='col-md-8'>
                                 <div class='input-group'>
                                     <input type='hidden' class='form-control' name='".$value->column_name."_ID' id='".$value->column_name."_ID' readonly>
                                     <input type='".$dataType."' class='a form-control uppercase  ".$required."' name='".$value->column_name."' id='".$value->column_name."' ".$required." ".$oKU."  readonly>
