@@ -29,6 +29,12 @@
                     </a>
                 </li>
                 <li class="">
+                    <a href="javascript:;" data-toggle="tab" aria-expanded="true" id="tab-4">
+                        <i class="blue"></i>
+                        <strong> Business Area User </strong>
+                    </a>
+                </li>
+                <li class="">
                     <a href="javascript:;" data-toggle="tab" aria-expanded="true" id="tab-3">
                         <i class="blue"></i>
                         <strong> Logs </strong>
@@ -88,6 +94,24 @@ $("#tab-2").on("click", function(event) {
     }
 
     loadContentWithParams("administration.user_invoicingcompany_map", {
+        user_id: user_id,
+        user_name : user_name
+    });
+});
+
+$("#tab-4").on("click", function(event) {
+
+    event.stopPropagation();
+    var grid = $('#grid-table');
+    user_id = grid.jqGrid ('getGridParam', 'selrow');
+    user_name = grid.jqGrid ('getCell', user_id, 'user_name');
+
+    if(user_id == null) {
+        swal('Informasi','Silahkan pilih salah satu user','info');
+        return false;
+    }
+
+    loadContentWithParams("param.business_area_user", {
         user_id: user_id,
         user_name : user_name
     });

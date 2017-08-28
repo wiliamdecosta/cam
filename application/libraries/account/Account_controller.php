@@ -388,7 +388,7 @@ class Account_controller
         $sidx = getVarClean('sidx', 'str', 'a.account_num');
         $sord = getVarClean('sord', 'str', 'asc');
 
-        
+
 
 
         $data = array('rows' => array(), 'page' => 1, 'records' => 0, 'total' => 1, 'success' => false, 'message' => '');
@@ -421,7 +421,7 @@ class Account_controller
                 $req_param['where'][] = "a.customer_ref = '" . $customer_ref . "'";
             }
 
-            // filterToolbar Search 
+            // filterToolbar Search
             $filterToolbar = getVarClean('filters', 'str', '');
             if(!empty($filterToolbar)){
 
@@ -567,7 +567,7 @@ class Account_controller
                  OR upper(termination_reason_name) ".$table->likeOperator." upper('%".$searchPhrase."%')
                  OR upper(termination_reason_desc) ".$table->likeOperator." upper('%".$searchPhrase."%'))");
             }
-           
+
 
             $start = ($start-1) * $limit;
             $items = $table->getAll($start, $limit, $sort, $dir);
@@ -617,7 +617,8 @@ class Account_controller
                 $table->setCriteria("(upper(p_business_area_id) ".$table->likeOperator." upper('%".$searchPhrase."%')
                  OR upper(business_area_name) ".$table->likeOperator." upper('%".$searchPhrase."%'))");
             }
-           
+
+            $table->setCriteria("P_BUSINESS_AREA_TYPE_ID = 1");
 
             $start = ($start-1) * $limit;
             $items = $table->getAll($start, $limit, $sort, $dir);

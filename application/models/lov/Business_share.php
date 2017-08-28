@@ -12,14 +12,10 @@ class Business_share extends Abstract_model {
 
     public $fields          = array();
 
-    public $selectClause    = " p_business_area_id , 
+    public $selectClause    = " p_business_area_id , business_area_code,
                                 business_area_name";
 
-    public $fromClause      = "( SELECT   p_business_area_id, business_area_name
-                                    FROM   P_BUSINESS_AREA a
-                                   WHERE   P_BUSINESS_AREA_TYPE_ID = 1
-                                GROUP BY   P_BUSINESS_AREA_ID, BUSINESS_AREA_NAME
-                                ORDER BY   P_BUSINESS_AREA_TYPE_ID  )";
+    public $fromClause      = "p_business_area";
 
     public $refs            = array();
 
