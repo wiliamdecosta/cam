@@ -509,12 +509,14 @@ if (!function_exists('generatehtml')) {
                             <label class='control-label col-md-4'>".ucwords(strtolower(str_replace('_',' ',$value->column_name)))."
                             </label>
                             <div class='col-md-7'>
-                                <input type='hidden' class='form-control' name='".$value->column_name."_ID' id='".$value->column_name."_ID' readonly>
-                                <input type='".$dataType."' class='a form-control uppercase  ".$required."' name='".$value->column_name."' id='".$value->column_name."' ".$required." ".$oKU." maxlength='40' readonly>
-                                <span class='input-group-btn'>
-                                    <button class='btn btn-success' type='button' id='btn-lov-busines'>
-                                    <i class='fa fa-search'></i>
-                                </span>
+                                <div class='input-group'>
+                                    <input type='hidden' class='form-control' name='".$value->column_name."_ID' id='".$value->column_name."_ID' readonly>
+                                    <input type='".$dataType."' class='a form-control uppercase  ".$required."' name='".$value->column_name."' id='".$value->column_name."' ".$required." ".$oKU."  readonly>
+                                    <span class='input-group-btn'>
+                                        <button class='btn btn-success' type='button' id='btn-lov-busines'>
+                                        <i class='fa fa-search'></i>
+                                    </span>
+                                </div>
                             </div>
                         </div> ";
             }else{
