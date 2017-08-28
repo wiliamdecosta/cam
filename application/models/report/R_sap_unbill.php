@@ -6,7 +6,7 @@
  */
 class R_sap_unbill extends Abstract_model {
 
-    public $table           = "";
+    public $table           = "invoice.T_INTERFACE_SAP_UNBILL";
     public $pkey            = "";
     public $alias           = "";
 
@@ -35,7 +35,10 @@ class R_sap_unbill extends Abstract_model {
                                 amount_local ,
                                 cust_gl_type ,
                                 d_c ,
-                                trade_partner ";
+                                trade_partner,
+                                file_name,
+                                user_create_file,
+                                file_created_date ";
     public $fromClause      = "( select    s01 as journal_no,
                                     n01 as line_item,
                                     s02 as co_code,
@@ -58,19 +61,28 @@ class R_sap_unbill extends Abstract_model {
                                     n03 as amount_local ,
                                     s18 as cust_gl_type ,
                                     s19 as d_c ,
-                                    s20 as trade_partner 
-                                 from table(pack_report.rep_sap_un_bill(%s,%s,null,'')) ) ";
+                                    s20 as trade_partner,
+                                    b.file_name,
+                                    b.user_create_file,
+                                    b.file_created_date
+                                 from table(pack_report.rep_sap_un_bill(%s,%s,null,''))a,
+                                    invoice.T_INTERFACE_SAP_UNBILL b ) ";
 
     public $refs            = array();
 
-    function __construct($periode = "") {
+    function __construct($periode = "",$isGenerate="ungenerate") {
         parent::__construct();
         //$this->db = $this->load->database('tosdb', TRUE);
         //$this->db->_escape_char = ' ';
         $this->fromClause = sprintf($this->fromClause, "'".$this->session->userdata('user_name')."'", "'".$periode."'"); 
-
-        $this->db_crm = $this->load->database('corecrm', TRUE);
-        $this->db_crm->_escape_char = ' ';
+        if($isGenerate== 'ungenerate'){
+            $this->db->where('file_name is  NULL');
+        }else{
+            $this->db->where('file_name is NOT  NULL');
+        }
+        
+       // $this->db_crm = $this->load->database('corecrm', TRUE);
+       // $this->db_crm->_escape_char = ' ';
     }
 
     function validate() {
@@ -87,9 +99,61 @@ class R_sap_unbill extends Abstract_model {
             //example:
             //$this->record['updated_date'] = date('Y-m-d');
             //if false please throw new Exception
-
         }
         return true;
+    }
+
+    function edit_generate($file_name,$journal_no,$line_item,$customer_gl,$cust_gl_type){
+        $ci =& get_instance();
+        $userdata = $ci->session->userdata;
+
+        $this->db->set('file_created_date',"to_date('".date('Y-m-d')."','yyyy-mm-dd')",false);
+        $this->db->set('user_create_file',$userdata['user_name'],false);
+        $this->db->set('file_name',$file_name,false);
+
+        $this->db->where('journal_no', $journal_no);
+        $this->db->where('line_item', $line_item);
+        $this->db->where('customer_gl', $customer_gl);
+        $this->db->where('cust_gl_type', $cust_gl_type);
+        $this->db->update('invoice.t_interface_sap_unbill' );
+
+        return true;
+        /*$this->db_inv = $this->load->database('invoice', TRUE);
+        $this->db_inv->_escape_char = ' ';
+        $this->db_inv->trans_begin();
+        $data = array();
+
+        $expDate=explode("-","2017-08-28");
+        $date = $expDate[2]."-".$expDate[1]."-".$expDate[0];
+
+        $data = array(
+                        'file_name' => $file_name,
+                        'user_create_file' => $userdata['user_name']//,
+                        //'file_created_date' => $date
+            );
+        
+        //print_r($data); exit;
+
+
+        $this->db_inv->where('journal_no', $journal_no);
+        $this->db_inv->where('line_item', $line_item);
+        $this->db_inv->where('customer_gl', $customer_gl);
+        $this->db_inv->where('cust_gl_type', $cust_gl_type);
+
+        $this->db_inv->update('t_interface_sap_unbill', $data);
+        $this->db_inv->set($data);
+        $this->db_inv->where('journal_no', $journal_no);
+        $this->db_inv->where('line_item', $line_item);
+        $this->db_inv->where('customer_gl', $customer_gl);
+        $this->db_inv->where('cust_gl_type', $cust_gl_type);
+        
+        // 
+        $this->db_inv->update('t_interface_sap_unbill' );
+        $this->db_inv->trans_commit();
+        echo $this->db_inv->trans_status();
+        echo $this->db_inv->affected_rows();
+        exit;*/
+        //return 
     }
 
 }

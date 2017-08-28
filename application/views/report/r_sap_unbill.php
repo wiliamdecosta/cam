@@ -33,6 +33,15 @@
                 <div class="col-md-12 green">
                     <div class="form-group col-md-7" style="text-align: left;">
                         <label class="control-label col-md-2">Periode</label>
+                        <div class="col-md-8"> 
+                          <select id="isGenerate" class="form-control" name="isGenerate">
+                              <option value="ungenerate">Un Generate File</option>
+                              <option value="generate">Generate File</option>
+                          </select>
+                        </div>
+                    </div><br><br>
+                    <div class="form-group col-md-7" style="text-align: left;">
+                        <label class="control-label col-md-2">Periode</label>
                         <div class="col-md-4">
                             <div class="input-group">
                                 <input type="text" class="form-control datepicker1" name="in_Periode" id="in_Periode">
@@ -43,7 +52,7 @@
                             </div>
                         </div>
                         <label class="col-md-2 control-label"> YYYYMM</label>
-                    </div><br><br>
+                    </div><br><br><br>
                     <table id="grid-table-sap-unbill"></table>
                     <div id="grid-pager-sap-unbill"></div>
                 </div>
@@ -66,6 +75,13 @@
                 {
                     label: 'Journal No',
                     name: 'journal_no',
+                    hidden: false,
+                    width: 250,
+                    align: 'left'
+                },
+                {
+                    label: 'File Name',
+                    name: 'file_name',
                     hidden: false,
                     width: 250,
                     align: 'left'
@@ -397,6 +413,7 @@
                 }
             }
             )
+
             .navButtonAdd('#grid-pager-sap-unbill', {
                 caption: "",
                 buttonicon: "fa fa-file-excel-o green bigger-120",
@@ -406,6 +423,8 @@
                 onClickButton: toExcelSapUnbill,
                 id: "excel"
             });
+
+            
     });
 
     function toExcelSapUnbill() {
@@ -491,4 +510,20 @@
         $("#grid-table-sap-unbill").trigger("reloadGrid");
     });
 
+    $('#isGenerate').change(function(){
+        var isGenerate = $(this).val();
+        var periode = $('#in_Periode').val();
+        if($(this).val() == 'ungenerate'){
+            $("#excel").css("display", "block");
+        }else{
+            $("#excel").css("display", "none");    
+        }
+
+        $('#grid-table-sap-unbill').jqGrid('setGridParam', {
+            url: '<?php echo WS_JQGRID . "report.r_sap_unbill_controller/read"; ?>',
+            postData: {isGenerate: isGenerate,periode: periode}
+        });
+        $('#grid-table-sap-unbill').jqGrid('setCaption', 'Sap Unbill :: ' + periode);
+        $("#grid-table-sap-unbill").trigger("reloadGrid");
+    });
 </script>
