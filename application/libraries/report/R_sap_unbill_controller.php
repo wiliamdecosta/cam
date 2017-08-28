@@ -87,31 +87,31 @@ class R_sap_unbill_controller {
             $ci->load->model('report/r_sap_unbill');
             //$table = $ci->r_bil_complete_area;
             $table = new R_sap_unbill($periode,$isGenerate);
-            $table2 = new R_sap_unbill($periode,$isGenerate);
+            // $table2 = new R_sap_unbill($periode,$isGenerate);
 
-            $req_param = array(
-                "sort_by" => $sidx,
-                "sord" => $sord,
-                "limit" => null,
-                "field" => null,
-                "where" => null,
-                "where_in" => null,
-                "where_not_in" => null,
-                "search" => getVarClean('_search'),
-                "search_field" => getVarClean('searchField'),
-                "search_operator" => getVarClean('searchOper'),
-                "search_str" => getVarClean('searchString'),
-                "periode" => getVarClean('periode')
-            );
+            // $req_param = array(
+            //     "sort_by" => $sidx,
+            //     "sord" => $sord,
+            //     "limit" => null,
+            //     "field" => null,
+            //     "where" => null,
+            //     "where_in" => null,
+            //     "where_not_in" => null,
+            //     "search" => getVarClean('_search'),
+            //     "search_field" => getVarClean('searchField'),
+            //     "search_operator" => getVarClean('searchOper'),
+            //     "search_str" => getVarClean('searchString'),
+            //     "periode" => getVarClean('periode')
+            // );
 
             // Filter Table
-            $req_param['where'] = array();
+            // $req_param['where'] = array();
 
             // if (!empty($periode)) {
             //     $req_param['where'][] = "periode = '" . $periode . "'";
             // }
 
-            $table->setJQGridParam($req_param);
+            // $table->setJQGridParam($req_param);
             $items = $table->getAll();
 
             $file_name = date("dmy") . '_SAP_UNBILL.xls';
@@ -178,7 +178,7 @@ class R_sap_unbill_controller {
                 echo '</tr>';
 
                
-                $item = $table2->edit_generate($file_name,$item['journal_no'],$item['line_item'],$item['customer_gl'],$item['cust_gl_type']);
+                // $table->edit_generate($file_name,$item['journal_no'],$item['line_item'],$item['customer_gl'],$item['cust_gl_type']);
                  
             }
             echo '</table>';
