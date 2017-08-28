@@ -431,6 +431,8 @@ if (!function_exists('generatehtml')) {
 
     }
 
+    /*
+     // get Attr Buckup 
     function genAttr($table){
 
         $data = getColomTable($table = $table, $conn = 'default');
@@ -467,6 +469,63 @@ if (!function_exists('generatehtml')) {
                             <input type='".$dataType."' class='a form-control uppercase ".$required."' name='".$value->column_name."' id='".$value->column_name."' ".$required." ".$oKU." maxlength='40'>
                         </div>
                     </div> ";
+
+            }
+
+        }
+        return $ret;
+
+    }*/
+
+    function genAttr($table){
+
+        $data = getColomTable($table = $table, $conn = 'default');
+        $ret ='';
+        foreach ($data as $key => $value) {
+
+            // temporary set required for all, change it from table accountattributes
+            $required = $value->nullable == 'Y' ? 'required' : '';
+
+            $dataType = $value->data_type == 'NUMBER' ? 'number' : 'text';
+            $oKU = '';
+            if($value->column_name == 'NPWP'){ // need to change to parameter
+                //$oKU = "onkeypress='return isAlphaNumeric(event);'";
+            }
+            // change this condition to parameter ASAP
+            if($value->column_name == 'IS_MONTHLY_INVOICE'){
+                $ret .= "<div class='form-group'>
+                            <label class='control-label col-md-4 '>".ucwords(strtolower(str_replace('_',' ',$value->column_name)))."
+                            </label>
+                            <div class='col-md-8'>
+                            <select class='form-control uppercase ".$required."' ".$required." name='".$value->column_name."' id='".$value->column_name."'>
+
+                                                            <option value='N'>No</option>
+                                                            <option value='Y'>Yes</option>
+                                                        </select>
+                            </div>
+                        </div>";
+            }elseif($value->column_name == 'BUSINESS_SHARE'){
+                $ret .=  "<div class='form-group'>
+                            <label class='control-label col-md-4'>".ucwords(strtolower(str_replace('_',' ',$value->column_name)))."
+                            </label>
+                            <div class='col-md-7'>
+                                <input type='hidden' class='form-control' name='".$value->column_name."_ID' id='".$value->column_name."_ID' readonly>
+                                <input type='".$dataType."' class='a form-control uppercase  ".$required."' name='".$value->column_name."' id='".$value->column_name."' ".$required." ".$oKU." maxlength='40' readonly>
+                                <span class='input-group-btn'>
+                                    <button class='btn btn-success' type='button' id='btn-lov-busines'>
+                                    <i class='fa fa-search'></i>
+                                </span>
+                            </div>
+                        </div> ";
+            }else{
+
+                $ret .=  "<div class='form-group'>
+                            <label class='control-label col-md-4'>".ucwords(strtolower(str_replace('_',' ',$value->column_name)))."
+                            </label>
+                            <div class='col-md-8'>
+                                <input type='".$dataType."' class='a form-control uppercase ".$required."' name='".$value->column_name."' id='".$value->column_name."' ".$required." ".$oKU." maxlength='40'>
+                            </div>
+                        </div> ";
 
             }
 

@@ -690,6 +690,7 @@
 <?php $this->load->view('lov/lov_nipnas2.php'); ?>
 <?php $this->load->view('lov/lov_addr.php'); ?>
 <?php $this->load->view('lov/lov_country.php'); ?>
+<?php $this->load->view('lov/lov_business_share.php'); ?>
 
 <script type="text/javascript">
     $.ajax({
@@ -724,6 +725,9 @@
         });
         $("#btn-lov-country").on('click', function() {
             modal_lov_country_show('wizard5_country_id','wizard5_country_code');
+        });
+        $("#btn-lov-busines").on('click', function() {
+            modal_lov_business_share_show('BUSINESS_SHARE_ID','BUSINESS_SHARE');
         });
        /* $('#btn-lov-accountnum').on('click', function () {
             modal_lov_nipnas_show('account_number', 'customer_name2');
