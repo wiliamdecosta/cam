@@ -170,7 +170,7 @@ class R_sap_bill_controller {
                     echo '<td>' . $item['trade_partner'] . '</td>';
                 echo '</tr>';
 
-               //$table->edit_generate($file_name,$item['journal_no'],$item['line_item'],$item['customer_gl'],$item['cust_gl_type']);
+               $table->edit_generate($file_name,$item['journal_no'],$item['line_item'],$item['customer_gl'],$item['cust_gl_type']);
             }
             echo '</table>';
             echo '</body>';

@@ -178,7 +178,7 @@ class R_sap_unbill_controller {
                 echo '</tr>';
 
                
-                // $table->edit_generate($file_name,$item['journal_no'],$item['line_item'],$item['customer_gl'],$item['cust_gl_type']);
+                $table->edit_generate($file_name,$item['journal_no'],$item['line_item'],$item['customer_gl'],$item['cust_gl_type']);
                  
             }
             echo '</table>';
