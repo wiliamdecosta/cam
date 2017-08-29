@@ -32,8 +32,8 @@
             <div class="row">
                 <div class="col-md-12 green">
                     <div class="form-group col-md-7" style="text-align: left;">
-                        <label class="control-label col-md-2">Periode</label>
-                        <div class="col-md-8"> 
+                        <label class="control-label col-md-2">Filter File</label>
+                        <div class="col-md-4"> 
                           <select id="isGenerate" class="form-control" name="isGenerate">
                               <option value="ungenerate">Un Generate File</option>
                               <option value="generate">Generate File</option>

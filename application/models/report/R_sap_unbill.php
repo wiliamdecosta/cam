@@ -66,7 +66,8 @@ class R_sap_unbill extends Abstract_model {
                                     b.user_create_file,
                                     b.file_created_date
                                  from table(pack_report.rep_sap_un_bill(%s,%s,null,''))a,
-                                    invoice.T_INTERFACE_SAP_UNBILL b ) ";
+                                    invoice.T_INTERFACE_SAP_UNBILL b ) 
+                                  where %s";
 
     public $refs            = array();
 
@@ -74,13 +75,18 @@ class R_sap_unbill extends Abstract_model {
         parent::__construct();
         //$this->db = $this->load->database('tosdb', TRUE);
         //$this->db->_escape_char = ' ';
-        $this->fromClause = sprintf($this->fromClause, "'".$this->session->userdata('user_name')."'", "'".$periode."'"); 
         if($isGenerate== 'ungenerate'){
-            $this->db->where('file_name is  NULL');
+           $where ="file_name is  NULL";
         }else{
-            $this->db->where('file_name is NOT  NULL');
+            $where ="file_name is NOT NULL";
+            //print_r($this->output->enable_profiler(TRUE));exit;
         }
         
+        $this->fromClause = sprintf($this->fromClause, "'".$this->session->userdata('user_name')."'", "'".$periode."'",$where); 
+        /**/
+        
+        //echo $this->db;
+        //exit;
        // $this->db_crm = $this->load->database('corecrm', TRUE);
        // $this->db_crm->_escape_char = ' ';
     }
