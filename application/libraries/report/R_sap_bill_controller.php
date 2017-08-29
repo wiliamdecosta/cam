@@ -13,6 +13,7 @@ class R_sap_bill_controller {
         $sidx = getVarClean('sidx','str','journal_no');
         $sord = getVarClean('sord','str','asc');
         $periode = getVarClean('periode','str','');
+        $isgenerate = getVarClean('isgenerate','str','ungenerated');
 
         $data = array('rows' => array(), 'page' => 1, 'records' => 0, 'total' => 1, 'success' => false, 'message' => '');
 
@@ -22,7 +23,7 @@ class R_sap_bill_controller {
             $ci->load->model('report/r_sap_bill');
             //$table = $ci->r_bil_complete_area;
              //$periode='201712';;
-            $table = new r_sap_bill($periode);
+            $table = new r_sap_bill($periode, $isgenerate);
 
             $req_param = array(
                 "sort_by" => $sidx,
@@ -78,14 +79,16 @@ class R_sap_bill_controller {
         $sidx = getVarClean('sidx', 'str', 'journal_no');
         $sord = getVarClean('sord', 'str', 'asc');
         $periode = getVarClean('periode','str','');
+        $isgenerate = getVarClean('isgenerate','str','ungenerated');
 
         try {
 
             $ci = &get_instance();
-           $ci->load->model('report/r_sap_bill');
-            $table = new r_sap_bill($periode);
+            $ci->load->model('report/r_sap_bill');
+            //$table = new r_sap_bill($periode);
+            $table = new r_sap_bill($periode, $isgenerate);
 
-            $req_param = array(
+            /*$req_param = array(
                 "sort_by" => $sidx,
                 "sord" => $sord,
                 "limit" => null,
@@ -101,10 +104,12 @@ class R_sap_bill_controller {
 
             
 
-            $table->setJQGridParam($req_param);
+            $table->setJQGridParam($req_param);*/
             $items = $table->getAll();
 
-            startExcel(date("dmy") . '_R_SAP_BILL.xls');
+            $file_name = date("dmy") . '_SAP_BILL.xls';
+
+            startExcel($file_name);
             echo '<html>';
             echo '<head><title>SAP BILL</title></head>';
             echo '<body>';
@@ -164,6 +169,8 @@ class R_sap_bill_controller {
                     echo '<td>' . $item['d_c'] . '</td>';
                     echo '<td>' . $item['trade_partner'] . '</td>';
                 echo '</tr>';
+
+               $table->edit_generate($file_name,$item['journal_no'],$item['line_item'],$item['customer_gl'],$item['cust_gl_type']);
             }
             echo '</table>';
             echo '</body>';
@@ -174,7 +181,78 @@ class R_sap_bill_controller {
             echo $e->getMessage();
             exit;
         }
+    }
 
+
+    function update() {
+
+        $ci = & get_instance();
+        $ci->load->model('report/r_sap_bill');
+        $table = $ci->menus;
+
+        $data = array('rows' => array(), 'page' => 1, 'records' => 0, 'total' => 1, 'success' => false, 'message' => '');
+
+        $jsonItems = getVarClean('items', 'str', '');
+        $items = jsonDecode($jsonItems);
+
+        if (!is_array($items)){
+            $data['message'] = 'Invalid items parameter';
+            return $data;
+        }
+
+        $table->actionType = 'UPDATE';
+
+        if (isset($items[0])){
+            $errors = array();
+            $numItems = count($items);
+            for($i=0; $i < $numItems; $i++){
+                try{
+                    $table->db->trans_begin(); //Begin Trans
+
+                        $table->setRecord($items[$i]);
+                        $table->update();
+
+                    $table->db->trans_commit(); //Commit Trans
+
+                    $items[$i] = $table->get($items[$i][$table->pkey]);
+                }catch(Exception $e){
+                    $table->db->trans_rollback(); //Rollback Trans
+
+                    $errors[] = $e->getMessage();
+                }
+            }
+
+            $numErrors = count($errors);
+            if ($numErrors > 0){
+                $data['message'] = $numErrors." from ".$numItems." record(s) failed to be saved.<br/><br/><b>System Response:</b><br/>- ".implode("<br/>- ", $errors)."";
+            }else{
+                $data['success'] = true;
+                $data['message'] = 'Data update successfully';
+            }
+            $data['rows'] =$items;
+        }else {
+
+            try{
+                $table->db->trans_begin(); //Begin Trans
+
+                    $table->setRecord($items);
+                    $table->update();
+
+                $table->db->trans_commit(); //Commit Trans
+
+                $data['success'] = true;
+                $data['message'] = 'Data update successfully';
+                logging('update data menu');
+                $data['rows'] = $table->get($items[$table->pkey]);
+            }catch (Exception $e) {
+                $table->db->trans_rollback(); //Rollback Trans
+
+                $data['message'] = $e->getMessage();
+                $data['rows'] = $items;
+            }
+
+        }
+        return $data;
 
     }
 }

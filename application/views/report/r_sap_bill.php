@@ -31,6 +31,17 @@
             <div class="form-body">
             <div class="row">
                 <div class="col-md-12 green">
+                    <div class="form-group col-md-7">
+                        <label class="control-label col-md-2">Filter File</label>
+                        <div class="col-md-4">
+                            <select class="form-control" name="in_generated" id="in_generated">
+                                <option value="ungenerated">Ungenerated File</option>
+                                <option value="generated">Generated File</option>
+                            </select>
+                        <span class="help-block">
+                        </span>
+                        </div>
+                    </div><br><br>
                     <div class="form-group col-md-7" style="text-align: left;">
                         <label class="control-label col-md-2">Periode</label>
                         <div class="col-md-4">
@@ -43,7 +54,8 @@
                             </div>
                         </div>
                         <label class="col-md-2 control-label"> YYYYMM</label>
-                    </div><br><br>
+                    </div><br><br><br><br>
+                    
                     <table id="grid-table-sap-bill"></table>
                     <div id="grid-pager-sap-bill"></div>
                 </div>
@@ -66,6 +78,13 @@
                 {
                     label: 'Journal No',
                     name: 'journal_no',
+                    hidden: false,
+                    width: 250,
+                    align: 'left'
+                },
+                {
+                    label: 'File Name',
+                    name: 'file_name',
                     hidden: false,
                     width: 250,
                     align: 'left'
@@ -273,7 +292,7 @@
 
         jQuery('#grid-table-sap-bill').jqGrid('navGrid', '#grid-pager-sap-bill',
             {   //navbar options
-                excel: true,
+                excel: false,
                 excelicon: 'fa fa-file-excel-o blue bigger-120',
                 edit: false,
                 editicon: 'fa fa-pencil blue bigger-120',
@@ -292,6 +311,8 @@
                 refreshicon: 'fa fa-refresh green bigger-120',
                 view: true,
                 viewicon: 'fa fa-search-plus grey bigger-120'
+                
+                
             },
 
             {
@@ -428,7 +449,9 @@
         url += "&searchField=" + $("#grid-table-sap-bill").getGridParam("postData").searchField;
         url += "&searchOper=" + $("#grid-table-sap-bill").getGridParam("postData").searchOper;
         url += "&searchString=" + $("#grid-table-sap-bill").getGridParam("postData").searchString;
+        url += "&periode=" + $("#grid-table-sap-bill").getGridParam("postData").periode;
         window.location = url;
+        
     }
     function responsive_jqgrid(grid_selector, pager_selector) {
 
@@ -440,18 +463,6 @@
 </script>
 <script>
 
-    /*$.ajax({
-        url: // echo base_url().'home/get_date/'; ?>" ,
-        type: "POST",
-        dataType: "json",
-        data: {},
-        success: function (data) {
-            $('.datepicker1').val(data.dates);
-        },
-        error: function (xhr, status, error) {
-            swal({title: "Error!", text: xhr.responseText, html: true, type: "error"});
-        }
-    });*/
 
     $('.datepicker1').datetimepicker({
         format: 'YYYYMM',
@@ -468,6 +479,26 @@
 
         $('#grid-table-sap-bill').jqGrid('setCaption', 'Sap Bill :: ' + periode);
         $("#grid-table-sap-bill").trigger("reloadGrid");
+    });
+
+    $('#in_generated').change(function(){
+        var isgenerate = $('#in_generated option:selected').val();
+        var periode = $('#in_Periode').val();
+        //alert(filter);
+        if(isgenerate == 'ungenerated'){
+            $('#excel').css('display','block');
+        }else if(isgenerate == 'generated'){
+            $('#excel').css('display','none');
+        }
+
+        $('#grid-table-sap-bill').jqGrid('setGridParam', {
+            url: '<?php echo WS_JQGRID . "report.r_sap_bill_controller/read"; ?>',
+            postData: {periode: periode, isgenerate : isgenerate}
+        });
+
+        $('#grid-table-sap-bill').jqGrid('setCaption', 'Sap Bill :: ' + periode);
+        $("#grid-table-sap-bill").trigger("reloadGrid");
+
     });
 
 </script>
