@@ -139,8 +139,8 @@ class Invoice extends Abstract_model {
                                     from table(camweb.pack_list_cust_acc_prod.account_list('".$this->session->userdata('user_name')."' , null,''))) b on 
                                     a.account_num = b.account_num
                                     and a.customer_ref = b.customer_ref
-                                     join customer c on a.customer_ref = c.customer_ref 
-                                 join contact d on c.customer_ref = d.customer_ref and c.customer_contact_seq = d.contact_seq
+                                     join accountdetails c on a.account_num= c.account_num and (c.end_dat is null or trunc(c.end_dat) = trunc(sysdate) ) 
+                                 join contact d on a.customer_ref = d.customer_ref and c.billing_contact_seq = d.contact_seq
                 where a.account_num = '".$data['account_num']."' 
                   and a.bill_prd = '".$data['periode']."'";
         $query = $this->db->query($sql);
@@ -187,12 +187,12 @@ class Invoice extends Abstract_model {
                        p5 up,
                        p6 perihal,
                        p8 tgl2,
-                       p9  kontrak_param,
-                       p11 kontrak_date_param,
+                       p9  contract_no,
+                       p11 contract_date,
                        (SELECT VALUE FROM parameter_invoice where param_id = a.p4) signer,
                        (SELECT VALUE FROM parameter_invoice where param_id = a.p7) bank
                        from      account_param_invoice a
-                      where p1 = '".$data['invoice_num']."'
+                      where p1 = '".$invoice_num."'
         ";
 
         $query = $this->db->query($sql);
