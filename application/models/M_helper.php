@@ -17,11 +17,11 @@ class M_helper extends CI_Model
         $this->db_corecrm = $this->load->database('corecrm', TRUE);
         $this->db_corecrm->_escape_char = ' ';
 
-        $this->db_ccpbb = $this->load->database('ccpbb', TRUE);
+        /*$this->db_ccpbb = $this->load->database('ccpbb', TRUE);
         $this->db_ccpbb->_escape_char = ' ';
 
         $this->db_tosdb = $this->load->database('tosdb', TRUE);
-        $this->db_tosdb->_escape_char = ' ';
+        $this->db_tosdb->_escape_char = ' '; */
 
     }
 
