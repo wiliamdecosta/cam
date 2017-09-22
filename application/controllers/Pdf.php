@@ -435,19 +435,25 @@ class Pdf extends CI_Controller
         $pdf->Cell(40, 12.5, $total.'  ', 'TBR', 0, 'R');
         $pdf->SetFont('Arial', '', 9);
         $pdf->Cell(80, 12.5,'Jakarta ,'.$tgl, '', 0, 'C');
-        $pdf->Ln(3);
+        $pdf->Ln(5);
         $pdf->SetFont('Arial', 'BI', 9);
         $pdf->Cell(115, 10, " Jumlah");
         $pdf->Ln();
         $pdf->SetFont('');
 
         // ------------------- TTD ---------------//
-        $pos = 145;
+        $pos = 140;
         //$signature = 'signer/MAT+TTD.jpg';
        /* $signature = $signer[2];
         $signature = $this->pathInvoice.$signature;
         $pdf->Image($signature, $pos, null, 40, 30);*/
-        $pdf->Ln(20);
+        $jarak = $perihal;
+        if(strlen($jarak) < 80){
+            $jarak = 10;
+        }else{
+            $jarak = 2;
+        }
+        $pdf->Ln(10);
         //$kata = 'M. WISNU ADJI';
         $kata = $signer[0];
         $pdf->setKata2($kata,90,$pos,50,5,5,0,'C');
@@ -461,7 +467,7 @@ class Pdf extends CI_Controller
         $kata = ' Payment by Cheque / Bilyet Giro is considered legal after being honored';
         $pdf->setKata2($kata,100,10,50,12.5,4);
         $kata = ' Pembayaran dengan Cek / Giro dianggap sah setelah diuangkan';
-        $pdf->setKata2($kata,100,10,50,12.5,4);
+        $pdf->setKata2($kata,100,10,50,12.5,1);
 
         $pdf->Output();
     }
