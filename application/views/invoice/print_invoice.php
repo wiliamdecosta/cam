@@ -53,24 +53,102 @@
 
 <!-- Modal Edit  -->
  <!-- Modal Edit  -->
- <div class="modal fade bs-modal-lg" id="modalEditSigner" tabindex="-1" role="dialog" aria-hidden="true">
+ <div class="modal fade bs-modal-lg" id="modalEditSigner" tabindex="-2" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Invoice Data</h4>
             </div>
-            <div class="modal-body"> 
+            <div class="modal-body">
+
                  <h4 class="modal-title" id="MDesc">Signer Data</h4>
-                 <hr> 
+                 <hr>
                  <div class="space-4"></div>
                  <div id="formAdd">
-                  <form class="form-horizontal" role="form" id="myForm1"  >
+                 <div class="portlet-body">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#tab_1_1" data-toggle="tab"> Data </a>
+                        </li>
+                        <li>
+                            <a href="#tab_1_2" data-toggle="tab"> Update Data </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade active in" id="tab_1_1">
+                             <div class="form-horizontal" role="form"  >
                         <div class="form-body">
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Signer</label>
                                 <div class="col-md-6">
-                                   <?php echo buatcombo2($nama = 'signer',
+                                 <div class="input-icon right">
+                                        <i class="fa fa-"></i>
+                                        <input type="text" id="signer" class="form-control readonly" readonly placeholder=""> </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">UP</label>
+                                <div class="col-md-6">
+                                    <div class="input-icon right">
+                                        <i class="fa fa-"></i>
+                                        <input type="text" id="up" class="form-control readonly" readonly placeholder=""> </div>
+                                         </div>
+                                </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Bank Account</label>
+                                <div class="col-md-6">
+                                    <div class="input-icon right">
+                                        <i class="fa fa-"></i>
+                                        <input type="text" id="ba" class="form-control readonly" readonly placeholder=""> </div>
+                                </div>
+                            </div>
+                             <div class="form-group">
+                                <label class="col-md-3 control-label">Invoice Date</label>
+                                <div class="col-md-6">
+                                    <div class="input-icon right">
+                                        <i class="fa fa-"></i>
+                                        <input type="text" id="inv_date" class="form-control readonly" readonly placeholder=""> </div>
+                                         </div>
+                                </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Contract No</label>
+                                <div class="col-md-6">
+                                    <div class="input-icon right">
+                                        <i class="fa fa-"></i>
+                                        <textarea type="text" id="contract_no" row="10" class="form-control readonly" readonly placeholder=""></textarea> </div>
+                                         </div>
+                                </div>
+
+                                <div class="form-group">
+                                <label class="col-md-3 control-label">Contract Date</label>
+                                <div class="col-md-6">
+                                    <div class="input-icon right">
+                                        <i class="fa fa-"></i>
+                                        <input type="text" id="contract_date" class="form-control readonly" placeholder="" readonly> </div>
+                                         </div>
+                                </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Perihal</label>
+                                <div class="col-md-6">
+                                    <div class="input-icon right">
+                                        <i class="fa fa-"></i>
+                                        <textarea height="2" type="text" id="perihal" class="form-control readonly" readonly placeholder=""> </textarea></div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab_1_2">
+                        <form class="form-horizontal" role="form" id="myForm1"  >
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Signer</label>
+                                <div class="col-md-6">
+                                  <?php echo buatcombo2($nama = 'signer',
                                                         $id= 'signer',
                                                         $table= "invoice.parameter_invoice",
                                                         $field= 'value',
@@ -119,7 +197,7 @@
                                 <div class="col-md-6">
                                     <div class="input-icon right">
                                         <i class="fa fa-"></i>
-                                        <input type="text" name="contract_no" class="form-control" placeholder=""> </div>
+                                        <textarea type="text" name="contract_no" class="form-control" placeholder=""></textarea> </div>
                                          </div>
                                 </div>
 
@@ -150,8 +228,13 @@
                         </div>
 
                     </form>
+                        </div>
+
+                    </div>
+                    </div>
+
                  </div>
-                   
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
@@ -200,12 +283,37 @@
 
 });
 
+    function get_paramInv(inv_num){
 
-    function openEdit(account_num, periode, account_name){
+        $.ajax({
+            type: "POST",
+            url:  '<?php echo WS_JQGRID . "invoice.invoice_controller/getDataParam"; ?>',
+            data: { invoice_num:inv_num },
+            success: function (data) {
+                  data = JSON.parse(data);
+                  setDataParam(data.item[0]);
+                }
+             });
+
+    }
+
+    function setDataParam(data){
+        $('#signer').val(data.signer);
+        $('#up').val(data.up);
+        $('#ba').val(data.bank);
+        $('#perihal').val(data.perihal);
+        $('#inv_date').val(data.tgl2);
+        $('#contract_no').val(data.redaksi);
+        //$('#contract_no').val(data.contract_no);
+        $('#contract_date').val(data.contract_date);
+    }
+
+    function openEdit(account_num, periode, account_name, inv_num){
         $('#modalEditSigner').modal({backdrop: 'static'});
         $('#MDesc').html('Account : <b>'+ account_num +' - '+periode+ ' | '+ account_name+ '</b>');
         $('#account_num').val(account_num);
         $('#periode').val(periode);
+        get_paramInv(inv_num);
     }
 
     $(document).ready(function(){
@@ -213,7 +321,7 @@
             format: 'DD/MM/YYYY',
             // defaultDate: new Date()
         });
-      
+
 
     });
 
@@ -236,7 +344,7 @@
                 },*/
                 {label: 'Action', name: ' ', width: 150,  sortable:false,  align:"center", editable: false,
                     formatter: function(cellvalue, options, rowObject) {
-                        return '<button type="button" class="btn btn-xs btn-primary" title="print" onclick="printInvoice(\''+rowObject.account_num+'\',\''+rowObject.bill_prd+'\')"><i class="fa fa-print"></i></button> '+ '<button type="button" class="btn btn-xs btn-default" title="Edit Data" onclick="openEdit(\''+rowObject.account_num+'\',\''+rowObject.bill_prd+'\', \''+rowObject.account_name+'\')"><i class="fa fa-edit"></i></button>';
+                        return '<button type="button" class="btn btn-xs btn-primary" title="print" onclick="printInvoice(\''+rowObject.account_num+'\',\''+rowObject.bill_prd+'\')"><i class="fa fa-print"></i></button> '+ '<button type="button" class="btn btn-xs btn-default" title="Edit Data" onclick="openEdit(\''+rowObject.account_num+'\',\''+rowObject.bill_prd+'\', \''+rowObject.account_name+'\', \''+rowObject.invoice_num+'\')"><i class="fa fa-edit"></i></button>';
                     }
                 },
                 {
@@ -253,14 +361,14 @@
                     align: 'left',
                     hidden: false
                 },
-                {
-                    label: 'Cusomer Name',
+                 {
+                    label: 'Customer Name',
                     name: 'address_name',
                     hidden: false,
                     width: 300,
                     align: 'left'
                 },
-                {
+                 {
                     label: 'Account Number',
                     name: 'account_num',
                     width: 150,
@@ -283,7 +391,7 @@
                     label: 'Amount',
                     name: 'invoice_mny',
                     align: 'right',
-                    formatter :'number', 
+                    formatter :'number',
                     formatoptions: {decimalSeparator:".", thousandsSeparator: ",", decimalPlaces: 2, defaultValue: '0.00'}
                 },
                 {
@@ -292,7 +400,7 @@
                     hidden: false,
                     width: 180,
                     align: 'right',
-                    formatter :'number', 
+                    formatter :'number',
                     formatoptions: {decimalSeparator:".", thousandsSeparator: ",", decimalPlaces: 2, defaultValue: '0.00'}
                 },
                 {
@@ -301,10 +409,10 @@
                     hidden: false,
                     width: 180,
                     align: 'right',
-                    formatter :'number', 
+                    formatter :'number',
                     formatoptions: {decimalSeparator:".", thousandsSeparator: ",", decimalPlaces: 2, defaultValue: '0.00'}
                 }
-                
+
             ],
             height: '100%',
             autowidth: true,
@@ -353,13 +461,13 @@
             caption: "Invoice "
 
         });
-        
-        jQuery("#grid-table-account").jqGrid('filterToolbar', { stringResult: true, 
-                                                                searchOnEnter: true, 
+
+        /*jQuery("#grid-table-account").jqGrid('filterToolbar', { stringResult: true,
+                                                                searchOnEnter: true,
                                                                 defaultSearch: "cn" ,
                                                                 //searchOperators : true
-                                                               });
-        
+                                                               });*/
+
         jQuery('#grid-table-account').jqGrid('navGrid', '#grid-pager-account',
             {   //navbar options
                 edit: false,
@@ -522,7 +630,7 @@
                     width: 300,
                     align: 'left'
                 }
-                
+
             ],
             height: '100%',
             autowidth: false,
@@ -556,12 +664,12 @@
             caption: "Invoice Data "
 
         });
-        
-        jQuery("#grid-table-billing").jqGrid('filterToolbar', { stringResult: true, 
-                                                                searchOnEnter: true, 
-                                                                defaultSearch: "cn" 
+
+        jQuery("#grid-table-billing").jqGrid('filterToolbar', { stringResult: true,
+                                                                searchOnEnter: true,
+                                                                defaultSearch: "cn"
                                                                });
-        
+
         jQuery('#grid-table-billing').jqGrid('navGrid', '#grid-pager-billing',
             {   //navbar options
                 edit: false,

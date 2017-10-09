@@ -35,13 +35,13 @@ class Pdf extends CI_Controller
         $kontrak = $table->getKontrak($param);
         
         if($dataCust[0]['kontrak_param'] == 'NO_DATA'){
-                $kontrak_id = @$dataCust[0]['kontrak_param'];
+                $kontrak_id = '-';
         }else{
                 $kontrak_id = @$dataCust[0]['kontrak_param'];
         }
 
         if($dataCust[0]['kontrak_date_param'] == 'NO_DATA'){
-                $kontrak_sd = @$dataCust[0]['kontrak_date_param'];
+                $kontrak_sd = '-';
         }else{
                 $kontrak_sd = @$dataCust[0]['kontrak_date_param'];
         }
@@ -246,18 +246,20 @@ class Pdf extends CI_Controller
 
         $pdf->Ln(10);
 
-        $pdf->SetFont('Arial', '', 9);
+        // remove by request 
+        /* $pdf->SetFont('Arial', '', 9);
         $pdf->Cell(20, 10, "Perihal");
         $pdf->SetFont('');
-        $pdf->Cell(5, 10, " : ", 0, 0);
-        //$kata = 'Tagihan Pekerjaan Pengadaan Revitalisasi Gedung Telkom Triwulan 1 2016';
-        $kata = $perihal;
+        $pdf->Cell(5, 10, " : ", 0, 0); */
+        
+        /* $kata = $perihal;
         $pdf->setKata2($kata,90,35,50,10,5);
-        $pdf->Ln(10);
+        $pdf->Ln(10); */
 
         $kata = 'Dengan Hormat, ';
         $pdf->setKata2($kata,90,10,50,10,5);
-        $kata = 'Menunjuk kontrak perjanjian pengadaan '.$perihal.' Nomor : '.$kontrak_id.' Tanggal '.$kontrak_sd;
+        //$kata = 'Menunjuk kontrak perjanjian pengadaan '.$perihal.' Nomor : '.$kontrak_id.' Tanggal '.$kontrak_sd;
+        $kata = $kontrak_id;
         $pdf->setKata2($kata,120,10,50,10,5);
         $kata = 'bersama ini disampaikan tagihan tersebut sebagai berikut : ';
         $pdf->setKata2($kata,120,10,50,10,5);

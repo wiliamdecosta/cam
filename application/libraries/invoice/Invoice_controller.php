@@ -708,12 +708,12 @@ class Invoice_controller {
     function getDataParam(){
         $ci = & get_instance();
         $ci->load->model('invoice/invoice');
-        $table = $ci->sin;
+        $table = $ci->invoice;
 
         //$id = $table->getNextId();
         $inv_num = getVarClean('invoice_num', 'str', '');
 
-        $userinfo = $ci->ion_auth->user()->row();
+        //$userinfo = $ci->ion_auth->user()->row();
         $data = array('success' => false, 'message' => '');
 
         try{
@@ -782,6 +782,7 @@ class Invoice_controller {
 
         return $data;
     }
+    
 }
 
 /* End of file Groups_controller.php */
