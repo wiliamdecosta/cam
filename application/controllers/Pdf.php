@@ -11,7 +11,7 @@ class Pdf extends CI_Controller
         parent::__construct();
         //$this->pathInvoice = 'images/invoice/';
         $this->pathInvoice = './application/third_party/uploads/invoice_signer/';
-     
+
     }
 
     function index() {
@@ -19,21 +19,21 @@ class Pdf extends CI_Controller
     }
 
     function Invoice($account_num, $periode, $page){
-        
+
         $this->load->model('invoice/invoice');
         $table = $this->invoice;
-        
+
         $param['account_num'] = $account_num;
         $param['periode'] = $periode;
-        
+
         $data = $table->getCustInfo($param);
-        
+
 
         $param['invoice_num'] = $data[0]['invoice_num'];
         $table->setPrintSeq($param);
         $dataCust = $table->getCustInfo2($param);
         $kontrak = $table->getKontrak($param);
-        
+
         if($dataCust[0]['kontrak_param'] == 'NO_DATA'){
                 $kontrak_id = '-';
         }else{
@@ -45,7 +45,7 @@ class Pdf extends CI_Controller
         }else{
                 $kontrak_sd = @$dataCust[0]['kontrak_date_param'];
         }
-       
+
         $up = @$dataCust[0]['up'];
         $tgl = @$dataCust[0]['tgl2'];
         $real_inv_num = @$dataCust[0]['real_inv_num'];
@@ -76,7 +76,7 @@ class Pdf extends CI_Controller
         $pdf->Cell(30, 15, $real_inv_num, 0, 0);
         $pdf->Ln(5);
 
-        //buat nampilin official receipt no 
+        //buat nampilin official receipt no
         $pdf->SetFont('Arial', 'B', 9);
         $pdf->Cell(30, 10, " ");
         $pdf->SetFont('');
@@ -128,18 +128,18 @@ class Pdf extends CI_Controller
         $pdf->Line($xLine, $yLine, $xLine+185, $yLine);
         $pdf->Ln(10);
 
-                
+
         $curr_type = 'Rp.';
-        $invoice_num = $real_inv_num;        
-        //$invoice_num = @$data[0]['invoice_num'];        
-        $customer_name = @$data[0]['customer_name'];        
-        $address = @$data[0]['address'];        
+        $invoice_num = $real_inv_num;
+        //$invoice_num = @$data[0]['invoice_num'];
+        $customer_name = @$data[0]['customer_name'];
+        $address = @$data[0]['address'];
         $jumlah = number_format(@$data[0]['invoice_mny'],2, '.', ',');
         $ppn = number_format(@$data[0]['invoice_tax'],2, '.', ',');
         $total = number_format(@$data[0]['tot_bill'],2, '.', ',');
         $txtInd = @$data[0]['invoice_txt_ind'];
-        $txtEng = @$data[0]['invoice_txt_eng'];     
-        $npwp = @$data[0]['npwp'];     
+        $txtEng = @$data[0]['invoice_txt_eng'];
+        $npwp = @$data[0]['npwp'];
 
 
          $pdf->SetFont('Arial', 'B', 9);
@@ -150,34 +150,34 @@ class Pdf extends CI_Controller
         $pdf->SetFont('Arial', 'B', 9);
         $pdf->Cell(50, 12.5, " : ", 0, 0);
         $pdf->SetTextColor(0, 0, 0);
-        $pdf->Cell(5, 12.5, $curr_type);  
+        $pdf->Cell(5, 12.5, $curr_type);
         $pdf->Cell(40, 12.5, $total, 0, 0, 'R');
         $pdf->Ln(3);
         $pdf->SetFont('Arial', 'BI', 9);
         $pdf->Cell(115, 10, "New Charge");
         $pdf->Ln();
         $pdf->SetFont('');
-         
+
         $pdf->SetFont('Arial', 'B', 8);
-        $pdf->Cell(60, 10, 'Nilai Tagihan'); 
+        $pdf->Cell(60, 10, 'Nilai Tagihan');
         $pdf->Cell(5, 10, " : ", 0, 0);
         $pdf->SetFont('');
-        $pdf->Cell(5, 10, $curr_type);   
+        $pdf->Cell(5, 10, $curr_type);
         $pdf->Cell(30, 10, $jumlah, 0, 0, 'R');
         $pdf->Ln();
 
         $pdf->SetFont('Arial', 'B', 8);
-        $pdf->Cell(60, 10, 'PPN 10%'); 
+        $pdf->Cell(60, 10, 'PPN 10%');
         $pdf->Cell(5, 10, " : ", 0, 0);
         $pdf->SetFont('');
-        $pdf->Cell(5, 10, $curr_type);   
+        $pdf->Cell(5, 10, $curr_type);
         $pdf->Cell(30, 10, $ppn, 0, 0, 'R');
         $pdf->Ln();
 
         $pdf->SetFont('Arial', 'B', 8);
-        $pdf->Cell(60, 10, 'Terbilang'); 
+        $pdf->Cell(60, 10, 'Terbilang');
         $pdf->Cell(5, 10, " : ", 0, 0);
-        $pdf->SetFont(''); 
+        $pdf->SetFont('');
         $kata = '# '.$txtInd;
         $pdf->setKata2($kata,90,75,50,10,5);
         $pdf->SetFont('Arial', 'I', 8);
@@ -221,7 +221,7 @@ class Pdf extends CI_Controller
         // ------------------- TTD ---------------//
 
         //2
-   
+
         $pdf->AddPage();
         $pdf->Ln(10);
 
@@ -246,12 +246,12 @@ class Pdf extends CI_Controller
 
         $pdf->Ln(10);
 
-        // remove by request 
+        // remove by request
         /* $pdf->SetFont('Arial', '', 9);
         $pdf->Cell(20, 10, "Perihal");
         $pdf->SetFont('');
         $pdf->Cell(5, 10, " : ", 0, 0); */
-        
+
         /* $kata = $perihal;
         $pdf->setKata2($kata,90,35,50,10,5);
         $pdf->Ln(10); */
@@ -279,33 +279,33 @@ class Pdf extends CI_Controller
         $pdf->Rect($x+$position, $y+1, 180, 18);
 
         $pdf->SetFont('Arial', '', 9);
-        $pdf->Cell(120, 10, '  Nilai Tagihan', $x+$positionTxt); 
-        $pdf->Cell(5, 10, $curr_type,0,0,'R');   
+        $pdf->Cell(120, 10, '  Nilai Tagihan', $x+$positionTxt);
+        $pdf->Cell(5, 10, $curr_type,0,0,'R');
         $pdf->Cell(50, 10, $jumlah, 0, 0, 'R');
 
         $pdf->Ln(5);
 
         $pdf->SetFont('Arial', '', 9);
-        $pdf->Cell(30, 10, '  PPN ', $x+$positionTxt); 
-        $pdf->Cell(20, 10, '10%',0,0,'R');   
-        $pdf->Cell(10, 10, 'X',0,0,'R');   
-        $pdf->Cell(10, 10, $curr_type,0,0,'R');   
+        $pdf->Cell(30, 10, '  PPN ', $x+$positionTxt);
+        $pdf->Cell(20, 10, '10%',0,0,'R');
+        $pdf->Cell(10, 10, 'X',0,0,'R');
+        $pdf->Cell(10, 10, $curr_type,0,0,'R');
         $pdf->Cell(50, 10, $jumlah.'   ', 0, 0, 'R');
-        $pdf->Cell(5, 10, $curr_type,0,0,'R');   
+        $pdf->Cell(5, 10, $curr_type,0,0,'R');
         $pdf->Cell(50, 10, $ppn, 0, 0, 'R');
 
         $pdf->Ln(5);
 
         $pdf->SetFont('Arial', '', 9);
-        $pdf->Cell(120, 10, '  Total', $x+$positionTxt); 
-        $pdf->Cell(5, 10, $curr_type,0,0,'R');   
+        $pdf->Cell(120, 10, '  Total', $x+$positionTxt);
+        $pdf->Cell(5, 10, $curr_type,0,0,'R');
         $pdf->Cell(50, 10, $total, 0, 0, 'R');
         $pdf->Ln(8);
 
         $pdf->SetFont('Arial', '', 9);
-        $pdf->Cell(15, 10, 'Terbilang', 10); 
+        $pdf->Cell(15, 10, 'Terbilang', 10);
         $pdf->Cell(3, 10, " : ", 0, 0);
-        $pdf->SetFont(''); 
+        $pdf->SetFont('');
         $kata = '# '.$txtInd;
         $pdf->setKata2($kata,90,30,50,10,5);
 
@@ -340,10 +340,10 @@ class Pdf extends CI_Controller
 
         $pdf->setY($y+5);
 
-        //3 faktur dihilangkan 
+        //3 faktur dihilangkan
 
         //4
- 
+
         $pdf->AddPage();
         $pdf->Ln(10);
 
@@ -375,7 +375,7 @@ class Pdf extends CI_Controller
         $pdf->SetLineWidth(0.1);
         $position = 0;
         $positionTxt = $position + 2;
-        $pdf->Rect($x+$position, $y, 190, 125);
+        $pdf->Rect($x+$position, $y, 190, 135);
 
 
         $pos = 15;
@@ -411,7 +411,7 @@ class Pdf extends CI_Controller
         $pdf->SetFont('Arial', 'B', 9);
         $pdf->Cell(115, $posit, " Banyaknya Uang ");
         $pdf->Ln(10);
-         
+
         $pdf->SetFont('Arial', 'B', 9);
         $pdf->Cell(60, 10, " In Payment Of");
         $pdf->Cell(5, 12.5, " : ", 0, 0);
@@ -433,7 +433,7 @@ class Pdf extends CI_Controller
         $pdf->SetFont('Arial', 'B', 9);
         $pdf->Cell(5, 12.5, " : ", 0, 0);
         $pdf->SetTextColor(0, 0, 0);
-        $pdf->Cell(5, 12.5, $curr_type, 'TBL');  
+        $pdf->Cell(5, 12.5, $curr_type, 'TBL');
         $pdf->Cell(40, 12.5, $total.'  ', 'TBR', 0, 'R');
         $pdf->SetFont('Arial', '', 9);
         $pdf->Cell(80, 12.5,'Jakarta ,'.$tgl, '', 0, 'C');
@@ -444,7 +444,7 @@ class Pdf extends CI_Controller
         $pdf->SetFont('');
 
         // ------------------- TTD ---------------//
-        $pos = 140;
+        $pos = 142;
         //$signature = 'signer/MAT+TTD.jpg';
        /* $signature = $signer[2];
         $signature = $this->pathInvoice.$signature;
@@ -455,14 +455,14 @@ class Pdf extends CI_Controller
         }else{
             $jarak = 2;
         }
-        $pdf->Ln(10);
+        $pdf->Ln(22);
         //$kata = 'M. WISNU ADJI';
         $kata = $signer[0];
-        $pdf->setKata2($kata,90,$pos,50,5,5,0,'C');
+        $pdf->setKata2($kata,80,$pos,50,5,5,0,'C');
 
         //$kata = 'Finance & GA Director';
         $kata = $signer[1];
-        $pdf->setKata2($kata,90,$pos,50,5,5,0,'C');
+        $pdf->setKata2($kata,80,$pos,50,5,5,0,'C');
         // ------------------- TTD ---------------//
         $pdf->Ln(10);
         $pdf->SetFont('Arial', 'I', 9);
@@ -475,19 +475,19 @@ class Pdf extends CI_Controller
     }
 
     function InvoicePage1($account_num, $periode, $print){
-        
+
         $this->load->model('invoice/invoice');
         $table = $this->invoice;
-        
+
         $param['account_num'] = $account_num;
         $param['periode'] = $periode;
 
         $data = $table->getCustInfo($param);
-        
+
         $pdf = new invoiceall();
         $pdf->AddPage();
         $pdf->Ln(10);
-       
+
         $pdf->Ln();
 
         $pdf->SetTextColor(0);
@@ -507,7 +507,7 @@ class Pdf extends CI_Controller
         $pdf->Cell(30, 15, $invoice_num, 0, 0);
         $pdf->Ln(5);
 
-        //buat nampilin official receipt no 
+        //buat nampilin official receipt no
         $pdf->SetFont('Arial', 'B', 9);
         $pdf->Cell(30, 10, " ");
         $pdf->SetFont('');
@@ -558,7 +558,7 @@ class Pdf extends CI_Controller
         $pdf->Line($xLine, $yLine, $xLine+185, $yLine);
         $pdf->Ln(10);
 
-                
+
         $curr_type = 'Rp.';
         $jumlah = @$data[0]['invoice_mny'];
         $ppn = @$data[0]['invoice_tax'];
@@ -574,34 +574,34 @@ class Pdf extends CI_Controller
         $pdf->SetFont('Arial', 'B', 9);
         $pdf->Cell(50, 12.5, " : ", 0, 0);
         $pdf->SetTextColor(0, 0, 0);
-        $pdf->Cell(5, 12.5, $curr_type);  
+        $pdf->Cell(5, 12.5, $curr_type);
         $pdf->Cell(40, 12.5, number_format($total,2,'.',','), 0, 0, 'R');
         $pdf->Ln(3);
         $pdf->SetFont('Arial', 'BI', 9);
         $pdf->Cell(115, 10, "New Charge");
         $pdf->Ln();
         $pdf->SetFont('');
-         
+
         $pdf->SetFont('Arial', 'B', 8);
-        $pdf->Cell(60, 10, 'Nilai Tagihan'); 
+        $pdf->Cell(60, 10, 'Nilai Tagihan');
         $pdf->Cell(5, 10, " : ", 0, 0);
         $pdf->SetFont('');
-        $pdf->Cell(5, 10, $curr_type);   
+        $pdf->Cell(5, 10, $curr_type);
         $pdf->Cell(30, 10, number_format($jumlah,2, '.', ','), 0, 0, 'R');
         $pdf->Ln();
 
         $pdf->SetFont('Arial', 'B', 8);
-        $pdf->Cell(60, 10, 'PPN 10%'); 
+        $pdf->Cell(60, 10, 'PPN 10%');
         $pdf->Cell(5, 10, " : ", 0, 0);
         $pdf->SetFont('');
-        $pdf->Cell(5, 10, $curr_type);   
+        $pdf->Cell(5, 10, $curr_type);
         $pdf->Cell(30, 10, number_format($ppn,2, '.', ','), 0, 0, 'R');
         $pdf->Ln();
 
         $pdf->SetFont('Arial', 'B', 8);
-        $pdf->Cell(60, 10, 'Terbilang'); 
+        $pdf->Cell(60, 10, 'Terbilang');
         $pdf->Cell(5, 10, " : ", 0, 0);
-        $pdf->SetFont(''); 
+        $pdf->SetFont('');
         $kata = '# '.$txtInd;
         $pdf->setKata2($kata,90,75,50,10,5);
         $pdf->SetFont('Arial', 'I', 8);
@@ -649,21 +649,21 @@ class Pdf extends CI_Controller
 
         $this->load->model('invoice/invoice');
         $table = $this->invoice;
-        
+
         $param['account_num'] = $account_num;
         $param['periode'] = $periode;
 
         $data = $table->getCustInfo($param);
- 
-        $invoice_num = @$data[0]['invoice_num'];        
-        $customer_name = @$data[0]['account_name'];        
-        $address = @$data[0]['address'];        
+
+        $invoice_num = @$data[0]['invoice_num'];
+        $customer_name = @$data[0]['account_name'];
+        $address = @$data[0]['address'];
         $jumlah = @$data[0]['invoice_mny'];
         $ppn = @$data[0]['invoice_tax'];
         $total = @$data[0]['tot_bill'];
         $txtInd = @$data[0]['invoice_txt_ind'];
-        $txtEng = @$data[0]['invoice_txt_eng'];     
-        
+        $txtEng = @$data[0]['invoice_txt_eng'];
+
         $pdf = new invoiceall();
         $pdf->AddPage();
         $pdf->Ln(10);
@@ -719,33 +719,33 @@ class Pdf extends CI_Controller
         $pdf->Rect($x+$position, $y+1, 180, 18);
 
         $pdf->SetFont('Arial', '', 9);
-        $pdf->Cell(120, 10, '  Nilai Tagihan', $x+$positionTxt); 
-        $pdf->Cell(5, 10, $curr_type,0,0,'R');   
+        $pdf->Cell(120, 10, '  Nilai Tagihan', $x+$positionTxt);
+        $pdf->Cell(5, 10, $curr_type,0,0,'R');
         $pdf->Cell(50, 10, number_format($jumlah,2, '.', ','), 0, 0, 'R');
 
         $pdf->Ln(5);
 
         $pdf->SetFont('Arial', '', 9);
-        $pdf->Cell(30, 10, '  PPN ', $x+$positionTxt); 
-        $pdf->Cell(20, 10, '10%',0,0,'R');   
-        $pdf->Cell(10, 10, 'X',0,0,'R');   
-        $pdf->Cell(10, 10, $curr_type,0,0,'R');   
+        $pdf->Cell(30, 10, '  PPN ', $x+$positionTxt);
+        $pdf->Cell(20, 10, '10%',0,0,'R');
+        $pdf->Cell(10, 10, 'X',0,0,'R');
+        $pdf->Cell(10, 10, $curr_type,0,0,'R');
         $pdf->Cell(50, 10, number_format($jumlah,2, '.', ',').'   ', 0, 0, 'R');
-        $pdf->Cell(5, 10, $curr_type,0,0,'R');   
+        $pdf->Cell(5, 10, $curr_type,0,0,'R');
         $pdf->Cell(50, 10, number_format($ppn,2, '.', ','), 0, 0, 'R');
 
         $pdf->Ln(5);
 
         $pdf->SetFont('Arial', '', 9);
-        $pdf->Cell(120, 10, '  Total', $x+$positionTxt); 
-        $pdf->Cell(5, 10, $curr_type,0,0,'R');   
+        $pdf->Cell(120, 10, '  Total', $x+$positionTxt);
+        $pdf->Cell(5, 10, $curr_type,0,0,'R');
         $pdf->Cell(50, 10, number_format($total,2, '.', ','), 0, 0, 'R');
         $pdf->Ln(8);
 
         $pdf->SetFont('Arial', '', 9);
-        $pdf->Cell(15, 10, 'Terbilang', 10); 
+        $pdf->Cell(15, 10, 'Terbilang', 10);
         $pdf->Cell(3, 10, " : ", 0, 0);
-        $pdf->SetFont(''); 
+        $pdf->SetFont('');
         $kata = '# '.$txtInd;
         $pdf->setKata2($kata,90,30,50,10,5);
 
@@ -785,24 +785,24 @@ class Pdf extends CI_Controller
     }
 
     function InvoicePage3($account_num, $periode, $print){
-        
+
         $this->load->model('invoice/invoice');
         $table = $this->invoice;
-        
+
         $param['account_num'] = $account_num;
         $param['periode'] = $periode;
 
         $data = $table->getCustInfo($param);
- 
-        $invoice_num = @$data[0]['invoice_num'];        
-        $customer_name = @$data[0]['account_name'];        
-        $address = @$data[0]['address'];        
+
+        $invoice_num = @$data[0]['invoice_num'];
+        $customer_name = @$data[0]['account_name'];
+        $address = @$data[0]['address'];
         $jumlah = number_format(@$data[0]['invoice_mny'],2, '.', ',');
         $ppn = number_format(@$data[0]['invoice_tax'],2, '.', ',');
         $total = number_format(@$data[0]['tot_bill'],2, '.', ',');
         $txtInd = @$data[0]['invoice_txt_ind'];
-        $txtEng = @$data[0]['invoice_txt_eng'];     
-        $npwp = @$data[0]['npwp'];     
+        $txtEng = @$data[0]['invoice_txt_eng'];
+        $npwp = @$data[0]['npwp'];
 
         $pdf = new invoiceall();
         $pdf->AddPage();
@@ -815,8 +815,8 @@ class Pdf extends CI_Controller
         $curr_type = 'Rp.';
 
         $pdf->SetFont('Arial', '', 9);
-        $pdf->Cell(190, 7, ' Kode dan Nomor Seri Faktur Pajak : 030.033-16.68310110', 1, 1); 
-        $pdf->Cell(190, 7, ' Pengusaha Kena Pajak', 1, 0); 
+        $pdf->Cell(190, 7, ' Kode dan Nomor Seri Faktur Pajak : 030.033-16.68310110', 1, 1);
+        $pdf->Cell(190, 7, ' Pengusaha Kena Pajak', 1, 0);
         $pdf->Ln();
         $curr_type = 'Rp.';
 
@@ -835,23 +835,23 @@ class Pdf extends CI_Controller
 
         $marginTop = 7;
         $pdf->SetFont('Arial', '', 9);
-        $pdf->Cell(15, $marginTop, ' Nama', $x+$positionTxt); 
-        $pdf->Cell(5, $marginTop, ':',0,0);   
+        $pdf->Cell(15, $marginTop, ' Nama', $x+$positionTxt);
+        $pdf->Cell(5, $marginTop, ':',0,0);
         $pdf->Cell(50, $marginTop, 'PT GRAHA SARANA DUTA', 0, 0, 'L');
 
         $pdf->Ln(4);
 
-        $pdf->Cell(15, $marginTop, ' Alamat', $x+$positionTxt); 
-        $pdf->Cell(5, $marginTop, ':',0,0);   
+        $pdf->Cell(15, $marginTop, ' Alamat', $x+$positionTxt);
+        $pdf->Cell(5, $marginTop, ':',0,0);
         $kata = 'JL. KEBON SIRIH NO.10, GAMBIR, JAKARTA PUSAT ';
         $pdf->setKata2($kata,90,30,50,$marginTop,4);
 
-        $pdf->Cell(15, $marginTop, ' NPWP', $x+$positionTxt); 
-        $pdf->Cell(5, $marginTop, ':',0,0);   
+        $pdf->Cell(15, $marginTop, ' NPWP', $x+$positionTxt);
+        $pdf->Cell(5, $marginTop, ':',0,0);
         $pdf->Cell(50, $marginTop, '01.000.013.1-093.000', 0, 0, 'L');
         $pdf->Ln(10);
 
-        $pdf->Cell(190, 7, ' Pembeli Barang Kena Pajak / Penerima jasa Kena Pajak', 1, 0); 
+        $pdf->Cell(190, 7, ' Pembeli Barang Kena Pajak / Penerima jasa Kena Pajak', 1, 0);
         $pdf->Ln(7);
 
         // Rectangle //
@@ -869,19 +869,19 @@ class Pdf extends CI_Controller
 
         $marginTop = 7;
         $pdf->SetFont('Arial', '', 9);
-        $pdf->Cell(15, $marginTop, ' Nama', $x+$positionTxt); 
-        $pdf->Cell(5, $marginTop, ':',0,0);   
+        $pdf->Cell(15, $marginTop, ' Nama', $x+$positionTxt);
+        $pdf->Cell(5, $marginTop, ':',0,0);
         $pdf->Cell(50, $marginTop, $customer_name, 0, 0, 'L');
 
         $pdf->Ln(4);
 
-        $pdf->Cell(15, $marginTop, ' Alamat', $x+$positionTxt); 
-        $pdf->Cell(5, $marginTop, ':',0,0);   
+        $pdf->Cell(15, $marginTop, ' Alamat', $x+$positionTxt);
+        $pdf->Cell(5, $marginTop, ':',0,0);
         $kata = $address;
         $pdf->setKata2($kata,90,30,50,$marginTop,4);
 
-        $pdf->Cell(15, $marginTop, ' NPWP', '0', 0); 
-        $pdf->Cell(5, $marginTop, ':',0,0);   
+        $pdf->Cell(15, $marginTop, ' NPWP', '0', 0);
+        $pdf->Cell(5, $marginTop, ':',0,0);
         $pdf->Cell(50, $marginTop, $npwp, 0, 0, 'L');
 
         //$pdf->BasicTable($header, $data);
@@ -890,7 +890,7 @@ class Pdf extends CI_Controller
         $pdf->Cell(130,10,'Nama Barang Kena Pajak / Jasa Kena Pajak','BR',0,'C');
         $pdf->MultiCell(50,5,'Harga Jual / Penggantian / Uang Muka / Termin','BR','C',false);
 
-        // row table 
+        // row table
         $y = $pdf->GetY();
         $x = $pdf->GetX();
         $MCwidth = 130;
@@ -952,24 +952,24 @@ class Pdf extends CI_Controller
     }
 
     function InvoicePage4($account_num, $periode, $print){
-        
+
         $this->load->model('invoice/invoice');
         $table = $this->invoice;
-        
+
         $param['account_num'] = $account_num;
         $param['periode'] = $periode;
 
         $data = $table->getCustInfo($param);
- 
-        $invoice_num = @$data[0]['invoice_num'];        
-        $customer_name = @$data[0]['account_name'];        
-        $address = @$data[0]['address'];        
+
+        $invoice_num = @$data[0]['invoice_num'];
+        $customer_name = @$data[0]['account_name'];
+        $address = @$data[0]['address'];
         $jumlah = number_format(@$data[0]['invoice_mny'],2, '.', ',');
         $ppn = number_format(@$data[0]['invoice_tax'],2, '.', ',');
         $total = number_format(@$data[0]['tot_bill'],2, '.', ',');
         $txtInd = @$data[0]['invoice_txt_ind'];
-        $txtEng = @$data[0]['invoice_txt_eng'];     
-        $npwp = @$data[0]['npwp'];     
+        $txtEng = @$data[0]['invoice_txt_eng'];
+        $npwp = @$data[0]['npwp'];
 
 
 
@@ -1041,7 +1041,7 @@ class Pdf extends CI_Controller
         $pdf->SetFont('Arial', 'B', 9);
         $pdf->Cell(115, $posit, " Banyaknya Uang ");
         $pdf->Ln(10);
-         
+
         $pdf->SetFont('Arial', 'B', 9);
         $pdf->Cell(60, 10, " In Payment Of");
         $pdf->Cell(5, 12.5, " : ", 0, 0);
@@ -1057,7 +1057,7 @@ class Pdf extends CI_Controller
         $pdf->SetFont('Arial', 'B', 9);
         $pdf->Cell(5, 12.5, " : ", 0, 0);
         $pdf->SetTextColor(0, 0, 0);
-        $pdf->Cell(5, 12.5, $curr_type, 'TBL');  
+        $pdf->Cell(5, 12.5, $curr_type, 'TBL');
         $pdf->Cell(40, 12.5, $total.'  ', 'TBR', 0, 'R');
         $pdf->SetFont('Arial', '', 9);
         $pdf->Cell(80, 12.5,'Jakarta , 30 Maret 2017', 'T', 0, 'C');
