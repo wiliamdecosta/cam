@@ -595,7 +595,7 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <select class="form-control" name="inSLBillPeriode">
-                                                        <option>Default</option>
+                                                        <!-- <option>Default</option> -->
                                                         <option value="D">Daily</option>
                                                         <option value="W">Weekly</option>
                                                         <option selected="selected" value="M">Monthly</option>
